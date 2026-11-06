@@ -1,0 +1,30 @@
+# ==== Segurança / segredos ====
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# ==== Python (stack ainda não definida — ignora o usual) ====
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ==== Node ====
+node_modules/
+
+# ==== IDE / sistema ====
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ==== Builds e saídas locais ====
+dist/
+build/
+*.log
+tmp/
