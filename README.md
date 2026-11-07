@@ -38,7 +38,8 @@ sabor-da-terra-assistente/
 ├── INTEGRANTES.md           ← equipe do projeto
 ├── docs/
 │   ├── 01-documento-base.md ← interpretação completa do PDF do projeto
-│   └── 02-dataset.md        ← inventário detalhado dos dados + armadilhas
+│   ├── 02-dataset.md        ← inventário detalhado dos dados + armadilhas
+│   └── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
 └── data/                    ← base de dados da cooperativa (cópia de trabalho)
     ├── LEIA-ME.txt
     ├── produtores.csv · pedidos.json · financeiro.csv
@@ -50,6 +51,7 @@ sabor-da-terra-assistente/
 
 - **`docs/01-documento-base.md`** — tudo que o documento oficial define: cenário, problema, desafios, requisitos, entregáveis e datas.
 - **`docs/02-dataset.md`** — descrição campo a campo dos 8 grupos de dados e das **armadilhas propositalmente escondidas** neles (certificação vencida, produtor sem registro sanitário, pedidos que não são pedidos de compra, pagamentos atrasados…).
+- **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
 
 ## Dados
 
