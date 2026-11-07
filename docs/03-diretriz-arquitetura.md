@@ -32,3 +32,32 @@
 | Componente no protótipo (local) | Serviço Google Cloud (produção) | Justificativa | Alternativa considerada |
 |---|---|---|---|
 | Triagem/extração de pedidos em linguagem natural | Gemini via Vertex AI | Modelo gerenciado, forte em PT-BR coloquial, sem operar Infra de modelo na demo | Modelos hospedados localmente (ex. Ollama) — requeria infraestrutura de GPU e manutenção fora do escopo do protótipo |
+
+---
+
+## Estratégia de custo — API do Gemini (free tier)
+
+> Política de execução do protótipo. Pesquisada e confirmada em out–nov/2026; **os limites do free tier mudam com frequência** — antes de qualquer decisão, confirmar os números vigentes no [AI Studio](https://aistudio.google.com).
+
+### Divisão de trabalho entre modelos
+
+O princípio é: **volume barato no Flash-Lite, qualidade no Flash, e nada de quota desperdiçada em teste**.
+
+| Papel no assistente | Modelo no protótipo | Por quê |
+|---|---|---|
+| Triagem, classificação (pedido vs cotação vs notificação), extração estruturada | **Gemini Flash-Lite** | Free tier com folga: ~15 RPM / **500 pedidos/dia** — aguenta o volume do assistente e os testes |
+| Resposta final conversacional (RAG, relatórios, comunicação com produtores) | **Gemini Flash** (linha nova) | Free tier apertado (~5 RPM / **20 pedidos/dia**) — reservar para o que importa e para a demo |
+| Embeddings do RAG | **Gemini Embedding** | ~1.000 pedidos/dia — indexar os ~35 documentos do dataset é trivial |
+
+### Regras de desenvolvimento
+
+1. **Não gastar cota do Flash com iteração de prompt.** Testes de triagem/extração usam Flash-Lite; regressões repetem execução com **fixtures gravadas** (respostas mockadas), não com chamadas reais.
+2. **Dados no free tier podem ser usados para treinar os produtos do Google.** Aceitável aqui porque o dataset é fictício — **nunca enviar dado real de pessoa** pelo free tier.
+3. **Chave de API restrita, sempre.** Desde jun/2026 o endpoint recusa chaves sem restrição; as chaves criadas no AI Studio já saem restritas por padrão — não remover a restrição.
+4. **Confirmar limites no próprio projeto** (AI Studio → Usage and billing) antes da semana de ajuste fino — os números acima não são garantidos e variam por projeto/modelo.
+
+### Plano B e vias que NÃO contar no plano
+
+- **Plano B de contingência:** ativar billing com prepay mínimo **(US$ 5)** → Tier 1 pago: limites maiores, sem uso para treinar. Uma demo inteira de respostas em Flash a preço pago custa centavos — o $5 é seguro de apresentação, não custo esperado.
+- **Não contar com créditos de estudante:** o free trial de US$ 300 do Google Cloud **não paga Gemini API** (desde mar/2026); o plano de estudante do Google AI dá limites no app/UI, **não cota de API**; créditos educacionais vêm pelo professor e são bônus, não baseline.
+- **Vale 1 e-mail de cortesia:** perguntar a Sauter (parceira Google Cloud, organizadora do desafio) por créditos de parceiro para as equipes — se vierem, tornam o plano B gratuito; se não vierem, nada acima muda.
