@@ -44,13 +44,13 @@ A tabela da equipe — base de todas as decisões abaixo:
 | **[área] RAG documental (Desafio B)** — ingestão/indexação de `data/certificacoes/`, `contratos/` e `fichas_tecnicas/`, busca semântica e resposta **com citação do documento de origem** (LlamaIndex `CitationQueryEngine` + embeddings do Gemini) | **Agent Search (antigo Vertex AI Search)** | Busca gerenciada do Google com ranking, snippets/answers e grounding — substitui o índice vetorial local sem operar infra de busca; nome vigente conferido em 10/11/2026 (o produto "Vertex AI Search" foi renomeado para "Agent Search") | **Fora:** implementação própria sem framework — reinventa chunking/reranking/citação que o LlamaIndex já entrega. ChromaDB + sentence-transformers — armazenamento vetorial local sem caminho direto para o mundo Google. **Dentro:** Vertex AI RAG Engine — gerenciado, mas menos controle sobre chunking/citação do que o LlamaIndex dá hoje; File Search da Gemini API — ótimo para protótipo rápido, porém amarra a troca ao ecossistema Gemini API. **Decisão registrada:** usar **LlamaIndex** no protótipo — corpus pequeno (~35 documentos), a citação do documento de origem é requisito central e o `CitationQueryEngine` entrega citação inline de graça, sem custo de serviço gerenciado |
 | **[área] Comunicação com produtores (Desafio C)** — resumos personalizados (vendas, pendências, alocações) e notificações de novos pedidos, redigidos pelo Gemini Flash com **dados vindos de funções** (nunca calculados pelo LLM) | **Vertex AI (Gemini)** para redação + **Pub/Sub e Cloud Scheduler** para disparo agendado/por evento | A personalização é tarefa de linguagem (pertence ao Flash), mas os números vêm das funções de dados; Pub/Sub desacopla o gatilho (novo pedido, virada de mês) da redação e do envio | **Fora:** templates fixos em Python sem LLM — gera texto impessoal e quebra com vocabulário variado por produtor. Zapier/Make — dependência externa e custo por operação. **Dentro:** Agent Builder/Gemini Enterprise — produto fechado para chat corporativo, não para geração em lote de resumos por produtor |
 | **[área] Dados estruturados** — `produtores.csv`, `financeiro.csv`, `sazonalidade.csv`, `tabela_precos`, `lotes.csv` carregados em **pandas/SQLite** e expostos ao agente como **funções** (function calling), nunca colados no prompt | **BigQuery** | Dados analíticos com SQL barato, escala para os 60–100 pedidos/dia e para histórico financeiro; o agente chama funções que traduzem para SQL em produção — mesmo desenho mental do protótipo | **Fora:** DuckDB/PostgreSQL rodando junto da UI — mistura dados operacionais com aplicação e não escala com a equipe toda usando. **Dentro:** Cloud SQL — banco relacional gerenciado, mas o perfil do uso é analítico (consultas de agregação, relatórios), não transacional |
-| Componentes de **apoio (só no desenho, sem protótipo local)** — ver §4 | Cloud Storage, Secret Manager, Firestore, Pub/Sub + Cloud Scheduler, Cloud Logging | Serviços gerenciados que resolvem papéis de apoio do desenho de produção sem virar código do protótipo | — |
 
-> **A sete linhas principais cobrem as seis áreas exigidas pela diretriz**
+> **As sete linhas acima cobrem as seis áreas exigidas pela diretriz**
 > (triagem de pedidos, RAG documental, comunicação com produtores,
 > orquestração, dados, interface) + a classificação de urgência, que a
 > diretriz considera parte da triagem mas a equipe separou por ter
-> implementação distinta (regras + prompt).
+> implementação distinta (regras + prompt). Os **componentes de apoio**
+> (só no desenho, sem protótipo local) têm tabela própria na §4.
 
 ---
 
@@ -76,13 +76,13 @@ A tabela da equipe — base de todas as decisões abaixo:
 Não fazem parte do protótipo local; entram no diagrama e na apresentação
 como "como isso rodaria em produção":
 
-| Serviço | Papel no desenho | Por que entra |
-|---|---|---|
-| **Cloud Storage** | Guardar os documentos originais (certificações, contratos, fichas) que alimentam o RAG | O Agent Search ingere de buckets; hoje os docs estão no repositório |
-| **Secret Manager** | Guardar a chave da API Gemini e credenciais | Chave nunca em variável de ambiente de produção nem no repositório (regra do `docs/03`) |
-| **Firestore** | Histórico de sessão do assistente entre execuções | `st.session_state` é volátil e por processo; em produção a sessão precisa sobreviver a reinícios e escalar horizontalmente |
-| **Pub/Sub + Cloud Scheduler** | Entrada de pedidos (e-mail/formulário/Webhook) e disparo de notificações e relatórios periódicos | Desacopla canais de entrada do processamento e agenda o envio de resumos por produtor sem cron artesanal |
-| **Cloud Logging** | Log central de chamadas do agente, tools e erros | Auditoria das respostas (requisito de citação) e diagnóstico na semana de ajuste fino |
+| Serviço | Papel no desenho | Por que entra | Alternativa considerada |
+|---|---|---|---|
+| **Cloud Storage** | Guardar os documentos originais (certificações, contratos, fichas) que alimentam o RAG | O Agent Search ingere de buckets; hoje os docs estão no repositório | **Fora:** arquivos no próprio repositório/sistema de arquivos — mistura dado com código e não escala para as centenas de documentos da narrativa. **Dentro:** Google Drive — acessível, mas o ingestion do Agent Search consome bucket (e assim fica um único caminho de dados) |
+| **Secret Manager** | Guardar a chave da API Gemini e credenciais | Chave nunca em variável de ambiente de produção nem no repositório (regra do `docs/03`) | **Fora:** variável de ambiente / arquivo `.env` no servidor — vaza em logs e backups. **Dentro:** chave da API do AI Studio — serve ao protótipo local, mas produção usa identidade de serviço (ADC/IAM), que é o par natural do Secret Manager para o que não vira identidade |
+| **Firestore** | Histórico de sessão do assistente entre execuções | `st.session_state` é volátil e por processo; em produção a sessão precisa sobreviver a reinícios e escalar horizontalmente | **Fora:** sessão em memória do processo — perde o histórico a cada deploy/escala. **Dentro:** Cloud SQL — banco gerenciado, mas o modelo de documento do Firestore casa melhor com sessões de chat e evita schema para um dado descartável |
+| **Pub/Sub + Cloud Scheduler** | Entrada de pedidos (e-mail/formulário/webhook) e disparo de notificações e relatórios periódicos | Desacopla canais de entrada do processamento e agenda o envio de resumos por produtor sem cron artesanal | **Fora:** cron + fila caseira no mesmo servidor — acopla agendamento ao processamento e falha junto com a UI. Zapier/Make — custo por operação e dependência externa. **Dentro:** Cloud Tasks — resolve disparo com atraso, mas não faz broadcast para múltiplos consumidores como o Pub/Sub |
+| **Cloud Logging** | Log central de chamadas do agente, tools e erros | Auditoria das respostas (requisito de citação) e diagnóstico na semana de ajuste fino | **Fora:** log em arquivo dentro do container — perde-se com o ciclo da instância e não dá para auditar. **Dentro:** Cloud Trace/Cloud Monitoring — complementares (latência e alerta), não substituem o log central |
 
 ---
 
@@ -118,7 +118,7 @@ refazer chamadas no resto do sistema:
 | `DadosRepository` | pandas/SQLite em `data/` | funções → SQL no BigQuery |
 | `UrgenciaAvaliador` | regras em Python + prompt | Cloud Run functions (mesmo código de regras) / Workflows |
 | `SessionStore` | `st.session_state` | Firestore |
-| `NotificacoesDispatcher` | impressão/consola na UI | Pub/Sub → worker de envio |
+| `NotificacoesDispatcher` | saída no console da UI | Pub/Sub → worker de envio |
 
 Consequência prática: a demo roda no laptop sem conta Google Cloud
 (custo zero, reproduzível), e a mesma base de código migra para o desenho de
