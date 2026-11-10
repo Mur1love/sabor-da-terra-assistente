@@ -36,10 +36,12 @@ Entregas finais: **(1)** protótipo funcional com **demonstração ao vivo**; **
 sabor-da-terra-assistente/
 ├── README.md                ← este arquivo
 ├── INTEGRANTES.md           ← equipe do projeto
+├── CONTRIBUTING.md          ← convenções de branch, commit e PR
 ├── docs/
-│   ├── 01-documento-base.md ← interpretação completa do PDF do projeto
+│   ├── 01-documento-base.md ← interpretação completa do documento do projeto
 │   ├── 02-dataset.md        ← inventário detalhado dos dados + armadilhas
-│   └── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
+│   ├── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
+│   └── 04-arquitetura.md    ← arquitetura de referência Google e decisões por componente
 └── data/                    ← base de dados da cooperativa (cópia de trabalho)
     ├── LEIA-ME.txt
     ├── produtores.csv · pedidos.json · financeiro.csv
@@ -52,6 +54,13 @@ sabor-da-terra-assistente/
 - **`docs/01-documento-base.md`** — tudo que o documento oficial define: cenário, problema, desafios, requisitos, entregáveis e datas.
 - **`docs/02-dataset.md`** — descrição campo a campo dos 8 grupos de dados e das **armadilhas propositalmente escondidas** neles (certificação vencida, produtor sem registro sanitário, pedidos que não são pedidos de compra, pagamentos atrasados…).
 - **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
+- **`docs/04-arquitetura.md`** — **arquitetura de referência** (rascunho da etapa 2): stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google e diagramas Mermaid.
+
+## Como contribuir
+
+Ver **[CONTRIBUTING.md](CONTRIBUTING.md)**: issues pelo template, branch
+`etapa-N/descricao`, commit `Tema: descrição em português` e PR com
+`Closes #N` revisado por ao menos 1 integrante — a `main` só recebe merge por PR.
 
 ## Dados
 
