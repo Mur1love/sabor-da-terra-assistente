@@ -8,17 +8,22 @@ Turma de 2026.2 — grupos formados em 05/11/2026
 
 | # | Nome | Usuário GitHub | Papel no projeto | Contato |
 |---|------|----------------|------------------|---------|
-| 1 | _preencher_ | | | |
-| 2 | _preencher_ | | | |
-| 3 | _preencher_ | | | |
-| 4 | _preencher_ | | | |
+| 1 | Murilo Leal | @Mur1love | Dev | murilormleal@outlook.com |
+| 2 | Jamili Martins | @Jamili-Martins | Dev | a informar |
+| 3 | Natália Nascimento | @nataliadsnascimento | Dev | nataliasanntos161@gmail.com |
+| 4 | João Faria | @JoaoFaria-dev | Dev | joao.mfaria0211@gmail.com |
+| 5 | Messias | _pendente_ | Dev | a informar |
 
-> **Como preencher:** substitua `_preencher_` por nome completo, usuário do GitHub
-> (@handle), papel (ex.: coordenador, dados/RAG, agentes, demonstrações) e contato
-> (e-mail ou telefone). Ajuste o número de linhas conforme o tamanho do grupo.
+> **Notas de preenchimento:** o grupo trabalha sem divisão fixa de papéis —
+> todos os integrantes atuam como **Dev** e podem tocar qualquer frente do
+> projeto. O integrante 5 (Messias) está **pendente**: falta o `@handle` do
+> GitHub e o contato; as atribuições de issues e revisões de PR usam o
+> @handle, por isso ele é obrigatório na tabela. Contatos de Jamili e
+> Messias também aguardam preenchimento.
 
 ## Repositório
 
 - GitHub: **`Mur1love/sabor-da-terra-assistente`** (privado)
 - Atribuições de issues e revisões de Pull Request usam o @handle do GitHub acima —
   por isso ele é obrigatório na tabela.
+- Convenções de branch, commit e PR: ver **[CONTRIBUTING.md](CONTRIBUTING.md)**.
