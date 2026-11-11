@@ -1,6 +1,7 @@
 import pytest
 
 from sabor_da_terra.llm.cliente import LLMClient, Papel
+from tests.dobles import ModeloFake
 
 
 def test_modelos_padrao_por_papel(tmp_path):
@@ -37,3 +38,28 @@ def test_vertexai_sem_projeto_falha_antes_da_chamada(monkeypatch, tmp_path):
     cliente = LLMClient(modo="real", pasta_fixtures=tmp_path)
     with pytest.raises(RuntimeError, match="GOOGLE_CLOUD_PROJECT"):
         cliente.gerar(Papel.TRIAGEM, "oi")
+
+
+def test_cliente_google_tem_timeout_e_retry_sdk_desligado(monkeypatch, tmp_path):
+    """Stall de servidor não pode travar a chamada para sempre.
+
+    O timeout do request é 60s (o SDK não tem padrão — HttpOptions.timeout
+    é None e o cliente fica bloqueado no read), e o retry interno do SDK
+    fica desligado: o retry de 429/503 com backoff é nosso.
+    """
+    import sabor_da_terra.llm.cliente as mod
+
+    capturado = {}
+
+    class ClienteCaptura:
+        def __init__(self, *, http_options=None):
+            capturado["http_options"] = http_options
+            self.models = ModeloFake(texto="ok")
+
+    monkeypatch.setattr(mod.genai, "Client", ClienteCaptura)
+    monkeypatch.setenv("GEMINI_API_KEY", "chave-de-teste")
+    monkeypatch.delenv("GOOGLE_GENAI_USE_VERTEXAI", raising=False)
+    cliente = LLMClient(modo="real", pasta_fixtures=tmp_path)
+    assert cliente.gerar(Papel.TRIAGEM, "x").text == "ok"
+    assert capturado["http_options"].timeout == 60_000
+    assert capturado["http_options"].retry_options.attempts == 1

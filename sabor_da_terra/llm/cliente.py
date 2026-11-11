@@ -129,10 +129,13 @@ class LLMClient:
         """Cria o cliente sob demanda; em modo fixture nunca é chamado."""
         if self._cliente is None:
             self._validar_configuracao()
-            # Retry interno do SDK desligado: o retry 429 é implementado aqui.
+            # Retry interno do SDK desligado: o retry 429/503 é implementado aqui.
+            # Timeout de 60s: o padrão do SDK é None (sem prazo) e um stall do
+            # servidor deixaria a chamada bloqueada para sempre (vi no smoke).
             self._cliente = genai.Client(
                 http_options=types.HttpOptions(
-                    retry_options=types.HttpRetryOptions(attempts=1)
+                    timeout=60_000,
+                    retry_options=types.HttpRetryOptions(attempts=1),
                 )
             )
         return self._cliente

@@ -129,6 +129,13 @@ unset APPIMAGE APPDIR OWD
 Para valer em todo terminal novo, adicione o mesmo `unset` ao final do
 `~/.zshrc` (ou `~/.bashrc`).
 
+**Importante:** neste tipo de sessão, o mesmo `unset` vale para **usar** o
+`.venv` — sem ele, o Python ignora o `site-packages` do venv e roda os pacotes
+de `~/.local` do usuário (hoje com as mesmas versões, mas fora do controle do
+`requirements.txt`). Se um comando `python` se comportar de forma estranha
+(módulo que deveria existir "não encontrado", caminho do AppImage em
+tracebacks), rode `unset APPIMAGE APPDIR OWD` e repita.
+
 ## Como contribuir
 
 Ver **[CONTRIBUTING.md](CONTRIBUTING.md)**: issues pelo template, branch
