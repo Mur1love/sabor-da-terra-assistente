@@ -5,7 +5,7 @@
 *.key
 *.pem
 
-# ==== Python (stack ainda não definida — ignora o usual) ====
+# ==== Python ====
 __pycache__/
 *.py[cod]
 .venv/
@@ -13,6 +13,13 @@ venv/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+
+# ==== Índice vetorial local (LlamaIndex) ====
+.llama_index/
+storage/
+
+# ==== Superpowers (planos e rascunhos do executor) ====
+.superpowers/
 
 # ==== Node ====
 node_modules/
