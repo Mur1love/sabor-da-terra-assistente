@@ -50,6 +50,15 @@ def test_embedding_grava_e_reproduz_fixture(tmp_path):
     assert replay.embedar("abc") == [0.5, 0.6]
 
 
+def test_resposta_sem_texto_falha_sem_gravar_fixture_nem_contar(tmp_path):
+    fake = ClienteFake(ModeloFake(texto=None))
+    cliente = LLMClient(modo="real", pasta_fixtures=tmp_path, cliente=fake, dormir=lambda s: None)
+    with pytest.raises(RuntimeError, match="sem texto"):
+        cliente.gerar(Papel.RESPOSTA, "x")
+    assert not list(tmp_path.rglob("*.json"))
+    assert cliente.chamadas_por_modelo() == {}
+
+
 def test_contador_por_modelo_conta_so_sucesso(tmp_path):
     fake = ClienteFake(ModeloFake(texto="ok", embedding=[0.0]))
     cliente = LLMClient(modo="real", pasta_fixtures=tmp_path, cliente=fake, dormir=lambda s: None)

@@ -182,6 +182,12 @@ class LLMClient:
             )
         )
         texto = resposta.text
+        if not texto:
+            raise RuntimeError(
+                "Resposta sem texto do modelo (possível bloqueio de segurança ou "
+                "falha silenciosa). Revise o prompt/configuração antes de repetir "
+                "a chamada — nada foi gravado em fixture nem contado."
+            )
         self._gravar_fixture(
             caminho,
             {
