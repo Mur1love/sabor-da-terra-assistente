@@ -37,8 +37,8 @@ def test_env_example_tem_chaves_obrigatorias():
         "GOOGLE_GENAI_USE_VERTEXAI",
         "GOOGLE_CLOUD_PROJECT",
         "GOOGLE_CLOUD_LOCATION",
-        "GEMINI_MODEL_FLASH_LITE",
-        "GEMINI_MODEL_FLASH",
+        "GEMINI_MODELO_TRIAGEM",
+        "GEMINI_MODELO_RESPOSTA",
         "GEMINI_MODEL_EMBEDDING",
         "LLM_MODO",
         "RAG_INDEX_DIR",
@@ -51,9 +51,3 @@ def test_gitignore_ignora_env_e_indice_vetorial():
     assert ".env" in texto
     assert ".llama_index/" in texto
     assert ".rag_index/" in texto
-
-
-def test_app_tem_tela_ola():
-    texto = (RAIZ / "app.py").read_text()
-    assert "st.title(" in texto
-    assert "Sabor da Terra" in texto

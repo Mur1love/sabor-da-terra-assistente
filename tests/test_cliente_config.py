@@ -11,7 +11,7 @@ def test_modelos_padrao_por_papel(tmp_path):
 
 
 def test_modelo_respeita_variavel_de_ambiente(monkeypatch, tmp_path):
-    monkeypatch.setenv("GEMINI_MODEL_FLASH", "gemini-3.6-flash")
+    monkeypatch.setenv("GEMINI_MODELO_RESPOSTA", "gemini-3.6-flash")
     cliente = LLMClient(modo="fixture", pasta_fixtures=tmp_path)
     assert cliente.modelo(Papel.RESPOSTA) == "gemini-3.6-flash"
 
