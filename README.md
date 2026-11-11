@@ -73,13 +73,25 @@ sabor-da-terra-assistente/
 
 ## Como rodar
 
-Requisitos: **Python 3.11+** e Git. Nenhuma conta Google Cloud é necessária no protótipo.
+Requisitos: **Python 3.11 ou mais novo** e Git. Nenhuma conta Google Cloud é necessária no protótipo.
 
 1. Clone o repositório e entre na pasta.
-2. Crie o ambiente virtual e instale as dependências:
+2. Crie o ambiente virtual com o Python 3.11+ da máquina e instale as dependências:
    ```bash
-   python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+   python3.11 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
    ```
+   - **Sem `python3.11`?** Se o `python3` da máquina já for 3.11+ (`python3 --version`), use `python3 -m venv .venv` no lugar.
+   - **Instalar o 3.11 no Ubuntu/WSL** (ex.: 22.04 vem com 3.10):
+     ```bash
+     sudo apt update && sudo apt install -y python3.11 python3.11-venv
+     ```
+     Sem o pacote nos repositórios da sua versão (ex.: 24.04, que vem com 3.12)? Use o PPA:
+     ```bash
+     sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt update && \
+       sudo apt install -y python3.11 python3.11-venv
+     ```
+     Se `python3 -m venv` reclamar de `ensurepip`, falta o `python3.*-venv` — instale o pacote acima e repita.
+   - **Windows/macOS:** instalador em <https://www.python.org/downloads/>.
 3. Copie `.env.example` para `.env` e preencha **GEMINI_API_KEY** com a chave
    **restrita** criada no [Google AI Studio](https://aistudio.google.com)
    (regra 3 do `docs/03`; nunca commite o `.env`).
@@ -90,24 +102,28 @@ Requisitos: **Python 3.11+** e Git. Nenhuma conta Google Cloud é necessária no
 5. Abra a tela de validação: `streamlit run app.py`
 6. Rode os testes (100% offline, sem gastar cota): `pytest`
 
-**Modo fixture:** com `LLM_MODO=fixture`, o cliente reutiliza as respostas gravadas
-em `tests/fixtures/llm/` e não faz **nenhuma** chamada à API. Para gravar ou
-regravar uma resposta, rode uma vez com `LLM_MODO=real` — o cliente grava a
-fixture automaticamente.
+**Modos do LLM (`LLM_MODO` no `.env`):**
+- `real` — chama a API de verdade e **não grava nada**: a demo e a triagem
+  rodam assim, sem sujar `tests/fixtures/llm/` a cada mensagem.
+- `gravar` — chama a API e grava a resposta completa em `tests/fixtures/llm/`.
+  Para gravar ou regravar uma resposta, rode uma vez:
+  `LLM_MODO=gravar python -m scripts.smoke_llm`.
+- `fixture` — reproduz as respostas gravadas em `tests/fixtures/llm/` e não
+  faz **nenhuma** chamada à API (é o modo em que os testes rodam).
 
 **Vertex AI:** para trocar AI Studio por Vertex AI basta configurar no `.env`:
 `GOOGLE_GENAI_USE_VERTEXAI=TRUE`, `GOOGLE_CLOUD_PROJECT` e `GOOGLE_CLOUD_LOCATION`,
 e autenticar com `gcloud auth application-default login`. **Nenhuma linha de
 código muda** — é o padrão de troca do `docs/04` §6.
 
-**Solução de problemas:** se `python3 -m venv` falhar citando um AppImage
+**Solução de problemas:** se o comando do passo 2 falhar citando um AppImage
 (ex.: `Vicinae-x86_64.AppImage ... ensurepip`), é o ambiente de sessão da
-máquina interferindo no resolvedor de caminho do Python 3.15 — o AppImage de
-um app na sessão é tomado como executável-base. Neutralize nesta sessão:
+máquina interferindo no resolvedor de caminho do Python — o AppImage de
+um app na sessão é tomado como executável-base. Neutralize nesta sessão
+e repita o passo 2:
 
 ```bash
 unset APPIMAGE APPDIR OWD
-python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 ```
 
 Para valer em todo terminal novo, adicione o mesmo `unset` ao final do

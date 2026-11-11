@@ -21,6 +21,7 @@ storage/
 
 # ==== Superpowers (planos e rascunhos do executor) ====
 .superpowers/
+docs/superpowers/
 
 # ==== Node ====
 node_modules/
