@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Hook de pre-commit: bloqueia .env trackeado e chave do Gemini no conteúdo
+# commitado. A checagem saiu da suíte pytest (dependia de .git e o varredura
+# do log inteiro ficava lenta a cada pytest).
+#
+# Instalar (uma vez por clone):
+#     install -m 0755 scripts/hooks/pre-commit .git/hooks/pre-commit
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+if git ls-files --error-unmatch .env >/dev/null 2>&1; then
+    echo "ERRO: .env está no índice do git (nunca commite o .env)." >&2
+    echo "      Rode 'git rm --cached .env' e confirme o .gitignore." >&2
+    exit 1
+fi
+
+if git diff --cached -U0 | grep -qE 'AIza[0-9A-Za-z_-]{30,}'; then
+    echo "ERRO: possível chave do Gemini (AIza...) no conteúdo a committar." >&2
+    exit 1
+fi

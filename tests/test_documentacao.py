@@ -1,5 +1,4 @@
 import re
-import subprocess
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -21,16 +20,7 @@ def test_docs03_registra_limites_com_data():
     secao = texto.split("Limites confirmados no projeto", 1)[1][:600]
     assert re.search(r"em \*{0,2}\d{2}/\d{2}/\d{4}\*{0,2}", secao)
 
-
-def test_env_nao_e_rastreado_pelo_git():
-    resultado = subprocess.run(
-        ["git", "check-ignore", "-q", ".env"], cwd=RAIZ
-    )
-    assert resultado.returncode == 0
-
-
-def test_historico_nao_tem_chave_gemini():
-    saida = subprocess.run(
-        ["git", "log", "-p", "--all"], cwd=RAIZ, capture_output=True, text=True
-    ).stdout
-    assert not re.search(r"AIza[0-9A-Za-z_-]{30,}", saida)
+# As checagens de segredos (.env trackeado, chave no histórico) saíram da
+# suíte: dependiam de `.git` e o varredura do log inteiro ficava lenta a cada
+# pytest. Ficaram no hook de pre-commit (scripts/hooks/pre-commit) — ver
+# CONTRIBUTING.md para instalar.

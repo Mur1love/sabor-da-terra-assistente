@@ -56,6 +56,11 @@ Diretriz de arquitetura: estratégia de custo da API Gemini (free tier)
   simulados**: o repositório **deve permanecer privado**; nunca subir cópia
   dos dados para outro lugar.
 - Chaves de API nunca entram no repositório (ver `docs/03` §Regras de desenvolvimento).
+- **Hook de pre-commit** (bloqueia `.env` trackeado e chave `AIza...` no commit):
+  instale uma vez por clone com
+  `install -m 0755 scripts/hooks/pre-commit .git/hooks/pre-commit`.
+  A checagem fica no hook (não no pytest): a suíte roda em qualquer máquina,
+  com ou sem `.git`, sem varrer o histórico inteiro a cada execução.
 
 ## 6. Issues
 
