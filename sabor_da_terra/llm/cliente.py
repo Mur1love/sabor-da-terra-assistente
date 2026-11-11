@@ -5,11 +5,13 @@ final e Gemini Embedding para o RAG. O retry de 429 é nosso (o do SDK fica
 desligado) e o modo fixture grava/reproduz respostas para os testes.
 """
 
+import hashlib
+import json
 import os
 import time
 from enum import Enum
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
 from google import genai
 from google.genai import types
@@ -62,6 +64,7 @@ class LLMClient:
         self._cliente = cliente
         self._dormir = dormir
         self._max_tentativas = max_tentativas
+        self._chamadas: dict[str, int] = {}
 
     @property
     def modo(self) -> str:
@@ -110,18 +113,91 @@ class LLMClient:
         return self._cliente
 
     # ------------------------------------------------------------------ #
+    # Fixture (gravação e replay de respostas reais)                     #
+    # ------------------------------------------------------------------ #
+
+    @staticmethod
+    def _hash_fixture(papel: Papel, modelo: str, prompt: str, config: dict | None) -> str:
+        """Chave estável do par (papel, modelo, prompt, config) — 16 hex."""
+        conteudo = json.dumps(
+            {"papel": papel.value, "modelo": modelo, "prompt": prompt, "config": config or {}},
+            sort_keys=True,
+            ensure_ascii=False,
+        )
+        return hashlib.sha256(conteudo.encode("utf-8")).hexdigest()[:16]
+
+    def _caminho_fixture(self, papel: Papel, modelo: str, prompt: str, config: dict | None) -> Path:
+        return self._pasta_fixtures / papel.value / f"{self._hash_fixture(papel, modelo, prompt, config)}.json"
+
+    def _ler_fixture(self, caminho: Path) -> dict[str, Any]:
+        if not caminho.exists():
+            raise FixtureAusenteError(
+                f"Nenhuma fixture para este papel/prompt em {caminho}. "
+                "Rode uma vez com LLM_MODO=real para gravar a resposta."
+            )
+        return json.loads(caminho.read_text(encoding="utf-8"))
+
+    def _gravar_fixture(self, caminho: Path, dados: dict[str, Any]) -> None:
+        caminho.parent.mkdir(parents=True, exist_ok=True)
+        caminho.write_text(
+            json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    def _contar_chamada(self, modelo: str) -> None:
+        self._chamadas[modelo] = self._chamadas.get(modelo, 0) + 1
+
+    def chamadas_por_modelo(self) -> dict[str, int]:
+        """Chamadas bem-sucedidas à API por modelo (replay de fixture não conta)."""
+        return dict(self._chamadas)
+
+    # ------------------------------------------------------------------ #
     # Chamadas                                                           #
     # ------------------------------------------------------------------ #
 
     def gerar(self, papel: Papel, prompt: str, **config_geracao) -> str:
         """Gera texto com o modelo do papel e devolve o texto da resposta."""
+        modelo = self.modelo(papel)
+        caminho = self._caminho_fixture(papel, modelo, prompt, config_geracao or None)
+
         if self.modo == "fixture":
-            raise FixtureAusenteError(
-                "Modo fixture ainda não implementado nesta task (chega na próxima)."
-            )
+            return str(self._ler_fixture(caminho)["resposta"])
+
         resposta = self._cliente_google().models.generate_content(
-            model=self.modelo(papel),
+            model=modelo,
             contents=prompt,
             config=types.GenerateContentConfig(**config_geracao) if config_geracao else None,
         )
-        return resposta.text
+        texto = resposta.text
+        self._gravar_fixture(
+            caminho,
+            {
+                "papel": papel.value,
+                "modelo": modelo,
+                "prompt_sha256": self._hash_fixture(papel, modelo, prompt, config_geracao or None),
+                "resposta": texto,
+            },
+        )
+        self._contar_chamada(modelo)
+        return texto
+
+    def embedar(self, texto: str) -> list[float]:
+        """Gera o embedding do texto com o modelo de embeddings do docs/03."""
+        modelo = self.modelo(Papel.EMBEDDING)
+        caminho = self._caminho_fixture(Papel.EMBEDDING, modelo, texto, None)
+
+        if self.modo == "fixture":
+            return [float(v) for v in self._ler_fixture(caminho)["valores"]]
+
+        resposta = self._cliente_google().models.embed_content(model=modelo, contents=texto)
+        valores = [float(v) for v in resposta.embeddings[0].values]
+        self._gravar_fixture(
+            caminho,
+            {
+                "papel": Papel.EMBEDDING.value,
+                "modelo": modelo,
+                "prompt_sha256": self._hash_fixture(Papel.EMBEDDING, modelo, texto, None),
+                "valores": valores,
+            },
+        )
+        self._contar_chamada(modelo)
+        return valores
