@@ -17,6 +17,7 @@ venv/
 # ==== Índice vetorial local (LlamaIndex) ====
 .llama_index/
 storage/
+.rag_index/
 
 # ==== Superpowers (planos e rascunhos do executor) ====
 .superpowers/
