@@ -17,10 +17,15 @@ from sabor_da_terra.llm.cliente import LLMClient, Papel
 
 def rodar(cliente: LLMClient) -> int:
     """Faz as 3 chamadas (Flash-Lite, Flash, embedding) com progresso por chamada."""
+    print(f"[1/3] triagem   → {cliente.modelo(Papel.TRIAGEM)}", flush=True)
     triagem = cliente.gerar(Papel.TRIAGEM, "Responda apenas: ok")
     print(f"Flash-Lite: {triagem.text!r}")
+
+    print(f"[2/3] resposta  → {cliente.modelo(Papel.RESPOSTA)}", flush=True)
     resposta = cliente.gerar(Papel.RESPOSTA, "Responda apenas: ok")
     print(f"Flash: {resposta.text!r}")
+
+    print(f"[3/3] embedding → {cliente.modelo(Papel.EMBEDDING)}", flush=True)
     vetor = cliente.embedar("teste de embedding")
     print(f"Embedding: {len(vetor)} dimensões")
     print(f"Chamadas por modelo: {cliente.chamadas_por_modelo()}")
@@ -35,6 +40,7 @@ def main() -> int:
         return rodar(LLMClient())
     except Exception as exc:  # erros da API do Google não são RuntimeError
         print(f"FALHOU: {type(exc).__name__}: {exc}")
+        print("Dica: rode de novo em ~1 min (503/429 são transientes e não consomem cota).")
         return 1
 
 

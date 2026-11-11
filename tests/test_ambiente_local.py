@@ -20,6 +20,9 @@ def test_fumaca_faz_as_tres_chamadas(tmp_path, capsys):
     assert modelos == ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-embedding-001"]
 
     saida = capsys.readouterr().out
+    assert "[1/3] triagem" in saida
+    assert "[2/3] resposta" in saida
+    assert "[3/3] embedding" in saida
     assert "Flash-Lite: 'ok'" in saida
     assert "Flash: 'ok'" in saida
     assert "Embedding: 3 dimensões" in saida
