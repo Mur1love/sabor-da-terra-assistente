@@ -33,9 +33,9 @@ MODELOS_PADRAO: dict[Papel, str] = {
 }
 
 VARIAVEIS_MODELO: dict[Papel, str] = {
-    Papel.TRIAGEM: "MODELO_TRIAGEM",
-    Papel.RESPOSTA: "MODELO_RESPOSTA",
-    Papel.EMBEDDING: "MODELO_EMBEDDING",
+    Papel.TRIAGEM: "GEMINI_MODEL_FLASH_LITE",
+    Papel.RESPOSTA: "GEMINI_MODEL_FLASH",
+    Papel.EMBEDDING: "GEMINI_MODEL_EMBEDDING",
 }
 
 
@@ -154,6 +154,18 @@ class LLMClient:
     # Chamadas                                                           #
     # ------------------------------------------------------------------ #
 
+    def _executar_com_retry(self, acao: Callable[[], Any]) -> Any:
+        """Executa a chamada HTTP repetindo apenas erro 429 com backoff."""
+        tentativa = 1
+        while True:
+            try:
+                return acao()
+            except Exception as exc:
+                if getattr(exc, "code", None) != 429 or tentativa >= self._max_tentativas:
+                    raise
+                self._dormir(min(30.0, 1.0 * (2 ** (tentativa - 1))))
+                tentativa += 1
+
     def gerar(self, papel: Papel, prompt: str, **config_geracao) -> str:
         """Gera texto com o modelo do papel e devolve o texto da resposta."""
         modelo = self.modelo(papel)
@@ -162,10 +174,12 @@ class LLMClient:
         if self.modo == "fixture":
             return str(self._ler_fixture(caminho)["resposta"])
 
-        resposta = self._cliente_google().models.generate_content(
-            model=modelo,
-            contents=prompt,
-            config=types.GenerateContentConfig(**config_geracao) if config_geracao else None,
+        resposta = self._executar_com_retry(
+            lambda: self._cliente_google().models.generate_content(
+                model=modelo,
+                contents=prompt,
+                config=types.GenerateContentConfig(**config_geracao) if config_geracao else None,
+            )
         )
         texto = resposta.text
         self._gravar_fixture(
@@ -188,7 +202,9 @@ class LLMClient:
         if self.modo == "fixture":
             return [float(v) for v in self._ler_fixture(caminho)["valores"]]
 
-        resposta = self._cliente_google().models.embed_content(model=modelo, contents=texto)
+        resposta = self._executar_com_retry(
+            lambda: self._cliente_google().models.embed_content(model=modelo, contents=texto)
+        )
         valores = [float(v) for v in resposta.embeddings[0].values]
         self._gravar_fixture(
             caminho,

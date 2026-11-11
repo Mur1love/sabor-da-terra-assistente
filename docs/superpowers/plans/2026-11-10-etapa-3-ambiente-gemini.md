@@ -133,10 +133,11 @@ def test_env_example_tem_chaves_obrigatorias():
         "GOOGLE_GENAI_USE_VERTEXAI",
         "GOOGLE_CLOUD_PROJECT",
         "GOOGLE_CLOUD_LOCATION",
-        "MODELO_TRIAGEM",
-        "MODELO_RESPOSTA",
-        "MODELO_EMBEDDING",
+        "GEMINI_MODEL_FLASH_LITE",
+        "GEMINI_MODEL_FLASH",
+        "GEMINI_MODEL_EMBEDDING",
         "LLM_MODO",
+        "RAG_INDEX_DIR",
     ]:
         assert f"{chave}=" in texto
 
@@ -181,12 +182,15 @@ GOOGLE_CLOUD_PROJECT=
 GOOGLE_CLOUD_LOCATION=
 
 # Modelos por papel — tabela "Divisão de trabalho entre modelos" do docs/03
-MODELO_TRIAGEM=gemini-3.5-flash-lite
-MODELO_RESPOSTA=gemini-3.8-flash
-MODELO_EMBEDDING=gemini-embedding-001
+GEMINI_MODEL_FLASH_LITE=gemini-3.5-flash-lite
+GEMINI_MODEL_FLASH=gemini-3.8-flash
+GEMINI_MODEL_EMBEDDING=gemini-embedding-001
 
 # real = chama a API e grava fixtures | fixture = reutiliza respostas gravadas
 LLM_MODO=real
+
+# Índice vetorial local do RAG (etapa 7)
+RAG_INDEX_DIR=.rag_index
 ```
 
 `pytest.ini`:
@@ -368,9 +372,9 @@ MODELOS_PADRAO = {
 }
 
 VARIAVEIS_MODELO = {
-    Papel.TRIAGEM: "MODELO_TRIAGEM",
-    Papel.RESPOSTA: "MODELO_RESPOSTA",
-    Papel.EMBEDDING: "MODELO_EMBEDDING",
+    Papel.TRIAGEM: "GEMINI_MODEL_FLASH_LITE",
+    Papel.RESPOSTA: "GEMINI_MODEL_FLASH",
+    Papel.EMBEDDING: "GEMINI_MODEL_EMBEDDING",
 }
 
 class FixtureAusenteError(RuntimeError):
