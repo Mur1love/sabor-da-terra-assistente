@@ -100,6 +100,19 @@ fixture automaticamente.
 e autenticar com `gcloud auth application-default login`. **Nenhuma linha de
 código muda** — é o padrão de troca do `docs/04` §6.
 
+**Solução de problemas:** se `python3 -m venv` falhar citando um AppImage
+(ex.: `Vicinae-x86_64.AppImage ... ensurepip`), é o ambiente de sessão da
+máquina interferindo no resolvedor de caminho do Python 3.15 — o AppImage de
+um app na sessão é tomado como executável-base. Neutralize nesta sessão:
+
+```bash
+unset APPIMAGE APPDIR OWD
+python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+```
+
+Para valer em todo terminal novo, adicione o mesmo `unset` ao final do
+`~/.zshrc` (ou `~/.bashrc`).
+
 ## Como contribuir
 
 Ver **[CONTRIBUTING.md](CONTRIBUTING.md)**: issues pelo template, branch
