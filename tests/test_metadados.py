@@ -1,3 +1,5 @@
+"""Testes da extração e enriquecimento de metadados."""
+
 from pathlib import Path
 
 from sabor_da_terra.rag.leitor import carregar_documentos
@@ -5,10 +7,21 @@ from sabor_da_terra.rag.metadados import (
     extrair_produtor_id,
     extrair_data_validade,
     extrair_metadados,
+    enriquecer_metadados_trecho,
 )
 
 
 BASE_DADOS = Path(__file__).resolve().parents[1] / "data"
+
+
+def obter_documento(nome: str) -> dict:
+    documentos = carregar_documentos(BASE_DADOS)
+
+    return next(
+        documento
+        for documento in documentos
+        if documento["arquivo"] == nome
+    )
 
 
 def test_extrair_produtor_id():
@@ -34,31 +47,95 @@ def test_documento_sem_validade():
 
 
 def test_metadados_josefa():
-    documentos = carregar_documentos(BASE_DADOS)
-
-    josefa = next(
-        doc for doc in documentos
-        if doc["arquivo"]
-        == "cert_organica_josefa_souza_P008.txt"
+    josefa = obter_documento(
+        "cert_organica_josefa_souza_P008.txt"
     )
 
     metadados = extrair_metadados(josefa)
 
+    assert metadados["arquivo"] == josefa["arquivo"]
+    assert metadados["tipo_documento"] == "certificacao"
     assert metadados["produtor_id"] == "P008"
     assert metadados["data_validade"] == "2026-09-30"
-    assert metadados["tipo_documento"] == "certificacao"
-    assert metadados["arquivo"] == josefa["arquivo"]
 
 
 def test_contrato_sem_produtor():
-    documentos = carregar_documentos(BASE_DADOS)
-
-    contrato = next(
-        doc for doc in documentos
-        if doc["arquivo"] == "contrato_pnae_garanhuns.txt"
+    contrato = obter_documento(
+        "contrato_pnae_garanhuns.txt"
     )
 
     metadados = extrair_metadados(contrato)
 
     assert metadados["produtor_id"] is None
     assert metadados["tipo_documento"] == "contrato"
+
+
+def test_identificar_produtor_no_trecho():
+    texto = """
+    5. P017 - Wellington da Silva Monteiro
+    Produtos: Frango caipira, ovos caipira
+    Registro SIE: NÃO POSSUI
+    """
+
+    metadados = enriquecer_metadados_trecho(
+        texto,
+        {
+            "arquivo": "inspecao_adagro_2026.txt",
+            "produtor_id": None,
+        },
+    )
+
+    assert metadados["produtor_id"] == "P017"
+    assert metadados["produto"] == [
+        "frango caipira",
+        "ovos caipira",
+    ]
+
+
+def test_trecho_sem_produtor():
+    metadados = enriquecer_metadados_trecho(
+        "RESULTADO GERAL: APROVADO COM RESTRIÇÕES",
+        {
+            "arquivo": "inspecao_adagro_2026.txt",
+            "produtor_id": None,
+        },
+    )
+
+    assert metadados["produtor_id"] is None
+    assert metadados["produto"] == []
+
+
+def test_trecho_com_multiplos_produtores():
+    metadados = enriquecer_metadados_trecho(
+        "Produtores P001 e P002 participaram da inspeção.",
+        {
+            "arquivo": "inspecao_adagro_2026.txt",
+            "produtor_id": None,
+        },
+    )
+
+    assert metadados["produtor_id"] is None
+    assert metadados["produto"] == []
+
+
+def test_preservar_metadados_originais():
+    originais = {
+        "arquivo": "inspecao_adagro_2026.txt",
+        "tipo_documento": "certificacao",
+        "produtor_id": None,
+        "data_validade": None,
+        "secao": "produtores_vistoriados",
+    }
+
+    enriquecidos = enriquecer_metadados_trecho(
+        "P017\nProdutos: Frango caipira, ovos caipira",
+        originais,
+    )
+
+    assert enriquecidos["arquivo"] == originais["arquivo"]
+    assert enriquecidos["tipo_documento"] == "certificacao"
+    assert enriquecidos["secao"] == "produtores_vistoriados"
+
+    # A função não deve modificar o dicionário recebido.
+    assert originais["produtor_id"] is None
+    assert enriquecidos["produtor_id"] == "P017"

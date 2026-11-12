@@ -55,3 +55,35 @@ def extrair_metadados(documento: dict) -> dict:
     }
 
     return metadados
+
+
+def enriquecer_metadados_trecho(
+    texto: str,
+    metadados_documento: dict,
+) -> dict:
+    """Enriquece metadados com informações específicas do trecho."""
+
+    metadados = metadados_documento.copy()
+
+    # Identifica um produtor mencionado no trecho.
+    produtores = re.findall(r"\bP\d{3}\b", texto)
+
+    if len(set(produtores)) == 1:
+        metadados["produtor_id"] = produtores[0]
+
+    # Extrai produtos quando existe um campo explícito.
+    resultado = re.search(
+        r"(?im)^\s*Produtos:\s*(.+)$",
+        texto,
+    )
+
+    if resultado:
+        metadados["produto"] = [
+            produto.strip().lower()
+            for produto in resultado.group(1).split(",")
+            if produto.strip()
+        ]
+    else:
+        metadados.setdefault("produto", [])
+
+    return metadados
