@@ -4,6 +4,9 @@ Uso (requer GEMINI_API_KEY no .env):
     python -m scripts.smoke_llm                  # só valida (não grava nada)
     LLM_MODO=gravar python -m scripts.smoke_llm  # valida e grava/regrava fixtures
 
+Com LLM_MODO=fixture no .env a fumaça recusa: ela só reproduz fixtures e não
+valida nada (saída 1 com instrução).
+
 Qualquer erro da API (chave inválida, cota, modelo sobrecarregado) sai como
 "FALHOU" sem traceback — a saída é feita para ser colada na issue.
 """
@@ -43,6 +46,10 @@ def main() -> int:
     load_dotenv()
     # Padronizado 'real' (só valida); LLM_MODO=gravar no ambiente grava fixtures.
     os.environ.setdefault("LLM_MODO", "real")
+    if os.environ["LLM_MODO"].strip().lower() == "fixture":
+        print("A fumaça valida a API real: em LLM_MODO=fixture ela só reproduz fixtures, sem chamar nada.")
+        print("Para validar, rode sem LLM_MODO (real); para regravar os fixtures, use LLM_MODO=gravar.")
+        return 1
     try:
         return rodar(LLMClient(dormir=_avisar_espera))
     except KeyboardInterrupt:
