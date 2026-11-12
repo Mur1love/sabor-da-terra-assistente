@@ -1,0 +1,15 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.8-flash",
+  "prompt_sha256": "063372c886f3d5ce",
+  "resposta": {
+    "candidates": [
+      {
+        "content": {
+          "role": "model",
+          "parts": [{ "text": "ok" }]
+        }
+      }
+    ]
+  }
+}

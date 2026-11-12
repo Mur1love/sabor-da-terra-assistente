@@ -56,6 +56,26 @@ O princípio é: **volume barato no Flash-Lite, qualidade no Flash, e nada de qu
 3. **Chave de API restrita, sempre.** Desde jun/2026 o endpoint recusa chaves sem restrição; as chaves criadas no AI Studio já saem restritas por padrão — não remover a restrição.
 4. **Confirmar limites no próprio projeto** (AI Studio → Usage and billing) antes da semana de ajuste fino — os números acima não são garantidos e variam por projeto/modelo.
 
+### Limites confirmados no projeto
+
+> Consulta em **AI Studio → Rate limits** (https://aistudio.google.com/rate-limit),
+> projeto `sabor-da-terra`, nível gratuito, em **10/11/2026**.
+> Limites são **por projeto**, não por chave, e o RPD reseta à meia-noite do
+> horário do Pacífico (fonte: https://ai.google.dev/gemini-api/docs/rate-limits).
+> Reconfirmar antes da semana de ajuste fino (#14).
+
+| Modelo | RPM | TPM | RPD | Observação |
+|---|---|---|---|---|
+| Gemini 3.5 Flash-Lite (`gemini-3.5-flash-lite`) | 15 | 250K | 500 | Confirma a estimativa da tabela acima |
+| Gemini 3.8 Flash (`gemini-3.8-flash`) | 5 | 250K | 20 | Confirma a estimativa da tabela acima; em 10/11 estava com 503 intermitente (alta demanda) |
+| Gemini Embedding (`gemini-embedding-001`) | 100 | 30K | 1.000 | Indexar os ~20 documentos do dataset é trivial |
+| Gemini Embedding 2 (`gemini-embedding-2`) | 100 | 30K | 1.000 | Novo multimodal (abr/2026); **não usado no protótipo** (corpus só de texto) |
+
+> Com esses limites, o protótipo roda folgado no free tier: a triagem esbarra em
+> 500 pedidos/dia do Flash-Lite, e o Flash de 20/dia exige o modo fixture em
+> testes e iteração de prompts (regra 1 acima) — a demo cabe no RPD com folga,
+> mas não desperdice chamadas.
+
 ### Plano B e vias que NÃO contar no plano
 
 - **Plano B de contingência:** ativar billing com prepay mínimo **(US$ 5)** → Tier 1 pago: limites maiores, sem uso para treinar. Uma demo inteira de respostas em Flash a preço pago custa centavos — o $5 é seguro de apresentação, não custo esperado.
