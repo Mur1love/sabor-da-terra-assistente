@@ -504,3 +504,7 @@ def extrato_produtor(produtor_id: str, mes: str, data_referencia: Optional[str] 
         "fonte": "financeiro.csv",
         "aviso": aviso,
     }
+
+
+# Lista de ferramentas que o assistente expõe ao Gemini por function calling.
+FERRAMENTAS = [identificar_produtor, buscar_produtores, disponibilidade, preco, rastrear_lote, extrato_produtor]
