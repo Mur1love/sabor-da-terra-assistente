@@ -1,0 +1,116 @@
+- id: CTX-001
+  desafio: "Consulta documental"
+  requisito: "Manter contexto da conversa durante a sessão (multi-turno)"
+
+  entrada: |
+    Turno 1: Quais produtores têm certificação orgânica vigente para mel silvestre?
+    Turno 2: E o da Josefa?
+
+  esperado: >
+    No Turno 1, listar P002 (validade 20/03/2027)
+    e P018 (validade 28/02/2027) como vigentes.
+    No Turno 2, resolver a referência anafórica
+    "o da Josefa" mantendo o contexto de
+    certificação orgânica de mel, identificando a
+    produtora P008 (Josefa Alves de Souza) e
+    explicando que sua certificação venceu em
+    30/09/2026, com protocolo de renovação
+    REN-2026-0456 e auditoria marcada para
+    15/11/2026, não podendo comercializar mel como
+    orgânico até a aprovação.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Turno 1: P002 e P018 identificados"
+    - "Turno 2: identificação de P008 (Josefa Alves de Souza)"
+    - "Certificação vencida em 30/09/2026"
+    - "Auditoria agendada para 15/11/2026"
+    - "Citação do certificado de P008"
+
+  nao_deve_conter:
+    - "Perda de contexto exigindo repetir que o assunto é certificação de mel"
+    - "P008 apresentada como vigente"
+
+  fonte:
+    - "data/certificacoes/cert_organica_josefa_souza_P008.txt"
+    - "data/certificacoes/cert_organica_jose_santos_P002.txt"
+    - "data/certificacoes/cert_organica_debora_melo_P018.txt"
+    - "data/produtores.csv"
+
+- id: CTX-002
+  desafio: "Triagem de pedidos"
+  requisito: "Manter contexto de pedido entre turnos da sessão"
+
+  entrada: |
+    Turno 1: Quem pode fornecer os 300kg de goiaba do pedido urgente PED-2026-006?
+    Turno 2: E para atender os 200kg de queijo coalho desse mesmo pedido, quais produtores temos?
+
+  esperado: >
+    No Turno 1, indicar P001 (orgânico, ~500kg/sem
+    na safra) e P010 (convencional, ~300kg/sem),
+    ressaltando a dificuldade de entrega no mesmo
+    dia (29/10). No Turno 2, manter o contexto do
+    pedido PED-2026-006 (revenda em atacado) e
+    apresentar P003 (convencional, SIE PE-0756,
+    150–200kg/sem) e P007 (orgânico, SIE PE-1203,
+    150–200kg/sem), excluindo P011 por não possuir
+    registro SIE para revenda e alertando que o
+    volume total de 200kg para o mesmo dia exige
+    composição ou confirmação imediata.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Turno 1: P001 e P010 para goiaba"
+    - "Turno 2: referência mantida ao PED-2026-006"
+    - "P003 e P007 como fornecedores habilitados com SIE"
+    - "Exclusão de P011 por falta de SIE"
+    - "Citação das fichas técnicas"
+
+  nao_deve_conter:
+    - "Indicação de P011 para revenda no atacado"
+    - "Perda de referência ao PED-2026-006"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-006)"
+    - "data/fichas_tecnicas/goiaba_paluma.txt"
+    - "data/fichas_tecnicas/queijo_coalho.txt"
+
+- id: CTX-003
+  desafio: "Comunicação com produtores"
+  requisito: "Manter contexto de produtor entre consulta financeira e lotes"
+
+  entrada: |
+    Turno 1: Quanto o produtor Cícero (P003) tem em atraso para receber do SuperBom?
+    Turno 2: Quais foram os lotes dessas entregas dele?
+
+  esperado: >
+    No Turno 1, informar o total de R$ 6.020,00
+    em atraso junto à Rede SuperBom Atacado
+    (FIN-2026-013 de R$ 4.500,00 e FIN-2026-014 de
+    R$ 1.520,00, vencidos em 18/10/2026). No
+    Turno 2, manter o contexto de P003 e do
+    comprador SuperBom, identificando os lotes
+    LOT-2026-0100 (150kg de queijo coalho) e
+    LOT-2026-0101 (40kg de queijo manteiga), ambos
+    colhidos e entregues em 18/09/2026 referentes
+    ao pedido PED-2026-SEP-018, transportados a 7°C
+    e com validade até 18/10/2026.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Turno 1: R$ 6.020,00 em atraso (FIN-2026-013 e FIN-2026-014)"
+    - "Turno 2: LOT-2026-0100 (150kg queijo coalho)"
+    - "Turno 2: LOT-2026-0101 (40kg queijo manteiga)"
+    - "Data de entrega 18/09/2026 e pedido PED-2026-SEP-018"
+    - "Citação de data/financeiro.csv e data/lotes.csv"
+
+  nao_deve_conter:
+    - "Lote LOT-2026-0089 (entregue ao Restaurante Raízes) confundido com SuperBom"
+    - "Valores ou IDs de lote inventados"
+
+  fonte:
+    - "data/financeiro.csv (FIN-2026-013, FIN-2026-014)"
+    - "data/lotes.csv (LOT-2026-0100, LOT-2026-0101)"

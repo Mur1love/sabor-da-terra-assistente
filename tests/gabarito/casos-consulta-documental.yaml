@@ -1,0 +1,277 @@
+- id: DOC-001
+  desafio: "Consulta inteligente à base documental"
+  requisito: "Consultar certificações e identificar validade"
+
+  entrada: >
+    Quais produtores possuem certificação orgânica
+    vigente para fornecer mel silvestre?
+    Informe também se existe algum produtor
+    cuja certificação esteja vencida.
+
+  esperado: >
+    Identificar P002 e P018 como produtores
+    com certificação orgânica vigente para mel.
+    P002 possui validade até 03/2027 e P018
+    até 02/2027. Informar que P008 possui
+    certificação vencida desde 30/09/2026,
+    com renovação em andamento e auditoria
+    agendada para 15/11/2026. Não apresentar
+    P008 como fornecedor de mel orgânico
+    enquanto a certificação estiver vencida.
+    Citar os documentos consultados.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificação de P002"
+    - "Identificação de P018"
+    - "Validade das certificações"
+    - "Identificação da certificação vencida de P008"
+    - "Citação das fontes documentais"
+
+  nao_deve_conter:
+    - "P008 apresentado como certificado orgânico vigente"
+    - "Validades inventadas"
+    - "Informações sem comprovação documental"
+
+  fonte:
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/fichas_tecnicas/mel_silvestre.txt"
+
+- id: DOC-002
+  desafio: "Consulta inteligente à base documental"
+  requisito: "Responder perguntas documentais com fontes"
+
+  entrada: >
+    Recebemos uma notificação da ADAGRO para
+    inspeção nos dias 11 e 12 de novembro.
+    Quais documentos precisamos disponibilizar?
+
+  esperado: >
+    Informar que a documentação inclui cadastro
+    dos produtores, certificações, laudos
+    sanitários dos últimos 12 meses,
+    rastreabilidade dos lotes e contratos
+    institucionais. Utilizar a notificação
+    e os documentos existentes como referência.
+    Não inventar documentos ou exigências
+    que não estejam fundamentados nas fontes.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Cadastro dos produtores"
+    - "Certificações"
+    - "Laudos sanitários"
+    - "Rastreabilidade dos lotes"
+    - "Contratos institucionais"
+    - "Indicação das fontes"
+
+  nao_deve_conter:
+    - "Documentos inexistentes apresentados como disponíveis"
+    - "Exigências inventadas"
+    - "Ausência de referências documentais"
+
+  fonte:
+    - "data/certificacoes/inspecao_adagro_2026.txt"
+    - "data/certificacoes/"
+    - "data/lotes.csv"
+    - "data/contratos/"
+
+- id: DOC-003
+  desafio: "Consulta inteligente à base documental"
+  requisito: "Consultar contratos e informações comerciais"
+
+  entrada: >
+    Qual preço devemos utilizar para fornecer
+    banana ao PNAE? O preço é o mesmo da
+    tabela geral da cooperativa?
+
+  esperado: >
+    Consultar o Contrato 045/2026-PNAE
+    e identificar o preço contratado de
+    R$ 3,80 para banana, diferenciando-o
+    do preço geral da cooperativa, de
+    R$ 3,50. Orientar que pedidos vinculados
+    ao PNAE utilizem a tabela contratual.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Contrato 045/2026-PNAE"
+    - "Preço contratual de R$ 3,80"
+    - "Preço geral de R$ 3,50"
+    - "Diferença entre as tabelas"
+    - "Utilização do preço contratual"
+
+  nao_deve_conter:
+    - "Preço geral utilizado no lugar do contratual"
+    - "Valores inventados"
+    - "Contrato diferente do solicitado"
+
+  fonte:
+    - "data/contratos/"
+    - "data/tabela_precos_outubro_2026.csv"
+    - "docs/02-dataset.md"
+
+- id: DOC-004
+  desafio: "Consulta inteligente à base documental"
+  requisito: "Responder com precisão e reconhecer lacunas"
+
+  entrada: >
+    Todos os produtores da cooperativa possuem
+    DAP ou CAF ativa? Preciso dessa confirmação
+    para uma contratação institucional.
+
+  esperado: >
+    Não afirmar que todos os produtores possuem
+    DAP ou CAF ativa sem documentação individual.
+    Informar que existe confirmação documental
+    para P005 no relatório de inspeção ADAGRO,
+    mas que essa informação isolada não comprova
+    a situação cadastral de todos os produtores.
+    Explicar a limitação e recomendar a verificação
+    dos documentos individuais.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Limitação da documentação disponível"
+    - "Identificação de P005"
+    - "Ausência de comprovação para todos os produtores"
+    - "Necessidade de verificação individual"
+
+  nao_deve_conter:
+    - "Todos os produtores declarados regulares sem comprovação"
+    - "DAP ou CAF inventada"
+    - "Confirmação cadastral sem evidências"
+
+  fonte:
+    - "data/certificacoes/inspecao_adagro_2026.txt"
+    - "data/produtores.csv"
+    - "docs/02-dataset.md"
+
+- id: DOC-005
+  desafio: "Consulta documental"
+  requisito: "Consultar rastreabilidade de lotes sem inventar IDs"
+
+  entrada: >
+    Qual a origem e rastreabilidade do queijo
+    do lote 2024-089?
+
+  esperado: >
+    Informar claramente que o lote 2024-089
+    não existe nos registros da cooperativa.
+    Oferecer como alternativa o registro mais
+    próximo existente na base, LOT-2026-0089,
+    apresentando seus dados reais: queijo coalho
+    (45kg), produzido por P003 (Cícero Romão de
+    Almeida), colhido em 01/09/2026 e entregue
+    em 02/09/2026 ao Restaurante Raízes
+    (pedido PED-2026-SEP-003), transportado a
+    8°C, validade até 02/10/2026 e inspeção
+    visual aprovada. Não inventar dados para o
+    ID inexistente.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Lote 2024-089 não encontrado"
+    - "Sugestão do lote LOT-2026-0089"
+    - "Produtor P003 (Cícero Romão de Almeida)"
+    - "Queijo coalho (45kg)"
+    - "Colheita em 01/09/2026 e entrega em 02/09/2026"
+    - "Comprador Restaurante Raízes"
+    - "Citação de data/lotes.csv"
+
+  nao_deve_conter:
+    - "Dados inventados para o lote 2024-089"
+    - "Afirmação de que o lote 2024-089 existe"
+
+  fonte:
+    - "data/lotes.csv (LOT-2026-0089)"
+    - "docs/01-documento-base.md"
+
+- id: DOC-006
+  desafio: "Consulta documental"
+  requisito: "Verificar documentação DAP/CAF cruzando múltiplas fontes"
+
+  entrada: >
+    Quais produtores possuem comprovação de
+    DAP ou CAF vigente nos documentos da cooperativa?
+    O cadastro geral lista essa informação para todos?
+
+  esperado: >
+    Explicar que o cadastro geral (produtores.csv)
+    não possui coluna de DAP/CAF, impedindo
+    confirmar automaticamente a situação de todos
+    os 18 produtores. Informar o que os documentos
+    comprovam: P005 (Francisco de Assis Cordeiro)
+    possui DAP/CAF vigente confirmada no relatório
+    ADAGRO-AM-2026-0189 e na ficha técnica de
+    tubérculos e grãos; P013 (Edmilson Pereira da
+    Silva) também tem DAP/CAF vigente atestada na
+    ficha técnica de tubérculos e grãos; e P008
+    (Josefa Alves de Souza) possui registro DAP
+    SDR/PE-2019-0051098 citado em seu certificado.
+    Admitir a lacuna documental para os demais
+    produtores.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Ausência de coluna DAP/CAF em produtores.csv"
+    - "Comprovação documental para P005"
+    - "Comprovação documental para P013"
+    - "Registro DAP citado para P008"
+    - "Admissão de lacuna para os demais produtores"
+    - "Citação das fontes documentais"
+
+  nao_deve_conter:
+    - "Afirmação de que todos os 18 produtores têm DAP/CAF ativa"
+    - "Números de DAP/CAF inventados"
+
+  fonte:
+    - "data/produtores.csv"
+    - "data/certificacoes/inspecao_adagro_2026.txt"
+    - "data/certificacoes/cert_organica_josefa_souza_P008.txt"
+    - "data/fichas_tecnicas/tuberculos_graos.txt"
+    - "docs/02-dataset.md"
+
+- id: DOC-007
+  desafio: "Consulta documental"
+  requisito: "Consultar sazonalidade e disponibilidade por mês"
+
+  entrada: >
+    Temos disponibilidade de umbu, mirtilo,
+    framboesa e cajá para entrega agora em
+    novembro de 2026?
+
+  esperado: >
+    Consultar a tabela de sazonalidade para o mês
+    de novembro e informar que umbu, mirtilo e
+    framboesa possuem disponibilidade "nenhuma"
+    em novembro (fora de safra), enquanto o cajá
+    apresenta disponibilidade "baixa" (início da
+    safra curta de novembro a janeiro, fornecido
+    por P010 sem certificação orgânica). Não
+    garantir fornecimento dos itens indisponíveis.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Umbu indisponível (nenhuma) em novembro"
+    - "Mirtilo indisponível (nenhuma) em novembro"
+    - "Framboesa indisponível (nenhuma) em novembro"
+    - "Cajá com disponibilidade baixa em novembro"
+    - "Citação de data/sazonalidade.csv"
+
+  nao_deve_conter:
+    - "Disponibilidade alta ou garantida para umbu, mirtilo ou framboesa"
+    - "Preços ou estoques inventados"
+
+  fonte:
+    - "data/sazonalidade.csv"
+    - "data/produtores.csv"
+    - "docs/02-dataset.md"
