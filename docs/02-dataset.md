@@ -14,7 +14,7 @@
 | `data/pedidos.json` | Pedidos, consultas e notificações recebidos em linguagem natural | 15 registros (28–30/10/2026) |
 | `data/financeiro.csv` | Histórico de transações set–out/2026 | 30 transações |
 | `data/sazonalidade.csv` | Disponibilidade por produto × mês | 50 produtos × 12 meses |
-| `data/tabela_precos_outubro_2026.csv` | Preços convencional/orgânico + atacado | 52 produtos |
+| `data/tabela_precos_outubro_2026.csv` | Preços convencional/orgânico + atacado | 53 itens (goiaba paluma e pimentão têm duas linhas cada) |
 | `data/lotes.csv` | Rastreabilidade dos últimos lotes | 20 lotes (LOT-2026-0089…0108) |
 | `data/certificacoes/` | Certificados orgânicos, laudos sanitários, inspeção ADAGRO | 12 arquivos |
 | `data/contratos/` | Contratos com os 3 principais compradores | 3 arquivos |
@@ -94,7 +94,7 @@ Afastamento da narrativa do PDF: o texto cita 180 produtores e 60–100 pedidos/
 
 ---
 
-## 6. `tabela_precos_outubro_2026.csv` — 52 itens
+## 6. `tabela_precos_outubro_2026.csv` — 53 itens
 
 **Campos:** `produto, unidade, preco_convencional, preco_organico, desconto_atacado_pct, volume_minimo_atacado_kg, observacao`.
 
