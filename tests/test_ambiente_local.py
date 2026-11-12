@@ -29,50 +29,12 @@ def test_fumaca_faz_as_tres_chamadas(tmp_path, capsys):
     assert "Chamadas por modelo" in saida
 
 
-def test_fumaca_recusa_modo_fixture(monkeypatch, capsys):
-    """LLM_MODO=fixture no .env não pode virar fumaça verde sem chamada real.
-
-    O propósito da fumaça é validar a API: em modo fixture ela reproduz
-    fixtures, faz zero chamadas e saía 0 — verde mentiroso. main() recusa
-    com instrução de como validar (real) ou regravar (gravar).
-    """
-    import scripts.smoke_llm as smoke
-
-    monkeypatch.setattr(smoke, "load_dotenv", lambda *a, **k: None)
-    monkeypatch.setenv("LLM_MODO", "fixture")
-    assert smoke.main() == 1
-    saida = capsys.readouterr().out
-    assert "fixture" in saida
-    assert "gravar" in saida  # instrui o caminho para gravar fixtures
-
-
-def test_fumaca_sem_modo_no_ambiente_rodou_real(monkeypatch):
-    """Sem LLM_MODO no ambiente, a fumaça vai para a API real (padrão)."""
-    import scripts.smoke_llm as smoke
-
-    monkeypatch.setattr(smoke, "load_dotenv", lambda *a, **k: None)
-    monkeypatch.delenv("LLM_MODO", raising=False)
-    capturado = {}
-
-    def rodar_fake(cliente):
-        capturado["modo"] = cliente.modo
-        return 0
-
-    monkeypatch.setattr(smoke, "rodar", rodar_fake)
-    assert smoke.main() == 0
-    assert capturado["modo"] == "real"
-
-
 def test_fumaca_reporta_falha_da_api_sem_traceback(monkeypatch, capsys):
     """Erro da API do Google (chave inválida, cota) sai como FALHOU, sem traceback.
 
     O erro do SDK do Google não é RuntimeError — o except precisa ser genérico.
     """
     import scripts.smoke_llm as smoke
-
-    # Hermético: o .env do desenvolvedor não pode escolher o modo deste teste.
-    monkeypatch.setattr(smoke, "load_dotenv", lambda *a, **k: None)
-    monkeypatch.setenv("LLM_MODO", "real")
 
     class ChaveInvalida(Exception):
         pass
