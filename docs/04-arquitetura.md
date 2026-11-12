@@ -225,9 +225,19 @@ dados operacionais.
 
 ---
 
+### 8.4 Grounding e verificação de citações em produção (Etapa 8)
+
+Em produção no Google Cloud, a pipeline local de consulta documental (sabor_da_terra/rag/responder.py + saída estruturada Pydantic com pós-validação de fontes) corresponde a dois recursos nativos da Vertex AI:
+
+- **Respostas fundamentadas com citação via Agent Search (antigo Vertex AI Search):** o serviço recupera os trechos mais relevantes dos documentos armazenados no Cloud Storage e gera respostas com *extractive segments* e metadados de origem (*citations*), dispensando pós-processamento manual de índice local.
+- **Check Grounding API da Vertex AI (groundingConfig / CheckGrounding):** valida automaticamente se cada afirmação gerada pelo Gemini possui suporte factual nos trechos recuperados (*grounding chunks*), atribuindo pontuações de suporte e bloqueando ou sinalizando afirmações sem lastro documental — equivalente gerenciado à nossa validação pós-geração de citações e política de lacuna (*"não encontrei essa informação nos documentos"*).
+
+---
+
 ## 9. O que fica de fora desta etapa
 
 - **Versão final do documento de arquitetura** → #16 (parte deste rascunho).
 - **Artefatos de implantação** (Dockerfile, Terraform, definição do
   Workflows) → #15 — seguem a tabela da §2.
 - **Implementação** → #3 em diante (o ambiente instala a stack decidida aqui).
+
