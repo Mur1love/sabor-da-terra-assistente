@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from sabor_da_terra.llm.cliente import Papel
 from sabor_da_terra.rag.cache import CacheEmbeddings
 from sabor_da_terra.rag.sanitizacao import sanitizar_texto
 
@@ -16,11 +17,21 @@ class GeradorEmbeddings:
         self,
         cliente,
         caminho_cache: Path,
-        modelo: str = MODELO_EMBEDDING,
+        modelo: str | None = None,
     ):
         self.cliente = cliente
         self.cache = CacheEmbeddings(caminho_cache)
-        self.modelo = modelo
+
+        # Identifica automaticamente o modelo configurado no LLMClient.
+        if modelo is not None:
+            self.modelo = modelo
+
+        elif callable(getattr(cliente, "modelo", None)):
+            self.modelo = cliente.modelo(Papel.EMBEDDING)
+
+        else:
+            # Compatibilidade com clientes simulados dos testes.
+            self.modelo = MODELO_EMBEDDING
 
     def gerar(self, texto: str) -> list[float]:
         """Sanitiza o texto e consulta o cache antes de gerar o vetor."""
@@ -32,6 +43,7 @@ class GeradorEmbeddings:
                 "Não é possível gerar embedding de texto vazio."
             )
 
+        # 1. Verifica se o embedding já está armazenado.
         embedding = self.cache.obter(
             texto_seguro,
             self.modelo,
@@ -40,8 +52,10 @@ class GeradorEmbeddings:
         if embedding is not None:
             return embedding
 
+        # 2. Gera um novo embedding utilizando o cliente existente.
         embedding = self.cliente.embedar(texto_seguro)
 
+        # 3. Salva o vetor para reutilização nas próximas execuções.
         self.cache.salvar(
             texto_seguro,
             self.modelo,
