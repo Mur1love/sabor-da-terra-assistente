@@ -21,7 +21,6 @@ class ClienteSimulado:
     def embedar(self, texto: str) -> list[float]:
         self.chamadas += 1
 
-        # Vetor de teste com dimensão fixa.
         return [
             float(len(texto) % 101) / 101,
             float(sum(map(ord, texto)) % 103) / 103,
@@ -123,7 +122,11 @@ def test_cache_persistente_entre_execucoes(
         caminho_cache=caminho_cache,
     )
 
-    construir_indice(documentos, primeiro, pasta_indice)
+    construir_indice(
+        documentos,
+        primeiro,
+        pasta_indice,
+    )
 
     chamadas_anteriores = cliente.chamadas
 
@@ -132,7 +135,11 @@ def test_cache_persistente_entre_execucoes(
         caminho_cache=caminho_cache,
     )
 
-    construir_indice(documentos, segundo, pasta_indice)
+    construir_indice(
+        documentos,
+        segundo,
+        pasta_indice,
+    )
 
     assert cliente.chamadas == chamadas_anteriores
 

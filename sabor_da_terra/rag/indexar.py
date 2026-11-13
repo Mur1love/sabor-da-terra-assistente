@@ -2,7 +2,11 @@
 
 from pathlib import Path
 
-from llama_index.core import VectorStoreIndex
+from llama_index.core import (
+    StorageContext,
+    VectorStoreIndex,
+    load_index_from_storage,
+)
 from llama_index.core.embeddings import MockEmbedding
 from llama_index.core.schema import TextNode
 
@@ -65,19 +69,23 @@ def construir_indice(
     nos = preparar_nos(documentos, gerador)
 
     if not nos:
-        raise ValueError("Nenhum trecho disponível para indexação.")
+        raise ValueError(
+            "Nenhum trecho disponível para indexação."
+        )
 
     dimensao = len(nos[0].embedding)
 
     if dimensao == 0:
-        raise ValueError("O embedding não pode ser vazio.")
+        raise ValueError(
+            "O embedding não pode ser vazio."
+        )
 
     if any(len(no.embedding) != dimensao for no in nos):
         raise ValueError(
             "Os embeddings possuem dimensões incompatíveis."
         )
 
-    # Os vetores já foram calculados pelo LLMClient.
+    # Os vetores já foram gerados pelo GeradorEmbeddings.
     # O MockEmbedding evita criar outro cliente externo.
     indice = VectorStoreIndex(
         nodes=nos,
@@ -86,10 +94,53 @@ def construir_indice(
     )
 
     pasta_indice = Path(pasta_indice)
-    pasta_indice.mkdir(parents=True, exist_ok=True)
+    pasta_indice.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
     indice.storage_context.persist(
         persist_dir=str(pasta_indice),
+    )
+
+    return indice
+
+
+def carregar_indice(
+    pasta_indice: Path,
+) -> VectorStoreIndex:
+    """Carrega um índice persistido sem gerar novos embeddings."""
+
+    pasta_indice = Path(pasta_indice)
+
+    if not pasta_indice.is_dir():
+        raise FileNotFoundError(
+            f"Diretório do índice não encontrado: {pasta_indice}"
+        )
+
+    arquivos_necessarios = (
+        "docstore.json",
+        "index_store.json",
+        "default__vector_store.json",
+    )
+
+    for nome in arquivos_necessarios:
+        caminho = pasta_indice / nome
+
+        if not caminho.is_file():
+            raise FileNotFoundError(
+                f"Arquivo necessário do índice não encontrado: {caminho}"
+            )
+
+    storage_context = StorageContext.from_defaults(
+        persist_dir=str(pasta_indice),
+    )
+
+    # Usado somente para carregar o índice.
+    # Não deve gerar embeddings de perguntas reais.
+    indice = load_index_from_storage(
+        storage_context,
+        embed_model=MockEmbedding(embed_dim=1),
     )
 
     return indice
