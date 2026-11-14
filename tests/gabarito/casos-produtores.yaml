@@ -160,6 +160,52 @@
     Gerar mensagem direcionada a José Antônio dos
     Santos (P002), destacando que ele possui
     certificação orgânica vigente até 20/03/2027 e
-    registro SIE PE-0892, e listar as demandas
-    compatíveis:
+    registro SIE vigente PE-SIE-0892, e listar as
+    demandas compatíveis (exemplos):
     - PED-2026-003: 3kg de mel de jandaíra
+      (Bistrô Sertão Gourmet, urgente);
+    - PED-2026-004: 20kg de mel silvestre
+      orgânico (PNAE);
+    - PED-2026-006: 40kg de mel silvestre
+      orgânico (Rede SuperBom Atacado, urgente).
+    Lembrar que o mel de jandaíra e a própolis
+    são exclusivos de P002 (nenhum outro produtor
+    da cooperativa os fornece) e que a capacidade
+    documentada na ficha técnica é de cerca de
+    300kg/mês, suficiente para o total de 63kg
+    demandado, mas que capacidade não é estoque
+    disponível para entrega imediata.
+    Nas demais mensagens com mel (PED-2026-007,
+    PED-2026-009 e PED-2026-013), tratar como
+    cotações em aberto: oportunidades potenciais,
+    não compras confirmadas.
+    Não confirmar alocação nem comprometer
+    volumes antes da resposta do produtor.
+    Citar os documentos utilizados.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Produtor P002 (José Antônio dos Santos)"
+    - "Certificação orgânica vigente até 20/03/2027"
+    - "Registro SIE PE-SIE-0892"
+    - "PED-2026-003: 3kg de mel de jandaíra"
+    - "PED-2026-004: 20kg de mel silvestre orgânico (PNAE)"
+    - "PED-2026-006: 40kg de mel silvestre orgânico (SuperBom)"
+    - "Exclusividade do mel de jandaíra e da própolis de P002"
+    - "Cotações (PED-2026-007, PED-2026-009, PED-2026-013) não tratadas como compra confirmada"
+    - "Citação de data/pedidos.json e data/produtores.csv"
+
+  nao_deve_conter:
+    - "Demandas de mel de outros produtores atribuídas a P002"
+    - "Capacidade de 300kg/mês tratada como estoque disponível"
+    - "Alocação ou venda confirmada sem resposta do produtor"
+    - "Cotações tratadas como compra confirmada"
+    - "Dados confidenciais (PIX, banco, CPF) expostos na notificação"
+    - "Demandas ou valores inventados"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-003, PED-2026-004, PED-2026-006)"
+    - "data/produtores.csv"
+    - "data/certificacoes/cert_organica_jose_santos_P002.txt"
+    - "data/fichas_tecnicas/mel_silvestre.txt"
