@@ -6,6 +6,7 @@ from sabor_da_terra.rag.leitor import carregar_documentos
 from sabor_da_terra.rag.chunking import (
     dividir_em_trechos,
     identificar_secao,
+    juntar_trechos_curtos,
 )
 
 
@@ -135,6 +136,84 @@ def test_identificar_secao_conhecida():
     """
 
     assert identificar_secao(bloco.strip()) == "nao_conformidades"
+
+
+def test_juncao_de_trechos_curtos():
+    partes = [
+        ("Curto demais.", "introducao"),
+        ("Texto corrido " + "y" * 130, "dados_do_produtor"),
+    ]
+
+    resultado = juntar_trechos_curtos(partes)
+
+    assert len(resultado) == 1
+    assert resultado[0][0].startswith("Curto demais.")
+    # Sem título no pedaço seguinte: mantém a seção do primeiro pedaço.
+    assert resultado[0][1] == "introducao"
+
+
+def test_juncao_mantem_secao_do_primeiro_pedaco():
+    # Regra intencional (ver comentário em juntar_trechos_curtos): o
+    # trecho juntado fica com a seção do primeiro pedaço, mesmo quando o
+    # seguinte começa com título. Assim o conteúdo de conformidade (ex.:
+    # NC-002) não recebe o rótulo do resultado que vem depois dele.
+    partes = [
+        ("Curto demais.", "introducao"),
+        ("PRODUTOS CERTIFICADOS:\n" + "x" * 130, "produtos_certificados"),
+    ]
+
+    resultado = juntar_trechos_curtos(partes)
+
+    assert len(resultado) == 1
+    assert resultado[0][1] == "introducao"
+    # O texto do título continua presente no trecho.
+    assert "PRODUTOS CERTIFICADOS:" in resultado[0][0]
+
+
+def test_trechos_curtos_consecutivos_se_juntam():
+    partes = [
+        ("Primeiro curto.", "introducao"),
+        ("Segundo curto.", "dados_do_produtor"),
+        ("t" * 200, "objeto"),
+    ]
+
+    resultado = juntar_trechos_curtos(partes)
+
+    assert len(resultado) == 1
+    assert "Primeiro curto." in resultado[0][0]
+    assert "Segundo curto." in resultado[0][0]
+    assert resultado[0][1] == "introducao"
+
+
+def test_ultimo_trecho_curto_junta_o_anterior():
+    partes = [
+        ("A" * 200, "dados_do_produtor"),
+        ("Fim curto.", "observacoes"),
+    ]
+
+    resultado = juntar_trechos_curtos(partes)
+
+    assert len(resultado) == 1
+    assert resultado[0][0].startswith("A" * 200)
+    assert resultado[0][0].endswith("Fim curto.")
+    assert resultado[0][1] == "dados_do_produtor"
+
+
+def test_ultimo_trecho_curto_com_titulo_mantem_secao_do_anterior():
+    partes = [
+        ("A" * 200, "dados_do_produtor"),
+        ("VIGÊNCIA: 01/03/2026 a 28/02/2027", "vigencia"),
+    ]
+
+    resultado = juntar_trechos_curtos(partes)
+
+    assert len(resultado) == 1
+    # Mesma regra da junção para frente: vale a seção do trecho anterior.
+    assert resultado[0][1] == "dados_do_produtor"
+
+
+def test_juncao_de_lista_vazia():
+    assert juntar_trechos_curtos([]) == []
 
 
 def test_bloco_sem_secao_conhecida():

@@ -8,6 +8,7 @@ from sabor_da_terra.rag.indexar import (
     construir_indice,
     indexar,
     preparar_nos,
+    texto_para_embedding,
 )
 from sabor_da_terra.rag.embeddings import GeradorEmbeddings
 
@@ -64,6 +65,50 @@ def test_preparar_nos(documentos, gerador):
     assert len(nos) > 0
     assert all(no.text.strip() for no in nos)
     assert all(no.embedding is not None for no in nos)
+
+
+def test_id_fixo_do_no(documentos, gerador):
+    nos = preparar_nos(documentos, gerador)
+
+    assert nos[0].node_id == "cert_organica_P002.txt#000"
+    assert all(
+        no.node_id.startswith("cert_organica_P002.txt#")
+        for no in nos
+    )
+
+
+def test_texto_para_embedding_com_contexto_completo():
+    metadados = {
+        "tipo_documento": "certificacao",
+        "arquivo": "cert_P008.txt",
+        "produtor_id": "P008",
+        "produto": ["mel silvestre"],
+        "secao": "produtos_certificados",
+    }
+
+    texto = texto_para_embedding("Conteúdo do trecho.", metadados)
+
+    assert texto.startswith(
+        "certificacao | cert_P008.txt | produtor P008 "
+        "| produtos: mel silvestre "
+        "| seção produtos certificados\n\n"
+    )
+    assert texto.endswith("Conteúdo do trecho.")
+
+
+def test_texto_para_embedding_sem_produtor_e_produto():
+    metadados = {
+        "tipo_documento": "contrato",
+        "arquivo": "contrato.txt",
+        "produto": [],
+        "secao": "introducao",
+    }
+
+    texto = texto_para_embedding("Trecho.", metadados)
+
+    assert texto == (
+        "contrato | contrato.txt | seção introducao\n\nTrecho."
+    )
 
 
 def test_preservar_metadados(documentos, gerador):

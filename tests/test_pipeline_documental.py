@@ -28,6 +28,16 @@ def test_processar_20_documentos():
     assert len(trechos) >= 20
 
 
+def test_quantidade_de_trechos_estavel():
+    _, trechos = processar_documentos()
+
+    # 133 trechos na correção do PR 25 (era 204 antes da junção dos
+    # trechos curtos). A faixa evita regressão silenciosa do chunking:
+    # se TAMANHO_MINIMO for zerado, volta para 204; se duplicar a junção,
+    # despenca para 40.
+    assert 120 <= len(trechos) <= 145
+
+
 def test_todos_trechos_possuem_origem():
     _, trechos = processar_documentos()
 

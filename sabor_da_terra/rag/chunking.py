@@ -98,18 +98,23 @@ def juntar_trechos_curtos(
     resultado = []
     pendente = None
 
-    for texto, secao in partes:
+    for pedaco, secao in partes:
         if pendente:
-            # O trecho juntado fica com a seção do primeiro pedaço.
-            texto = f"{pendente[0]}\n\n{texto}"
+            # O trecho juntado fica com a seção do primeiro pedaço: o
+            # conteúdo dominante é o do meio, e rótulos curtos do fim
+            # ("RESULTADO GERAL: APROVADO") não devem rotular trechos de
+            # conformidade (ex.: NC-002). Em troca, alguns títulos deixam
+            # de existir como metadado de seção — o texto do trecho e o
+            # embedding continuam carregando o conteúdo inteiro.
+            pedaco = f"{pendente[0]}\n\n{pedaco}"
             secao = pendente[1]
             pendente = None
 
-        if len(texto) < minimo:
-            pendente = (texto, secao)
+        if len(pedaco) < minimo:
+            pendente = (pedaco, secao)
             continue
 
-        resultado.append((texto, secao))
+        resultado.append((pedaco, secao))
 
     if pendente:
         if resultado:

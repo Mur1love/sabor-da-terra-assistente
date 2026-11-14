@@ -6,6 +6,7 @@ from sabor_da_terra.rag.embeddings import GeradorEmbeddings
 from sabor_da_terra.rag.indexar import (
     carregar_indice,
     construir_indice,
+    obter_indice,
 )
 
 
@@ -68,6 +69,15 @@ def test_carregar_indice_existente(indice_persistido):
     indice = carregar_indice(pasta_indice)
 
     assert indice is not None
+
+
+def test_obter_indice_carrega_uma_vez(indice_persistido):
+    pasta_indice, _ = indice_persistido
+
+    primeiro = obter_indice(pasta_indice)
+    segundo = obter_indice(pasta_indice)
+
+    assert primeiro is segundo
 
 
 def test_preservar_quantidade_de_nos(indice_persistido):
