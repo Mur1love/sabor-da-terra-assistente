@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+from google.genai import types
+
 from sabor_da_terra.llm.cliente import LLMClient
 from sabor_da_terra.rag.responder import (
     Citacao,
@@ -9,6 +11,7 @@ from sabor_da_terra.rag.responder import (
     TrechoRecuperado,
     _PlanoConsulta,
     _coletar_dados_e_alertas,
+    _consultar_documentos,
     _tokens_consulta,
     _validar_e_sanear_resposta,
     consultar_documentos,
@@ -369,13 +372,45 @@ def test_consultar_documentos_aceita_buscador_injetado(monkeypatch, tmp_path):
     monkeypatch.setattr("sabor_da_terra.rag.responder.LLMClient", lambda: llm)
 
     trecho = TrechoRecuperado(arquivo="lotes.csv", conteudo="LOT-2026-0089, queijo coalho, P003.", score=1.0)
-    resultado = consultar_documentos(
+    resultado = _consultar_documentos(
         "Rastreabilidade do lote 2024-089",
         data_referencia="2026-10-30",
         buscador=lambda _: [trecho],
     )
     assert resultado["fontes"] == ["lotes.csv"]
     assert resultado["encontrado"] is True
+
+
+def test_consultar_documentos_vira_declaracao_do_gemini():
+    declaracao = types.FunctionDeclaration.from_callable_with_api_option(callable=consultar_documentos)
+    assert declaracao.name == "consultar_documentos"
+    assert declaracao.description
+    assert set(declaracao.parameters.required) == {"pergunta"}
+
+
+def test_resposta_sem_citacao_com_pergunta_no_meio_vira_lacuna(tmp_path):
+    llm = _LLMClientFixtureControlado(
+        tmp_path,
+        {
+            "resposta": [
+                '{"resposta":"Quer detalhes? A cooperativa possui certificação USDA para exportação.","citacoes":[],"lacunas":[]}'
+            ]
+        },
+    )
+    trecho = TrechoRecuperado(
+        arquivo="certificacoes/cert_organica_jose_santos_P002.txt",
+        conteudo="Certificado Nº: ORG-PE-2025-003198.",
+        score=0.9,
+    )
+    resp = responder_consulta_documental(
+        "A cooperativa tem certificação internacional?",
+        data_referencia="2026-10-30",
+        cliente_llm=llm,
+        buscador=lambda _: [trecho],
+        usar_llm_auxiliar=False,
+    )
+    assert "não encontrei" in resp.resposta.lower()
+    assert resp.citacoes == []
 
 
 def test_docs04_registra_vertex_ai_search_e_check_grounding():

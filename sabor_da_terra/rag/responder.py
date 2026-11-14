@@ -581,7 +581,7 @@ def responder_consulta_documental(
     #    rebaixa para a lacuna (AC1 — toda resposta documental traz ao menos uma citação).
     sem_citacao = not validada.citacoes and "[fonte:" not in validada.resposta.lower()
     ja_e_lacuna = validada.resposta.lower().startswith(("não encontrei", "i could not find"))
-    devolve_pergunta = "?" in validada.resposta  # esclarecimento legítimo (ex.: qual mel?)
+    devolve_pergunta = validada.resposta.rstrip().endswith("?")  # esclarecimento legítimo (ex.: qual mel?)
     if sem_citacao and (trechos_relevantes or dados_estruturados) and not ja_e_lacuna and not devolve_pergunta:
         validada = _resposta_lacuna(
             plano.idioma,
@@ -596,20 +596,26 @@ def responder_consulta_documental(
 # ---------------------------------------------------------------------------
 
 
-def consultar_documentos(
+def consultar_documentos(pergunta: str, data_referencia: Optional[str] = None) -> dict:
+    """Consulta documentos da cooperativa (certificações orgânicas, laudos sanitários,
+    contratos, fichas técnicas, rastreabilidade de lotes e sazonalidade) com citação
+    obrigatória da fonte e recusa a inventar informações ausentes na base.
+
+    Assinatura enxuta de propósito: é ela que o Gemini declara no function calling
+    (guarda em test_consultar_documentos_vira_declaracao_do_gemini). A injeção de
+    buscador/limiar — que a Etapa 7 usa para plugar o índice vetorial — fica em
+    _consultar_documentos, que não é declarada ao modelo.
+    """
+    return _consultar_documentos(pergunta, data_referencia)
+
+
+def _consultar_documentos(
     pergunta: str,
     data_referencia: Optional[str] = None,
     *,
     buscador: Callable[[str], list[TrechoRecuperado]] | None = None,
     limiar_relevancia: float = LIMIAR_RELEVANCIA_PADRAO,
 ) -> dict:
-    """Consulta documentos da cooperativa (certificações orgânicas, laudos sanitários,
-    contratos, fichas técnicas, rastreabilidade de lotes e sazonalidade) com citação
-    obrigatória da fonte e recusa a inventar informações ausentes na base.
-
-    `buscador` e `limiar_relevancia` podem ser injetados: a Etapa 7 passa o índice
-    vetorial aqui, sem mudar a assinatura da ferramenta para o function calling.
-    """
     resultado = responder_consulta_documental(
         pergunta=pergunta,
         data_referencia=data_referencia,
