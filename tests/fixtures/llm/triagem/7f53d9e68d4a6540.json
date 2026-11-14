@@ -1,0 +1,19 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7f53d9e68d4a6540",
+  "resposta": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"tipo\": \"compra\", \"idioma\": \"pt\", \"comprador\": \"Prefeitura de Garanhuns - PNAE\", \"canal\": \"email\", \"itens\": [{\"produto\": \"banana prata\", \"produto_original\": \"Banana prata\", \"quantidade\": 200, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"goiaba\", \"produto_original\": \"Goiaba\", \"quantidade\": 100, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"macaxeira\", \"produto_original\": \"Macaxeira\", \"quantidade\": 150, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"inhame\", \"produto_original\": \"Inhame\", \"quantidade\": 80, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"alface\", \"produto_original\": \"Alface\", \"quantidade\": 200, \"unidade\": \"unidades\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"coentro\", \"produto_original\": \"Coentro\", \"quantidade\": 100, \"unidade\": \"maços\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"tomate\", \"produto_original\": \"Tomate\", \"quantidade\": 50, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"mel silvestre\", \"produto_original\": \"Mel silvestre (com certificação orgânica)\", \"quantidade\": 20, \"unidade\": \"kg\", \"exige_organico\": true, \"opcional\": false}, {\"produto\": \"ovos caipira\", \"produto_original\": \"Ovos caipira\", \"quantidade\": 100, \"unidade\": \"dúzias\", \"exige_organico\": false, \"opcional\": false}], \"prazo_entrega\": \"2026-11-04\", \"prazo_original\": \"04 a 08 de novembro de 2026\", \"observacoes\": [\"Contrato nº 045/2026-PNAE\", \"Entrega no depósito central, Rua da Educação, 500, das 7h às 12h\", \"Exige notas fiscais e certificações aplicáveis\", \"Coordenador: Dr. Fernando Augusto Mendes\"], \"campos_faltantes\": [], \"ambiguidades\": []}"
+            }
+          ],
+          "role": "model"
+        }
+      }
+    ]
+  }
+}

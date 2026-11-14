@@ -1,0 +1,19 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "25e3cf4105761c59",
+  "resposta": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"tipo\": \"compra\", \"idioma\": \"pt\", \"comprador\": \"Restaurante Raízes\", \"canal\": \"email\", \"itens\": [{\"produto\": \"queijo coalho\", \"produto_original\": \"queijo coalho\", \"quantidade\": 30, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"manteiga de garrafa\", \"produto_original\": \"manteiga de garrafa\", \"quantidade\": 10, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"mel (aquele silvestre mesmo)\", \"produto_original\": \"mel (aquele silvestre mesmo)\", \"quantidade\": 5, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"coentro\", \"produto_original\": \"coentro\", \"quantidade\": 20, \"unidade\": \"maços\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"cebolinha\", \"produto_original\": \"cebolinha\", \"quantidade\": 10, \"unidade\": \"maços\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"ricota fresca\", \"produto_original\": \"ricota fresca\", \"quantidade\": 5, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": true}], \"prazo_entrega\": \"2026-11-01\", \"prazo_original\": \"essa sexta (01/nov)\", \"observacoes\": [\"Solicitante: Carlos\"], \"campos_faltantes\": [], \"ambiguidades\": []}"
+            }
+          ],
+          "role": "model"
+        }
+      }
+    ]
+  }
+}

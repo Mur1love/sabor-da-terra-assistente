@@ -1,0 +1,19 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "878a2239053a6a07",
+  "resposta": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"tipo\": \"cotacao\", \"idioma\": \"pt\", \"comprador\": \"Hospital São Francisco\", \"canal\": \"email\", \"itens\": [{\"produto\": \"goiaba\", \"produto_original\": \"frutas variadas (goiaba, banana, manga, maracujá)\", \"quantidade\": 100, \"unidade\": \"kg\", \"exige_organico\": true, \"opcional\": false}, {\"produto\": \"alface\", \"produto_original\": \"hortaliças (alface, couve, espinafre, tomate, cebolinha)\", \"quantidade\": 60, \"unidade\": \"kg\", \"exige_organico\": true, \"opcional\": false}, {\"produto\": \"ovos caipira\", \"produto_original\": \"Ovos caipira\", \"quantidade\": 50, \"unidade\": \"dúzias\", \"exige_organico\": true, \"opcional\": false}, {\"produto\": \"mel silvestre\", \"produto_original\": \"Mel puro\", \"quantidade\": 5, \"unidade\": \"kg\", \"exige_organico\": true, \"opcional\": false}], \"prazo_entrega\": null, \"prazo_original\": null, \"observacoes\": [\"Fornecimento semanal\", \"Obrigatório: certificação orgânica, laudo sanitário atualizado e rastreabilidade completa\", \"Solicita cópias de certificações, fichas técnicas e cadastro/CAF dos produtores\", \"Contato: Rosangela Patriota - CRN 12345\"], \"campos_faltantes\": [\"prazo_entrega\", \"distribuicao_individual_itens\"], \"ambiguidades\": [\"Quantidades agregadas: 100kg total de frutas variadas e 60kg total de hortaliças sem rateio por item.\"]}"
+            }
+          ],
+          "role": "model"
+        }
+      }
+    ]
+  }
+}

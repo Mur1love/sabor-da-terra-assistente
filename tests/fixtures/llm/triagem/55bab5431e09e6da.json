@@ -1,0 +1,19 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "55bab5431e09e6da",
+  "resposta": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"tipo\": \"compra\", \"idioma\": \"pt\", \"comprador\": \"Mercado Bom Preço\", \"canal\": \"formulario_web\", \"itens\": [{\"produto\": \"goiaba paluma\", \"produto_original\": \"goiaba paluma\", \"quantidade\": 50, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"banana prata\", \"produto_original\": \"banana prata\", \"quantidade\": 40, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"maracuja\", \"produto_original\": \"maracuja\", \"quantidade\": 25, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"macaxeira\", \"produto_original\": \"macaxeira\", \"quantidade\": 60, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"inhame\", \"produto_original\": \"inhame\", \"quantidade\": 30, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"tomate\", \"produto_original\": \"tomate\", \"quantidade\": 20, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"alface\", \"produto_original\": \"alface\", \"quantidade\": 50, \"unidade\": \"unid\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"rucula\", \"produto_original\": \"rucula\", \"quantidade\": 30, \"unidade\": \"maços\", \"exige_organico\": false, \"opcional\": false}], \"prazo_entrega\": \"2026-11-04\", \"prazo_original\": \"terça 04/nov\", \"observacoes\": [\"Entrega no CD\", \"Nota fiscal no CNPJ 12.345.678/0001-90\", \"Contato: Seu Ernesto (87) 3761-1234\"], \"campos_faltantes\": [], \"ambiguidades\": []}"
+            }
+          ],
+          "role": "model"
+        }
+      }
+    ]
+  }
+}

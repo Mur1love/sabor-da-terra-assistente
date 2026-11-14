@@ -1,0 +1,19 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2f19c9ffbfc0b552",
+  "resposta": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"tipo\": \"compra_urgente\", \"idioma\": \"pt\", \"comprador\": \"Chef Amanda - Bistrô Sertão Gourmet\", \"canal\": \"whatsapp\", \"itens\": [{\"produto\": \"queijo\", \"produto_original\": \"daquele queijo q vcs mandaram da ultima vez, o mais artesanal\", \"quantidade\": 15, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}, {\"produto\": \"mel de jandaíra\", \"produto_original\": \"mel de jandaíra\", \"quantidade\": 3, \"unidade\": \"kg\", \"exige_organico\": false, \"opcional\": false}], \"prazo_entrega\": \"2026-10-29\", \"prazo_original\": \"amanha\", \"observacoes\": [\"Pagamento via PIX imediato\"], \"campos_faltantes\": [], \"ambiguidades\": []}"
+            }
+          ],
+          "role": "model"
+        }
+      }
+    ]
+  }
+}

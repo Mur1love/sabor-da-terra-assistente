@@ -1,0 +1,789 @@
+[
+  {
+    "id": "PED-2026-001",
+    "resultado": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Restaurante Raízes",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 30.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "manteiga de garrafa",
+          "produto_original": "manteiga de garrafa",
+          "quantidade": 10.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "mel (aquele silvestre mesmo)",
+          "quantidade": 5.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "coentro",
+          "produto_original": "coentro",
+          "quantidade": 20.0,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "cebolinha",
+          "produto_original": "cebolinha",
+          "quantidade": 10.0,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ricota",
+          "produto_original": "ricota fresca",
+          "quantidade": 5.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": true
+        }
+      ],
+      "prazo_entrega": "2026-11-01",
+      "prazo_original": "essa sexta (01/nov)",
+      "observacoes": [
+        "Solicitante: Carlos"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "Conflito de data: mensagem informa 'sexta' junto com 01/11/2026, mas 01/11/2026 cai em domingo (a sexta-feira correspondente seria 30/10/2026)."
+      ]
+    }
+  },
+  {
+    "id": "PED-2026-002",
+    "resultado": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Mercado Bom Preço",
+      "canal": "formulario_web",
+      "itens": [
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "goiaba paluma",
+          "quantidade": 50.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "banana prata",
+          "produto_original": "banana prata",
+          "quantidade": 40.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "maracujá",
+          "produto_original": "maracuja",
+          "quantidade": 25.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "macaxeira",
+          "quantidade": 60.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "inhame",
+          "produto_original": "inhame",
+          "quantidade": 30.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "tomate",
+          "produto_original": "tomate",
+          "quantidade": 20.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "alface",
+          "quantidade": 50.0,
+          "unidade": "unidade",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "rúcula",
+          "produto_original": "rucula",
+          "quantidade": 30.0,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-04",
+      "prazo_original": "terça 04/nov",
+      "observacoes": [
+        "Entrega no CD",
+        "Nota fiscal no CNPJ 12.345.678/0001-90",
+        "Contato: Seu Ernesto (87) 3761-1234"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "Conflito de data: mensagem informa 'terça' junto com 04/11/2026, mas 04/11/2026 cai em quarta-feira (a terça-feira correspondente seria 03/11/2026)."
+      ]
+    }
+  },
+  {
+    "id": "PED-2026-003",
+    "resultado": {
+      "tipo": "compra_urgente",
+      "idioma": "pt",
+      "comprador": "Chef Amanda - Bistrô Sertão Gourmet",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "queijo",
+          "produto_original": "daquele queijo q vcs mandaram da ultima vez, o mais artesanal",
+          "quantidade": 15.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel de jandaíra",
+          "produto_original": "mel de jandaíra",
+          "quantidade": 3.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-29",
+      "prazo_original": "amanha",
+      "observacoes": [
+        "Pagamento via PIX imediato"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "Referência implícita detectada ('da última vez'): necessário consultar pedidos/lotes anteriores do comprador.",
+        "'queijo' pode ser: queijo coalho, queijo manteiga. Pergunte qual."
+      ]
+    }
+  },
+  {
+    "id": "PED-2026-004",
+    "resultado": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Prefeitura de Garanhuns - PNAE",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "banana prata",
+          "produto_original": "Banana prata",
+          "quantidade": 200.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "Goiaba",
+          "quantidade": 100.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "Macaxeira",
+          "quantidade": 150.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "inhame",
+          "produto_original": "Inhame",
+          "quantidade": 80.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "Alface",
+          "quantidade": 200.0,
+          "unidade": "unidade",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "coentro",
+          "produto_original": "Coentro",
+          "quantidade": 100.0,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "tomate",
+          "produto_original": "Tomate",
+          "quantidade": 50.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel silvestre (com certificação orgânica)",
+          "quantidade": 20.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos caipira",
+          "quantidade": 100.0,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-04",
+      "prazo_original": "04 a 08 de novembro de 2026",
+      "observacoes": [
+        "Contrato nº 045/2026-PNAE",
+        "Entrega no depósito central, Rua da Educação, 500, das 7h às 12h",
+        "Exige notas fiscais e certificações aplicáveis",
+        "Coordenador: Dr. Fernando Augusto Mendes"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-005",
+    "resultado": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Dona Cremilda - Lanchonete da Feira",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 10.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "manteiga",
+          "produto_original": "manteiga",
+          "quantidade": 5.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-31",
+      "prazo_original": "pra sabado",
+      "observacoes": [],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "Referência implícita detectada ('o de sempre'): necessário consultar histórico do comprador.",
+        "'manteiga' pode ser: manteiga de garrafa, queijo manteiga. Pergunte qual."
+      ]
+    }
+  },
+  {
+    "id": "PED-2026-006",
+    "resultado": {
+      "tipo": "compra_urgente",
+      "idioma": "pt",
+      "comprador": "Rede SuperBom Atacado",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "Queijo coalho",
+          "quantidade": 200.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo manteiga",
+          "produto_original": "Queijo manteiga",
+          "quantidade": 50.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel silvestre orgânico",
+          "quantidade": 40.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "Goiaba",
+          "quantidade": 300.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-29",
+      "prazo_original": "HOJE (29/10)",
+      "observacoes": [
+        "Pagamento: boleto 30 dias conforme contrato",
+        "Entrega: CD SuperBom, BR-423 km 12, Garanhuns",
+        "Gerente: Roberto Cavalcanti"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-007",
+    "resultado": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "Hotel Fazenda Serra Negra",
+      "canal": "formulario_web",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 25.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo manteiga",
+          "produto_original": "queijo manteiga",
+          "quantidade": 10.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "mel variado (preferencialmente orgânico)",
+          "quantidade": 8.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "goiaba",
+          "quantidade": 20.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "cajá",
+          "produto_original": "cajá",
+          "quantidade": 10.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": true
+        },
+        {
+          "produto": "rapadura",
+          "produto_original": "rapadura",
+          "quantidade": 15.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "tapioca/goma",
+          "produto_original": "tapioca/goma",
+          "quantidade": 10.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "frango caipira",
+          "produto_original": "frango caipira",
+          "quantidade": 40.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "ovos caipira",
+          "quantidade": 30.0,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-08",
+      "prazo_original": "evento de 08/nov",
+      "observacoes": [
+        "Jantar regional para 120 convidados",
+        "Solicita disponibilidade e valor total",
+        "Preferência por mel orgânico",
+        "Contato: Fernanda (87) 3762-8800 ramal 204"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-008",
+    "resultado": {
+      "tipo": "consulta",
+      "idioma": "pt",
+      "comprador": "Marcos - Sorveteria Tropical",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "morango",
+          "produto_original": "morango",
+          "quantidade": 50.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "amora",
+          "produto_original": "amora",
+          "quantidade": 50.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Demanda semanal estimada condicionada ao preço",
+        "Solicita tabela de preços",
+        "Certificação orgânica obrigatória para rotulagem"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega"
+      ],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-009",
+    "resultado": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "Hospital São Francisco",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "frutas variadas (goiaba, banana, manga, maracujá)",
+          "quantidade": 100.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "hortaliças (alface, couve, espinafre, tomate, cebolinha)",
+          "quantidade": 60.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos caipira",
+          "quantidade": 50.0,
+          "unidade": "dúzia",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel puro",
+          "quantidade": 5.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Fornecimento semanal",
+        "Obrigatório: certificação orgânica, laudo sanitário atualizado e rastreabilidade completa",
+        "Solicita cópias de certificações, fichas técnicas e cadastro/CAF dos produtores",
+        "Contato: Rosangela Patriota - CRN 12345"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega",
+        "distribuicao_individual_itens"
+      ],
+      "ambiguidades": [
+        "Quantidades agregadas: 100kg total de frutas variadas e 60kg total de hortaliças sem rateio por item."
+      ]
+    }
+  },
+  {
+    "id": "PED-2026-010",
+    "resultado": {
+      "tipo": "consulta",
+      "idioma": "pt",
+      "comprador": "João Pedro - Feira Orgânica do Recife",
+      "canal": "whatsapp",
+      "itens": [],
+      "prazo_entrega": "2026-11-02",
+      "prazo_original": "segunda-feira",
+      "observacoes": [
+        "Interesse em fornecimento mensal de todos os produtos com certificação orgânica",
+        "Solicita lista de produtos orgânicos, produtores, validade das certificações e preços",
+        "Preferência de retirada às segundas-feiras pela manhã"
+      ],
+      "campos_faltantes": [
+        "itens_especificos",
+        "prazo_entrega"
+      ],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-011",
+    "resultado": {
+      "tipo": "consulta",
+      "idioma": "en",
+      "comprador": "Tropical Fruits Exportadora",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "manga tommy",
+          "produto_original": "Mango",
+          "quantidade": 500.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "Guava",
+          "quantidade": 300.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "maracujá",
+          "produto_original": "Passion fruit",
+          "quantidade": 200.0,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Exportação para o mercado europeu (demanda mensal)",
+        "Exige certificação orgânica brasileira e equivalente internacional",
+        "Solicita lista de produtores, rastreabilidade, certificados fitossanitários e dados bancários internacionais",
+        "Contato: Dr. Heinrich Mueller"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega"
+      ],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-012",
+    "resultado": {
+      "tipo": "mensagem_produtor",
+      "idioma": "pt",
+      "comprador": "Maria das Graças (Produtora P001)",
+      "canal": "whatsapp",
+      "itens": [],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Produtora P001 consulta total vendido no mês (outubro/2026)",
+        "Consulta pagamento do Mercado Bom Preço referente a setembro",
+        "Consulta saldo total a receber (BB agência 0437)"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-013",
+    "resultado": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "SESC - Unidade Garanhuns",
+      "canal": "formulario_web",
+      "itens": [
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "Frutas: 500kg variadas",
+          "quantidade": 500.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "Hortaliças: 200kg variadas",
+          "quantidade": 200.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo coalho",
+          "produto_original": "Queijo coalho",
+          "quantidade": 50.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel",
+          "quantidade": 10.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos",
+          "quantidade": 200.0,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "frango caipira",
+          "produto_original": "Frango caipira",
+          "quantidade": 100.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "Macaxeira",
+          "quantidade": 80.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "jan/2027",
+      "prazo_original": "jan/2027",
+      "observacoes": [
+        "Colônia de férias em jan/2027 (200 crianças, 15 dias)",
+        "Solicita orçamento detalhado com preço unitário por kg e situação DAP/CAF dos produtores",
+        "Pagamento via empenho; NF para SESC-PE CNPJ 10.578.224/0034-56",
+        "Contato: Cláudia Mendonça"
+      ],
+      "campos_faltantes": [
+        "distribuicao_individual_itens"
+      ],
+      "ambiguidades": [
+        "Itens genéricos: 500kg de frutas variadas e 200kg de hortaliças variadas sem especificação."
+      ]
+    }
+  },
+  {
+    "id": "PED-2026-014",
+    "resultado": {
+      "tipo": "notificacao_oficial",
+      "idioma": "pt",
+      "comprador": "ADAGRO - Agência de Defesa Agropecuária",
+      "canal": "email",
+      "itens": [],
+      "prazo_entrega": "2026-11-12",
+      "prazo_original": "dias 11 e 12 de novembro de 2026",
+      "observacoes": [
+        "Inspeção sanitária ADAGRO nos dias 11 e 12/11/2026",
+        "Solicita cadastro de produtores, certificações orgânicas vigentes, laudos sanitários (12 meses), rastreabilidade (últimos 3 lotes) e contratos institucionais",
+        "Risco de suspensão do SIE em caso de não atendimento",
+        "Fiscal: Dr. Paulo Roberto Farias"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  },
+  {
+    "id": "PED-2026-015",
+    "resultado": {
+      "tipo": "mensagem_produtor",
+      "idioma": "pt",
+      "comprador": "Cícero (Produtor P003)",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 200.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "manteiga",
+          "produto_original": "manteiga",
+          "quantidade": 30.0,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-31",
+      "prazo_original": "ate amanhã",
+      "observacoes": [
+        "Produtor P003 oferta 200kg de queijo coalho e 30kg de manteiga",
+        "Solicita retorno até amanhã (31/10/2026) antes de vender direto na feira",
+        "Indica vizinho Sebastião (Caetés, doce de leite e queijo de cabra) para cadastro na cooperativa"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "'manteiga' pode ser: manteiga de garrafa, queijo manteiga. Pergunte qual."
+      ]
+    }
+  }
+]
