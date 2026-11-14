@@ -11,6 +11,7 @@ Nenhuma função daqui devolve CPF, PIX, telefone ou conta bancária.
 
 from __future__ import annotations
 
+import math
 import re
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal
@@ -284,7 +285,7 @@ def preco(produto: str, organico: bool, quantidade: float) -> dict:
     """Calcula o preço de uma quantidade de produto pela tabela de outubro/2026, com desconto de atacado.
     """
     repo = obter_repositorio()
-    if quantidade is None or quantidade <= 0:
+    if quantidade is None or not math.isfinite(quantidade) or quantidade <= 0:
         return {"encontrado": False, "aviso": "Informe uma quantidade maior que zero."}
 
     resolucao = repo.catalogo.resolver(produto)
