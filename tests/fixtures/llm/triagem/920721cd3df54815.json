@@ -1,0 +1,95 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "920721cd3df54815",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:32:12 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5556",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"consulta\",\n  \"idioma\": \"en\",\n  \"comprador\": \"Tropical Fruits Exportadora\",\n  \"canal\": \"email\",\n  \"itens\": [\n    {\n      \"produto\": \"manga\",\n      \"produto_original\": \"Mango: 500kg/month\",\n      \"quantidade\": 500,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"Guava: 300kg/month\",\n      \"quantidade\": 300,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"maracujá\",\n      \"produto_original\": \"Passion fruit: 200kg/month\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Fornecimento mensal para exportacao\",\n    \"Exige certificacao organica brasileira e equivalente internacional\",\n    \"Solicita lista de produtores com certificacoes, documentacao de rastreabilidade, certificados fitossanitarios e dados bancarios para transferencia internacional\"\n  ],\n  \"campos_faltantes\": [\n    \"prazo_entrega\"\n  ],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0Tiu-zSm8wEJq2dT6bv-EQGrQnICfvkWHEbqslPiIJTEchPy4yfUFlV-5eRVPu9PKUeqhOaj8-GwtWKww5EbBZB1aRlzmmfhDn7F4xZolLf_TN689I0YjifcU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Z-H4ar6NJ4PbytMPyMicWQ",
+    "usage_metadata": {
+      "candidates_token_count": 384,
+      "prompt_token_count": 2514,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2514
+        }
+      ],
+      "total_token_count": 2898
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "consulta",
+      "idioma": "en",
+      "comprador": "Tropical Fruits Exportadora",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "manga",
+          "produto_original": "Mango: 500kg/month",
+          "quantidade": 500,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba",
+          "produto_original": "Guava: 300kg/month",
+          "quantidade": 300,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "maracujá",
+          "produto_original": "Passion fruit: 200kg/month",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Fornecimento mensal para exportacao",
+        "Exige certificacao organica brasileira e equivalente internacional",
+        "Solicita lista de produtores com certificacoes, documentacao de rastreabilidade, certificados fitossanitarios e dados bancarios para transferencia internacional"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega"
+      ],
+      "ambiguidades": []
+    }
+  }
+}

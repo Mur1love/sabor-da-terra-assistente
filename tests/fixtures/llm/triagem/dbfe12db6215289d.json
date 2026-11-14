@@ -1,0 +1,86 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "dbfe12db6215289d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1893",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Dona Cremilda - Lanchonete da Feira\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"queijo coalho\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"manteiga\",\n      \"produto_original\": \"manteiga\",\n      \"quantidade\": 5,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-10-31\",\n  \"prazo_original\": \"pra sabado\",\n  \"observacoes\": [\n    \"Pedido enviado via WhatsApp\",\n    \"Menciona o padrão de fornecimento anterior\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": [\n    \"o de sempre ne\"\n  ]\n}",
+              "thought_signature": "EmAKXgFpFH0TNx8vwV4fqqqp44gl_dDYDKBqjxrdpkjZFGU8G9iY6lxKhOB1Nuj2Dqym3Ay_0azue_FPVkX_K6W2-W55BPdHqbWxxx0ut_NXuaI-AEOi12nK2mXjRTdjMgg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "UeH4atDNOfyvytMPwrCjwQM",
+    "usage_metadata": {
+      "candidates_token_count": 281,
+      "prompt_token_count": 2441,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2441
+        }
+      ],
+      "total_token_count": 2722
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Dona Cremilda - Lanchonete da Feira",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "manteiga",
+          "produto_original": "manteiga",
+          "quantidade": 5,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-31",
+      "prazo_original": "pra sabado",
+      "observacoes": [
+        "Pedido enviado via WhatsApp",
+        "Menciona o padrão de fornecimento anterior"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "o de sempre ne"
+      ]
+    }
+  }
+}

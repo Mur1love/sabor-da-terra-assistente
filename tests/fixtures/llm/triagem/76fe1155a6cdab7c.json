@@ -1,0 +1,143 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "76fe1155a6cdab7c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2334",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Prefeitura de Garanhuns - PNAE\",\n  \"canal\": \"email\",\n  \"itens\": [\n    {\n      \"produto\": \"banana prata\",\n      \"produto_original\": \"Banana prata: 200kg\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"Goiaba: 100kg\",\n      \"quantidade\": 100,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"macaxeira\",\n      \"produto_original\": \"Macaxeira: 150kg\",\n      \"quantidade\": 150,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"inhame\",\n      \"produto_original\": \"Inhame: 80kg\",\n      \"quantidade\": 80,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"alface\",\n      \"produto_original\": \"Alface: 200 unidades\",\n      \"quantidade\": 200,\n      \"unidade\": \"unidade\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"coentro\",\n      \"produto_original\": \"Coentro: 100 maços\",\n      \"quantidade\": 100,\n      \"unidade\": \"maço\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"tomate\",\n      \"produto_original\": \"Tomate: 50kg\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel silvestre\",\n      \"produto_original\": \"Mel silvestre (com certificação orgânica): 20kg\",\n      \"quantidade\": 20,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ovos caipira\",\n      \"produto_original\": \"Ovos caipira: 100 dúzias\",\n      \"quantidade\": 100,\n      \"unidade\": \"dúzia\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-11-04 a 2026-11-08\",\n  \"prazo_original\": \"para o período de 04 a 08 de novembro de 2026\",\n  \"observacoes\": [\n    \"Referente ao Contrato nº 045/2026-PNAE\",\n    \"Exige notas fiscais e certificações quando aplicável\",\n    \"Local de entrega: depósito central, Rua da Educação, 500\",\n    \"Horário de entrega: das 7h às 12h\",\n    \"Remetente: Dr. Fernando Augusto Mendes (Coordenador de Alimentação Escolar)\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0Tu6qYLggVXVUrDzcVTS4HOIsxQ7hYn4Bl2-pm1ESB0kkfpcp8Attu-svDHT8-1NPDrdfJqibBVVPIQDNVqDas7JbE-mz_gCRJa16TGCF0wQMr3oUL8m3h3UY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "T-H4asmIFqqrytMPk-2uwQ4",
+    "usage_metadata": {
+      "candidates_token_count": 885,
+      "prompt_token_count": 2672,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2672
+        }
+      ],
+      "total_token_count": 3557
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Prefeitura de Garanhuns - PNAE",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "banana prata",
+          "produto_original": "Banana prata: 200kg",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba",
+          "produto_original": "Goiaba: 100kg",
+          "quantidade": 100,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "Macaxeira: 150kg",
+          "quantidade": 150,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "inhame",
+          "produto_original": "Inhame: 80kg",
+          "quantidade": 80,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "Alface: 200 unidades",
+          "quantidade": 200,
+          "unidade": "unidade",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "coentro",
+          "produto_original": "Coentro: 100 maços",
+          "quantidade": 100,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "tomate",
+          "produto_original": "Tomate: 50kg",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel silvestre (com certificação orgânica): 20kg",
+          "quantidade": 20,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos caipira: 100 dúzias",
+          "quantidade": 100,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-04 a 2026-11-08",
+      "prazo_original": "para o período de 04 a 08 de novembro de 2026",
+      "observacoes": [
+        "Referente ao Contrato nº 045/2026-PNAE",
+        "Exige notas fiscais e certificações quando aplicável",
+        "Local de entrega: depósito central, Rua da Educação, 500",
+        "Horário de entrega: das 7h às 12h",
+        "Remetente: Dr. Fernando Augusto Mendes (Coordenador de Alimentação Escolar)"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

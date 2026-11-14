@@ -1,0 +1,141 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "442107df9427376e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:52 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2619",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"cotacao\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Hotel Fazenda Serra Negra\",\n  \"canal\": \"formulario_web\",\n  \"itens\": [\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"queijo coalho\",\n      \"quantidade\": 25,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"queijo manteiga\",\n      \"produto_original\": \"queijo manteiga\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel\",\n      \"produto_original\": \"mel variado\",\n      \"quantidade\": 8,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"goiaba\",\n      \"quantidade\": 20,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"cajá\",\n      \"produto_original\": \"cajá\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": true\n    },\n    {\n      \"produto\": \"rapadura\",\n      \"produto_original\": \"rapadura\",\n      \"quantidade\": 15,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"goma de tapioca\",\n      \"produto_original\": \"tapioca/goma\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"frango caipira\",\n      \"produto_original\": \"frango caipira\",\n      \"quantidade\": 40,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ovos caipira\",\n      \"produto_original\": \"ovos caipira\",\n      \"quantidade\": 30,\n      \"unidade\": \"dúzia\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-11-08\",\n  \"prazo_original\": \"08/nov\",\n  \"observacoes\": [\n    \"Pedido para evento (jantar regional, 120 convidados)\",\n    \"Contato: Fernanda, (87) 3762-8800 ramal 204\",\n    \"Solicita disponibilidade e valor total\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TyiVJoS_EZn5cJnCBlVx1VV5U4fhKhzJRTzZ4aKHMBcpgypAKi-SfPFUbMTydP48IXnlRgXrUA86SlBSzSsyldkBD79WQs0-ghwIkdZUYFGTG5Z_8s3YtyoU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "VuH4asOKAYHY0_gP1pDn2Q4",
+    "usage_metadata": {
+      "candidates_token_count": 761,
+      "prompt_token_count": 2536,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2536
+        }
+      ],
+      "total_token_count": 3297
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "Hotel Fazenda Serra Negra",
+      "canal": "formulario_web",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 25,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo manteiga",
+          "produto_original": "queijo manteiga",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel",
+          "produto_original": "mel variado",
+          "quantidade": 8,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba",
+          "produto_original": "goiaba",
+          "quantidade": 20,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "cajá",
+          "produto_original": "cajá",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": true
+        },
+        {
+          "produto": "rapadura",
+          "produto_original": "rapadura",
+          "quantidade": 15,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "goma de tapioca",
+          "produto_original": "tapioca/goma",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "frango caipira",
+          "produto_original": "frango caipira",
+          "quantidade": 40,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "ovos caipira",
+          "quantidade": 30,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-08",
+      "prazo_original": "08/nov",
+      "observacoes": [
+        "Pedido para evento (jantar regional, 120 convidados)",
+        "Contato: Fernanda, (87) 3762-8800 ramal 204",
+        "Solicita disponibilidade e valor total"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

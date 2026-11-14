@@ -1,0 +1,102 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b39d77971d54239c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:49 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1720",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra_urgente\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Rede SuperBom Atacado\",\n  \"canal\": \"email\",\n  \"itens\": [\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"Queijo coalho\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"queijo manteiga\",\n      \"produto_original\": \"Queijo manteiga\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel silvestre\",\n      \"produto_original\": \"Mel silvestre orgânico\",\n      \"quantidade\": 40,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"Goiaba\",\n      \"quantidade\": 300,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-10-29\",\n  \"prazo_original\": \"HOJE (29/10)\",\n  \"observacoes\": [\n    \"Pagamento: boleto 30 dias conforme contrato\",\n    \"Entrega: CD SuperBom, BR-423 km 12, Garanhuns\",\n    \"Risco de perder promoção de fim de semana caso não entreguem hoje\",\n    \"Contato: Roberto Cavalcanti (Gerente de Compras)\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TuLJDQVF98RaF6i-i4QZcdHu-yVoA3OauXTeHV4u-qzbmxHFl8AQfl7RQ3tJlN_DEsLChxwzPnbqvm7KPkztlg3tyrsLW7Z1KpeQ5dFdEBfk4H2Fm55Q6quc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "VOH4au_5A8WrwbUPmNDz2AE",
+    "usage_metadata": {
+      "candidates_token_count": 461,
+      "prompt_token_count": 2527,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2527
+        }
+      ],
+      "total_token_count": 2988
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra_urgente",
+      "idioma": "pt",
+      "comprador": "Rede SuperBom Atacado",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "Queijo coalho",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo manteiga",
+          "produto_original": "Queijo manteiga",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel silvestre orgânico",
+          "quantidade": 40,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba",
+          "produto_original": "Goiaba",
+          "quantidade": 300,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-29",
+      "prazo_original": "HOJE (29/10)",
+      "observacoes": [
+        "Pagamento: boleto 30 dias conforme contrato",
+        "Entrega: CD SuperBom, BR-423 km 12, Garanhuns",
+        "Risco de perder promoção de fim de semana caso não entreguem hoje",
+        "Contato: Roberto Cavalcanti (Gerente de Compras)"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

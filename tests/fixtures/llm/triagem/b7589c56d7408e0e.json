@@ -1,0 +1,116 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b7589c56d7408e0e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:32 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2427",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Restaurante Raízes\",\n  \"canal\": \"email\",\n  \"itens\": [\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"queijo coalho\",\n      \"quantidade\": 30,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"manteiga de garrafa\",\n      \"produto_original\": \"manteiga de garrafa\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel silvestre\",\n      \"produto_original\": \"mel\",\n      \"quantidade\": 5,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"coentro\",\n      \"produto_original\": \"coentro\",\n      \"quantidade\": 20,\n      \"unidade\": \"maço\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"cebolinha\",\n      \"produto_original\": \"cebolinha\",\n      \"quantidade\": 10,\n      \"unidade\": \"maço\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ricota fresca\",\n      \"produto_original\": \"ricota fresca\",\n      \"quantidade\": 5,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": true\n    }\n  ],\n  \"prazo_entrega\": \"2026-11-01\",\n  \"prazo_original\": \"pra essa sexta (01/nov)\",\n  \"observacoes\": [\n    \"Contato: Carlos\",\n    \"E-mail de compras: compras@restauranteraizes.com.br\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TkQ0l3Z8e6FAyk3uON9326oUTWX27w_FI-eAaT7YU8Um_Ix3EVBT9TJ8VfepdDyusXY8hYahyuCAsbE9VFKkjG6DXQ7Mtpynakh16ATBiB-V4bJgt5n6vMoE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "QuH4asySA5rmytMPh5KIkA8",
+    "usage_metadata": {
+      "candidates_token_count": 534,
+      "prompt_token_count": 2478,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2478
+        }
+      ],
+      "total_token_count": 3012
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Restaurante Raízes",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 30,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "manteiga de garrafa",
+          "produto_original": "manteiga de garrafa",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "mel",
+          "quantidade": 5,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "coentro",
+          "produto_original": "coentro",
+          "quantidade": 20,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "cebolinha",
+          "produto_original": "cebolinha",
+          "quantidade": 10,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ricota fresca",
+          "produto_original": "ricota fresca",
+          "quantidade": 5,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": true
+        }
+      ],
+      "prazo_entrega": "2026-11-01",
+      "prazo_original": "pra essa sexta (01/nov)",
+      "observacoes": [
+        "Contato: Carlos",
+        "E-mail de compras: compras@restauranteraizes.com.br"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

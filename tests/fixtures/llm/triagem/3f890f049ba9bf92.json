@@ -1,0 +1,131 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3f890f049ba9bf92",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:32:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2338",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"cotacao\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"SESC - Unidade Garanhuns\",\n  \"canal\": \"formulario_web\",\n  \"itens\": [\n    {\n      \"produto\": \"frutas\",\n      \"produto_original\": \"Frutas: 500kg variadas\",\n      \"quantidade\": 500,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"hortaliças\",\n      \"produto_original\": \"Hortaliças: 200kg variadas\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"Queijo coalho: 50kg\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel\",\n      \"produto_original\": \"Mel: 10kg\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ovos\",\n      \"produto_original\": \"Ovos: 200 dúzias\",\n      \"quantidade\": 200,\n      \"unidade\": \"dúzia\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"frango caipira\",\n      \"produto_original\": \"Frango caipira: 100kg\",\n      \"quantidade\": 100,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"macaxeira\",\n      \"produto_original\": \"Macaxeira: 80kg\",\n      \"quantidade\": 80,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2027-01\",\n  \"prazo_original\": \"jan/2027\",\n  \"observacoes\": [\n    \"Pedido para colônia de férias com duração de 15 dias para 200 crianças\",\n    \"Solicita orçamento detalhado com preço unitário por kg\",\n    \"Exige informação se os produtores possuem DAP/CAF ativa\",\n    \"Forma de pagamento via empenho\",\n    \"Dados de NF: SESC-PE CNPJ 10.578.224/0034-56\",\n    \"Contato: Cláudia Mendonça - Coordenadora\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": [\n    \"Frutas variadas\",\n    \"Hortaliças variadas\"\n  ]\n}",
+              "thought_signature": "EmAKXgFpFH0TRAxFgCdyK-umeMPgd5sL54dIJ3ugkcJdBiacxcWq_suTo8me7hEirzL8XTDqr_8rxJFozZGrg6xDojvlNf3J6V9rR2vyUIjBa6uXl4ZYos3yWxlAnarfrks="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "buH4apKIOIPbytMPjLiaiQM",
+    "usage_metadata": {
+      "candidates_token_count": 753,
+      "prompt_token_count": 2606,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2606
+        }
+      ],
+      "total_token_count": 3359
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "SESC - Unidade Garanhuns",
+      "canal": "formulario_web",
+      "itens": [
+        {
+          "produto": "frutas",
+          "produto_original": "Frutas: 500kg variadas",
+          "quantidade": 500,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "hortaliças",
+          "produto_original": "Hortaliças: 200kg variadas",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo coalho",
+          "produto_original": "Queijo coalho: 50kg",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel",
+          "produto_original": "Mel: 10kg",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ovos",
+          "produto_original": "Ovos: 200 dúzias",
+          "quantidade": 200,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "frango caipira",
+          "produto_original": "Frango caipira: 100kg",
+          "quantidade": 100,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "Macaxeira: 80kg",
+          "quantidade": 80,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2027-01",
+      "prazo_original": "jan/2027",
+      "observacoes": [
+        "Pedido para colônia de férias com duração de 15 dias para 200 crianças",
+        "Solicita orçamento detalhado com preço unitário por kg",
+        "Exige informação se os produtores possuem DAP/CAF ativa",
+        "Forma de pagamento via empenho",
+        "Dados de NF: SESC-PE CNPJ 10.578.224/0034-56",
+        "Contato: Cláudia Mendonça - Coordenadora"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "Frutas variadas",
+        "Hortaliças variadas"
+      ]
+    }
+  }
+}

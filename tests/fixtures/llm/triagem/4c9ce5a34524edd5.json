@@ -1,0 +1,106 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "4c9ce5a34524edd5",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:32:00 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1709",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"cotacao\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Hospital São Francisco\",\n  \"canal\": \"email\",\n  \"itens\": [\n    {\n      \"produto\": \"frutas variadas\",\n      \"produto_original\": \"Frutas variadas (goiaba, banana, manga, maracujá)\",\n      \"quantidade\": 100,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"hortaliças variadas\",\n      \"produto_original\": \"Hortaliças (alface, couve, espinafre, tomate, cebolinha)\",\n      \"quantidade\": 60,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ovos caipira\",\n      \"produto_original\": \"Ovos caipira\",\n      \"quantidade\": 50,\n      \"unidade\": \"dúzia\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel puro\",\n      \"produto_original\": \"Mel puro\",\n      \"quantidade\": 5,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Fornecimento semanal\",\n    \"Obrigatório: certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa\",\n    \"Exige envio de cópias das certificações, fichas técnicas e dados cadastrais dos produtores (nome, CPF, endereço, CAF)\"\n  ],\n  \"campos_faltantes\": [\n    \"prazo_entrega\",\n    \"quantidades_por_subproduto\"\n  ],\n  \"ambiguidades\": [\n    \"Quantidades informadas como totais para grupos de frutas e hortaliças sem especificação individual por produto\"\n  ]\n}",
+              "thought_signature": "EmAKXgFpFH0TjD8uApO0KJroJWYTT0eb0fBMAz_-ylZxkCqp2G-beeayyccdl4G3Bde7ewrIw2StQwiF0E9b3G6rILzo8wuxmiJtiCGDiIRtsJ4hZ7pZROkaam05D4c9Kzc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "X-H4auSSCvH8wbUP9tHyuAs",
+    "usage_metadata": {
+      "candidates_token_count": 511,
+      "prompt_token_count": 2609,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2609
+        }
+      ],
+      "total_token_count": 3120
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "Hospital São Francisco",
+      "canal": "email",
+      "itens": [
+        {
+          "produto": "frutas variadas",
+          "produto_original": "Frutas variadas (goiaba, banana, manga, maracujá)",
+          "quantidade": 100,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "hortaliças variadas",
+          "produto_original": "Hortaliças (alface, couve, espinafre, tomate, cebolinha)",
+          "quantidade": 60,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos caipira",
+          "quantidade": 50,
+          "unidade": "dúzia",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "mel puro",
+          "produto_original": "Mel puro",
+          "quantidade": 5,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Fornecimento semanal",
+        "Obrigatório: certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa",
+        "Exige envio de cópias das certificações, fichas técnicas e dados cadastrais dos produtores (nome, CPF, endereço, CAF)"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega",
+        "quantidades_por_subproduto"
+      ],
+      "ambiguidades": [
+        "Quantidades informadas como totais para grupos de frutas e hortaliças sem especificação individual por produto"
+      ]
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "bcfda084fddf69e3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5333",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Mercado Bom Preço\",\n  \"canal\": \"formulario_web\",\n  \"itens\": [\n    {\n      \"produto\": \"goiaba paluma\",\n      \"produto_original\": \"goiaba paluma\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"banana prata\",\n      \"produto_original\": \"banana prata\",\n      \"quantidade\": 40,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"maracujá\",\n      \"produto_original\": \"maracuja\",\n      \"quantidade\": 25,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"macaxeira\",\n      \"produto_original\": \"macaxeira\",\n      \"quantidade\": 60,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"inhame\",\n      \"produto_original\": \"inhame\",\n      \"quantidade\": 30,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"tomate\",\n      \"produto_original\": \"tomate\",\n      \"quantidade\": 20,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"alface\",\n      \"produto_original\": \"alface\",\n      \"quantidade\": 50,\n      \"unidade\": \"unidade\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"rúcula\",\n      \"produto_original\": \"rucula\",\n      \"quantidade\": 30,\n      \"unidade\": \"maço\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-11-04\",\n  \"prazo_original\": \"terça 04/nov\",\n  \"observacoes\": [\n    \"Pedido semanal\",\n    \"Entrega no CD\",\n    \"Emitir nota fiscal no CNPJ 12.345.678/0001-90\",\n    \"Contato: Seu Ernesto (87) 3761-1234\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TSQDrGikWzG2lCQ4Aqu9ujJWBKZu8lrPSvltbNSx08orw0TqqK_DQMA7LhGzHagdJg_5bJdOAHY4BBBYhpu_6NYoMUxk8o_P3DD0Ntj8kLkssfWAa9mnDeGg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ROH4as-qLfK5wbUPgbu7gAs",
+    "usage_metadata": {
+      "candidates_token_count": 694,
+      "prompt_token_count": 2518,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2518
+        }
+      ],
+      "total_token_count": 3212
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "Mercado Bom Preço",
+      "canal": "formulario_web",
+      "itens": [
+        {
+          "produto": "goiaba paluma",
+          "produto_original": "goiaba paluma",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "banana prata",
+          "produto_original": "banana prata",
+          "quantidade": 40,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "maracujá",
+          "produto_original": "maracuja",
+          "quantidade": 25,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "macaxeira",
+          "quantidade": 60,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "inhame",
+          "produto_original": "inhame",
+          "quantidade": 30,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "tomate",
+          "produto_original": "tomate",
+          "quantidade": 20,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "alface",
+          "quantidade": 50,
+          "unidade": "unidade",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "rúcula",
+          "produto_original": "rucula",
+          "quantidade": 30,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-04",
+      "prazo_original": "terça 04/nov",
+      "observacoes": [
+        "Pedido semanal",
+        "Entrega no CD",
+        "Emitir nota fiscal no CNPJ 12.345.678/0001-90",
+        "Contato: Seu Ernesto (87) 3761-1234"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

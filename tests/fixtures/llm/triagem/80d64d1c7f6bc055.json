@@ -1,0 +1,86 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "80d64d1c7f6bc055",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:32:31 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1383",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"mensagem_produtor\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Cícero (Produtor P003)\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"queijo coalho\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"manteiga\",\n      \"produto_original\": \"manteiga\",\n      \"quantidade\": 30,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Produtor oferta 200kg de queijo coalho e 30kg de manteiga\",\n    \"Consulta se há pedidos para a semana\",\n    \"Solicita retorno até amanhã, caso contrário venderá na feira\",\n    \"Indica novo produtor interessado (Sebastião, produtor de doce de leite e queijo de cabra, Sítio Vizinho, Caetés)\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TJBLLZOohLDJQ07bxDuc3uZdLrIGLhak6haMjwkSiap_eDyRoBsdn7YxIm6jXZLgqvzAl9KWhS22BdDVC6j0Td-7Tuh7EXL3kZzWMKGGWxEc9vrW8kzu2_nQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "fuH4arH_Ea2ho_UPzaqwmAI",
+    "usage_metadata": {
+      "candidates_token_count": 330,
+      "prompt_token_count": 2526,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2526
+        }
+      ],
+      "total_token_count": 2856
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "mensagem_produtor",
+      "idioma": "pt",
+      "comprador": "Cícero (Produtor P003)",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "queijo coalho",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "manteiga",
+          "produto_original": "manteiga",
+          "quantidade": 30,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Produtor oferta 200kg de queijo coalho e 30kg de manteiga",
+        "Consulta se há pedidos para a semana",
+        "Solicita retorno até amanhã, caso contrário venderá na feira",
+        "Indica novo produtor interessado (Sebastião, produtor de doce de leite e queijo de cabra, Sítio Vizinho, Caetés)"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

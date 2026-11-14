@@ -1,0 +1,85 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5de834547b13ce79",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:31:58 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6061",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"consulta\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Marcos - Sorveteria Tropical\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [\n    {\n      \"produto\": \"morango\",\n      \"produto_original\": \"morango\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"amora\",\n      \"produto_original\": \"amora\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Demanda semanal estimada de 50kg de cada item\",\n    \"Exige certificação orgânica\",\n    \"Solicita tabela de preços\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TWeDm7M-MRe-c4Q6f1rYu2oUVxH0F7ZmtLJhmk9oqRbJDvMg3Ul1O7BNbyr-uoQFeiR5CEQ_afvfT8gq5ley8VmOfYkvyoVFXFt82dpxg3CeHNMA5X6QwhOE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "WOH4asDhNLDjytMP4fvosA4",
+    "usage_metadata": {
+      "candidates_token_count": 260,
+      "prompt_token_count": 2468,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2468
+        }
+      ],
+      "total_token_count": 2728
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "consulta",
+      "idioma": "pt",
+      "comprador": "Marcos - Sorveteria Tropical",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "morango",
+          "produto_original": "morango",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "amora",
+          "produto_original": "amora",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Demanda semanal estimada de 50kg de cada item",
+        "Exige certificação orgânica",
+        "Solicita tabela de preços"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}
