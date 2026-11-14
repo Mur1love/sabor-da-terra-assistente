@@ -1,0 +1,347 @@
+
+- id: CERT-001
+  pedido_id: PED-2026-006
+  desafio: "Consulta documental"
+  requisito: "Verificar validade de certificações"
+
+  entrada: >
+    A produtora P008 pode fornecer mel
+    silvestre como orgânico em 29/10/2026?
+    A solicitação de renovação já permite
+    comercializar como orgânico?
+
+  esperado: >
+    Informar que a certificação orgânica
+    da produtora P008 venceu em 30/09/2026.
+
+    Reconhecer que existe uma solicitação
+    de renovação, mas que ela ainda não
+    comprova a regularização.
+
+    Informar que a auditoria está prevista
+    para 15/11/2026 e que seu agendamento
+    não significa aprovação automática.
+
+    Não considerar os produtos da P008
+    certificados como orgânicos na data
+    consultada.
+
+    Explicar que será necessário comprovar
+    a renovação antes de comercializar
+    os produtos como orgânicos.
+
+    Citar o documento utilizado
+    para fundamentar a resposta.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificação da produtora P008"
+    - "Certificação vencida em 30/09/2026"
+    - "Renovação ainda não comprovada"
+    - "Auditoria prevista para 15/11/2026"
+    - "Proibição de apresentar os produtos como orgânicos"
+    - "Referência ao documento de certificação"
+
+  nao_deve_conter:
+    - "Certificação apresentada como válida"
+    - "Renovação considerada automaticamente aprovada"
+    - "Auditoria tratada como certificação emitida"
+    - "Mel de P008 anunciado como orgânico certificado"
+    - "Informações de certificação inventadas"
+
+  fonte:
+    - "data/certificacoes/cert_organica_josefa_souza_P008.txt"
+    - "docs/02-dataset.md"
+
+
+- id: CERT-002
+  desafio: "Consulta documental"
+  requisito: "Identificar restricoes sanitarias"
+
+  entrada: >
+    A cooperativa pode vender frango caipira
+    do produtor P017 para os seus compradores?
+
+    O produtor possui registro SIE?
+
+    A mesma restricao se aplica aos ovos
+    caipiras vendidos diretamente
+    ao consumidor?
+
+  esperado: >
+    Informar que o produtor P017
+    nao possui registro SIE.
+
+    Identificar que o relatorio da ADAGRO
+    registra a nao conformidade grave
+    NC-001 relacionada ao frango caipira.
+
+    Explicar que a cooperativa deve
+    suspender imediatamente a intermediacao
+    do frango caipira desse produtor
+    ate que ocorra a regularizacao.
+
+    Informar que o documento permite
+    apenas a venda direta ao consumidor
+    final nas condicoes descritas.
+
+    Explicar que o relatorio dispensa
+    o registro SIE para venda direta
+    de ovos ao consumidor.
+
+    Nao considerar essa dispensa como
+    autorizacao automatica para
+    fornecimento institucional de ovos.
+
+    Reconhecer que o produtor P017
+    tambem nao possui certificacao organica.
+
+    Citar o relatorio de inspecao
+    da ADAGRO como fonte da resposta.
+
+    Nao afirmar que a irregularidade
+    foi resolvida sem comprovacao
+    documental posterior.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificacao do produtor P017"
+    - "Ausencia de registro SIE"
+    - "Nao conformidade grave NC-001"
+    - "Suspensao da intermediacao de frango"
+    - "Necessidade de regularizacao"
+    - "Diferenca entre frango e ovos caipiras"
+    - "Dispensa de SIE para venda direta de ovos"
+    - "Ausencia de certificacao organica"
+    - "Referencia ao relatorio da ADAGRO"
+
+  nao_deve_conter:
+    - "P017 apresentado como regular"
+    - "Registro SIE inexistente tratado como valido"
+    - "Intermediacao de frango autorizada"
+    - "Restricao considerada resolvida sem evidencia"
+    - "Venda institucional de ovos liberada automaticamente"
+    - "Certificacao organica inventada"
+    - "Informacoes sanitarias sem comprovacao"
+
+  fonte:
+    - "data/certificacoes/inspecao_adagro_2026.txt"
+    - "docs/02-dataset.md"
+
+
+- id: CERT-003
+  desafio: "Consulta documental"
+  requisito: "Consultar validade de certificacoes organicas"
+
+  entrada: >
+    A produtora P004 possui certificacao
+    organica valida em 11/11/2026?
+
+    Ate quando a certificacao e valida?
+
+    Podemos garantir que ela continuara
+    certificada em 15/12/2026?
+
+  esperado: >
+    Identificar a produtora P004
+    nos registros da cooperativa.
+
+    Informar que sua certificacao
+    organica possui validade
+    ate 01/12/2026.
+
+    Reconhecer que a certificacao
+    esta vigente em 11/11/2026.
+
+    Explicar que nao e possivel
+    garantir sua validade em
+    15/12/2026 sem comprovar
+    a renovacao da certificacao.
+
+    Diferenciar a situacao atual
+    da certificacao de sua
+    situacao em uma data futura.
+
+    Consultar e citar o documento
+    original de certificacao.
+
+    Nao inventar renovacoes,
+    datas ou novos certificados.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificacao da produtora P004"
+    - "Certificacao vigente em 11/11/2026"
+    - "Validade ate 01/12/2026"
+    - "Necessidade de verificar renovacao"
+    - "Ausencia de garantia para 15/12/2026"
+    - "Referencia ao certificado original"
+
+  nao_deve_conter:
+    - "Certificacao considerada vencida em 11/11/2026"
+    - "Validade garantida apos 01/12/2026"
+    - "Renovacao inventada"
+    - "Nova data de validade sem comprovacao"
+    - "Certificacao apresentada como permanente"
+
+  fonte:
+    - "data/certificacoes/cert_organica_ana_bezerra_P004.txt"
+    - "docs/02-dataset.md"
+
+
+- id: CERT-004
+  desafio: "Consulta documental"
+  requisito: "Diferenciar certificacao organica e registro sanitario"
+
+  entrada: >
+    O produtor P018 possui certificacao
+    organica valida para mel silvestre?
+
+    Como ele possui certificacao organica,
+    a cooperativa ja pode confirmar
+    o fornecimento do mel para qualquer
+    comprador?
+
+  esperado: >
+    Identificar o produtor P018
+    como fornecedor de mel silvestre.
+
+    Informar que o produtor possui
+    certificacao organica com validade
+    indicada ate fevereiro de 2027.
+
+    Consultar a documentacao sanitaria
+    para verificar a situacao do
+    registro SIE do produtor.
+
+    Informar que a ficha tecnica
+    do mel silvestre registra o
+    SIE do produtor P018 como pendente.
+
+    Explicar que a certificacao organica
+    e o registro sanitario possuem
+    finalidades diferentes.
+
+    Reconhecer que possuir certificacao
+    organica nao comprova automaticamente
+    a regularidade sanitaria para todas
+    as formas de comercializacao.
+
+    Verificar os requisitos aplicaveis
+    ao fornecimento solicitado antes
+    de confirmar a venda.
+
+    Informar quando nao houver
+    documentacao suficiente para
+    comprovar a regularizacao.
+
+    Citar os documentos utilizados
+    para fundamentar a resposta.
+
+    Nao inventar registros sanitarios
+    ou confirmacoes de regularidade.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificacao do produtor P018"
+    - "Certificacao organica vigente"
+    - "Validade indicada ate fevereiro de 2027"
+    - "Registro SIE pendente"
+    - "Diferenca entre certificacao organica e SIE"
+    - "Verificacao das exigencias sanitarias"
+    - "Consulta a documentacao do produtor"
+    - "Referencia aos documentos utilizados"
+
+  nao_deve_conter:
+    - "Registro SIE apresentado como vigente"
+    - "Certificacao organica considerada suficiente para toda venda"
+    - "Regularizacao sanitaria inventada"
+    - "Fornecimento confirmado sem verificar os requisitos"
+    - "Documentacao inexistente apresentada como valida"
+    - "Informacoes sem comprovacao documental"
+
+  fonte:
+    - "data/certificacoes/cert_organica_debora_melo_P018.txt"
+    - "data/fichas_tecnicas/mel_silvestre.txt"
+    - "docs/02-dataset.md"
+
+
+- id: CERT-005
+  desafio: "Consulta documental"
+  requisito: "Verificar certificacao organica e registro sanitario"
+
+  entrada: >
+    O produtor P002 pode ser considerado
+    um fornecedor documentado de mel
+    silvestre organico em 29/10/2026?
+
+    Ele possui certificacao organica
+    e registro SIE validos?
+
+    Podemos garantir que ele entregara
+    40kg de mel imediatamente?
+
+  esperado: >
+    Identificar o produtor P002
+    como fornecedor de mel silvestre.
+
+    Informar que possui certificacao
+    organica com validade indicada
+    ate 20/03/2027.
+
+    Confirmar documentalmente que
+    possui registro SIE vigente,
+    identificado como PE-SIE-0892.
+
+    Reconhecer que a ficha tecnica
+    informa capacidade estimada
+    de producao de 300kg por mes.
+
+    Explicar que capacidade produtiva
+    nao significa estoque disponivel
+    para entrega imediata.
+
+    Verificar a disponibilidade real,
+    os pedidos ja comprometidos e
+    o prazo solicitado antes de
+    confirmar o fornecimento de 40kg.
+
+    Diferenciar a certificacao organica
+    da autorizacao sanitaria.
+
+    Citar os documentos utilizados
+    para fundamentar a resposta.
+
+    Nao inventar estoque, producao,
+    documentos ou prazos de entrega.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificacao do produtor P002"
+    - "Certificacao organica vigente"
+    - "Validade ate 20/03/2027"
+    - "Registro SIE PE-SIE-0892"
+    - "Capacidade estimada de 300kg por mes"
+    - "Verificacao da disponibilidade real"
+    - "Diferenca entre capacidade e estoque"
+    - "Referencia aos documentos utilizados"
+
+  nao_deve_conter:
+    - "Certificacao organica apresentada como vencida"
+    - "Registro SIE apresentado como inexistente"
+    - "Estoque de 300kg considerado garantido"
+    - "Entrega imediata confirmada sem verificacao"
+    - "Documentos ou registros inventados"
+    - "Disponibilidade afirmada sem consulta"
+
+  fonte:
+    - "data/certificacoes/cert_organica_jose_santos_P002.txt"
+    - "data/certificacoes/inspecao_adagro_2026.txt"
+    - "data/fichas_tecnicas/mel_silvestre.txt"
+    - "docs/02-dataset.md"
+
