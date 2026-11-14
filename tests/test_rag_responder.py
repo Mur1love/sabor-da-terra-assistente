@@ -249,6 +249,26 @@ def test_funcao_consultar_documentos_pronta_para_function_calling(monkeypatch, t
     assert resultado["fontes"] == ["lotes.csv"]
 
 
+def test_data_referencia_malformada_responde_lacuna_em_vez_de_quebrar(tmp_path):
+    llm = _LLMClientFixtureControlado(tmp_path, {})
+    resp = responder_consulta_documental(
+        "Tem certificação para exportação?",
+        data_referencia="outubro/2026",
+        cliente_llm=llm,
+        buscador=lambda _: [],
+        usar_llm_auxiliar=False,
+    )
+    assert "não encontrei" in resp.resposta.lower()
+    assert any("outubro/2026" in lacuna for lacuna in resp.lacunas)
+
+
+def test_produto_ambiguo_propaga_o_aviso_para_o_contexto():
+    plano = _PlanoConsulta(topico="certificacao", produto="mel", filtro_organico=True)
+    dados, alertas, fontes = _coletar_dados_e_alertas("Tem mel orgânico?", plano, "2026-10-30")
+    assert not dados  # ambiguidade não é evidência: sozinha não deve liberar o Flash
+    assert any("jandaíra" in aviso for aviso in alertas)
+
+
 def test_docs04_registra_vertex_ai_search_e_check_grounding():
     texto = (RAIZ / "docs" / "04-arquitetura.md").read_text(encoding="utf-8")
     assert "Vertex AI Search" in texto

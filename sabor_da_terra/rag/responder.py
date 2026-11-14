@@ -300,6 +300,11 @@ def _coletar_dados_e_alertas(
             fontes.add("produtores.csv")
             if res_prod.get("aviso"):
                 alertas.append(str(res_prod["aviso"]))
+        elif res_prod.get("aviso"):
+            # Produto ambíguo (ex.: 'mel' → jandaíra ou silvestre): o aviso entra
+            # como alerta, mas NÃO como evidência estruturada — o limiar de
+            # relevância continua podendo responder a lacuna sem chamar o Flash.
+            alertas.append(str(res_prod["aviso"]))
 
     # 3. Produtor específico mencionado
     if plano.produtor:
@@ -450,7 +455,10 @@ def responder_consulta_documental(
     usar_llm_auxiliar: bool = True,
 ) -> RespostaDocumental:
     """Executa o pipeline completo de consulta documental com citação e anti-alucinação."""
-    ref_data = n.data(data_referencia) if data_referencia else date.today()
+    try:
+        ref_data = n.data(data_referencia) if data_referencia else date.today()
+    except ValueError:
+        ref_data = None
     if ref_data is None:
         return _resposta_lacuna("pt", f"Data de referência inválida: {data_referencia}")
     ref_iso = ref_data.isoformat()
