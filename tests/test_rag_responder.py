@@ -291,6 +291,32 @@ def test_marca_inline_sem_lista_de_citacoes_e_promovida():
     assert validada.citacoes[0].trecho.strip()
 
 
+def test_resposta_sem_nenhuma_citacao_valida_vira_lacuna(tmp_path):
+    llm = _LLMClientFixtureControlado(
+        tmp_path,
+        {
+            "resposta": [
+                '{"resposta":"A cooperativa possui certificação USDA para exportação.","citacoes":[],"lacunas":[]}'
+            ]
+        },
+    )
+    trecho = TrechoRecuperado(
+        arquivo="certificacoes/cert_organica_jose_santos_P002.txt",
+        conteudo="Certificado Nº: ORG-PE-2025-003198. Data de Validade: 20/03/2027.",
+        score=0.9,
+    )
+    resp = responder_consulta_documental(
+        "A cooperativa tem certificação internacional?",
+        data_referencia="2026-10-30",
+        cliente_llm=llm,
+        buscador=lambda _: [trecho],
+        usar_llm_auxiliar=False,
+    )
+    assert resp.citacoes == []
+    assert "não encontrei" in resp.resposta.lower()
+    assert any("citação" in lacuna.lower() for lacuna in resp.lacunas)
+
+
 def test_docs04_registra_vertex_ai_search_e_check_grounding():
     texto = (RAIZ / "docs" / "04-arquitetura.md").read_text(encoding="utf-8")
     assert "Vertex AI Search" in texto

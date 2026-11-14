@@ -577,6 +577,17 @@ def responder_consulta_documental(
             bruta_retry = RespostaDocumental.model_validate_json(resp_retry.text)
             validada, _ = _validar_e_sanear_resposta(bruta_retry, fontes_permitidas, mapa_data, plano.idioma)
 
+    # 7. Resposta sem nenhuma citação com evidência no contexto não pode sair confiante:
+    #    rebaixa para a lacuna (AC1 — toda resposta documental traz ao menos uma citação).
+    sem_citacao = not validada.citacoes and "[fonte:" not in validada.resposta.lower()
+    ja_e_lacuna = validada.resposta.lower().startswith(("não encontrei", "i could not find"))
+    devolve_pergunta = "?" in validada.resposta  # esclarecimento legítimo (ex.: qual mel?)
+    if sem_citacao and (trechos_relevantes or dados_estruturados) and not ja_e_lacuna and not devolve_pergunta:
+        validada = _resposta_lacuna(
+            plano.idioma,
+            "A resposta final não trouxe citação válida do contexto recuperado.",
+        )
+
     return validada
 
 
