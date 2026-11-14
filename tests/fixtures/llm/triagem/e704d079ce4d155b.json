@@ -1,0 +1,69 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e704d079ce4d155b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:32:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2119",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"notificacao_oficial\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"ADAGRO - Agência de Defesa Agropecuária\",\n  \"canal\": \"email\",\n  \"itens\": [],\n  \"prazo_entrega\": \"2026-11-12\",\n  \"prazo_original\": \"nos dias 11 e 12 de novembro de 2026\",\n  \"observacoes\": [\n    \"Inspeção sanitária no entreposto\",\n    \"Solicita cadastro de produtores, certificações orgânicas, laudos sanitários, registros de rastreabilidade e contratos institucionais\",\n    \"Assinado por Dr. Paulo Roberto Farias (Fiscal Estadual Agropecuário - ADAGRO Regional Agreste Meridional)\",\n    \"Risco de suspensão do SIE em caso de não atendimento\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TOa5vZvYzwHEW9VcZooUlPrRUJ5fnAZcMNIdN1KAntlQunnFlt-Wi726rvmO_mnx-mPX0_J8Jaj9abiUkjE5BUlki1WIg3O7t9wFI6oaXyhJa3EaY-CIKPcw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ceH4avKHHZzk5NoPs96K2AE",
+    "usage_metadata": {
+      "candidates_token_count": 223,
+      "prompt_token_count": 2557,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2557
+        }
+      ],
+      "total_token_count": 2780
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "notificacao_oficial",
+      "idioma": "pt",
+      "comprador": "ADAGRO - Agência de Defesa Agropecuária",
+      "canal": "email",
+      "itens": [],
+      "prazo_entrega": "2026-11-12",
+      "prazo_original": "nos dias 11 e 12 de novembro de 2026",
+      "observacoes": [
+        "Inspeção sanitária no entreposto",
+        "Solicita cadastro de produtores, certificações orgânicas, laudos sanitários, registros de rastreabilidade e contratos institucionais",
+        "Assinado por Dr. Paulo Roberto Farias (Fiscal Estadual Agropecuário - ADAGRO Regional Agreste Meridional)",
+        "Risco de suspensão do SIE em caso de não atendimento"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

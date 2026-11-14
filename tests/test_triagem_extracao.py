@@ -91,6 +91,55 @@ def test_resolucao_datas_relativas_e_conflitos() -> None:
     assert analisar_prazo_mensagem("para HOJE (29/10)", "2026-10-29T08:00:00").data_iso == "2026-10-29"
 
 
+def test_mencao_recorrente_de_dia_semana_nao_vira_prazo() -> None:
+    """PED-010: 'toda segunda-feira' é preferência de retirada, não prazo de entrega."""
+    pedidos = json.loads(ARQ_PEDIDOS.read_text(encoding="utf-8"))
+    p10 = next(p for p in pedidos if p["id"] == "PED-2026-010")
+    r10 = analisar_prazo_mensagem(p10["mensagem_original"], p10["data_recebimento"])
+    assert r10.data_iso is None
+    assert r10.conflito is None
+
+
+def test_prazo_aberto_reconhecivel_e_texto_nao_promovido() -> None:
+    """Mês/ano é prazo aberto legítimo (PED-013); rotina/período não vira prazo."""
+    assert (
+        analisar_prazo_mensagem("evento em jan/2027", "2026-10-28T10:00:00", "jan/2027").data_iso
+        == "jan/2027"
+    )
+    assert (
+        analisar_prazo_mensagem(
+            "manda a tabela, consumo por semana", "2026-10-28T10:00:00", "por semana"
+        ).data_iso
+        is None
+    )
+    assert (
+        analisar_prazo_mensagem(
+            "Posso buscar aí toda segunda-feira de manhã",
+            "2026-10-29T14:00:00",
+            "toda segunda-feira de manhã",
+        ).data_iso
+        is None
+    )
+
+
+def test_schema_resposta_compativel_com_gemini() -> None:
+    """O schema enviado em response_schema deve ser aceito pelo SDK do google-genai."""
+    from google.genai import types
+
+    from sabor_da_terra.triagem.schema import esquema_resposta_triagem
+
+    esquema = esquema_resposta_triagem()
+    # Deve validar sem rejeitar campos (ex.: exclusiveMinimum do Pydantic gt=).
+    types.Schema.model_validate(esquema)
+    # Restrições essenciais do schema continuam presentes.
+    assert esquema["required"] == ["tipo"]
+    quantidade = esquema["properties"]["itens"]["items"]["properties"]["quantidade"]
+    assert quantidade["anyOf"][0]["minimum"] == 0
+    assert quantidade["anyOf"][1] == {"type": "null"}
+    assert "$defs" not in esquema
+    assert "$ref" not in json.dumps(esquema)
+
+
 def test_retry_validacao_schema_e_falha_explicita() -> None:
     # 1ª resposta inválida, 2ª válida -> recupera com 1 retry
     valido = json.dumps(

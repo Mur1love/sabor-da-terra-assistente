@@ -1,0 +1,69 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "79f72531cf028b64",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Sat, 14 Nov 2026 22:32:14 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1323",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"mensagem_produtor\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Maria das Graças (Produtora P001)\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Produtora consulta valor vendido no mês atual\",\n    \"Consulta repasse de pagamento do Mercado Bom Preço referente a setembro\",\n    \"Informa dados bancários: Banco do Brasil, agência 0437\",\n    \"Solicita saldo total a receber\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EmAKXgFpFH0TL9yQO6zjpvVQ5XCGsUL7zfFyDeFGz8yLiHHb_nwK5GoFWCJ2C6gXU5dGcJiOOINPPBJxDqaR7M2Ki_xZZH19PuiJ31UKTi3eJ4nKbcM16hGTpw3sNJvGdV4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "beH4asC6F4mwuMYPp4WgyQ8",
+    "usage_metadata": {
+      "candidates_token_count": 167,
+      "prompt_token_count": 2469,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2469
+        }
+      ],
+      "total_token_count": 2636
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "mensagem_produtor",
+      "idioma": "pt",
+      "comprador": "Maria das Graças (Produtora P001)",
+      "canal": "whatsapp",
+      "itens": [],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Produtora consulta valor vendido no mês atual",
+        "Consulta repasse de pagamento do Mercado Bom Preço referente a setembro",
+        "Informa dados bancários: Banco do Brasil, agência 0437",
+        "Solicita saldo total a receber"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

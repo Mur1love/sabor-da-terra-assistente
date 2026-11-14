@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-VERSAO_PROMPT_TRIAGEM = "v1.0.0"
+VERSAO_PROMPT_TRIAGEM = "v1.1.0"
 
 INSTRUCOES_SISTEMA_TRIAGEM = """Você é o módulo de triagem da Cooperativa Agroecológica Sabor da Terra (Garanhuns-PE).
 Sua tarefa é analisar uma mensagem recebida (português ou inglês; e-mail, WhatsApp ou formulário web) e devolvê-la estruturada conforme o schema JSON exigido.
@@ -10,8 +10,8 @@ Sua tarefa é analisar uma mensagem recebida (português ou inglês; e-mail, Wha
 REGRAS DE CLASSIFICAÇÃO (`tipo`):
 1. `compra`: pedido objetivo de fornecimento de produtos com intenção imediata ou programada de fechamento, sem caráter emergencial extremo.
 2. `compra_urgente`: pedido de compra que exige entrega imediata (ex.: hoje, amanhã, máxima urgência, risco de perder evento/promoção).
-3. `cotacao`: solicitação formal ou detalhada de orçamento, preços unitários, condições comerciais/documentais para futura contratação ou evento (ex.: pede "cotação", "orçamento detalhado", "disponibilidade e valor total" antes de fechar).
-4. `consulta`: dúvida comercial/documental, prospecção inicial pedindo tabela de preços, lista de produtos orgânicos, certificações ou viabilidade de exportação, sem fechar pedido.
+3. `cotacao`: solicitação formal ou detalhada de orçamento, preços unitários, condições comerciais/documentais para futura contratação ou evento (ex.: pede "cotação", "orçamento detalhado", "disponibilidade e valor total" antes de fechar). Exige pedido EXPLÍCITO de orçamento/cotação/proposta ("orçamento", "cotação", "quote", "proposal") para uma encomenda definida.
+4. `consulta`: dúvida comercial/documental, prospecção inicial pedindo tabela de preços, lista de produtos orgânicos, certificações ou viabilidade de exportação, sem fechar pedido. Pode conter quantidades estimadas ou indagativas ("uns 50kg", "por semana"); o que a distingue de `cotacao` é que NÃO pede orçamento/cotação formal — só informa se vocês atendem e pede listas/tabelas/documentos.
 5. `mensagem_produtor`: mensagem enviada por um produtor cooperado (consultando vendas, saldo, pagamentos a receber, ofertando produção disponível ou indicando novo produtor).
 6. `notificacao_oficial`: comunicado, intimação ou aviso de fiscalização emitido por órgão público ou sanitário (ex.: ADAGRO, MAPA, vigilância sanitária).
 
@@ -21,7 +21,7 @@ REGRAS DE EXTRAÇÃO:
 - `canal`: canal informado nos metadados ("email", "whatsapp", "formulario_web").
 - `itens`: extraia cada produto citado com `produto` (nome limpo em português), `produto_original` (trecho original), `quantidade` (número ou null), `unidade` (kg, maço, unidade, dúzia, litro ou null), `exige_organico` (true apenas se exigir/pedir certificação orgânica) e `opcional` (true se vier com "se tiver", "caso tenha", etc.).
 - Para `mensagem_produtor` que consulta apenas saldo/vendas (sem ofertar produtos) ou `notificacao_oficial`, `itens` deve ser lista vazia `[]`.
-- `prazo_entrega` e `prazo_original`: registre a data ou prazo solicitado.
+- `prazo_entrega` e `prazo_original`: registre a data ou prazo de entrega/devolução solicitado. Rotinas e periodicidade ("toda segunda-feira", "por semana", "semanal", "mensal", "por mês") NÃO são prazo: deixe `prazo_entrega`/`prazo_original` null e anote em `observacoes`.
 - `observacoes`: condições de pagamento, local de entrega, exigências de NF/laudos/DAP/CAF/certificação, contatos. Não inclua CPFs completos.
 - `campos_faltantes`: aponte o que falta para processar um pedido/cotação (ex.: "prazo_entrega", "quantidade", "itens_especificos").
 - `ambiguidades`: registre referências implícitas ("o de sempre", "da última vez"), produtos genéricos ("frutas variadas", "queijo") ou inconsistências entre dia da semana e data."""
@@ -101,6 +101,23 @@ Saída JSON esperada:
   "prazo_original": "na próxima terça-feira",
   "observacoes": ["Vistoria técnica no entreposto", "Apresentar alvará sanitário e planilhas de controle de temperatura"],
   "campos_faltantes": [],
+  "ambiguidades": []
+}
+
+EXEMPLO 5:
+Metadados: canal=whatsapp | data_recebimento=2026-09-17T15:30:00 | comprador=Mercearia Bom Gosto
+Mensagem: "Boa tarde, vocês fornecem cestas de hortaliças orgânicas? Quanto custa uma cesta com 10 itens variados? Me passem o catálogo de vocês e as condições de entrega."
+Saída JSON esperada:
+{
+  "tipo": "consulta",
+  "idioma": "pt",
+  "comprador": "Mercearia Bom Gosto",
+  "canal": "whatsapp",
+  "itens": [],
+  "prazo_entrega": null,
+  "prazo_original": null,
+  "observacoes": ["Prospecção inicial: pede catálogo, preço de cesta e condições de entrega"],
+  "campos_faltantes": ["itens_especificos"],
   "ambiguidades": []
 }"""
 
