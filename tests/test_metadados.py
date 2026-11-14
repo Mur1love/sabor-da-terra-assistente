@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from sabor_da_terra.rag.metadados import enriquecer_metadados_trecho
 from sabor_da_terra.rag.leitor import carregar_documentos
 from sabor_da_terra.rag.metadados import (
     extrair_produtor_id,
@@ -139,3 +140,25 @@ def test_preservar_metadados_originais():
     # A função não deve modificar o dicionário recebido.
     assert originais["produtor_id"] is None
     assert enriquecidos["produtor_id"] == "P017"
+
+
+def test_reconhecer_produto_singular():
+    metadados = {"produtor_id": None}
+
+    resultado = enriquecer_metadados_trecho(
+        "Produto: Queijo coalho",
+        metadados,
+    )
+
+    assert resultado["produto"] == ["queijo coalho"]
+
+
+def test_multiplos_produtores_sem_id_unico():
+    metadados = {"produtor_id": None}
+
+    resultado = enriquecer_metadados_trecho(
+        "Produtores P002 e P017 foram vistoriados.",
+        metadados,
+    )
+
+    assert resultado["produtor_id"] is None

@@ -65,15 +65,25 @@ def enriquecer_metadados_trecho(
 
     metadados = metadados_documento.copy()
 
-    # Identifica um produtor mencionado no trecho.
-    produtores = re.findall(r"\bP\d{3}\b", texto)
+    # Identifica os produtores mencionados no trecho.
+    produtores = set(
+        re.findall(
+            r"\bP\d{3}\b",
+            texto,
+            flags=re.IGNORECASE,
+        )
+    )
 
-    if len(set(produtores)) == 1:
-        metadados["produtor_id"] = produtores[0]
+    if len(produtores) == 1:
+        metadados["produtor_id"] = next(iter(produtores)).upper()
 
-    # Extrai produtos quando existe um campo explícito.
+    elif len(produtores) > 1:
+        # Evita associar vários produtores a um único ID.
+        metadados["produtor_id"] = None
+
+    # Reconhece "Produto:" e "Produtos:".
     resultado = re.search(
-        r"(?im)^\s*Produtos:\s*(.+)$",
+        r"(?im)^\s*Produtos?:\s*(.+)$",
         texto,
     )
 
