@@ -68,6 +68,11 @@ _REGEX_MES_TEXTO = (
     r"(?P<mes_txt>janeiro|fevereiro|mar[cç]o|abril|maio|junho|julho|agosto|"
     r"setembro|outubro|novembro|dezembro|jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)"
 )
+_PADRAO_MES_ANO = re.compile(
+    r"\b(?:jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)[\w]*\s*"
+    r"(?:de\s*)?[/\-\s]?\s*(?:\d{4}|\d{2})\b",
+    flags=re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -269,6 +274,10 @@ def analisar_prazo_mensagem(
             flags=re.IGNORECASE,
         )
         if m_sem:
+            prefixo = fonte[: m_sem.start()]
+            if re.search(r"\btod[oa]s?\s*(?:as?\s*)?$", prefixo, flags=re.IGNORECASE):
+                # Menção recorrente ("toda segunda-feira") indica rotina, não prazo.
+                continue
             chave = _sem_acento_lower(m_sem.group("dia_semana"))
             dia_alvo = _DIAS_SEMANA[chave]
             qual = _sem_acento_lower(m_sem.group("qual") or "")
@@ -290,7 +299,16 @@ def analisar_prazo_mensagem(
             conflito=conflito,
         )
 
+    # 5. Texto aberto de prazo reconhecível (ex.: "jan/2027", "janeiro de 2027")
+    if prazo_extraido and _PADRAO_MES_ANO.search(prazo_extraido.strip()):
+        return ResultadoData(
+            data_iso=prazo_extraido,
+            trecho_original=prazo_extraido,
+        )
+
+    # Texto não reconhecido como data/prazo (rotina, periodicidade, prosa)
+    # não é promovido a prazo de entrega.
     return ResultadoData(
-        data_iso=prazo_extraido,
-        trecho_original=prazo_extraido,
+        data_iso=None,
+        trecho_original=None,
     )
