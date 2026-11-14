@@ -1,0 +1,1464 @@
+
+- id: TRI-001
+  pedido_id: PED-2026-001
+  desafio: "Triagem de pedidos"
+  requisito: "Interpretar pedidos em linguagem natural"
+
+  entrada: >
+    Bom dia! Preciso pra essa sexta (01/nov):
+    30kg de queijo coalho, 10kg de manteiga
+    de garrafa, 5kg de mel silvestre,
+    20 maços de coentro e 10 de cebolinha.
+    Se tiver ricota fresca também quero
+    uns 5kg. Obrigado! Carlos.
+
+  esperado: >
+    Classificar a mensagem como pedido de compra.
+    Identificar os produtos e suas quantidades:
+    30kg de queijo coalho, 10kg de manteiga
+    de garrafa, 5kg de mel silvestre,
+    20 maços de coentro e 10 maços de
+    cebolinha. Registrar aproximadamente
+    5kg de ricota fresca como item opcional,
+    sujeito a disponibilidade.
+    Solicitar confirmação da data de entrega,
+    pois 01/11/2026 corresponde a domingo,
+    não sexta-feira.
+    Não confirmar disponibilidade sem consulta.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como pedido de compra"
+    - "30kg de queijo coalho"
+    - "10kg de manteiga de garrafa"
+    - "5kg de mel silvestre"
+    - "20 maços de coentro"
+    - "10 maços de cebolinha"
+    - "Ricota fresca opcional"
+    - "Confirmação da data de entrega"
+
+  nao_deve_conter:
+    - "Ricota confirmada sem verificar disponibilidade"
+    - "Data contraditória aceita sem ressalva"
+    - "Substituição dos tipos de produtos solicitados"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-001)"
+    - "docs/02-dataset.md"
+
+
+
+
+- id: TRI-002
+  pedido_id: PED-2026-002
+  desafio: "Triagem de pedidos"
+  requisito: "Extrair informações de pedidos"
+
+  entrada: >
+    Pedido semanal: goiaba paluma 50kg,
+    banana prata 40kg, maracujá 25kg,
+    macaxeira 60kg, inhame 30kg,
+    tomate 20kg, alface 50 unidades
+    e rúcula 30 maços.
+    Entrega terça, 04/11, no centro
+    de distribuição.
+    Emitir nota fiscal para o CNPJ informado.
+    Dados de contato registrados no pedido.
+
+  esperado: >
+    Classificar como pedido de compra semanal
+    do Mercado Bom Preço.
+    Identificar corretamente os oito produtos,
+    suas quantidades e unidades de medida.
+    Registrar a entrega no centro de
+    distribuição e a necessidade de nota fiscal.
+    Preservar os dados cadastrais do comprador.
+    Solicitar confirmação da data de entrega,
+    pois 04/11/2026 corresponde a quarta-feira,
+    não terça-feira.
+    Consultar as condições do contrato
+    antes de confirmar o atendimento.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como compra semanal"
+    - "50kg de goiaba paluma"
+    - "40kg de banana prata"
+    - "25kg de maracujá"
+    - "60kg de macaxeira"
+    - "30kg de inhame"
+    - "20kg de tomate"
+    - "50 unidades de alface"
+    - "30 maços de rúcula"
+    - "Entrega no centro de distribuição"
+    - "Emissão de nota fiscal"
+    - "Confirmação da data de entrega"
+
+  nao_deve_conter:
+    - "Produtos ou quantidades inventados"
+    - "Unidades de medida incorretas"
+    - "Data contraditória aceita sem ressalva"
+    - "Entrega confirmada sem verificação"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-002)"
+    - "data/contratos/"
+    - "docs/02-dataset.md"
+
+
+
+- id: TRI-003
+  pedido_id: PED-2026-003
+  desafio: "Triagem de pedidos"
+  requisito: "Compreender português coloquial"
+
+  data_recebimento: "28/10/2026 11:05:00"
+
+  entrada: >
+    oi td bem? to precisando daquele queijo
+    q vcs mandaram da ultima vez, o mais
+    artesanal sabe? uns 15kg. e tem mel
+    de jandaíra?? quero 3kg. preciso
+    urgente pra amanha se possivel.
+    manda o pix q eu transfiro agora
+
+  esperado: >
+    Classificar como pedido de compra urgente.
+    Identificar aproximadamente 15kg de queijo
+    e 3kg de mel de jandaíra.
+
+    Consultar o histórico de compras para
+    identificar qual queijo foi solicitado.
+    Caso não seja possível identificar,
+    pedir confirmação ao cliente.
+
+    Interpretar "amanhã" como 29/10/2026,
+    considerando a data de recebimento.
+
+    Verificar a disponibilidade dos produtos
+    e a possibilidade de entrega no prazo.
+
+    Reconhecer que o cliente deseja pagar
+    por PIX, sem inventar uma chave ou
+    confirmar o pagamento.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como compra urgente"
+    - "Aproximadamente 15kg de queijo"
+    - "3kg de mel de jandaíra"
+    - "Consulta ao histórico do cliente"
+    - "Confirmação do tipo de queijo, se necessário"
+    - "Prazo solicitado de 29/10/2026"
+    - "Verificação de disponibilidade"
+    - "Solicitação de pagamento via PIX"
+
+  nao_deve_conter:
+    - "Tipo de queijo inventado"
+    - "Entrega garantida sem verificação"
+    - "Disponibilidade confirmada sem consulta"
+    - "Chave PIX inventada"
+    - "Pagamento confirmado sem comprovação"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-003)"
+    - "data/financeiro.csv"
+    - "docs/02-dataset.md"
+
+
+
+- id: TRI-004
+  pedido_id: PED-2026-004
+  desafio: "Triagem de pedidos"
+  requisito: "Interpretar pedidos e validar exigências contratuais"
+
+  data_recebimento: "28/10/2026 14:20:00"
+
+  entrada: >
+    Conforme o Contrato 045/2026-PNAE,
+    solicitamos para o período de 04 a
+    08 de novembro de 2026:
+
+    Banana prata 200kg, goiaba 100kg,
+    macaxeira 150kg, inhame 80kg,
+    alface 200 unidades, coentro 100 maços,
+    tomate 50kg, mel silvestre orgânico
+    20kg e ovos caipiras 100 dúzias.
+
+    Todos os produtos devem ter notas
+    fiscais e certificações aplicáveis.
+    Entrega no depósito central,
+    das 7h às 12h.
+
+  esperado: >
+    Classificar como pedido institucional
+    de compra vinculado ao PNAE.
+
+    Identificar corretamente os nove
+    produtos, quantidades e unidades.
+
+    Registrar o período de entrega de
+    04 a 08/11/2026 e o horário
+    de 7h às 12h no depósito central.
+
+    Consultar o Contrato 045/2026-PNAE
+    e utilizar os preços contratados,
+    não os preços da tabela geral.
+
+    Verificar a disponibilidade dos
+    produtos e a capacidade de atendimento.
+
+    Para o mel silvestre orgânico,
+    verificar a validade da certificação
+    do fornecedor, sem aceitar
+    certificações vencidas.
+
+    Para os ovos caipiras, conferir
+    as exigências sanitárias aplicáveis
+    ao fornecimento institucional.
+
+    Verificar DAP/CAF dos produtores
+    e as notas fiscais exigidas
+    pelo contrato.
+
+    Não confirmar o atendimento
+    antes de verificar as condições.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como compra institucional"
+    - "Contrato 045/2026-PNAE"
+    - "200kg de banana prata"
+    - "100kg de goiaba"
+    - "150kg de macaxeira"
+    - "80kg de inhame"
+    - "200 unidades de alface"
+    - "100 maços de coentro"
+    - "50kg de tomate"
+    - "20kg de mel silvestre orgânico"
+    - "100 dúzias de ovos caipiras"
+    - "Entrega de 04 a 08/11/2026"
+    - "Horário de 7h às 12h"
+    - "Consulta aos preços contratuais"
+    - "Verificação de certificação orgânica"
+    - "Verificação de exigências sanitárias"
+    - "Verificação de notas fiscais e DAP/CAF"
+
+  nao_deve_conter:
+    - "Preços gerais usados no lugar dos contratuais"
+    - "Certificação vencida aceita como válida"
+    - "Venda institucional sem documentação exigida"
+    - "Disponibilidade inventada"
+    - "Atendimento confirmado sem verificação"
+    - "Produtos ou quantidades incorretos"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-004)"
+    - "data/contratos/"
+    - "data/certificacoes/"
+    - "data/produtores.csv"
+    - "docs/02-dataset.md"
+
+
+
+- id: TRI-005
+  pedido_id: PED-2026-005
+  desafio: "Triagem de pedidos"
+  requisito: "Compreender português coloquial"
+
+  data_recebimento: "28/10/2026 15:40:00"
+
+  entrada: >
+    lucia minha filha me manda 10kg
+    de queijo coalho e 5kg de manteiga
+    pra sabado, o de sempre ne. bjs
+
+  esperado: >
+    Classificar como pedido de compra
+    informal.
+
+    Identificar 10kg de queijo coalho
+    e 5kg de manteiga.
+
+    Interpretar a expressão "o de sempre"
+    como referência a compras ou
+    preferências anteriores da cliente.
+
+    Consultar o histórico para identificar
+    possíveis preferências, especialmente
+    o tipo de manteiga solicitado.
+
+    Caso o histórico não permita confirmar
+    os detalhes, solicitar esclarecimento
+    à cliente.
+
+    Interpretar sábado como 31/10/2026,
+    considerando a data de recebimento
+    da mensagem.
+
+    Verificar a disponibilidade dos
+    produtos antes de confirmar a entrega.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como pedido de compra"
+    - "10kg de queijo coalho"
+    - "5kg de manteiga"
+    - "Consulta ao histórico de compras"
+    - "Confirmação de preferências, se necessário"
+    - "Entrega solicitada para 31/10/2026"
+    - "Verificação de disponibilidade"
+
+  nao_deve_conter:
+    - "Tipo de manteiga inventado"
+    - "Histórico de compras inventado"
+    - "Produtos ou quantidades incorretos"
+    - "Entrega garantida sem verificação"
+    - "Preferências anteriores afirmadas sem evidência"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-005)"
+    - "data/financeiro.csv"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-006
+  pedido_id: PED-2026-006
+  desafio: "Triagem de pedidos"
+  requisito: "Identificar urgência e limitações de atendimento"
+
+  data_recebimento: "29/10/2026 08:00:00"
+
+  entrada: >
+    PEDIDO URGENTE!
+
+    Necessitamos com máxima urgência
+    para HOJE (29/10):
+
+    Queijo coalho: 200kg
+    Queijo manteiga: 50kg
+    Mel silvestre orgânico: 40kg
+    Goiaba: 300kg
+
+    Pagamento por boleto em 30 dias,
+    conforme contrato.
+
+    Entrega no CD SuperBom,
+    BR-423 km 12, Garanhuns.
+
+    Se não atenderem hoje,
+    perderemos a promoção de fim de semana.
+
+  esperado: >
+    Classificar como pedido de compra
+    de máxima urgência.
+
+    Identificar corretamente os quatro
+    produtos e suas quantidades, sem
+    confundir queijo manteiga com
+    manteiga de garrafa.
+
+    Interpretar HOJE como 29/10/2026,
+    considerando a data de recebimento.
+
+    Verificar o estoque, a capacidade
+    dos produtores e a possibilidade
+    de entrega no mesmo dia.
+
+    Verificar se o mel silvestre
+    possui fornecedor com certificação
+    orgânica válida e documentação
+    necessária para comercialização.
+
+    Não considerar a certificação
+    vencida do produtor P008 como válida.
+
+    Consultar as condições contratuais
+    antes de confirmar o pagamento
+    por boleto em 30 dias.
+
+    Registrar o local de entrega
+    e sinalizar os riscos relacionados
+    ao volume elevado e ao prazo curto.
+
+    Caso não seja possível atender
+    integralmente, informar as limitações
+    e solicitar confirmação de alternativas.
+
+    Não garantir o atendimento sem
+    verificar os dados necessários.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como compra urgente"
+    - "200kg de queijo coalho"
+    - "50kg de queijo manteiga"
+    - "40kg de mel silvestre orgânico"
+    - "300kg de goiaba"
+    - "Entrega solicitada para 29/10/2026"
+    - "Verificação de capacidade e disponibilidade"
+    - "Verificação da certificação orgânica"
+    - "Consulta das condições de pagamento"
+    - "Identificação dos riscos de atendimento"
+
+  nao_deve_conter:
+    - "Confusão entre queijo manteiga e manteiga de garrafa"
+    - "Certificação vencida aceita como válida"
+    - "Disponibilidade inventada"
+    - "Entrega garantida sem verificação"
+    - "Contrato afirmado sem comprovação"
+    - "Pagamento confirmado sem verificação"
+    - "Produtos ou quantidades incorretos"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-006)"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/fichas_tecnicas/"
+    - "data/contratos/"
+    - "docs/02-dataset.md"
+
+
+
+- id: TRI-007
+  pedido_id: PED-2026-007
+  desafio: "Triagem de pedidos"
+  requisito: "Verificar disponibilidade, sazonalidade e restrições"
+
+  data_recebimento: "29/10/2026 09:30:00"
+
+  entrada: >
+    Pedido para evento de 08/nov,
+    jantar regional com 120 convidados.
+
+    Queijo coalho 25kg,
+    queijo manteiga 10kg,
+    mel variado 8kg, preferencialmente orgânico,
+    goiaba 20kg,
+    cajá 10kg, se tiver,
+    rapadura 15kg,
+    tapioca/goma 10kg,
+    frango caipira 40kg
+    e ovos caipiras 30 dúzias.
+
+    Precisamos saber a disponibilidade
+    dos produtos e o valor total.
+
+  esperado: >
+    Classificar como pedido para evento
+    com solicitação de cotação.
+
+    Identificar os nove produtos,
+    suas quantidades e unidades de medida.
+
+    Registrar o evento para 08/11/2026,
+    com 120 convidados.
+
+    Consultar a disponibilidade dos
+    produtos e a capacidade dos produtores.
+
+    Verificar a sazonalidade do cajá,
+    que apresenta baixa disponibilidade
+    em novembro. Tratar o item como
+    opcional e não garantir seu fornecimento.
+
+    Reconhecer que o mel orgânico
+    é uma preferência do comprador.
+    Caso seja ofertado como orgânico,
+    verificar a certificação do fornecedor.
+
+    Não considerar válida a certificação
+    orgânica vencida do produtor P008.
+
+    Identificar a restrição sanitária
+    do produtor P017, que impede a
+    intermediação de frango caipira
+    pela cooperativa.
+
+    Verificar separadamente as condições
+    aplicáveis ao fornecimento de ovos.
+
+    Consultar a tabela de preços
+    e calcular o orçamento apenas
+    com valores e quantidades verificados.
+
+    Caso algum produto não possa ser
+    fornecido, informar a limitação
+    e solicitar confirmação de alternativas.
+
+    Não inventar preços, disponibilidade
+    ou autorizações sanitárias.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como pedido para evento"
+    - "Evento em 08/11/2026"
+    - "120 convidados"
+    - "25kg de queijo coalho"
+    - "10kg de queijo manteiga"
+    - "8kg de mel variado"
+    - "20kg de goiaba"
+    - "10kg de cajá opcional"
+    - "15kg de rapadura"
+    - "10kg de tapioca/goma"
+    - "40kg de frango caipira"
+    - "30 dúzias de ovos caipiras"
+    - "Verificação de sazonalidade do cajá"
+    - "Preferência por mel orgânico"
+    - "Verificação de certificação orgânica"
+    - "Restrição sanitária do produtor P017"
+    - "Consulta à tabela de preços"
+    - "Orçamento baseado em valores verificados"
+
+  nao_deve_conter:
+    - "Cajá confirmado sem verificar disponibilidade"
+    - "Certificação vencida aceita como válida"
+    - "Intermediação de frango de P017 autorizada"
+    - "Mel orgânico tratado como exigência obrigatória"
+    - "Preços ou valores totais inventados"
+    - "Disponibilidade confirmada sem consulta"
+    - "Produtos ou quantidades incorretos"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-007)"
+    - "data/sazonalidade.csv"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/fichas_tecnicas/"
+    - "data/tabela_precos_outubro_2026.csv"
+    - "docs/02-dataset.md"
+
+
+
+- id: TRI-008
+  pedido_id: PED-2026-008
+  desafio: "Triagem de pedidos"
+  requisito: "Classificar consultas e verificar certificações"
+
+  data_recebimento: "29/10/2026 10:15:00"
+
+  entrada: >
+    E aí pessoal! Vcs tem morango e amora?
+    To querendo fazer uma linha nova de
+    sorvetes. Preciso de uns 50kg de cada
+    por semana se o preço for bom.
+    Manda a tabela de preço aí.
+    Ah e precisa ser orgânico pq vou
+    botar no rótulo.
+
+  esperado: >
+    Classificar a mensagem como consulta
+    comercial de prospecção, não como
+    pedido de compra confirmado.
+
+    Identificar o interesse em aproximadamente
+    50kg de morango e 50kg de amora
+    por semana.
+
+    Reconhecer que a intenção de compra
+    depende das condições de preço.
+
+    Identificar que a certificação orgânica
+    é uma exigência obrigatória do cliente.
+
+    Consultar os produtores disponíveis
+    e verificar a validade das certificações
+    orgânicas.
+
+    Verificar a sazonalidade e a capacidade
+    de fornecimento semanal dos produtos.
+
+    Consultar a tabela de preços e apresentar
+    os valores orgânicos correspondentes,
+    caso estejam disponíveis e verificados.
+
+    Informar possíveis limitações de
+    disponibilidade ou fornecimento.
+
+    Não registrar automaticamente um pedido
+    de compra ou confirmar entregas.
+
+    Não afirmar que produtos são orgânicos
+    sem comprovação documental.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como consulta comercial"
+    - "50kg de morango por semana"
+    - "50kg de amora por semana"
+    - "Compra condicionada ao preço"
+    - "Certificação orgânica obrigatória"
+    - "Verificação da validade das certificações"
+    - "Consulta à tabela de preços"
+    - "Verificação de sazonalidade"
+    - "Verificação da capacidade de fornecimento"
+
+  nao_deve_conter:
+    - "Pedido de compra registrado automaticamente"
+    - "Compra tratada como confirmada"
+    - "Produto convencional oferecido como orgânico"
+    - "Certificação vencida aceita como válida"
+    - "Preços inventados"
+    - "Disponibilidade semanal garantida sem consulta"
+    - "Quantidades ou produtos incorretos"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-008)"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/sazonalidade.csv"
+    - "data/tabela_precos_outubro_2026.csv"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-009
+  pedido_id: PED-2026-009
+  desafio: "Triagem de pedidos"
+  requisito: "Identificar exigências documentais e rastreabilidade"
+
+  data_recebimento: "29/10/2026 11:45:00"
+
+  entrada: >
+    Solicitamos cotação e disponibilidade
+    para fornecimento semanal:
+
+    Frutas variadas: goiaba, banana,
+    manga e maracujá, 100kg no total.
+
+    Hortaliças: alface, couve, espinafre,
+    tomate e cebolinha, 60kg no total.
+
+    Ovos caipiras: 50 dúzias.
+    Mel puro: 5kg.
+
+    É obrigatório apresentar certificação
+    orgânica para todos os itens possíveis,
+    laudo sanitário atualizado e
+    rastreabilidade completa.
+
+    Solicitamos cópias das certificações,
+    fichas técnicas e dados cadastrais
+    dos produtores, incluindo registro CAF.
+
+  esperado: >
+    Classificar como solicitação de cotação
+    para fornecimento semanal, sem registrar
+    automaticamente uma compra confirmada.
+
+    Identificar 100kg totais de frutas,
+    distribuídos entre goiaba, banana,
+    manga e maracujá, sem inventar
+    quantidades individuais.
+
+    Identificar 60kg totais de hortaliças,
+    incluindo alface, couve, espinafre,
+    tomate e cebolinha, sem atribuir
+    quantidades individuais inexistentes.
+
+    Identificar 50 dúzias de ovos caipiras
+    e 5kg de mel puro.
+
+    Verificar disponibilidade dos produtos
+    e capacidade de fornecimento semanal.
+
+    Consultar certificações orgânicas e
+    verificar quais produtos possuem
+    comprovação válida.
+
+    Respeitar a exigência de certificação
+    para todos os itens em que ela
+    for aplicável.
+
+    Consultar laudos sanitários atualizados
+    e informar eventuais documentos
+    ausentes ou vencidos.
+
+    Consultar registros de rastreabilidade
+    para identificar produtor, lote e
+    data de colheita quando aplicável
+    ao tipo de produto.
+
+    Consultar fichas técnicas e informações
+    cadastrais dos produtores fornecedores.
+
+    Verificar a existência e a validade
+    dos registros CAF, sem presumir que
+    todos os produtores estejam regulares.
+
+    Tratar dados pessoais dos produtores
+    conforme as regras de confidencialidade,
+    evitando exposição desnecessária.
+
+    Solicitar esclarecimento sobre a
+    distribuição das quantidades entre
+    frutas e hortaliças, caso necessário
+    para elaborar a cotação.
+
+    Não inventar certificações, laudos,
+    registros CAF, preços ou disponibilidade.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como solicitação de cotação"
+    - "Fornecimento semanal"
+    - "100kg totais de frutas variadas"
+    - "Goiaba, banana, manga e maracujá"
+    - "60kg totais de hortaliças"
+    - "Alface, couve, espinafre, tomate e cebolinha"
+    - "50 dúzias de ovos caipiras"
+    - "5kg de mel puro"
+    - "Verificação de certificação orgânica"
+    - "Consulta aos laudos sanitários"
+    - "Verificação de rastreabilidade"
+    - "Identificação de produtor e lote"
+    - "Consulta às fichas técnicas"
+    - "Verificação dos registros CAF"
+    - "Verificação de disponibilidade semanal"
+    - "Identificação de documentos ausentes"
+
+  nao_deve_conter:
+    - "Compra registrada automaticamente"
+    - "100kg atribuídos a cada fruta"
+    - "60kg atribuídos a cada hortaliça"
+    - "Certificações inexistentes ou vencidas aceitas"
+    - "Laudos sanitários inventados"
+    - "Registros CAF presumidos como válidos"
+    - "Rastreabilidade inventada"
+    - "Dados pessoais expostos sem necessidade"
+    - "Preços inventados"
+    - "Disponibilidade garantida sem consulta"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-009)"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/lotes.csv"
+    - "data/fichas_tecnicas/"
+    - "data/sazonalidade.csv"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-010
+  pedido_id: PED-2026-010
+  desafio: "Consulta documental"
+  requisito: "Consultar produtos, produtores e certificações"
+
+  data_recebimento: "29/10/2026 14:00:00"
+
+  entrada: >
+    Boa tarde! Quero fechar um fornecimento
+    mensal de tudo que vocês tiverem COM
+    certificação orgânica.
+
+    Me passem a lista completa dos produtos
+    orgânicos, quais produtores fornecem,
+    as datas de validade das certificações
+    e os preços.
+
+    Posso buscar aí toda segunda-feira
+    de manhã.
+
+  esperado: >
+    Classificar como consulta comercial
+    com intenção de fornecimento mensal,
+    sem considerar a compra confirmada.
+
+    Consultar o cadastro dos produtores
+    e os documentos de certificação orgânica.
+
+    Identificar os produtos orgânicos
+    disponíveis e seus fornecedores.
+
+    Informar as datas de validade das
+    certificações com base nos documentos.
+
+    Considerar somente certificações
+    válidas na data de referência.
+
+    Identificar que a certificação orgânica
+    do produtor P008 venceu em 30/09/2026.
+
+    Não apresentar os produtos de P008
+    como certificados orgânicos enquanto
+    a renovação não estiver comprovada.
+
+    Consultar a tabela de preços e
+    apresentar os valores correspondentes
+    aos produtos orgânicos verificados.
+
+    Verificar a disponibilidade e a
+    capacidade de fornecimento mensal
+    dos produtos solicitados.
+
+    Registrar a preferência de retirada
+    às segundas-feiras pela manhã.
+
+    Confirmar com a cooperativa se
+    esse horário de retirada é possível.
+
+    Não confirmar automaticamente
+    o fornecimento ou a retirada.
+
+    Informar quando algum produto,
+    preço ou certificado não puder
+    ser comprovado na documentação.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como consulta comercial"
+    - "Intenção de fornecimento mensal"
+    - "Lista de produtos orgânicos verificados"
+    - "Identificação dos produtores fornecedores"
+    - "Datas de validade das certificações"
+    - "Exclusão de P008 dos certificados vigentes"
+    - "Consulta aos preços dos produtos orgânicos"
+    - "Verificação da disponibilidade"
+    - "Verificação da capacidade de fornecimento"
+    - "Proposta de retirada às segundas-feiras"
+    - "Confirmação pendente das condições comerciais"
+
+  nao_deve_conter:
+    - "Compra registrada automaticamente"
+    - "Certificação vencida apresentada como válida"
+    - "Produtos convencionais apresentados como orgânicos"
+    - "Produtores inventados"
+    - "Certificações ou validades inventadas"
+    - "Preços não comprovados"
+    - "Disponibilidade garantida sem consulta"
+    - "Retirada confirmada sem verificação"
+    - "Contrato considerado fechado automaticamente"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-010)"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/tabela_precos_outubro_2026.csv"
+    - "data/sazonalidade.csv"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-011
+  pedido_id: PED-2026-011
+  desafio: "Triagem de pedidos"
+  requisito: "Interpretar consultas internacionais e identificar exigências"
+
+  data_recebimento: "30/10/2026 07:50:00"
+
+  entrada: >
+    Dear Sabor da Terra,
+
+    We are interested in sourcing organic
+    tropical fruits for export to the European
+    market. We need:
+
+    Mango: 500kg/month
+    Guava: 300kg/month
+    Passion fruit: 200kg/month
+
+    All products MUST have valid organic
+    certification, Brazilian and international
+    equivalent.
+
+    Please provide:
+    1. Complete producer list with certifications
+    2. Traceability documentation
+    3. Phytosanitary certificates
+    4. Bank details for international wire transfer.
+
+  esperado: >
+    Classificar como consulta comercial
+    internacional com intenção de fornecimento
+    mensal, sem registrar compra confirmada.
+
+    Interpretar corretamente a mensagem
+    escrita em inglês.
+
+    Identificar 500kg de manga, 300kg de
+    goiaba e 200kg de maracujá por mês.
+
+    Reconhecer que o comprador exige
+    certificação orgânica brasileira e
+    certificação internacional equivalente
+    para todos os produtos.
+
+    Consultar os documentos disponíveis
+    e verificar quais produtores possuem
+    certificações orgânicas brasileiras válidas.
+
+    Informar que não foi encontrada
+    comprovação das certificações
+    internacionais exigidas na base consultada.
+
+    Verificar que a tabela de preços não
+    apresenta opção orgânica cadastrada
+    para o maracujá, sem afirmar que o
+    produto certificado está disponível.
+
+    Consultar os registros de rastreabilidade
+    e identificar quais documentos podem
+    ser comprovados.
+
+    Verificar se existem certificados
+    fitossanitários disponíveis.
+    Caso não existam, informar a ausência.
+
+    Reconhecer a solicitação de dados
+    bancários para transferência internacional,
+    sem divulgar informações financeiras
+    confidenciais sem autorização.
+
+    Verificar sazonalidade, capacidade
+    produtiva e disponibilidade dos
+    produtos para fornecimento mensal.
+
+    Não afirmar que a cooperativa está
+    habilitada para exportar sem
+    documentação comprobatória.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como consulta internacional"
+    - "Interpretação correta do inglês"
+    - "500kg de manga por mês"
+    - "300kg de goiaba por mês"
+    - "200kg de maracujá por mês"
+    - "Certificação orgânica brasileira obrigatória"
+    - "Certificação internacional equivalente obrigatória"
+    - "Ausência de comprovação internacional"
+    - "Verificação das certificações dos produtores"
+    - "Verificação da rastreabilidade"
+    - "Verificação dos certificados fitossanitários"
+    - "Tratamento seguro dos dados bancários"
+    - "Consulta da capacidade produtiva mensal"
+
+  nao_deve_conter:
+    - "Compra registrada automaticamente"
+    - "Certificação internacional inventada"
+    - "Certificação brasileira apresentada como equivalente internacional sem prova"
+    - "Maracujá orgânico confirmado sem evidência"
+    - "Certificados fitossanitários inventados"
+    - "Dados bancários divulgados sem autorização"
+    - "Capacidade de exportação garantida sem comprovação"
+    - "Disponibilidade inventada"
+    - "Produtos ou quantidades incorretos"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-011)"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/lotes.csv"
+    - "data/sazonalidade.csv"
+    - "data/tabela_precos_outubro_2026.csv"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-012
+  pedido_id: PED-2026-012
+  desafio: "Comunicação com produtores"
+  requisito: "Gerar resumos de vendas e consultar pagamentos"
+
+  data_recebimento: "30/10/2026 09:20:00"
+
+  entrada: >
+    Dona Lúcia, tô ligando pra saber
+    quanto eu vendi esse mês.
+
+    E aquele pagamento do Mercado Bom Preço
+    de setembro, já caiu?
+
+    Me diz quanto tá o saldo que eu
+    tenho pra receber. Bjs.
+
+  esperado: >
+    Classificar como consulta financeira
+    realizada por uma produtora da
+    cooperativa, e não como pedido de compra.
+
+    Identificar a produtora P001 com base
+    no cadastro e no contexto da mensagem,
+    verificando a autorização de acesso
+    antes de divulgar informações financeiras.
+
+    Interpretar "esse mês" como outubro
+    de 2026, considerando a data
+    de recebimento da mensagem.
+
+    Consultar o histórico financeiro
+    da produtora P001 no arquivo
+    financeiro.csv.
+
+    Identificar as vendas registradas
+    em outubro de 2026 e calcular
+    o valor total correspondente.
+
+    Consultar os registros de setembro
+    relacionados ao Mercado Bom Preço.
+
+    Verificar o status do pagamento
+    solicitado, distinguindo valores
+    pagos e valores pendentes.
+
+    Caso não exista comprovação
+    de pagamento, não afirmar
+    que o dinheiro foi depositado.
+
+    Calcular o total pendente de
+    recebimento com base nas transações
+    disponíveis e em seus status,
+    informando o período considerado.
+
+    Diferenciar o valor das vendas,
+    os pagamentos recebidos e
+    os valores ainda pendentes.
+
+    Não confundir o saldo a receber
+    na cooperativa com o saldo real
+    da conta bancária da produtora.
+
+    Informar quando os registros
+    disponíveis forem insuficientes
+    para confirmar alguma informação.
+
+    Não inventar valores financeiros,
+    pagamentos ou comprovantes.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificação como consulta financeira"
+    - "Identificação da produtora P001"
+    - "Vendas de outubro de 2026"
+    - "Valor total das vendas registradas"
+    - "Consulta ao pagamento de setembro"
+    - "Verificação do Mercado Bom Preço"
+    - "Status do pagamento"
+    - "Total pendente de recebimento"
+    - "Diferença entre vendas e pagamentos"
+    - "Valores calculados a partir dos registros"
+    - "Proteção das informações financeiras"
+
+  nao_deve_conter:
+    - "Mensagem classificada como pedido de compra"
+    - "Vendas de outros produtores incluídas"
+    - "Valores financeiros inventados"
+    - "Pagamento confirmado sem comprovação"
+    - "Transações pagas tratadas como pendentes"
+    - "Saldo bancário inventado"
+    - "Dados financeiros divulgados sem autorização"
+    - "Informações sem referência aos registros"
+    - "Cálculos incorretos"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-012)"
+    - "data/produtores.csv"
+    - "data/financeiro.csv"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-013
+  pedido_id: PED-2026-013
+  desafio: "Triagem de pedidos"
+  requisito: "Elaborar cotacoes e verificar documentacao dos produtores"
+
+  data_recebimento: "30/10/2026 10:45:00"
+
+  entrada: >
+    Pedido para colonia de ferias em janeiro
+    de 2027, com 200 criancas durante 15 dias.
+
+    Frutas variadas: 500kg no total.
+    Hortalicas variadas: 200kg no total.
+    Queijo coalho: 50kg.
+    Mel: 10kg.
+    Ovos: 200 duzias.
+    Frango caipira: 100kg.
+    Macaxeira: 80kg.
+
+    Precisamos de orcamento detalhado,
+    com precos unitarios.
+
+    Informar se todos os produtores
+    possuem DAP/CAF ativa.
+
+    Pagamento via empenho.
+    Emissao de nota fiscal com os
+    dados cadastrais do SESC-PE.
+
+  esperado: >
+    Classificar como solicitacao de
+    orcamento institucional para
+    fornecimento futuro.
+
+    Identificar que o fornecimento
+    sera realizado em janeiro de 2027,
+    para 200 criancas durante 15 dias.
+
+    Extrair corretamente todos os
+    produtos e suas quantidades.
+
+    Reconhecer que os 500kg de frutas
+    e os 200kg de hortalicas representam
+    quantidades totais, sem distribuicao
+    definida entre produtos especificos.
+
+    Solicitar esclarecimentos sobre
+    os tipos e quantidades individuais
+    de frutas e hortalicas.
+
+    Consultar a tabela de precos
+    e elaborar orcamento apenas com
+    valores comprovados.
+
+    Informar que os precos de outubro
+    de 2026 precisam de confirmacao
+    para fornecimento em janeiro de 2027.
+
+    Respeitar as unidades de medida,
+    especialmente ovos em duzias.
+
+    Consultar a sazonalidade e a
+    capacidade de fornecimento dos
+    produtores para janeiro de 2027.
+
+    Verificar os documentos disponiveis
+    para confirmar a situacao do DAP/CAF
+    de cada produtor envolvido.
+
+    Informar quando nao houver
+    comprovacao documental suficiente
+    para confirmar a regularidade.
+
+    Identificar a restricao sanitaria
+    do produtor P017, que impede
+    a intermediacao de seu frango
+    caipira pela cooperativa.
+
+    Verificar possiveis fornecedores
+    regulares antes de oferecer
+    frango caipira no orcamento.
+
+    Registrar a proposta de pagamento
+    via empenho, sem considerar
+    as condicoes automaticamente aceitas.
+
+    Reconhecer a necessidade de
+    emissao de nota fiscal com
+    os dados cadastrais fornecidos.
+
+    Nao confirmar o fornecimento
+    sem verificar documentacao,
+    capacidade, precos e disponibilidade.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificacao como solicitacao de orcamento"
+    - "Fornecimento em janeiro de 2027"
+    - "200 criancas durante 15 dias"
+    - "500kg totais de frutas variadas"
+    - "200kg totais de hortalicas variadas"
+    - "50kg de queijo coalho"
+    - "10kg de mel"
+    - "200 duzias de ovos"
+    - "100kg de frango caipira"
+    - "80kg de macaxeira"
+    - "Consulta aos precos dos produtos"
+    - "Confirmacao dos precos para janeiro"
+    - "Respeito as unidades de medida"
+    - "Verificacao de sazonalidade"
+    - "Verificacao da capacidade produtiva"
+    - "Consulta aos registros DAP/CAF"
+    - "Identificacao da restricao de P017"
+    - "Pagamento proposto via empenho"
+    - "Necessidade de nota fiscal"
+
+  nao_deve_conter:
+    - "Compra registrada automaticamente"
+    - "Frutas distribuidas sem confirmacao"
+    - "Hortalicas distribuidas sem confirmacao"
+    - "Ovos calculados como quilogramas sem conversao"
+    - "Precos futuros confirmados sem verificacao"
+    - "DAP/CAF de todos os produtores presumida valida"
+    - "Frango de P017 liberado para intermediacao"
+    - "Capacidade de fornecimento inventada"
+    - "Valores de orcamento inventados"
+    - "Pagamento por empenho automaticamente aceito"
+    - "Entrega garantida sem verificacao"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-013)"
+    - "data/produtores.csv"
+    - "data/tabela_precos_outubro_2026.csv"
+    - "data/sazonalidade.csv"
+    - "data/certificacoes/"
+    - "data/fichas_tecnicas/"
+    - "docs/02-dataset.md"
+
+
+- id: TRI-014
+  pedido_id: PED-2026-014
+  desafio: "Consulta documental"
+  requisito: "Interpretar notificacoes oficiais e localizar documentos"
+
+  data_recebimento: "30/10/2026 13:30:00"
+
+  entrada: >
+    NOTIFICACAO
+
+    A Cooperativa Sabor da Terra sera
+    submetida a inspecao sanitaria da
+    ADAGRO nos dias 11 e 12 de novembro
+    de 2026.
+
+    Devem estar disponiveis:
+
+    - Cadastro atualizado de todos os
+      produtores, incluindo nome, CPF,
+      endereco e produtos.
+    - Certificacoes organicas vigentes.
+    - Laudos sanitarios dos ultimos 12 meses.
+    - Registros de rastreabilidade dos
+      ultimos 3 lotes de cada produto.
+    - Contratos com compradores institucionais.
+
+    O nao atendimento podera resultar
+    em suspensao do SIE.
+
+  esperado: >
+    Classificar a mensagem como notificacao
+    oficial de fiscalizacao sanitaria,
+    e nao como pedido de compra.
+
+    Identificar a ADAGRO como o orgao
+    responsavel pela notificacao.
+
+    Registrar as datas da inspecao:
+    11 e 12 de novembro de 2026.
+
+    Identificar todos os documentos
+    solicitados pelo orgao fiscalizador.
+
+    Consultar o cadastro dos produtores
+    e verificar as informacoes cadastrais
+    exigidas pela notificacao.
+
+    Consultar os certificados organicos
+    e identificar quais estao vigentes
+    na data de referencia.
+
+    Sinalizar que a certificacao da
+    produtora P008 esta vencida,
+    sem apresenta-la como valida.
+
+    Consultar os laudos sanitarios
+    e verificar quais atendem ao
+    periodo dos ultimos 12 meses
+    aplicavel a inspecao.
+
+    Consultar os registros de
+    rastreabilidade dos produtos.
+
+    Verificar se existem registros
+    dos ultimos tres lotes de cada
+    produto solicitado.
+
+    Caso algum produto nao possua
+    tres lotes documentados, informar
+    a ausencia ou insuficiencia.
+
+    Consultar os contratos existentes
+    com compradores institucionais.
+
+    Organizar uma lista dos documentos
+    encontrados e das pendencias
+    que precisam ser resolvidas.
+
+    Identificar a possibilidade de
+    suspensao do SIE caso as exigencias
+    nao sejam atendidas.
+
+    Nao afirmar que o SIE ja esta
+    suspenso apenas pela notificacao.
+
+    Proteger os dados pessoais dos
+    produtores e disponibiliza-los
+    somente para consulta autorizada.
+
+    Nao inventar documentos,
+    certificacoes, laudos ou registros.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificacao como notificacao oficial"
+    - "Identificacao da ADAGRO"
+    - "Inspecao em 11 e 12/11/2026"
+    - "Consulta ao cadastro dos produtores"
+    - "Verificacao de certificacoes vigentes"
+    - "Identificacao da certificacao vencida de P008"
+    - "Verificacao dos laudos sanitarios"
+    - "Periodo de referencia dos ultimos 12 meses"
+    - "Rastreabilidade dos ultimos 3 lotes por produto"
+    - "Identificacao de registros ausentes"
+    - "Consulta aos contratos institucionais"
+    - "Organizacao das pendencias documentais"
+    - "Risco de suspensao do SIE"
+    - "Protecao dos dados pessoais"
+
+  nao_deve_conter:
+    - "Notificacao tratada como pedido de compra"
+    - "Certificacao vencida apresentada como vigente"
+    - "Laudos sanitarios inventados"
+    - "Tres lotes confirmados sem verificacao"
+    - "Registros de rastreabilidade inventados"
+    - "Contratos inexistentes apresentados como validos"
+    - "SIE declarado suspenso sem comprovacao"
+    - "Fiscalizacao considerada concluida"
+    - "Dados pessoais expostos sem autorizacao"
+    - "Documentacao declarada completa sem verificacao"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-014)"
+    - "data/produtores.csv"
+    - "data/certificacoes/"
+    - "data/lotes.csv"
+    - "data/contratos/"
+    - "docs/02-dataset.md"
+
+
+
+- id: TRI-015
+  pedido_id: PED-2026-015
+  desafio: "Comunicação com produtores"
+  requisito: "Interpretar ofertas de produtores e solicitações de cadastro"
+
+  data_recebimento: "30/10/2026 16:00:00"
+
+  entrada: >
+    Lucia, to com 200kg de queijo coalho
+    pronto e 30kg de manteiga.
+
+    Tem pedido pra mim essa semana?
+    Se nao tiver vou vender na feira direto.
+
+    Me avisa ate amanha.
+
+    Meu vizinho Sebastiao quer se cadastrar
+    na cooperativa. Ele produz doce de leite
+    e queijo de cabra.
+
+    Posso passar o contato dele?
+
+  esperado: >
+    Classificar a mensagem como comunicacao
+    de um produtor da cooperativa,
+    e nao como pedido de compra.
+
+    Identificar o produtor P003, Cicero,
+    por meio do cadastro e do contexto
+    da mensagem.
+
+    Reconhecer a oferta de 200kg de
+    queijo coalho e 30kg de manteiga.
+
+    Identificar que o tipo de manteiga
+    nao foi especificado, solicitando
+    esclarecimento quando necessario.
+
+    Consultar os pedidos existentes
+    para verificar oportunidades de
+    fornecimento ao produtor P003.
+
+    Verificar se existem pedidos
+    compativeis com os produtos,
+    quantidades e prazos informados.
+
+    Nao afirmar que existem pedidos
+    disponiveis sem consultar os registros.
+
+    Nao registrar automaticamente
+    os produtos como vendidos ou alocados.
+
+    Reconhecer que o produtor considera
+    vender diretamente na feira caso
+    nao existam pedidos da cooperativa.
+
+    Interpretar "ate amanha" como
+    31/10/2026, considerando a data
+    de recebimento da mensagem.
+
+    Identificar a solicitacao relacionada
+    ao possivel cadastro de Sebastiao,
+    produtor de doce de leite e
+    queijo de cabra.
+
+    Reconhecer que o novo produtor
+    ainda nao possui cadastro confirmado.
+
+    Orientar sobre o procedimento de
+    cadastro e verificar quais dados
+    e documentos sao necessarios.
+
+    Solicitar autorizacao e utilizar
+    um canal apropriado antes de
+    receber ou registrar dados pessoais.
+
+    Nao cadastrar automaticamente
+    o interessado sem autorizacao
+    e sem funcionalidade disponivel.
+
+    Informar quando nao for possivel
+    concluir alguma das solicitacoes
+    com os recursos existentes.
+
+    Nao inventar pedidos, vendas,
+    cadastros ou confirmacoes.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Classificacao como comunicacao de produtor"
+    - "Identificacao do produtor P003"
+    - "200kg de queijo coalho disponiveis"
+    - "30kg de manteiga disponiveis"
+    - "Consulta aos pedidos existentes"
+    - "Verificacao de compatibilidade dos pedidos"
+    - "Prazo de resposta em 31/10/2026"
+    - "Possibilidade de venda direta na feira"
+    - "Solicitacao de cadastro de novo produtor"
+    - "Sebastiao como interessado no cadastro"
+    - "Producao de doce de leite"
+    - "Producao de queijo de cabra"
+    - "Necessidade de procedimento de cadastro"
+    - "Protecao de dados pessoais"
+
+  nao_deve_conter:
+    - "Mensagem classificada como pedido de compra"
+    - "Produtos registrados como vendidos automaticamente"
+    - "Pedidos ou alocacoes inventados"
+    - "Tipo de manteiga presumido sem evidencia"
+    - "Venda confirmada sem verificacao"
+    - "Resposta com prazo incorreto"
+    - "Novo produtor considerado cadastrado"
+    - "Cadastro realizado sem autorizacao"
+    - "Dados pessoais divulgados sem necessidade"
+    - "Funcionalidades inexistentes apresentadas como concluidas"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-015)"
+    - "data/produtores.csv"
+    - "data/financeiro.csv"
+    - "docs/02-dataset.md"
+
+

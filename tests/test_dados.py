@@ -359,8 +359,9 @@ def test_preco_ovos_em_duzia_traz_observacao_da_tabela():
     assert resultado["total"] == 180.0
 
 
-def test_preco_quantidade_invalida():
-    assert not preco("alface", organico=False, quantidade=0)["encontrado"]
+@pytest.mark.parametrize("quantidade", [0, -5, float("nan"), float("inf")])
+def test_preco_quantidade_invalida(quantidade):
+    assert not preco("alface", organico=False, quantidade=quantidade)["encontrado"]
 
 
 # --------------------------------------------------------------------------- #

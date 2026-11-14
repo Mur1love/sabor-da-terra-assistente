@@ -1,0 +1,211 @@
+- id: PROD-001
+  pedido_id: PED-2026-012
+  desafio: "Comunicação com produtores"
+  requisito: "Gerar extrato financeiro com valores exatos do histórico"
+
+  entrada: >
+    Gere o resumo financeiro completo para a
+    produtora P001 (Maria das Graças Silva Ferreira)
+    respondendo: quanto ela vendeu em outubro de 2026,
+    se o pagamento do Mercado Bom Preço de setembro
+    já caiu e qual o saldo pendente a receber.
+
+  esperado: >
+    Informar com base em financeiro.csv que não há
+    nenhuma venda registrada para P001 em outubro
+    de 2026 (R$ 0,00). Sobre o Mercado Bom Preço
+    em setembro de 2026, confirmar que as duas
+    vendas de 02/09/2026 — FIN-2026-001 (120kg de
+    goiaba paluma a R$ 4,50 = R$ 540,00) e
+    FIN-2026-002 (80kg de manga tommy a R$ 5,00 =
+    R$ 400,00), totalizando R$ 940,00 — já constam
+    como PAGAS em 01/10/2026 (antes do vencimento
+    de 02/10/2026). Informar ainda a venda via PIX
+    de 20/09/2026 ao Restaurante Raízes (FIN-2026-015,
+    R$ 150,00, paga no mesmo dia) e concluir que o
+    saldo pendente a receber de P001 é R$ 0,00.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Produtora P001 (Maria das Graças Silva Ferreira)"
+    - "Nenhuma venda registrada em outubro de 2026 (R$ 0,00)"
+    - "FIN-2026-001: R$ 540,00 (goiaba paluma)"
+    - "FIN-2026-002: R$ 400,00 (manga tommy)"
+    - "Total de R$ 940,00 do Mercado Bom Preço pago em 01/10/2026"
+    - "Saldo pendente a receber de R$ 0,00"
+    - "Citação de data/financeiro.csv"
+
+  nao_deve_conter:
+    - "Vendas de outubro de outros produtores atribuídas a P001"
+    - "Pagamento do Mercado Bom Preço informado como pendente"
+    - "Valores financeiros inventados"
+
+  fonte:
+    - "data/financeiro.csv (FIN-2026-001, FIN-2026-002, FIN-2026-015)"
+    - "data/pedidos.json (PED-2026-012)"
+    - "data/produtores.csv"
+
+- id: PROD-002
+  pedido_id: PED-2026-015
+  desafio: "Comunicação com produtores"
+  requisito: "Gerar resumo de pendências atrasadas e notificação de demanda"
+
+  entrada: >
+    Prepare um resumo financeiro e operacional para
+    o produtor P003 (Cícero Romão de Almeida),
+    detalhando pagamentos em atraso e oportunidades
+    de pedidos para os 200kg de queijo coalho e
+    30kg de manteiga que ele ofertou.
+
+  esperado: >
+    Apresentar o extrato de P003 em financeiro.csv:
+    uma venda paga via PIX em 05/09/2026 ao
+    Restaurante Raízes (FIN-2026-003, R$ 1.440,00)
+    e duas pendências vencidas em 18/10/2026 junto à
+    Rede SuperBom Atacado marcadas como
+    "ATRASADO - cobrar": FIN-2026-013 (150kg de
+    queijo coalho = R$ 4.500,00) e FIN-2026-014
+    (40kg de queijo manteiga = R$ 1.520,00),
+    totalizando R$ 6.020,00 em atraso. Notificar
+    sobre pedidos compatíveis em aberto para queijo
+    coalho (ex.: PED-2026-001 com 30kg, PED-2026-006
+    com 200kg urgentes, PED-2026-007 com 25kg) e
+    pedir confirmação se os 30kg de manteiga são
+    manteiga de garrafa ou queijo manteiga.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Produtor P003 (Cícero Romão de Almeida)"
+    - "FIN-2026-013: R$ 4.500,00 (ATRASADO - cobrar)"
+    - "FIN-2026-014: R$ 1.520,00 (ATRASADO - cobrar)"
+    - "Total em atraso de R$ 6.020,00 (vencido em 18/10/2026)"
+    - "Oportunidades de pedidos em aberto para queijo coalho"
+    - "Esclarecimento sobre o tipo de manteiga"
+    - "Citação de data/financeiro.csv e data/pedidos.json"
+
+  nao_deve_conter:
+    - "Pendências do SuperBom tratadas como pagas"
+    - "Alocação automática sem confirmação"
+    - "Valores inventados"
+
+  fonte:
+    - "data/financeiro.csv (FIN-2026-003, FIN-2026-013, FIN-2026-014)"
+    - "data/pedidos.json (PED-2026-001, PED-2026-006, PED-2026-007, PED-2026-015)"
+    - "data/produtores.csv"
+
+- id: PROD-003
+  desafio: "Comunicação com produtores"
+  requisito: "Relatório autônomo de pendências financeiras vencidas"
+
+  entrada: >
+    Gere um relatório autônomo com todos os
+    pagamentos já vencidos e ainda pendentes na
+    cooperativa até 30/10/2026, indicando produtor,
+    comprador, valor e data de vencimento.
+
+  esperado: >
+    Listar exatamente as cinco transações com
+    status "pendente" e vencimento anterior a
+    30/10/2026 em financeiro.csv:
+    1) FIN-2026-013 — P003 (Cícero Romão de Almeida),
+    Rede SuperBom Atacado, R$ 4.500,00, vencido em
+    18/10/2026 ("ATRASADO - cobrar");
+    2) FIN-2026-014 — P003 (Cícero Romão de Almeida),
+    Rede SuperBom Atacado, R$ 1.520,00, vencido em
+    18/10/2026 ("ATRASADO - cobrar");
+    3) FIN-2026-005 — P002 (José Antônio dos Santos),
+    Prefeitura de Garanhuns - PNAE, R$ 1.650,00,
+    vencido em 23/10/2026 (Empenho 2026NE00234);
+    4) FIN-2026-006 — P004 (Ana Lúcia Bezerra da
+    Costa), Prefeitura de Garanhuns - PNAE,
+    R$ 750,00, vencido em 23/10/2026;
+    5) FIN-2026-007 — P004 (Ana Lúcia Bezerra da
+    Costa), Prefeitura de Garanhuns - PNAE,
+    R$ 270,00, vencido em 23/10/2026.
+    Total vencido: R$ 8.690,00. Não misturar
+    títulos a vencer em novembro/dezembro
+    (FIN-2026-023, 024, 025, 027, 030).
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "FIN-2026-013 (R$ 4.500,00) e FIN-2026-014 (R$ 1.520,00)"
+    - "FIN-2026-005 (R$ 1.650,00)"
+    - "FIN-2026-006 (R$ 750,00) e FIN-2026-007 (R$ 270,00)"
+    - "Total vencido de R$ 8.690,00"
+    - "Distinção entre títulos vencidos e a vencer"
+    - "Citação de data/financeiro.csv"
+
+  nao_deve_conter:
+    - "Títulos com vencimento em nov/dez listados como vencidos"
+    - "Transações já pagas incluídas como pendentes"
+
+  fonte:
+    - "data/financeiro.csv"
+    - "docs/02-dataset.md"
+
+- id: PROD-004
+  desafio: "Comunicação com produtores"
+  requisito: "Gerar notificação personalizada de novos pedidos por produtor"
+
+  entrada: >
+    Redija uma notificação personalizada para o
+    produtor P002 (José Antônio dos Santos)
+    informando as demandas de mel registradas nos
+    pedidos de 28 a 30/10/2026.
+
+  esperado: >
+    Gerar mensagem direcionada a José Antônio dos
+    Santos (P002), destacando que ele possui
+    certificação orgânica vigente até 20/03/2027 e
+    registro SIE vigente PE-SIE-0892, e listar as
+    demandas compatíveis (exemplos):
+    - PED-2026-003: 3kg de mel de jandaíra
+      (Bistrô Sertão Gourmet, urgente);
+    - PED-2026-004: 20kg de mel silvestre
+      orgânico (PNAE);
+    - PED-2026-006: 40kg de mel silvestre
+      orgânico (Rede SuperBom Atacado, urgente).
+    Lembrar que o mel de jandaíra e a própolis
+    são exclusivos de P002 (nenhum outro produtor
+    da cooperativa os fornece) e que a capacidade
+    documentada na ficha técnica é de cerca de
+    300kg/mês, suficiente para o total de 63kg
+    demandado, mas que capacidade não é estoque
+    disponível para entrega imediata.
+    Nas demais mensagens com mel (PED-2026-007,
+    PED-2026-009 e PED-2026-013), tratar como
+    cotações em aberto: oportunidades potenciais,
+    não compras confirmadas.
+    Não confirmar alocação nem comprometer
+    volumes antes da resposta do produtor.
+    Citar os documentos utilizados.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Produtor P002 (José Antônio dos Santos)"
+    - "Certificação orgânica vigente até 20/03/2027"
+    - "Registro SIE PE-SIE-0892"
+    - "PED-2026-003: 3kg de mel de jandaíra"
+    - "PED-2026-004: 20kg de mel silvestre orgânico (PNAE)"
+    - "PED-2026-006: 40kg de mel silvestre orgânico (SuperBom)"
+    - "Exclusividade do mel de jandaíra e da própolis de P002"
+    - "Cotações (PED-2026-007, PED-2026-009, PED-2026-013) não tratadas como compra confirmada"
+    - "Citação de data/pedidos.json e data/produtores.csv"
+
+  nao_deve_conter:
+    - "Demandas de mel de outros produtores atribuídas a P002"
+    - "Capacidade de 300kg/mês tratada como estoque disponível"
+    - "Alocação ou venda confirmada sem resposta do produtor"
+    - "Cotações tratadas como compra confirmada"
+    - "Dados confidenciais (PIX, banco, CPF) expostos na notificação"
+    - "Demandas ou valores inventados"
+
+  fonte:
+    - "data/pedidos.json (PED-2026-003, PED-2026-004, PED-2026-006)"
+    - "data/produtores.csv"
+    - "data/certificacoes/cert_organica_jose_santos_P002.txt"
+    - "data/fichas_tecnicas/mel_silvestre.txt"

@@ -1,0 +1,527 @@
+# Fatos de conformidade tirados dos documentos de data/.
+#
+# Todo fato tem "fonte": o arquivo de data/ de onde ele saiu. Os alertas das
+# regras citam essa fonte. Em produção esta base vira uma tabela no BigQuery.
+#
+# Datas no formato AAAA-MM-DD. Nomes de produto iguais aos do catálogo
+# (sazonalidade e tabela de preços).
+
+certificacoes_organicas:
+  - produtor_id: P001
+    certificado: ORG-PE-2025-004721
+    certificadora: IBD Certificações
+    emissao: 2025-06-15
+    validade: 2027-06-15
+    produtos: [goiaba paluma, acerola, manga tommy]
+    fonte: certificacoes/cert_organica_maria_silva_P001.txt
+
+  - produtor_id: P002
+    certificado: ORG-PE-2025-003198
+    certificadora: IBD Certificações
+    emissao: 2025-03-20
+    validade: 2027-03-20
+    produtos: [mel silvestre, mel de jandaíra, própolis]
+    fonte: certificacoes/cert_organica_jose_santos_P002.txt
+
+  - produtor_id: P004
+    certificado: ECO-BR-2024-PE-0891
+    certificadora: Ecocert Brasil
+    emissao: 2024-12-01
+    validade: 2026-12-01
+    produtos: [alface, coentro, cebolinha, rúcula, tomate cereja]
+    fonte: certificacoes/cert_organica_ana_bezerra_P004.txt
+
+  - produtor_id: P007
+    certificado: ORG-PE-2025-005432
+    certificadora: IBD Certificações
+    emissao: 2025-08-10
+    validade: 2027-08-10
+    produtos: [queijo coalho, manteiga de garrafa, nata]
+    fonte: certificacoes/cert_organica_antonio_lima_P007.txt
+
+  # Vencida. O pedido de renovação não libera a venda como orgânico: só a
+  # renovação concluída (novo certificado emitido) volta a valer.
+  - produtor_id: P008
+    certificado: ORG-PE-2024-003876
+    certificadora: IBD Certificações
+    emissao: 2024-09-30
+    validade: 2026-09-30
+    produtos: [mel silvestre, geleia de frutas, doce de goiaba]
+    renovacao:
+      protocolo: REN-2026-0456
+      solicitada_em: 2026-09-15
+      auditoria_em: 2026-11-15
+      # Preencher quando a certificadora emitir o novo certificado.
+      concluida_em: null
+      nova_validade: null
+    fonte: certificacoes/cert_organica_josefa_souza_P008.txt
+
+  - produtor_id: P009
+    certificado: ECO-BR-2025-PE-1102
+    certificadora: Ecocert Brasil
+    emissao: 2025-04-22
+    validade: 2027-04-22
+    produtos: [alface, rúcula, espinafre, couve, hortelã, manjericão]
+    fonte: certificacoes/cert_organica_marcos_rocha_P009.txt
+
+  - produtor_id: P012
+    certificado: ECO-BR-2025-PE-0998
+    certificadora: Ecocert Brasil
+    emissao: 2025-01-15
+    validade: 2027-01-15
+    produtos: [tomate, pimentão, pepino, berinjela, quiabo]
+    fonte: certificacoes/cert_organica_luciana_gomes_P012.txt
+
+  - produtor_id: P014
+    certificado: ORG-PE-2025-006789
+    certificadora: IBD Certificações
+    emissao: 2025-07-01
+    validade: 2027-07-01
+    produtos: [morango, amora, mirtilo, framboesa]
+    fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt
+
+  - produtor_id: P018
+    certificado: ORG-PE-2025-002345
+    certificadora: IBD Certificações
+    emissao: 2025-02-28
+    validade: 2027-02-28
+    produtos: [mel silvestre, cera de abelha, pólen]
+    fonte: certificacoes/cert_organica_debora_melo_P018.txt
+
+# Registro no Serviço de Inspeção (SIE) de quem tem produto de origem animal.
+# situacao: vigente, pendente ou ausente.
+registros_sanitarios:
+  - produtor_id: P002
+    situacao: vigente
+    registro: PE-SIE-0892
+    fonte: certificacoes/laudo_sanitario_apiario_jose_P002.txt
+
+  - produtor_id: P003
+    situacao: vigente
+    registro: PE-SIE-0756
+    fonte: certificacoes/laudo_sanitario_queijaria_cicero_P003.txt
+
+  - produtor_id: P007
+    situacao: vigente
+    registro: PE-SIE-1203
+    fonte: certificacoes/cert_organica_antonio_lima_P007.txt
+
+  - produtor_id: P008
+    situacao: pendente
+    fonte: fichas_tecnicas/mel_silvestre.txt
+
+  - produtor_id: P018
+    situacao: pendente
+    fonte: fichas_tecnicas/mel_silvestre.txt
+
+  - produtor_id: P011
+    situacao: ausente
+    observacao: A ficha técnica limita a venda dele ao consumidor final.
+    fonte: fichas_tecnicas/queijo_coalho.txt
+
+  - produtor_id: P017
+    situacao: ausente
+    observacao: Ovos só dispensam o SIE na venda direta ao consumidor final.
+    fonte: certificacoes/inspecao_adagro_2026.txt
+
+# Não conformidades da inspeção da ADAGRO que limitam a venda de um produto.
+nao_conformidades:
+  - codigo: NC-001
+    relatorio: ADAGRO-AM-2026-0189
+    produtor_id: P017
+    produtos: [frango caipira]
+    descricao: produtor de frango caipira sem registro no SIE
+    acao: a cooperativa deve suspender a intermediação até o produtor obter o registro
+    permitido: venda direta ao consumidor final
+    fonte: certificacoes/inspecao_adagro_2026.txt
+
+# DAP/CAF (agricultura familiar). "vigente" quando um documento diz que está
+# vigente; "informada" quando o documento só traz o número, sem validade.
+# Produtor que não aparece aqui não tem DAP/CAF em nenhum documento.
+dap_caf:
+  - produtor_id: P005
+    situacao: vigente
+    fonte: certificacoes/inspecao_adagro_2026.txt
+
+  - produtor_id: P013
+    situacao: vigente
+    fonte: fichas_tecnicas/tuberculos_graos.txt
+
+  - produtor_id: P001
+    situacao: informada
+    numero: SDR/PE-2019-0047821
+    fonte: certificacoes/cert_organica_maria_silva_P001.txt
+
+  - produtor_id: P002
+    situacao: informada
+    numero: SDR/PE-2018-0031456
+    fonte: certificacoes/cert_organica_jose_santos_P002.txt
+
+  - produtor_id: P004
+    situacao: informada
+    numero: SDR/PE-2020-0058934
+    fonte: certificacoes/cert_organica_ana_bezerra_P004.txt
+
+  - produtor_id: P007
+    situacao: informada
+    numero: SDR/PE-2017-0022178
+    fonte: certificacoes/cert_organica_antonio_lima_P007.txt
+
+  - produtor_id: P008
+    situacao: informada
+    numero: SDR/PE-2019-0051098
+    fonte: certificacoes/cert_organica_josefa_souza_P008.txt
+
+  - produtor_id: P009
+    situacao: informada
+    numero: SDR/PE-2021-0072345
+    fonte: certificacoes/cert_organica_marcos_rocha_P009.txt
+
+  - produtor_id: P012
+    situacao: informada
+    numero: SDR/PE-2020-0064512
+    fonte: certificacoes/cert_organica_luciana_gomes_P012.txt
+
+  - produtor_id: P014
+    situacao: informada
+    numero: SDR/PE-2022-0089012
+    fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt
+
+  - produtor_id: P018
+    situacao: informada
+    numero: SDR/PE-2020-0067890
+    fonte: certificacoes/cert_organica_debora_melo_P018.txt
+
+# Capacidade de produção por produtor. periodo: semana, mes ou ano.
+# "minimo" ausente quando o documento só dá o teto ("até 40 kg").
+# "meses" limita a linha a esses meses (safra e entressafra da goiaba).
+# Capacidade de produção não é estoque: a regra só diz se o pedido cabe.
+capacidades:
+  - produtor_id: P003
+    produtos: [queijo coalho]
+    minimo: 150
+    maximo: 200
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/queijo_coalho.txt
+
+  - produtor_id: P007
+    produtos: [queijo coalho]
+    minimo: 150
+    maximo: 200
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/queijo_coalho.txt
+
+  - produtor_id: P011
+    produtos: [queijo coalho]
+    minimo: 50
+    maximo: 80
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/queijo_coalho.txt
+
+  - produtor_id: P007
+    produtos: [manteiga de garrafa]
+    maximo: 40
+    unidade: kg
+    periodo: semana
+    fonte: certificacoes/cert_organica_antonio_lima_P007.txt
+
+  - produtor_id: P007
+    produtos: [nata]
+    maximo: 30
+    unidade: kg
+    periodo: semana
+    fonte: certificacoes/cert_organica_antonio_lima_P007.txt
+
+  - produtor_id: P002
+    produtos: [mel silvestre]
+    minimo: 300
+    maximo: 300
+    unidade: kg
+    periodo: mes
+    fonte: fichas_tecnicas/mel_silvestre.txt
+
+  - produtor_id: P008
+    produtos: [mel silvestre]
+    minimo: 150
+    maximo: 150
+    unidade: kg
+    periodo: mes
+    fonte: fichas_tecnicas/mel_silvestre.txt
+
+  - produtor_id: P018
+    produtos: [mel silvestre]
+    minimo: 200
+    maximo: 200
+    unidade: kg
+    periodo: mes
+    fonte: fichas_tecnicas/mel_silvestre.txt
+
+  - produtor_id: P002
+    produtos: [mel de jandaíra]
+    minimo: 180
+    maximo: 180
+    unidade: kg
+    periodo: ano
+    fonte: certificacoes/cert_organica_jose_santos_P002.txt
+
+  - produtor_id: P002
+    produtos: [própolis]
+    minimo: 80
+    maximo: 80
+    unidade: kg
+    periodo: ano
+    fonte: certificacoes/cert_organica_jose_santos_P002.txt
+
+  - produtor_id: P018
+    produtos: [cera de abelha]
+    minimo: 100
+    maximo: 100
+    unidade: kg
+    periodo: ano
+    fonte: certificacoes/cert_organica_debora_melo_P018.txt
+
+  - produtor_id: P018
+    produtos: [pólen]
+    minimo: 200
+    maximo: 200
+    unidade: kg
+    periodo: ano
+    fonte: certificacoes/cert_organica_debora_melo_P018.txt
+
+  - produtor_id: P001
+    produtos: [goiaba paluma]
+    minimo: 500
+    maximo: 500
+    unidade: kg
+    periodo: semana
+    meses: [10, 11, 12, 1, 2, 3]
+    fonte: fichas_tecnicas/goiaba_paluma.txt
+
+  - produtor_id: P001
+    produtos: [goiaba paluma]
+    minimo: 100
+    maximo: 100
+    unidade: kg
+    periodo: semana
+    meses: [4, 5, 6, 7, 8, 9]
+    fonte: fichas_tecnicas/goiaba_paluma.txt
+
+  - produtor_id: P010
+    produtos: [goiaba paluma]
+    minimo: 300
+    maximo: 300
+    unidade: kg
+    periodo: semana
+    meses: [10, 11, 12, 1, 2, 3]
+    fonte: fichas_tecnicas/goiaba_paluma.txt
+
+  - produtor_id: P010
+    produtos: [goiaba paluma]
+    minimo: 80
+    maximo: 80
+    unidade: kg
+    periodo: semana
+    meses: [4, 5, 6, 7, 8, 9]
+    fonte: fichas_tecnicas/goiaba_paluma.txt
+
+  # Hortaliças: a capacidade é da linha inteira do produtor, em kg. Só vale
+  # para o que é vendido em kg (folhosas vão por unidade ou maço).
+  - produtor_id: P004
+    produtos: [alface, coentro, cebolinha, rúcula, tomate cereja]
+    minimo: 300
+    maximo: 300
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/hortalicas.txt
+
+  - produtor_id: P009
+    produtos: [alface, rúcula, espinafre, couve, hortelã, manjericão]
+    minimo: 800
+    maximo: 800
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/hortalicas.txt
+
+  - produtor_id: P012
+    produtos: [tomate, pimentão, pepino, berinjela, quiabo]
+    minimo: 400
+    maximo: 400
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/hortalicas.txt
+
+  - produtor_id: P005
+    produtos: [macaxeira]
+    minimo: 400
+    maximo: 400
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/tuberculos_graos.txt
+
+  - produtor_id: P005
+    produtos: [inhame]
+    minimo: 200
+    maximo: 200
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/tuberculos_graos.txt
+
+  - produtor_id: P005
+    produtos: [batata doce]
+    minimo: 150
+    maximo: 150
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/tuberculos_graos.txt
+
+  - produtor_id: P013
+    produtos: [farinha de mandioca]
+    minimo: 200
+    maximo: 200
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/tuberculos_graos.txt
+
+  - produtor_id: P013
+    produtos: [tapioca/goma]
+    minimo: 100
+    maximo: 100
+    unidade: kg
+    periodo: semana
+    fonte: fichas_tecnicas/tuberculos_graos.txt
+
+  - produtor_id: P014
+    produtos: [morango]
+    minimo: 150
+    maximo: 150
+    unidade: kg
+    periodo: semana
+    fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt
+
+  - produtor_id: P014
+    produtos: [amora]
+    minimo: 40
+    maximo: 40
+    unidade: kg
+    periodo: semana
+    fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt
+
+  - produtor_id: P014
+    produtos: [mirtilo]
+    minimo: 40
+    maximo: 40
+    unidade: kg
+    periodo: semana
+    fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt
+
+  - produtor_id: P014
+    produtos: [framboesa]
+    minimo: 40
+    maximo: 40
+    unidade: kg
+    periodo: semana
+    fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt
+
+  - produtor_id: P017
+    produtos: [frango caipira]
+    minimo: 80
+    maximo: 80
+    unidade: kg
+    periodo: semana
+    fonte: sazonalidade.csv
+
+  - produtor_id: P017
+    produtos: [ovos caipira]
+    minimo: 120
+    maximo: 120
+    unidade: dúzia
+    periodo: semana
+    fonte: sazonalidade.csv
+
+# Produtos de origem animal: o PNAE exige SIE, SIM ou SISBI para eles.
+origem_animal:
+  produtos:
+    - queijo coalho
+    - queijo manteiga
+    - ricota
+    - manteiga de garrafa
+    - nata
+    - iogurte natural
+    - leite
+    - mel silvestre
+    - mel de jandaíra
+    - própolis
+    - pólen
+    - cera de abelha
+    - frango caipira
+    - ovos caipira
+  fonte: contratos/contrato_pnae_garanhuns.txt
+
+# Contratos com compradores. O comprador é reconhecido quando um dos "nomes"
+# aparece no texto ("Prefeitura de Garanhuns - PNAE") ou quando o texto é
+# exatamente um dos "apelidos" ("Raízes"). Apelido curto não vale como parte
+# de outro nome: "Raízes Distribuidora" não é o Restaurante Raízes.
+# preco: "contrato" usa os itens abaixo; "tabela" usa a tabela geral.
+contratos:
+  - id: pnae
+    numero: 045/2026-PNAE
+    comprador: Prefeitura de Garanhuns (PNAE)
+    nomes: [pnae, prefeitura de garanhuns, merenda escolar, alimentacao escolar, secretaria municipal de educacao]
+    inicio: 2026-03-01
+    fim: 2027-02-28
+    preco: contrato
+    exige_sie_origem_animal: true
+    exige_dap_caf: true
+    condicoes:
+      - produto orgânico só com certificação válida
+      - nota fiscal individual por produtor
+      - entrega semanal conforme o cardápio da nutricionista
+      - pagamento por empenho em até 45 dias após o atesto
+    itens:
+      - {produto: banana prata, preco: 3.80, unidade: kg}
+      - {produto: goiaba paluma, preco: 5.20, unidade: kg}
+      - {produto: manga tommy, preco: 5.50, unidade: kg, observacao: só na safra}
+      - {produto: maracujá, preco: 6.00, unidade: kg}
+      - {produto: macaxeira, preco: 3.50, unidade: kg}
+      - {produto: inhame, preco: 5.00, unidade: kg}
+      - {produto: batata doce, preco: 4.00, unidade: kg}
+      - {produto: alface, preco: 2.80, unidade: unidade}
+      - {produto: coentro, preco: 2.00, unidade: maço}
+      - {produto: tomate, preco: 7.00, unidade: kg}
+      - {produto: queijo coalho, preco: 34.00, unidade: kg}
+      - {produto: mel silvestre, preco: 58.00, unidade: kg, exige_organico: true}
+      - {produto: ovos caipira, preco: 18.00, unidade: dúzia}
+      - {produto: frango caipira, preco: 29.00, unidade: kg}
+    fonte: contratos/contrato_pnae_garanhuns.txt
+
+  - id: bom_preco
+    numero: 012/2026
+    comprador: Mercado Bom Preço
+    nomes: [mercado bom preco]
+    apelidos: [bom preco]
+    inicio: 2026-01-01
+    fim: 2026-12-31
+    preco: tabela
+    dias_entrega: [terca, sexta]
+    condicoes:
+      - entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3)
+      - pagamento por boleto com vencimento em 30 dias
+      - multa de 2% ao dia por atraso na entrega
+      - produto fora do padrão é devolvido sem custo para o comprador
+    fonte: contratos/contrato_mercado_bom_preco.txt
+
+  - id: raizes
+    numero: 008/2026
+    comprador: Restaurante Raízes
+    nomes: [restaurante raizes]
+    apelidos: [raizes]
+    inicio: 2026-01-10
+    preco: tabela
+    condicoes:
+      - pagamento por PIX no ato da entrega
+      - entrega no restaurante até as 10h
+      - prioridade para produtos orgânicos e de produtores locais
+    fonte: contratos/contrato_restaurante_raizes.txt

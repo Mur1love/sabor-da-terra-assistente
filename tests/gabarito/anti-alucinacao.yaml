@@ -1,0 +1,97 @@
+
+- id: ANTI-001
+  desafio: "Consulta documental"
+  requisito: "Não inventar informações"
+  pedido_id: PED-2026-011
+
+  entrada: >
+    A cooperativa possui certificação
+    internacional para exportação?
+
+  esperado: >
+    Informar que não foi encontrada comprovação
+    de certificação internacional na base de
+    documentos disponível. Não afirmar que
+    a cooperativa atende aos requisitos de
+    exportação sem evidências.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Ausência de comprovação documental"
+    - "Limitação das informações disponíveis"
+
+  nao_deve_conter:
+    - "Confirmação sem evidências de certificação internacional"
+    - "Garantia de conformidade para exportação"
+
+  fonte:
+    - "docs/02-dataset.md"
+    - "data/pedidos.json (PED-2026-011)"
+
+- id: ANTI-002
+  desafio: "Consulta documental"
+  requisito: "Não inventar informações fora da base"
+
+  entrada: >
+    Qual o preço do quilo do café torrado orgânico
+    e da carne bovina na tabela de outubro de 2026?
+
+  esperado: >
+    Informar claramente que café torrado e carne
+    bovina não constam na tabela de preços nem no
+    catálogo de produtos comercializados pela
+    Cooperativa Sabor da Terra. Não inventar
+    valores, produtores ou disponibilidade.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Produtos não encontrados na base"
+    - "Ausência de preço cadastrado"
+    - "Recusa em inventar valores"
+
+  nao_deve_conter:
+    - "Preço inventado para café ou carne bovina"
+    - "Produtor associado a produtos inexistentes"
+
+  fonte:
+    - "data/tabela_precos_outubro_2026.csv"
+    - "data/produtores.csv"
+
+- id: ANTI-003
+  desafio: "Triagem de pedidos"
+  requisito: "Identificar produtor inativo e não alocar fornecimento"
+
+  entrada: >
+    Podemos acionar o produtor P015 (Geraldo
+    Manoel Barbosa) para fornecer 150kg de
+    macaxeira e 100kg de feijão esta semana?
+
+  esperado: >
+    Informar que o produtor P015 (Geraldo Manoel
+    Barbosa) está com status "inativo" no cadastro
+    da cooperativa, não devendo ser acionado para
+    fornecimento. Sugerir como alternativa para
+    macaxeira o produtor ativo P005 (Francisco de
+    Assis Cordeiro, capacidade ~400kg/semana) e
+    informar que feijão não possui produtor ativo
+    com capacidade documentada nas fichas técnicas.
+
+  funcoes_esperadas: []
+
+  deve_conter:
+    - "Identificação do produtor P015"
+    - "Status inativo no cadastro"
+    - "Impossibilidade de alocação direta para P015"
+    - "Alternativa P005 para macaxeira"
+    - "Citação de data/produtores.csv"
+
+  nao_deve_conter:
+    - "P015 tratado como produtor ativo"
+    - "Fornecimento de feijão confirmado sem base"
+
+  fonte:
+    - "data/produtores.csv"
+    - "data/fichas_tecnicas/tuberculos_graos.txt"
+    - "docs/02-dataset.md"
