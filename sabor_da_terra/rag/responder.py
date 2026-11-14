@@ -376,6 +376,13 @@ def _resolver_arquivo_permitido(
     return None
 
 
+def _frase_da_marca(texto: str, arquivo: str) -> str:
+    """Frase do texto que contém a marca [fonte: arquivo]; vira o trecho da citação."""
+    padrao = re.compile(r"[^.!?\n]*\[fonte:\s*" + re.escape(arquivo) + r"\][^.!?\n]*", re.IGNORECASE)
+    achou = padrao.search(texto)
+    return achou.group(0).strip() if achou else f"[fonte: {arquivo}]"
+
+
 def _validar_e_sanear_resposta(
     saida: RespostaDocumental,
     fontes_permitidas: set[str],
@@ -395,18 +402,29 @@ def _validar_e_sanear_resposta(
         citacoes_validas.append(Citacao(arquivo=resolvido, trecho=trecho_limpo))
 
     texto_limpo = n.mascarar_cpf_em_texto(saida.resposta).strip()
+    texto_com_marcas = texto_limpo
 
     # Verifica marcas inline [fonte: X] no texto
+    marcas_resolvidas: list[str] = []
+
     def _substituir_marca(match: re.Match[str]) -> str:
         alvo = match.group(1).strip()
         resolvido = _resolver_arquivo_permitido(alvo, fontes_permitidas, mapa_data)
         if resolvido is None:
             arquivos_invalidos.append(alvo)
             return ""
+        marcas_resolvidas.append(resolvido)
         return f"[fonte: {resolvido}]"
 
     texto_limpo = re.sub(r"\[fonte:\s*([^\]]+)\]", _substituir_marca, texto_limpo, flags=re.IGNORECASE)
-    texto_limpo = re.sub(r"\s{2,}", " ", texto_limpo).strip()
+    texto_limpo = re.sub(r"[ \t]{2,}", " ", texto_limpo).strip()  # preserva quebras de parágrafo
+
+    # Marcas inline válidas viram citações estruturadas (sem duplicar arquivo)
+    presentes = {c.arquivo for c in citacoes_validas}
+    for arquivo in dict.fromkeys(marcas_resolvidas):
+        if arquivo not in presentes:
+            presentes.add(arquivo)
+            citacoes_validas.append(Citacao(arquivo=arquivo, trecho=_frase_da_marca(texto_com_marcas, arquivo)))
 
     # Se todas as citações eram inválidas (alucinação de fonte), devolve lacuna segura
     if arquivos_invalidos and not citacoes_validas:

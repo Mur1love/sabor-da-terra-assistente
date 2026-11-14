@@ -269,6 +269,28 @@ def test_produto_ambiguo_propaga_o_aviso_para_o_contexto():
     assert any("jandaíra" in aviso for aviso in alertas)
 
 
+def test_saneamento_preserva_quebras_de_paragrafo():
+    saida = RespostaDocumental(
+        resposta="Primeiro parágrafo.\n\nSegundo parágrafo [fonte: ficha.txt].",
+        citacoes=[],
+        lacunas=[],
+    )
+    validada, _ = _validar_e_sanear_resposta(saida, {"ficha.txt"}, {"ficha.txt": "ficha.txt"}, "pt")
+    assert "\n\n" in validada.resposta
+    assert "[fonte: ficha.txt]" in validada.resposta
+
+
+def test_marca_inline_sem_lista_de_citacoes_e_promovida():
+    saida = RespostaDocumental(
+        resposta="A validade do certificado da P002 vai até 20/03/2027 [fonte: ficha.txt].",
+        citacoes=[],
+        lacunas=[],
+    )
+    validada, _ = _validar_e_sanear_resposta(saida, {"ficha.txt"}, {"ficha.txt": "ficha.txt"}, "pt")
+    assert [c.arquivo for c in validada.citacoes] == ["ficha.txt"]
+    assert validada.citacoes[0].trecho.strip()
+
+
 def test_docs04_registra_vertex_ai_search_e_check_grounding():
     texto = (RAIZ / "docs" / "04-arquitetura.md").read_text(encoding="utf-8")
     assert "Vertex AI Search" in texto
