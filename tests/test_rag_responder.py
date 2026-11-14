@@ -7,6 +7,10 @@ from sabor_da_terra.rag.responder import (
     Citacao,
     RespostaDocumental,
     TrechoRecuperado,
+    _PlanoConsulta,
+    _coletar_dados_e_alertas,
+    _tokens_consulta,
+    _validar_e_sanear_resposta,
     consultar_documentos,
     listar_arquivos_data,
     responder_consulta_documental,
@@ -249,3 +253,11 @@ def test_docs04_registra_vertex_ai_search_e_check_grounding():
     texto = (RAIZ / "docs" / "04-arquitetura.md").read_text(encoding="utf-8")
     assert "Vertex AI Search" in texto
     assert "Check Grounding API" in texto
+
+
+def test_tokens_da_consulta_nao_guardam_pontuacao():
+    tokens = _tokens_consulta("Quais produtores têm certificação orgânica vigente para mel?")
+    assert "mel" in tokens
+    assert "mel?" not in tokens
+    # IDs com barra não podem ser partidos: os documentos usam o mesmo token.
+    assert "045/2026" in _tokens_consulta("Contrato 045/2026 do PNAE")

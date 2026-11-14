@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import string
 from datetime import date
 from pathlib import Path
 from typing import Any, Callable, Optional
@@ -137,7 +138,11 @@ def _detectar_idioma_heuristico(pergunta: str) -> str:
 
 def _tokens_consulta(texto: str) -> set[str]:
     chave = n.chave(texto)
-    base = {tok for tok in chave.split() if len(tok) > 1 and tok not in _STOPWORDS}
+    base = set()
+    for tok_bruto in chave.split():
+        tok = tok_bruto.strip(string.punctuation)  # 'mel?' vira 'mel'; '045/2026' permanece inteiro
+        if len(tok) > 1 and tok not in _STOPWORDS:
+            base.add(tok)
     expandidos = set(base)
     for tok in base:
         if tok in _SINONIMOS_BUSCA:
@@ -152,8 +157,10 @@ def buscar_trechos_locais(
 ) -> list[TrechoRecuperado]:
     """Busca lexical local sobre `data/certificacoes`, `contratos` e `fichas_tecnicas`.
 
-    Atua como implementação local padrão enquanto o índice vetorial da Etapa 7
-    não está acoplado, mantendo a mesma assinatura esperada pelo pipeline.
+    Fallback PROVISÓRIO enquanto o índice vetorial da Etapa 7 não está acoplado:
+    o score satura (denominador limitado a 8 tokens) e o desempate é alfabético,
+    então a qualidade do ranking é dívida da #7. Mantém a mesma assinatura
+    esperada pelo pipeline (e pode ser trocada pelo parâmetro `buscador`).
     """
     raiz = pasta_data or _pasta_data_padrao()
     tokens_q = _tokens_consulta(pergunta)
