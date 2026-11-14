@@ -3,6 +3,7 @@
 import pytest
 
 from sabor_da_terra.rag.embeddings import GeradorEmbeddings
+from sabor_da_terra.rag.indexar import preparar_nos
 
 
 class ClienteSimulado:
@@ -56,6 +57,7 @@ def test_cache_persistente_entre_instancias(cliente, tmp_path):
     )
 
     primeiro_gerador.gerar("Frango caipira sem SIE")
+    primeiro_gerador.cache.gravar()
 
     segundo_gerador = GeradorEmbeddings(
         cliente=cliente,
@@ -75,12 +77,18 @@ def test_texto_diferente_gera_novo_embedding(gerador, cliente):
 
 
 def test_sanitizar_antes_de_enviar(gerador, cliente):
-    texto = "CPF: 123.456.789-00"
+    documento = {
+        "arquivo": "contrato_teste.txt",
+        "tipo_documento": "contrato",
+        "caminho": "contratos/contrato_teste.txt",
+        "texto": "FISCAIS DO CONTRATO:\n  Titular: Ana - CPF: 123.456.789-00",
+    }
 
-    gerador.gerar(texto)
+    nos = preparar_nos([documento], gerador)
 
     assert cliente.chamadas == 1
     assert "123.456.789-00" not in cliente.textos_recebidos[0]
+    assert "123.456.789-00" not in nos[0].text
 
 
 def test_texto_vazio_nao_gera_embedding(gerador, cliente):

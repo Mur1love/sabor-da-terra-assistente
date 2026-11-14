@@ -2,28 +2,16 @@
 
 import re
 
+from sabor_da_terra.dados.normalizacao import chave
 from sabor_da_terra.rag.metadados import (
     extrair_metadados,
     enriquecer_metadados_trecho,
 )
 
 
-SECOES_CONHECIDAS = {
-    "DADOS DO PRODUTOR",
-    "PRODUTOS QUE ERAM CERTIFICADOS",
-    "ESTABELECIMENTO INSPECIONADO",
-    "PRODUTORES VISTORIADOS",
-    "INSPEÇÃO DO DEPÓSITO CENTRAL",
-    "NÃO CONFORMIDADES",
-    "CONDIÇÕES OBRIGATÓRIAS",
-    "ITENS CONTRATADOS",
-    "FUNDAMENTAÇÃO LEGAL",
-    "NUTRICIONISTA RESPONSÁVEL",
-    "FISCAIS DO CONTRATO",
-    "OBJETO",
-    "VIGÊNCIA",
-    "PAGAMENTO",
-}
+# Trechos menores que isso ("RESULTADO GERAL: APROVADO") não têm contexto
+# sozinhos e são colados ao trecho seguinte.
+TAMANHO_MINIMO = 120
 
 PADRAO_PRODUTOR = re.compile(
     r"(?m)^\s*\d+\.\s+(P\d{3})\s+-\s+"
@@ -32,26 +20,42 @@ PADRAO_PRODUTOR = re.compile(
 
 
 def identificar_secao(bloco: str) -> str | None:
-    """Identifica a seção a partir do início do bloco."""
+    """Reconhece um título em maiúsculas na primeira linha do bloco.
 
-    primeira_linha = bloco.splitlines()[0].strip().upper()
+    "NORMA APLICÁVEL:" → "norma_aplicavel"
+    "RESULTADO DA AUDITORIA (18/03/2025):" → "resultado_da_auditoria"
+    "VIGÊNCIA: 01/03/2026 a 28/02/2027" → "vigencia"
+    """
 
-    for secao in sorted(SECOES_CONHECIDAS, key=len, reverse=True):
-        if primeira_linha.startswith(secao):
-            return secao.lower().replace(" ", "_")
+    primeira_linha = bloco.splitlines()[0].strip()
+    rotulo = primeira_linha.split(":", 1)[0]
+    rotulo = re.sub(r"\([^)]*\)", "", rotulo).strip()
 
-    return None
+    if (
+        len(rotulo) < 3
+        or not any(letra.isalpha() for letra in rotulo)
+        or rotulo != rotulo.upper()
+        or any(letra.isdigit() for letra in rotulo)
+        or rotulo.startswith("-")
+    ):
+        return None
 
+    return re.sub(r"[^a-z0-9]+", "_", chave(rotulo)).strip("_")
 
 
 def dividir_blocos(texto: str) -> list[str]:
     """Divide por linhas em branco, preservando blocos internos."""
 
-    return [
-        bloco.strip()
-        for bloco in re.split(r"\n\s*\n", texto)
-        if bloco.strip()
-    ]
+    blocos = []
+
+    for bloco in re.split(r"\n\s*\n", texto):
+        # Remove as linhas de "=====" e "_____", que só enfeitam.
+        bloco = re.sub(r"(?m)^[-=_\s]+$", "", bloco).strip()
+
+        if bloco:
+            blocos.append(bloco)
+
+    return blocos
 
 
 def dividir_produtores_vistoriados(bloco: str) -> list[str]:
@@ -85,47 +89,71 @@ def dividir_produtores_vistoriados(bloco: str) -> list[str]:
     return partes
 
 
+def juntar_trechos_curtos(
+    partes: list[tuple[str, str]],
+    minimo: int = TAMANHO_MINIMO,
+) -> list[tuple[str, str]]:
+    """Cola cada trecho curto no seguinte (ou no anterior, se for o último)."""
+
+    resultado = []
+    pendente = None
+
+    for texto, secao in partes:
+        if pendente:
+            # O trecho juntado fica com a seção do primeiro pedaço.
+            texto = f"{pendente[0]}\n\n{texto}"
+            secao = pendente[1]
+            pendente = None
+
+        if len(texto) < minimo:
+            pendente = (texto, secao)
+            continue
+
+        resultado.append((texto, secao))
+
+    if pendente:
+        if resultado:
+            anterior, secao = resultado[-1]
+            resultado[-1] = (f"{anterior}\n\n{pendente[0]}", secao)
+        else:
+            resultado.append(pendente)
+
+    return resultado
+
+
 def dividir_em_trechos(documento: dict) -> list[dict]:
     """Divide o documento preservando seções e contexto."""
 
-    blocos = dividir_blocos(documento["texto"])
-
     metadados_documento = extrair_metadados(documento)
 
-    trechos = []
+    partes = []
     secao_atual = "introducao"
 
-    for bloco in blocos:
-        if re.fullmatch(r"[-=_\s]+", bloco):
-            continue
-
-        nova_secao = identificar_secao(bloco)
-
-        if nova_secao:
-            secao_atual = nova_secao
+    for bloco in dividir_blocos(documento["texto"]):
+        # O primeiro bloco é o título do documento: fica como "introducao".
+        if partes:
+            secao_atual = identificar_secao(bloco) or secao_atual
 
         if secao_atual == "produtores_vistoriados":
-            partes = dividir_produtores_vistoriados(bloco)
+            pedacos = dividir_produtores_vistoriados(bloco)
         else:
-            partes = [bloco]
+            pedacos = [bloco]
 
-        for parte in partes:
-            if not parte.strip():
-                continue
+        partes.extend(
+            (pedaco, secao_atual)
+            for pedaco in pedacos
+            if pedaco.strip()
+        )
 
-            metadados_trecho = enriquecer_metadados_trecho(
-                parte,
-                metadados_documento,
-            )
+    trechos = []
 
-            trechos.append(
-                {
-                    "texto": parte,
-                    "metadados": {
-                        **metadados_trecho,
-                        "secao": secao_atual,
-                    },
-                }
-            )
+    for texto, secao in juntar_trechos_curtos(partes):
+        metadados = enriquecer_metadados_trecho(
+            texto,
+            metadados_documento,
+        )
+        metadados["secao"] = secao
+
+        trechos.append({"texto": texto, "metadados": metadados})
 
     return trechos

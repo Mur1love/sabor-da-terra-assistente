@@ -1,5 +1,6 @@
 """Indexação documental persistente para o RAG."""
 
+from functools import lru_cache
 from pathlib import Path
 
 from llama_index.core import (
@@ -14,13 +15,36 @@ from sabor_da_terra.llm.cliente import LLMClient
 from sabor_da_terra.rag.chunking import dividir_em_trechos
 from sabor_da_terra.rag.embeddings import GeradorEmbeddings
 from sabor_da_terra.rag.leitor import carregar_documentos
-from sabor_da_terra.rag.sanitizacao import sanitizar_texto
+from sabor_da_terra.rag.sanitizacao import sanitizar_trechos
 
 
 RAIZ_PROJETO = Path(__file__).resolve().parents[2]
 PASTA_DADOS = RAIZ_PROJETO / "data"
 PASTA_INDICE = RAIZ_PROJETO / ".cache" / "rag" / "indice"
 ARQUIVO_CACHE = RAIZ_PROJETO / ".cache" / "rag" / "embeddings.json"
+
+
+def texto_para_embedding(texto: str, metadados: dict) -> str:
+    """Põe o contexto do documento antes do trecho, só para o embedding.
+
+    Sem isso, um trecho como "RESULTADO GERAL: APROVADO" não diz de qual
+    documento ou produtor é. O texto guardado no nó continua sem o cabeçalho.
+    """
+
+    contexto = [
+        metadados["tipo_documento"].replace("_", " "),
+        metadados["arquivo"],
+    ]
+
+    if metadados.get("produtor_id"):
+        contexto.append(f"produtor {metadados['produtor_id']}")
+
+    if metadados.get("produto"):
+        contexto.append("produtos: " + ", ".join(metadados["produto"]))
+
+    contexto.append(f"seção {metadados['secao'].replace('_', ' ')}")
+
+    return " | ".join(contexto) + "\n\n" + texto
 
 
 def preparar_nos(
@@ -32,15 +56,15 @@ def preparar_nos(
     nos = []
 
     for documento in documentos:
-        trechos = dividir_em_trechos(documento)
+        trechos = sanitizar_trechos(dividir_em_trechos(documento))
 
-        for trecho in trechos:
-            texto_seguro = sanitizar_texto(trecho["texto"])
-
-            if not texto_seguro.strip():
+        for posicao, trecho in enumerate(trechos):
+            if not trecho["texto"].strip():
                 continue
 
-            vetor = gerador.gerar(texto_seguro)
+            vetor = gerador.gerar(
+                texto_para_embedding(trecho["texto"], trecho["metadados"])
+            )
 
             metadados = {
                 chave: valor
@@ -49,7 +73,9 @@ def preparar_nos(
             }
 
             no = TextNode(
-                text=texto_seguro,
+                # ID fixo: o mesmo trecho mantém o ID ao reindexar.
+                id_=f"{documento['arquivo']}#{posicao:03d}",
+                text=trecho["texto"],
                 metadata=metadados,
                 embedding=vetor,
             )
@@ -66,7 +92,11 @@ def construir_indice(
 ) -> VectorStoreIndex:
     """Constrói e persiste o índice vetorial local."""
 
-    nos = preparar_nos(documentos, gerador)
+    try:
+        nos = preparar_nos(documentos, gerador)
+    finally:
+        # Grava o cache uma vez, mesmo se a API falhar no meio.
+        gerador.cache.gravar()
 
     if not nos:
         raise ValueError(
@@ -102,6 +132,9 @@ def construir_indice(
     indice.storage_context.persist(
         persist_dir=str(pasta_indice),
     )
+
+    # O índice em memória ficou velho.
+    obter_indice.cache_clear()
 
     return indice
 
@@ -144,6 +177,13 @@ def carregar_indice(
     )
 
     return indice
+
+
+@lru_cache(maxsize=4)
+def obter_indice(pasta_indice: Path) -> VectorStoreIndex:
+    """Carrega o índice uma vez e reaproveita nas perguntas seguintes."""
+
+    return carregar_indice(pasta_indice)
 
 
 def indexar(

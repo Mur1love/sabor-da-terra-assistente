@@ -39,6 +39,7 @@ def test_cache_persistente(tmp_path):
         "gemini-embedding-001",
         [0.4, 0.5, 0.6],
     )
+    cache.gravar()
 
     novo_cache = CacheEmbeddings(caminho)
 
@@ -76,3 +77,14 @@ def test_modelo_diferente_nao_reutiliza_embedding(tmp_path):
         "Certificação orgânica",
         "outro-modelo",
     ) is None
+
+
+def test_salvar_so_escreve_no_disco_ao_gravar(tmp_path):
+    caminho = tmp_path / "embeddings.json"
+    cache = CacheEmbeddings(caminho)
+
+    cache.salvar("Mel silvestre", "gemini-embedding-001", [0.1])
+    assert not caminho.exists()
+
+    cache.gravar()
+    assert caminho.exists()

@@ -1,8 +1,10 @@
 """Recuperação híbrida de trechos documentais para o RAG."""
 
+from functools import lru_cache
 from pathlib import Path
 
 from llama_index.core.vector_stores import (
+    FilterOperator,
     MetadataFilter,
     MetadataFilters,
     VectorStoreQuery,
@@ -13,12 +15,28 @@ from sabor_da_terra.rag.busca_lexical import (
     buscar_por_identificadores,
     extrair_identificadores,
 )
-from sabor_da_terra.rag.embeddings import GeradorEmbeddings
-from sabor_da_terra.rag.indexar import (
-    ARQUIVO_CACHE,
-    PASTA_INDICE,
-    carregar_indice,
-)
+from sabor_da_terra.rag.indexar import PASTA_INDICE, obter_indice
+from sabor_da_terra.rag.sanitizacao import sanitizar_texto
+
+
+# Metadados guardados como lista: o filtro é "contém", não "igual".
+CAMPOS_LISTA = {"produto"}
+
+
+@lru_cache(maxsize=1)
+def _cliente_padrao() -> LLMClient:
+    return LLMClient()
+
+
+def _filtro(chave: str, valor) -> MetadataFilter:
+    if chave in CAMPOS_LISTA:
+        return MetadataFilter(
+            key=chave,
+            value=valor,
+            operator=FilterOperator.CONTAINS,
+        )
+
+    return MetadataFilter(key=chave, value=valor)
 
 
 def buscar_documentos(
@@ -28,7 +46,6 @@ def buscar_documentos(
     *,
     cliente=None,
     pasta_indice: Path = PASTA_INDICE,
-    arquivo_cache: Path = ARQUIVO_CACHE,
 ) -> list[dict]:
     """Busca trechos por similaridade vetorial e identificadores."""
 
@@ -39,23 +56,20 @@ def buscar_documentos(
         raise ValueError("O valor de k deve ser maior que zero.")
 
     if cliente is None:
-        cliente = LLMClient()
+        cliente = _cliente_padrao()
 
-    indice = carregar_indice(pasta_indice)
+    indice = obter_indice(Path(pasta_indice))
 
-    gerador = GeradorEmbeddings(
-        cliente=cliente,
-        caminho_cache=arquivo_cache,
-    )
-
-    vetor_pergunta = gerador.gerar(pergunta)
+    # A pergunta não vai para o cache dos documentos: cada pergunta nova
+    # faria o arquivo crescer para sempre.
+    vetor_pergunta = cliente.embedar(sanitizar_texto(pergunta))
 
     filtros = filtros or {}
 
     filtros_llama = (
         MetadataFilters(
             filters=[
-                MetadataFilter(key=chave, value=valor)
+                _filtro(chave, valor)
                 for chave, valor in filtros.items()
             ]
         )

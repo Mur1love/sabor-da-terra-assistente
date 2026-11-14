@@ -2,6 +2,11 @@
 
 import re
 from datetime import datetime
+from functools import lru_cache
+
+from sabor_da_terra.dados.carregamento import obter_base
+from sabor_da_terra.dados.catalogo import APELIDOS
+from sabor_da_terra.dados.normalizacao import chave
 
 
 def extrair_produtor_id(nome_arquivo: str) -> str | None:
@@ -38,6 +43,48 @@ def extrair_data_validade(texto: str) -> str | None:
     return data.date().isoformat()
 
 
+def _normalizar(texto: str) -> str:
+    """Minúsculas, sem acento e só letras/números separados por espaço."""
+
+    return " ".join(re.sub(r"[^a-z0-9]+", " ", chave(texto)).split())
+
+
+@lru_cache(maxsize=1)
+def _nomes_produtos() -> list[tuple[str, str]]:
+    """Nomes do catálogo (e apelidos) → produto base, do mais longo ao mais curto."""
+
+    catalogo = obter_base().catalogo
+    nomes = {_normalizar(base): base for base in catalogo.bases}
+    nomes.update(
+        {
+            _normalizar(apelido): base
+            for apelido, base in APELIDOS.items()
+            if base in catalogo.bases
+        }
+    )
+
+    return sorted(nomes.items(), key=lambda item: len(item[0]), reverse=True)
+
+
+def identificar_produtos(texto: str) -> list[str]:
+    """Produtos do catálogo citados no texto, pelo nome base."""
+
+    restante = f" {_normalizar(texto)} "
+    produtos = []
+
+    for nome, base in _nomes_produtos():
+        alvo = f" {nome} "
+
+        if alvo in restante:
+            if base not in produtos:
+                produtos.append(base)
+
+            # Tira o nome achado para "tomate cereja" não contar também "tomate".
+            restante = restante.replace(alvo, " | ")
+
+    return produtos
+
+
 def extrair_metadados(documento: dict) -> dict:
     """Enriquece o documento com metadados identificáveis."""
 
@@ -51,6 +98,7 @@ def extrair_metadados(documento: dict) -> dict:
         "data_validade": extrair_data_validade(
             documento["texto"]
         ),
+        "produto": identificar_produtos(documento["texto"]),
         "secao": "documento_completo",
     }
 
@@ -81,19 +129,10 @@ def enriquecer_metadados_trecho(
         # Evita associar vários produtores a um único ID.
         metadados["produtor_id"] = None
 
-    # Reconhece "Produto:" e "Produtos:".
-    resultado = re.search(
-        r"(?im)^\s*Produtos?:\s*(.+)$",
-        texto,
+    # Produtos citados no trecho; sem citação, herda os do documento.
+    metadados["produto"] = (
+        identificar_produtos(texto)
+        or list(metadados_documento.get("produto", []))
     )
-
-    if resultado:
-        metadados["produto"] = [
-            produto.strip().lower()
-            for produto in resultado.group(1).split(",")
-            if produto.strip()
-        ]
-    else:
-        metadados.setdefault("produto", [])
 
     return metadados

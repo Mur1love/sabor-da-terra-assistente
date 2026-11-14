@@ -91,8 +91,8 @@ def test_identificar_secao_nao_conformidades():
         if "NC-002" in trecho["texto"]
     )
 
-    assert nc001["metadados"]["secao"] == "não_conformidades"
-    assert nc002["metadados"]["secao"] == "não_conformidades"
+    assert nc001["metadados"]["secao"] == "nao_conformidades"
+    assert nc002["metadados"]["secao"] == "nao_conformidades"
 
 
 def test_identificar_secao_produtores():
@@ -134,7 +134,7 @@ def test_identificar_secao_conhecida():
     NC-001 (GRAVE): Produtor P017 sem registro SIE.
     """
 
-    assert identificar_secao(bloco.strip()) == "não_conformidades"
+    assert identificar_secao(bloco.strip()) == "nao_conformidades"
 
 
 def test_bloco_sem_secao_conhecida():

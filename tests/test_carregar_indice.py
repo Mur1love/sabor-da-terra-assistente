@@ -75,7 +75,8 @@ def test_preservar_quantidade_de_nos(indice_persistido):
 
     indice = carregar_indice(pasta_indice)
 
-    assert len(indice.docstore.docs) == 2
+    # Os dois blocos do documento são curtos e viram um trecho só.
+    assert len(indice.docstore.docs) == 1
 
 
 def test_preservar_metadados(indice_persistido):

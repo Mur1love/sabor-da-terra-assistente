@@ -4,7 +4,6 @@ from pathlib import Path
 
 from sabor_da_terra.llm.cliente import Papel
 from sabor_da_terra.rag.cache import CacheEmbeddings
-from sabor_da_terra.rag.sanitizacao import sanitizar_texto
 
 
 MODELO_EMBEDDING = "gemini-embedding-001"
@@ -33,10 +32,11 @@ class GeradorEmbeddings:
             # Compatibilidade com clientes simulados dos testes.
             self.modelo = MODELO_EMBEDDING
 
-    def gerar(self, texto: str) -> list[float]:
-        """Sanitiza o texto e consulta o cache antes de gerar o vetor."""
+    def gerar(self, texto_seguro: str) -> list[float]:
+        """Consulta o cache antes de gerar o vetor.
 
-        texto_seguro = sanitizar_texto(texto)
+        O texto já chega sanitizado (ver preparar_nos).
+        """
 
         if not texto_seguro.strip():
             raise ValueError(

@@ -1,183 +1,114 @@
-"""Avaliação da qualidade da recuperação documental do RAG.
-
-Critério de aceite da Issue 7:
-Pelo menos 9 de 10 perguntas devem recuperar o documento
-esperado entre os três primeiros resultados.
-
-Este teste só realiza chamadas reais à API quando
-EXECUTAR_TESTES_RAG_REAL=1.
-"""
+"""Qualidade da recuperação: casos do gabarito (#22) no top-3."""
 
 import os
 from pathlib import Path
 
 import pytest
+import yaml
 
 from sabor_da_terra.llm.cliente import LLMClient
+from sabor_da_terra.rag.indexar import PASTA_INDICE
 from sabor_da_terra.rag.recuperacao import buscar_documentos
 
 
-RAIZ = Path(__file__).resolve().parents[1]
+PASTA_GABARITO = Path(__file__).parent / "gabarito"
 
-PASTA_INDICE = RAIZ / ".cache" / "rag" / "indice"
-ARQUIVO_CACHE = RAIZ / ".cache" / "rag" / "embeddings.json"
-
-
-GABARITO = [
-    (
-        "certificação da Josefa",
-        "cert_organica_josefa_souza_P008.txt",
-    ),
-    (
-        "frango caipira SIE",
-        "inspecao_adagro_2026.txt",
-    ),
-    (
-        "certificação orgânica da Ana Bezerra",
-        "cert_organica_ana_bezerra_P004.txt",
-    ),
-    (
-        "laudo sanitário do apiário de José",
-        "laudo_sanitario_apiario_jose_P002.txt",
-    ),
-    (
-        "laudo sanitário da queijaria de Cícero",
-        "laudo_sanitario_queijaria_cicero_P003.txt",
-    ),
-    (
-        "contrato do PNAE de Garanhuns",
-        "contrato_pnae_garanhuns.txt",
-    ),
-    (
-        "contrato do Mercado Bom Preço",
-        "contrato_mercado_bom_preco.txt",
-    ),
-    (
-        "características técnicas da goiaba Paluma",
-        "goiaba_paluma.txt",
-    ),
-    (
-        "ficha técnica do queijo coalho",
-        "queijo_coalho.txt",
-    ),
-    (
-        "informações técnicas sobre hortaliças",
-        "hortalicas.txt",
-    ),
+# Casos de turno único do gabarito cuja fonte inclui um documento .txt.
+CASOS_GABARITO = [
+    "CERT-001",
+    "CERT-002",
+    "CERT-003",
+    "CERT-004",
+    "CERT-005",
+    "DOC-001",
+    "DOC-002",
+    "DOC-004",
+    "DOC-006",
+    "ANTI-003",
 ]
 
+# Critérios de aceite escritos na issue #7.
+CRITERIOS_DA_ISSUE = [
+    ("certificação da Josefa", "cert_organica_josefa_souza_P008.txt"),
+    ("frango caipira SIE", "inspecao_adagro_2026.txt"),
+]
 
-@pytest.mark.skipif(
+EXECUTAR_REAL = pytest.mark.skipif(
     os.getenv("EXECUTAR_TESTES_RAG_REAL") != "1",
     reason=(
         "Teste de recuperação real desativado. "
         "Defina EXECUTAR_TESTES_RAG_REAL=1 para executar."
     ),
 )
-def test_recuperacao_top3():
-    """Verifica se pelo menos 9/10 documentos aparecem no top-3."""
 
+
+def carregar_casos() -> list[tuple[str, str, set[str]]]:
+    """(id, pergunta, documentos aceitos) dos casos escolhidos."""
+
+    todos = {}
+
+    for arquivo in PASTA_GABARITO.glob("*.yaml"):
+        for caso in yaml.safe_load(arquivo.read_text(encoding="utf-8")):
+            todos[caso["id"]] = caso
+
+    casos = []
+
+    for id_caso in CASOS_GABARITO:
+        caso = todos[id_caso]
+        documentos = {
+            Path(fonte).name
+            for fonte in caso["fonte"]
+            if str(fonte).endswith(".txt")
+        }
+        casos.append((id_caso, caso["entrada"].strip(), documentos))
+
+    return casos
+
+
+def test_casos_do_gabarito_carregam():
+    casos = carregar_casos()
+
+    assert len(casos) == 10
+    assert all(documentos for _, _, documentos in casos)
+
+
+@pytest.fixture(scope="module")
+def cliente_real():
     assert PASTA_INDICE.is_dir(), (
         "Índice vetorial não encontrado. "
         "Execute 'python -m sabor_da_terra.rag.indexar'."
     )
 
-    assert len(GABARITO) == 10, (
-        "O gabarito deve conter exatamente 10 perguntas."
-    )
+    return LLMClient(modo="real")
 
-    # O conftest.py força LLM_MODO=fixture.
-    # Aqui criamos explicitamente um cliente real,
-    # somente quando este teste é habilitado.
-    cliente = LLMClient(modo="real")
 
-    acertos = 0
+@EXECUTAR_REAL
+def test_recuperacao_top3_gabarito(cliente_real):
+    """Pelo menos 9 dos 10 casos trazem um documento da fonte no top-3."""
+
     erros = []
 
-    for numero, (pergunta, arquivo_esperado) in enumerate(
-        GABARITO,
-        start=1,
-    ):
-        resultados = buscar_documentos(
-            pergunta=pergunta,
-            filtros=None,
-            k=3,
-            cliente=cliente,
-            pasta_indice=PASTA_INDICE,
-            arquivo_cache=ARQUIVO_CACHE,
-        )
+    for id_caso, pergunta, documentos in carregar_casos():
+        resultados = buscar_documentos(pergunta, k=3, cliente=cliente_real)
+        encontrados = [resultado["arquivo"] for resultado in resultados]
 
-        assert resultados, (
-            f"A pergunta {numero} não retornou resultados."
-        )
+        assert all(encontrados), f"{id_caso}: resultado sem arquivo."
 
-        assert all(
-            resultado.get("arquivo")
-            for resultado in resultados
-        ), (
-            f"A pergunta {numero} retornou "
-            "um resultado sem arquivo."
-        )
-
-        arquivos_encontrados = [
-            resultado["arquivo"]
-            for resultado in resultados
-        ]
-
-        acertou = arquivo_esperado in arquivos_encontrados
-
-        if acertou:
-            acertos += 1
-        else:
+        if not documentos & set(encontrados):
             erros.append(
-                {
-                    "pergunta": pergunta,
-                    "esperado": arquivo_esperado,
-                    "encontrados": arquivos_encontrados,
-                }
+                f"{id_caso}: esperado {sorted(documentos)}, veio {encontrados}"
             )
 
-        print(f"\n[{numero}/10] {pergunta}")
-        print(f"Esperado: {arquivo_esperado}")
-
-        for posicao, resultado in enumerate(
-            resultados,
-            start=1,
-        ):
-            print(
-                f"  {posicao}º - {resultado['arquivo']} "
-                f"(score: {resultado['score']:.4f})"
-            )
-
-        print(
-            "Resultado: "
-            + ("ACERTOU" if acertou else "ERROU")
-        )
-
-    total = len(GABARITO)
-    taxa_acerto = acertos / total
-
-    print("\n" + "=" * 60)
-    print("RELATÓRIO FINAL DA RECUPERAÇÃO DOCUMENTAL")
-    print("=" * 60)
-    print(f"Total de perguntas: {total}")
-    print(f"Acertos: {acertos}")
-    print(f"Erros: {len(erros)}")
-    print(f"Taxa de acerto: {taxa_acerto:.1%}")
-
-    if erros:
-        print("\nPERGUNTAS QUE FALHARAM:")
-
-        for erro in erros:
-            print(f"\nPergunta: {erro['pergunta']}")
-            print(f"Esperado: {erro['esperado']}")
-            print(f"Encontrados: {erro['encontrados']}")
-
-    print("=" * 60)
+    acertos = len(CASOS_GABARITO) - len(erros)
 
     assert acertos >= 9, (
-        f"Critério de aceite não atingido: "
-        f"{acertos}/{total} acertos "
-        f"({taxa_acerto:.1%}). "
-        "São necessários pelo menos 9 acertos."
+        f"{acertos}/10 no top-3. Falharam:\n" + "\n".join(erros)
     )
+
+
+@EXECUTAR_REAL
+@pytest.mark.parametrize("pergunta,arquivo_esperado", CRITERIOS_DA_ISSUE)
+def test_criterios_da_issue(cliente_real, pergunta, arquivo_esperado):
+    resultados = buscar_documentos(pergunta, k=3, cliente=cliente_real)
+
+    assert arquivo_esperado in [r["arquivo"] for r in resultados]

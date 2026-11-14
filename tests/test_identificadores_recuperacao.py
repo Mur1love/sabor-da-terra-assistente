@@ -2,6 +2,7 @@
 
 import pytest
 
+from sabor_da_terra.rag.indexar import indexar
 from sabor_da_terra.rag.recuperacao import buscar_documentos
 
 
@@ -10,6 +11,21 @@ class ClienteEmbeddingSimulado:
 
     def embedar(self, texto: str) -> list[float]:
         return [0.01] * 3072
+
+
+@pytest.fixture(scope="module")
+def pasta_indice(tmp_path_factory):
+    """Índice dos 20 documentos reais, montado sem chamar a API."""
+
+    pasta = tmp_path_factory.mktemp("rag")
+
+    indexar(
+        cliente=ClienteEmbeddingSimulado(),
+        pasta_indice=pasta / "indice",
+        arquivo_cache=pasta / "embeddings.json",
+    )
+
+    return pasta / "indice"
 
 
 @pytest.mark.parametrize(
@@ -32,13 +48,13 @@ class ClienteEmbeddingSimulado:
 def test_identificadores_exatos(
     pergunta,
     arquivo_esperado,
-    tmp_path,
+    pasta_indice,
 ):
     resultados = buscar_documentos(
         pergunta=pergunta,
         k=3,
         cliente=ClienteEmbeddingSimulado(),
-        arquivo_cache=tmp_path / "embeddings_teste.json",
+        pasta_indice=pasta_indice,
     )
 
     arquivos = [item["arquivo"] for item in resultados]

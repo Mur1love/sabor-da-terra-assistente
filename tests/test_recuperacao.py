@@ -72,7 +72,6 @@ def ambiente_rag(tmp_path):
     return {
         "cliente": cliente,
         "pasta_indice": pasta_indice,
-        "arquivo_cache": arquivo_cache,
     }
 
 
