@@ -20,6 +20,7 @@ from sabor_da_terra.triagem.normalizar import normalizar_itens_pedido
 from sabor_da_terra.triagem.schema import (
     PedidoTriado,
     TipoMensagem,
+    esquema_resposta_triagem,
     validar_pedido_triado,
 )
 
@@ -162,7 +163,7 @@ def extrair_pedido(
             system_instruction=INSTRUCOES_SISTEMA_TRIAGEM,
             temperature=0.0,
             response_mime_type="application/json",
-            response_schema=PedidoTriado.model_json_schema(),
+            response_schema=esquema_resposta_triagem(),
         )
         bruto = getattr(resposta, "text", None) or ""
         try:

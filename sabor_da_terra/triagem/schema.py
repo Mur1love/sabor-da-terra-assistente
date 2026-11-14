@@ -102,3 +102,37 @@ def validar_pedido_triado(bruto: str | dict[str, Any] | PedidoTriado) -> PedidoT
     if isinstance(bruto, str):
         return PedidoTriado.model_validate_json(bruto)
     return PedidoTriado.model_validate(bruto)
+
+
+def esquema_resposta_triagem() -> dict[str, Any]:
+    """JSON Schema do `PedidoTriado` para o parâmetro `response_schema` do Gemini.
+
+    O SDK/aceite do Gemini não aceita todas as construções do JSON Schema do
+    Pydantic: `$ref`/`$defs` são inlinados e `exclusiveMinimum` (gerado por
+    `gt=`) vira `minimum` — a exclusividade de 0 continua garantida pela
+    validação do `PedidoTriado` sobre a resposta do modelo.
+    """
+    return _esquema_compativel_gemini(PedidoTriado.model_json_schema())
+
+
+def _esquema_compativel_gemini(esquema: dict[str, Any]) -> dict[str, Any]:
+    """Cópia do esquema com `$defs` inlinados e campos não suportados ajustados."""
+    definicoes: dict[str, Any] = esquema.pop("$defs", {})
+
+    def resolver(nodo: Any) -> Any:
+        if isinstance(nodo, list):
+            return [resolver(item) for item in nodo]
+        if not isinstance(nodo, dict):
+            return nodo
+        if "$ref" in nodo:
+            nome = str(nodo["$ref"]).split("/")[-1]
+            return resolver(definicoes.get(nome, {}))
+        saida: dict[str, Any] = {}
+        for chave, valor in nodo.items():
+            if chave == "exclusiveMinimum":
+                saida["minimum"] = valor
+            else:
+                saida[chave] = resolver(valor)
+        return saida
+
+    return {chave: resolver(valor) for chave, valor in esquema.items()}
