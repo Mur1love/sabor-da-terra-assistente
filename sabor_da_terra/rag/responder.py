@@ -596,14 +596,25 @@ def responder_consulta_documental(
 # ---------------------------------------------------------------------------
 
 
-def consultar_documentos(pergunta: str, data_referencia: Optional[str] = None) -> dict:
+def consultar_documentos(
+    pergunta: str,
+    data_referencia: Optional[str] = None,
+    *,
+    buscador: Callable[[str], list[TrechoRecuperado]] | None = None,
+    limiar_relevancia: float = LIMIAR_RELEVANCIA_PADRAO,
+) -> dict:
     """Consulta documentos da cooperativa (certificações orgânicas, laudos sanitários,
     contratos, fichas técnicas, rastreabilidade de lotes e sazonalidade) com citação
     obrigatória da fonte e recusa a inventar informações ausentes na base.
+
+    `buscador` e `limiar_relevancia` podem ser injetados: a Etapa 7 passa o índice
+    vetorial aqui, sem mudar a assinatura da ferramenta para o function calling.
     """
     resultado = responder_consulta_documental(
         pergunta=pergunta,
         data_referencia=data_referencia,
+        buscador=buscador,
+        limiar_relevancia=limiar_relevancia,
     )
     fontes = list(dict.fromkeys(c.arquivo for c in resultado.citacoes))
     encontrado = len(fontes) > 0

@@ -46,54 +46,89 @@ class _LLMClientFixtureControlado(LLMClient):
         return super().gerar(papel, prompt, **config_geracao)
 
 
-def test_certificacao_mel_vigente_exclui_p008_e_cita_arquivos_reais(tmp_path):
-    plano_json = '{"idioma":"pt","topico":"certificacao","produto":"mel","produtor":null,"lote_id":null,"mes":null,"filtro_organico":true}'
-    saida = RespostaDocumental(
-        resposta=(
-            "Os produtores com certificação orgânica vigente para mel são P002 (José Antônio dos Santos, "
-            "validade até 20/03/2027) [fonte: certificacoes/cert_organica_jose_santos_P002.txt] e "
-            "P018 (Débora Melo) [fonte: certificacoes/cert_organica_debora_melo_P018.txt]. "
-            "A produtora P008 (Josefa Alves de Souza) foi excluída porque sua certificação venceu em "
-            "30/09/2026 e aguarda renovação [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]."
+_CERTIFICADOS_DE_MEL = [
+    TrechoRecuperado(
+        arquivo="certificacoes/cert_organica_jose_santos_P002.txt",
+        conteudo="Certificado Nº: ORG-PE-2025-003198\nData de Validade: 20/03/2027\nNome: José Antônio dos Santos",
+        score=1.0,
+    ),
+    TrechoRecuperado(
+        arquivo="certificacoes/cert_organica_debora_melo_P018.txt",
+        conteudo="Certificado Nº: ORG-PE-2025-002345\nData de Validade: 28/02/2027\nNome: Débora Cristina de Melo",
+        score=1.0,
+    ),
+    TrechoRecuperado(
+        arquivo="certificacoes/cert_organica_josefa_souza_P008.txt",
+        conteudo="Certificado Nº: ORG-PE-2024-003876\nData de Validade: 30/09/2026  *** VENCIDA ***\nNome: Josefa Alves de Souza",
+        score=1.0,
+    ),
+]
+
+_ARQUIVOS_DE_MEL = {t.arquivo for t in _CERTIFICADOS_DE_MEL}
+
+_RESPOSTA_FLAGSHIP = RespostaDocumental(
+    resposta=(
+        "Os produtores com certificação orgânica vigente para mel silvestre são "
+        "P002 (José Antônio dos Santos, validade até 20/03/2027) "
+        "[fonte: certificacoes/cert_organica_jose_santos_P002.txt] e "
+        "P018 (Débora Cristina de Melo, validade até 28/02/2027) "
+        "[fonte: certificacoes/cert_organica_debora_melo_P018.txt]. "
+        "A produtora P008 (Josefa Alves de Souza) está excluída: a certificação "
+        "venceu em 30/09/2026 e a renovação REN-2026-0456 só tem auditoria marcada "
+        "para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]."
+    ),
+    citacoes=[
+        Citacao(
+            arquivo="certificacoes/cert_organica_jose_santos_P002.txt",
+            trecho="Data de Validade: 20/03/2027",
         ),
-        citacoes=[
-            Citacao(
-                arquivo="certificacoes/cert_organica_jose_santos_P002.txt",
-                trecho="Certificado Nº: ORG-PE-2025-003198 | Data de Validade: 20/03/2027 | Mel silvestre",
-            ),
-            Citacao(
-                arquivo="certificacoes/cert_organica_debora_melo_P018.txt",
-                trecho="Certificado de Conformidade Orgânica - Débora Melo - Mel silvestre",
-            ),
-            Citacao(
-                arquivo="certificacoes/cert_organica_josefa_souza_P008.txt",
-                trecho="Data de Validade: 30/09/2026 *** VENCIDA ***",
-            ),
-        ],
-        lacunas=["P008 excluída por certificação vencida em 30/09/2026."],
-    )
+        Citacao(
+            arquivo="certificacoes/cert_organica_debora_melo_P018.txt",
+            trecho="Data de Validade: 28/02/2027",
+        ),
+        Citacao(
+            arquivo="certificacoes/cert_organica_josefa_souza_P008.txt",
+            trecho="Data de Validade: 30/09/2026  *** VENCIDA ***",
+        ),
+    ],
+    lacunas=["P008 excluída dos vigentes: certificação vencida em 30/09/2026 (auditoria da renovação em 15/11/2026)."],
+)
 
-    llm = _LLMClientFixtureControlado(
-        tmp_path,
-        {
-            "triagem": [plano_json],
-            "resposta": [saida.model_dump_json()],
-        },
-    )
 
+def _afirma_flagship(resp) -> None:
+    """Asserções estritas do caso de aceite: P002/P018 vigentes e P008 excluída, cada uma com a fonte no contexto."""
+    assert {c.arquivo for c in resp.citacoes} == _ARQUIVOS_DE_MEL
+    assert all(c.arquivo in listar_arquivos_data() for c in resp.citacoes)
+    assert "P002" in resp.resposta and "P018" in resp.resposta
+    assert "P008" in resp.resposta and "30/09/2026" in resp.resposta
+    assert any("P008" in lacuna for lacuna in resp.lacunas)
+    assert not any("fora do contexto" in lacuna for lacuna in resp.lacunas)
+
+
+def test_certificacao_mel_vigente_exclui_p008_e_cita_arquivos_reais(tmp_path):
+    """Caso de aceite (DOC-001/CTX-001 do gabarito) com retrieval determinístico."""
+    llm = _LLMClientFixtureControlado(tmp_path, {"resposta": [_RESPOSTA_FLAGSHIP.model_dump_json()]})
     resp = responder_consulta_documental(
         "Quais produtores têm certificação orgânica vigente para mel?",
         data_referencia="2026-10-30",
         cliente_llm=llm,
+        buscador=lambda _: _CERTIFICADOS_DE_MEL,
+        usar_llm_auxiliar=False,
     )
+    _afirma_flagship(resp)
 
-    arquivos_data = listar_arquivos_data()
-    assert "P002" in resp.resposta
-    assert "P018" in resp.resposta
-    assert "P008" in resp.resposta
-    assert "30/09/2026" in resp.resposta or "venc" in resp.resposta.lower()
-    assert len(resp.citacoes) >= 1
-    assert all(c.arquivo in arquivos_data for c in resp.citacoes)
+
+def test_flagship_mel_organico_com_a_busca_lexical_do_branch(tmp_path):
+    """Variante com o retrieval real do branch (sem buscador injetado): o fallback lexical
+    provisório precisa colocar os 3 certificados no top-5 para o caso de aceite valer."""
+    llm = _LLMClientFixtureControlado(tmp_path, {"resposta": [_RESPOSTA_FLAGSHIP.model_dump_json()]})
+    resp = responder_consulta_documental(
+        "Quais produtores têm certificação orgânica vigente para mel?",
+        data_referencia="2026-10-30",
+        cliente_llm=llm,
+        usar_llm_auxiliar=False,
+    )
+    _afirma_flagship(resp)
 
 
 def test_rastreabilidade_lote_inexistente_sugere_mais_proximo(tmp_path):
@@ -315,6 +350,32 @@ def test_resposta_sem_nenhuma_citacao_valida_vira_lacuna(tmp_path):
     assert resp.citacoes == []
     assert "não encontrei" in resp.resposta.lower()
     assert any("citação" in lacuna.lower() for lacuna in resp.lacunas)
+
+
+def test_consultar_documentos_aceita_buscador_injetado(monkeypatch, tmp_path):
+    plano_json = '{"idioma":"pt","topico":"rastreabilidade","produto":null,"produtor":null,"lote_id":"2024-089","mes":null,"filtro_organico":null}'
+    saida = RespostaDocumental(
+        resposta="O lote 2024-089 não existe; o mais próximo é LOT-2026-0089 [fonte: lotes.csv].",
+        citacoes=[Citacao(arquivo="lotes.csv", trecho="Sugestão: LOT-2026-0089")],
+        lacunas=[],
+    )
+    llm = _LLMClientFixtureControlado(
+        tmp_path,
+        {
+            "triagem": [plano_json],
+            "resposta": [saida.model_dump_json()],
+        },
+    )
+    monkeypatch.setattr("sabor_da_terra.rag.responder.LLMClient", lambda: llm)
+
+    trecho = TrechoRecuperado(arquivo="lotes.csv", conteudo="LOT-2026-0089, queijo coalho, P003.", score=1.0)
+    resultado = consultar_documentos(
+        "Rastreabilidade do lote 2024-089",
+        data_referencia="2026-10-30",
+        buscador=lambda _: [trecho],
+    )
+    assert resultado["fontes"] == ["lotes.csv"]
+    assert resultado["encontrado"] is True
 
 
 def test_docs04_registra_vertex_ai_search_e_check_grounding():
