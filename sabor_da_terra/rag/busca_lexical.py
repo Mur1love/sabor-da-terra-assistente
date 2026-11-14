@@ -13,15 +13,30 @@ PADRAO_IDENTIFICADORES = re.compile(
 )
 
 
+def normalizar_identificador(identificador: str) -> str:
+    """Normaliza identificadores para comparação lexical."""
+
+    identificador = identificador.upper()
+
+    # Remove sufixos de contratos, como -PNAE.
+    # Exemplo: 045/2026-PNAE -> 045/2026.
+    if re.fullmatch(r"\d{3}/\d{4}-[A-Z]+", identificador):
+        return identificador.split("-")[0]
+
+    return identificador
+
+
 def extrair_identificadores(texto: str) -> list[str]:
-    """Extrai identificadores documentais de um texto."""
+    """Extrai e normaliza identificadores documentais."""
 
     encontrados = PADRAO_IDENTIFICADORES.findall(texto)
 
-    return list(dict.fromkeys(
-        identificador.upper()
-        for identificador in encontrados
-    ))
+    return list(
+        dict.fromkeys(
+            normalizar_identificador(identificador)
+            for identificador in encontrados
+        )
+    )
 
 
 def calcular_score_lexical(
@@ -35,9 +50,7 @@ def calcular_score_lexical(
     if not identificadores:
         return 0.0
 
-    encontrados = set(
-        extrair_identificadores(trecho)
-    )
+    encontrados = set(extrair_identificadores(trecho))
 
     correspondencias = sum(
         identificador in encontrados

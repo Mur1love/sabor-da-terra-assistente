@@ -29,7 +29,7 @@ def test_extrair_numero_contrato():
     texto = "Contrato 045/2026-PNAE"
 
     assert extrair_identificadores(texto) == [
-        "045/2026-PNAE"
+        "045/2026"
     ]
 
 
@@ -88,3 +88,20 @@ def test_busca_respeita_filtro_produtor():
 
     assert len(resultados) == 1
     assert resultados[0]["arquivo"] == "cert_P008.txt"
+
+
+def test_contrato_com_sufixo_pnae():
+    identificadores = extrair_identificadores(
+        "Nº 045/2026-PNAE"
+    )
+
+    assert identificadores == ["045/2026"]
+
+
+def test_correspondencia_contrato_sem_sufixo():
+    score = calcular_score_lexical(
+        "045/2026",
+        "Contrato Nº 045/2026-PNAE",
+    )
+
+    assert score == 1.0
