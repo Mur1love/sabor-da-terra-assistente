@@ -241,3 +241,119 @@ Em produção no Google Cloud, a pipeline local de consulta documental (sabor_da
   Workflows) → #15 — seguem a tabela da §2.
 - **Implementação** → #3 em diante (o ambiente instala a stack decidida aqui).
 
+
+## 10. Triagem Inteligente — Implementação Local (Issue #10)
+
+### 10.1 Objetivo
+
+A Triagem Inteligente transforma mensagens previamente estruturadas em uma fila de atendimento priorizada, acompanhada de avaliações comerciais, sugestões de alocação, alertas e referências às fontes utilizadas.
+
+A implementação preserva a separação entre interpretação de linguagem natural e regras determinísticas de negócio. As decisões relativas a prazos, quantidades, capacidade produtiva e elegibilidade são calculadas em Python, sem delegar operações numéricas ao modelo de linguagem.
+
+### 10.2 Fluxo de processamento
+
+O processamento é iniciado pela função `triar_pendentes(data_referencia)`, implementada em `sabor_da_terra/triagem/fila.py`.
+
+O fluxo compreende:
+
+1. Carregamento dos pedidos estruturados em `tests/fixtures/triagem_15_pedidos.json`.
+2. Recuperação dos metadados originais, incluindo datas de recebimento, a partir de `data/pedidos.json`.
+3. Identificação das ofertas de produtores conhecidas até a data de referência.
+4. Classificação e ordenação dos registros por prioridade.
+5. Avaliação das demandas e das condições comerciais.
+6. Geração de sugestões de alocação sujeitas à capacidade semanal e às restrições aplicáveis.
+7. Análise de histórico e hipóteses documentais quando necessário.
+8. Cruzamento informativo entre ofertas de produtores e demandas.
+9. Consolidação dos alertas, com identificação das fontes.
+10. Retorno da fila estruturada e geração de relatório Markdown.
+
+### 10.3 Componentes principais
+
+| Componente | Responsabilidade |
+|---|---|
+| `triagem/fila.py` | Orquestração da triagem, priorização e consolidação da fila |
+| `triagem/alocar.py` | Avaliação das sugestões de alocação e controle da capacidade semanal |
+| `triagem/ofertas.py` | Identificação e cruzamento temporal de ofertas |
+| `triagem/historico.py` | Consulta ao histórico e tratamento de referências ambíguas |
+| `triagem/consultas.py` | Consultas auxiliares para demandas específicas |
+| `triagem/notificacoes.py` | Preparação de informações e alertas relacionados às notificações |
+| `triagem/exportar.py` | Geração do relatório Markdown |
+
+### 10.4 Regras de negócio e rastreabilidade
+
+A triagem considera informações de produtores, lotes, certificações, contratos, histórico e demais dados disponíveis no repositório.
+
+As sugestões de atendimento não equivalem a reservas ou confirmações comerciais.
+
+Quando uma informação não pode ser comprovada, o sistema deve preservar a incerteza e solicitar confirmação, em vez de apresentar hipóteses como fatos.
+
+Os alertas devem identificar a origem documental ou estruturada que fundamenta a sinalização.
+
+### 10.5 Compatibilidade temporal das ofertas
+
+O cruzamento de ofertas é realizado por `identificar_ofertas()` e `cruzar_ofertas()`, em `triagem/ofertas.py`.
+
+Uma oferta somente pode influenciar a triagem quando sua data de recebimento não é posterior à data de referência.
+
+A compatibilidade com o prazo original da demanda é representada por três estados:
+
+- `True`: oferta recebida até a data-limite da demanda.
+- `False`: oferta recebida depois da data-limite.
+- `None`: informações temporais insuficientes para verificar a compatibilidade.
+
+Ofertas posteriores ao prazo original podem ser apresentadas para eventual renegociação, desde que já sejam conhecidas na data da triagem. Elas não representam disponibilidade confirmada.
+
+**Exemplo:** o PED-015 foi recebido em 30/10/2026, às 16h. Portanto, não participa do cruzamento realizado em 29/10/2026. Na triagem de 30/10, sua oferta de queijo coalho pode ser relacionada ao PED-006, mas é identificada como posterior ao prazo original de 29/10.
+
+### 10.6 Histórico e ambiguidades
+
+Referências como "o de sempre" ou "da última vez" exigem consulta a evidências históricas.
+
+Quando não existe histórico suficiente, uma ficha técnica pode fundamentar uma hipótese documental, mas não comprova uma compra anterior.
+
+O sistema deve registrar a fonte da hipótese e exigir confirmação antes de tratá-la como uma demanda plenamente identificada.
+
+### 10.7 Saídas e confirmações
+
+A função `triar_pendentes()` retorna uma estrutura contendo:
+
+- `data_referencia`;
+- `total_registros`;
+- `fila`;
+- `capacidade_semanal_sugerida`;
+- `confirmacoes_realizadas`;
+- `notificacoes_enviadas`.
+
+As correspondências entre ofertas e demandas são informativas. A identificação de um produtor potencialmente apto não confirma estoque, entrega ou aceitação comercial.
+
+Na implementação validada, os indicadores `confirmacoes_realizadas` e `notificacoes_enviadas` permanecem `False`.
+
+O relatório de exemplo é gerado em `exemplos/fila_triagem.md`.
+
+### 10.8 Validação
+
+A execução de referência utiliza:
+
+```python
+from sabor_da_terra.triagem.fila import triar_pendentes
+
+resultado = triar_pendentes("2026-10-29")
+```
+
+O processamento retorna 15 registros.
+
+Na validação realizada em 15/11/2026, a suíte automatizada apresentou:
+
+- **563 testes aprovados**;
+- **3 testes ignorados**;
+- **Nenhuma falha**.
+
+Os testes incluem a prevenção de uso de ofertas futuras, a identificação de ofertas posteriores ao prazo original e a preservação de correspondências sem confirmação automática.
+
+### 10.9 Integração com o ecossistema Google
+
+A arquitetura mantém a separação entre a interpretação das mensagens pelo Gemini Flash-Lite e a execução das regras determinísticas em Python.
+
+No desenho de produção, a triagem corresponde ao uso de Vertex AI para interpretação e classificação, Cloud Run functions ou Workflows para execução das regras e BigQuery para consulta aos dados estruturados.
+
+Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os serviços gerenciados já estejam implantados.
