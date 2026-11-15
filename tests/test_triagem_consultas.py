@@ -166,3 +166,75 @@ def test_fila_continua_com_15_registros():
     assert resultado["total_registros"] == 15
     assert resultado["confirmacoes_realizadas"] is False
     assert resultado["notificacoes_enviadas"] is False
+
+
+def test_ped010_retorna_catalogo_organico():
+    resultado = triar_pendentes("2026-10-29")
+    pedido = buscar(resultado["fila"], "PED-2026-010")
+
+    catalogo = pedido["analise_comercial"]["catalogo_organico"]
+
+    assert catalogo is not None
+    assert catalogo["total_produtos"] > 0
+    assert catalogo["produtos"]
+    assert catalogo["capacidade_reservada"] is False
+
+
+def test_ped010_produtores_ativos_e_certificados():
+    resultado = triar_pendentes("2026-10-29")
+    pedido = buscar(resultado["fila"], "PED-2026-010")
+
+    produtos = pedido[
+        "analise_comercial"
+    ]["catalogo_organico"]["produtos"]
+
+    for produto in produtos:
+        assert produto["produtores"]
+
+        for produtor in produto["produtores"]:
+            assert produtor["certificacao_vigente"] is True
+            assert produtor["validade_certificacao"]
+            assert produtor["produtor_id"] not in {
+                "P008",
+                "P015",
+            }
+
+
+def test_ped010_precos_com_fontes():
+    resultado = triar_pendentes("2026-10-29")
+    pedido = buscar(resultado["fila"], "PED-2026-010")
+
+    produtos = pedido[
+        "analise_comercial"
+    ]["catalogo_organico"]["produtos"]
+
+    precos = [
+        preco
+        for produto in produtos
+        for preco in produto["precos"]
+    ]
+
+    assert precos
+    assert all(preco["fonte"] for preco in precos)
+
+    for preco in precos:
+        if preco["preco_disponivel"]:
+            assert preco["preco_unitario"] is not None
+            assert preco["preco_unitario"] > 0
+
+
+def test_ped010_nao_confirma_disponibilidade():
+    resultado = triar_pendentes("2026-10-29")
+    pedido = buscar(resultado["fila"], "PED-2026-010")
+
+    analise = pedido["analise_comercial"]
+    catalogo = analise["catalogo_organico"]
+
+    assert pedido["alocacoes"] == []
+    assert pedido["orcamento"] is None
+    assert analise["capacidade_reservada"] is False
+    assert analise["pedido_confirmado"] is False
+    assert catalogo["disponibilidade_futura_confirmada"] is False
+    assert "DISPONIBILIDADE_FUTURA_A_CONFIRMAR" in codigos(
+        pedido
+    )
