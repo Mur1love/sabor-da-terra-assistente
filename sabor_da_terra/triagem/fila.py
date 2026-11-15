@@ -3,13 +3,18 @@
 from __future__ import annotations
 
 import json
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
 from typing import Any
 
+from sabor_da_terra.regras.fatos import obter_fatos
 from sabor_da_terra.triagem.alocar import AlocadorSemanal
 from sabor_da_terra.triagem.historico import identificar_historico
-from sabor_da_terra.triagem.priorizar import classificar_prioridade
+from sabor_da_terra.triagem.orcamento import consolidar_orcamento
+from sabor_da_terra.triagem.priorizar import (
+    classificar_prioridade,
+    classificar_urgencia,
+)
 from sabor_da_terra.triagem.schema import (
     PedidoTriado,
     TipoMensagem,
@@ -37,7 +42,7 @@ ORDEM_PRIORIDADE = {
 def carregar_pedidos(
     caminho: Path = CAMINHO_PEDIDOS,
 ) -> list[dict[str, Any]]:
-    """Carrega os pedidos estruturados da Etapa 9."""
+    """Carrega os pedidos estruturados da Issue #9."""
 
     with caminho.open(encoding="utf-8") as arquivo:
         registros = json.load(arquivo)
@@ -76,7 +81,7 @@ def carregar_pedidos(
 def identificar_referencia_historica(
     pedido: PedidoTriado,
 ) -> str | None:
-    """Identifica referências implícitas no pedido."""
+    """Identifica referências implícitas ao histórico."""
 
     textos = [
         *pedido.ambiguidades,
@@ -99,12 +104,107 @@ def criar_alerta(
     mensagem: str,
     fonte: str,
 ) -> dict[str, str]:
-    """Cria um alerta com origem identificável."""
+    """Cria um alerta com fonte identificável."""
 
     return {
         "codigo": codigo,
         "mensagem": mensagem,
         "fonte": fonte,
+    }
+
+
+def identificar_contrato(
+    comprador: str | None,
+) -> dict[str, Any] | None:
+    """Identifica contratos usando os fatos da Issue #5."""
+
+    contrato = obter_fatos().contrato_do_comprador(
+        comprador
+    )
+
+    if contrato is None:
+        return None
+
+    return {
+        "numero": contrato.numero,
+        "comprador": contrato.comprador,
+        "inicio": contrato.inicio.isoformat(),
+        "fim": (
+            contrato.fim.isoformat()
+            if contrato.fim
+            else None
+        ),
+        "exige_dap_caf": contrato.exige_dap_caf,
+        "exige_sie_origem_animal": (
+            contrato.exige_sie_origem_animal
+        ),
+        "condicoes": list(contrato.condicoes),
+        "fonte": contrato.fonte,
+    }
+
+
+def prioridade_do_registro(
+    registro: dict[str, Any],
+    data_referencia: date,
+) -> dict[str, Any]:
+    """Classifica prioridade considerando o contrato."""
+
+    pedido: PedidoTriado = registro["pedido"]
+
+    contrato = identificar_contrato(
+        pedido.comprador
+    )
+
+    return classificar_prioridade(
+        pedido,
+        data_referencia=data_referencia,
+        possui_contrato=contrato is not None,
+    )
+
+
+def calcular_urgencia(
+    registro: dict[str, Any],
+    pedido: PedidoTriado,
+    possui_contrato: bool,
+) -> dict[str, Any]:
+    """Calcula urgência ou informa a ausência de dados.
+
+    Não inventa data ou horário de recebimento.
+    """
+
+    data_recebimento = registro.get(
+        "data_recebimento"
+    )
+
+    if not data_recebimento:
+        return {
+            "horas_restantes": None,
+            "data_recebimento": None,
+            "prazo_entrega": pedido.prazo_entrega,
+            "urgencia_nao_calculada": True,
+            "requer_confirmacao": True,
+            "aviso": (
+                "Data de recebimento não informada. "
+                "Não é possível calcular a urgência "
+                "em horas."
+            ),
+            "fonte": "registro.data_recebimento",
+        }
+
+    resultado = classificar_urgencia(
+        pedido,
+        data_recebimento=data_recebimento,
+        mensagem_original=registro.get(
+            "mensagem_original", ""
+        ),
+        possui_contrato=possui_contrato,
+    )
+
+    return {
+        **resultado,
+        "urgencia_nao_calculada": (
+            resultado.get("horas_restantes") is None
+        ),
     }
 
 
@@ -118,15 +218,51 @@ def processar_pedido(
     pedido: PedidoTriado = registro["pedido"]
     identificador = registro["id"]
 
+    # --------------------------------------------------
+    # 1. Contrato e prioridade
+    # --------------------------------------------------
+
+    contrato = identificar_contrato(
+        pedido.comprador
+    )
+
     prioridade = classificar_prioridade(
         pedido,
         data_referencia=data_referencia,
+        possui_contrato=contrato is not None,
     )
 
-    alertas = []
-    avaliacoes = []
-    alocacoes = []
+    # --------------------------------------------------
+    # 2. Urgência
+    # --------------------------------------------------
+
+    urgencia = calcular_urgencia(
+        registro=registro,
+        pedido=pedido,
+        possui_contrato=contrato is not None,
+    )
+
+    alertas: list[dict[str, Any]] = []
+    avaliacoes: list[dict[str, Any]] = []
+    alocacoes: list[dict[str, Any]] = []
     historico = None
+
+    if not registro.get("data_recebimento"):
+        alertas.append(
+            criar_alerta(
+                "DATA_RECEBIMENTO_AUSENTE",
+                (
+                    "Não foi possível calcular a "
+                    "urgência em horas porque a data "
+                    "de recebimento não foi informada."
+                ),
+                "registro.data_recebimento",
+            )
+        )
+
+    # --------------------------------------------------
+    # 3. Ambiguidades e campos faltantes
+    # --------------------------------------------------
 
     for ambiguidade in pedido.ambiguidades:
         alertas.append(
@@ -146,11 +282,18 @@ def processar_pedido(
             )
         )
 
+    # --------------------------------------------------
+    # 4. Prazo
+    # --------------------------------------------------
+
     if prioridade["situacao_prazo"] == "vencido":
         alertas.append(
             criar_alerta(
                 "PRAZO_VENCIDO",
-                "Prazo vencido. Confirmar validade da solicitação.",
+                (
+                    "Prazo vencido. Confirmar validade "
+                    "da solicitação."
+                ),
                 "pedido_estruturado.prazo_entrega",
             )
         )
@@ -164,7 +307,13 @@ def processar_pedido(
             )
         )
 
-    expressao = identificar_referencia_historica(pedido)
+    # --------------------------------------------------
+    # 5. Histórico
+    # --------------------------------------------------
+
+    expressao = identificar_referencia_historica(
+        pedido
+    )
 
     if expressao and pedido.comprador:
         historico = identificar_historico(
@@ -181,16 +330,40 @@ def processar_pedido(
             )
         )
 
-    # Ofertas, consultas e notificações não são
-    # tratadas como demandas para alocação.
+    # --------------------------------------------------
+    # 6. Informações contratuais
+    # --------------------------------------------------
+
+    if contrato is not None:
+        alertas.append(
+            criar_alerta(
+                "CONTRATO_IDENTIFICADO",
+                (
+                    "Comprador vinculado ao contrato "
+                    f"{contrato['numero']}. "
+                    "Verificar exigências contratuais."
+                ),
+                contrato["fonte"],
+            )
+        )
+
+    # --------------------------------------------------
+    # 7. Registros que não são compras
+    # --------------------------------------------------
+
     if pedido.tipo not in TIPOS_COMPRA:
         return {
             "id": identificador,
             "tipo": pedido.tipo.value,
             "comprador": pedido.comprador,
             "prioridade": prioridade["prioridade"],
-            "situacao_prazo": prioridade["situacao_prazo"],
+            "situacao_prazo": prioridade[
+                "situacao_prazo"
+            ],
             "prazo_entrega": pedido.prazo_entrega,
+            "contrato": contrato,
+            "urgencia": urgencia,
+            "orcamento": None,
             "avaliacoes": [],
             "alocacoes": [],
             "historico": historico,
@@ -199,17 +372,26 @@ def processar_pedido(
             "requer_confirmacao": (
                 prioridade["requer_confirmacao"]
                 or historico is not None
+                or urgencia.get(
+                    "requer_confirmacao", False
+                )
             ),
         }
 
-    # Se o prazo venceu ou há ambiguidades,
-    # não reservamos capacidade de produtores.
+    # --------------------------------------------------
+    # 8. Bloqueios de alocação
+    # --------------------------------------------------
+
     bloqueio_alocacao = (
         prioridade["situacao_prazo"]
         in {"vencido", "nao_resolvido"}
         or bool(pedido.ambiguidades)
         or historico is not None
     )
+
+    # --------------------------------------------------
+    # 9. Avaliação e alocação dos itens
+    # --------------------------------------------------
 
     for item in pedido.itens:
         avaliacao = validar_item(
@@ -220,6 +402,23 @@ def processar_pedido(
         )
 
         avaliacoes.append(avaliacao)
+
+        for alerta in avaliacao.get("alertas", []):
+            alertas.append({
+                "codigo": alerta.get(
+                    "codigo", "CONFORMIDADE"
+                ),
+                "mensagem": alerta.get(
+                    "mensagem", ""
+                ),
+                "severidade": alerta.get(
+                    "severidade"
+                ),
+                "fonte": alerta.get(
+                    "fonte",
+                    "regras.conformidade",
+                ),
+            })
 
         if bloqueio_alocacao:
             alocacoes.append({
@@ -243,13 +442,30 @@ def processar_pedido(
 
         alocacoes.append(resultado)
 
+    # --------------------------------------------------
+    # 10. Orçamento consolidado
+    # --------------------------------------------------
+
+    orcamento = consolidar_orcamento(
+        avaliacoes
+    )
+
+    # --------------------------------------------------
+    # 11. Resultado consolidado
+    # --------------------------------------------------
+
     return {
         "id": identificador,
         "tipo": pedido.tipo.value,
         "comprador": pedido.comprador,
         "prioridade": prioridade["prioridade"],
-        "situacao_prazo": prioridade["situacao_prazo"],
+        "situacao_prazo": prioridade[
+            "situacao_prazo"
+        ],
         "prazo_entrega": pedido.prazo_entrega,
+        "contrato": contrato,
+        "urgencia": urgencia,
+        "orcamento": orcamento,
         "avaliacoes": avaliacoes,
         "alocacoes": alocacoes,
         "historico": historico,
@@ -262,6 +478,9 @@ def processar_pedido(
         "requer_confirmacao": (
             prioridade["requer_confirmacao"]
             or historico is not None
+            or urgencia.get(
+                "requer_confirmacao", False
+            )
         ),
     }
 
@@ -282,14 +501,13 @@ def triar_pendentes(
 
     alocador = AlocadorSemanal()
 
-    # Primeiro prioriza; depois processa.
-    # Isso permite que pedidos mais urgentes
-    # utilizem a capacidade semanal primeiro.
+    # Ordena os pedidos antes da alocação.
+    # Contratos também influenciam a prioridade.
     registros.sort(
         key=lambda registro: (
             ORDEM_PRIORIDADE[
-                classificar_prioridade(
-                    registro["pedido"],
+                prioridade_do_registro(
+                    registro,
                     data_referencia=referencia,
                 )["prioridade"]
             ],

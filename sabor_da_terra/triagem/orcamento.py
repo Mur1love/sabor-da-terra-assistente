@@ -36,6 +36,11 @@ def consolidar_orcamento(
         preco = avaliacao.get("preco")
         alertas = avaliacao.get("alertas") or []
 
+        pode_atender = avaliacao.get("pode_atender", False)
+
+        if not pode_atender:
+            itens_com_restricao += 1
+
         produto = item.get(
             "produto",
             avaliacao.get("produto", "não identificado"),
@@ -94,13 +99,6 @@ def consolidar_orcamento(
             total_sem_desconto += _dinheiro(subtotal)
         else:
             total_sem_desconto += valor
-
-        pode_atender = avaliacao.get(
-            "pode_atender", False
-        )
-
-        if not pode_atender:
-            itens_com_restricao += 1
 
         fonte_preco = preco.get("fonte")
         if fonte_preco:
