@@ -46,7 +46,11 @@ sabor-da-terra-assistente/
 │   ├── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
 │   └── 04-arquitetura.md    ← arquitetura de referência Google e decisões por componente
 ├── scripts/
-│   └── smoke_llm.py         ← teste de fumaça real (Flash-Lite, Flash e embedding)
+│   ├── smoke_llm.py         ← teste de fumaça real (Flash-Lite, Flash e embedding)
+│   └── exemplos_produtores.py ← gera os resumos e notificações de exemplo (etapa 11)
+├── exemplos/
+│   ├── fila_triagem.md      ← fila de triagem do dia 30/10/2026 (etapa 10)
+│   └── produtores/          ← resumos, notificações e respostas a produtores (etapa 11)
 ├── sabor_da_terra/
 │   ├── llm/                 ← cliente único Gemini: modelo por papel, retry 429, modo fixture
 │   ├── dados/               ← camada de dados estruturados (etapa 4)
@@ -101,6 +105,10 @@ Requisitos: **Python 3.11 ou mais novo** e Git. Nenhuma conta Google Cloud é ne
    ```
 5. Abra a tela de validação: `streamlit run app.py`
 6. Rode os testes (100% offline, sem gastar cota): `pytest`
+7. Gere os exemplos de comunicação com produtores em `exemplos/produtores/`:
+   `python -m scripts.exemplos_produtores` (sem API) ou
+   `python -m scripts.exemplos_produtores --gemini` (o Gemini Flash reescreve o
+   texto; se mexer em algum valor, data ou código, fica o texto original).
 
 **Modos do LLM (`LLM_MODO` no `.env`):**
 - `real` — chama a API de verdade e **não grava nada**: a demo e a triagem
