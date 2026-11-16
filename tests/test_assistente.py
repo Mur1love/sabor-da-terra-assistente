@@ -9,6 +9,8 @@ from pathlib import Path
 import pytest
 
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
+from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
+from sabor_da_terra.dados import obter_repositorio
 
 RAIZ = Path(__file__).resolve().parents[1]
 
@@ -67,3 +69,27 @@ def test_contexto_bloco_legivel_e_serializacao_idempotente():
     bloco = estado.contexto()
     assert "2026-10-30" in bloco and "P008" in bloco and "PED-2026-006" in bloco
     assert EstadoSessao.from_dict(estado.to_dict()) == estado
+
+
+# ---------------------------------------------------------------------------
+# Mascaramento de dados sensíveis
+# ---------------------------------------------------------------------------
+
+
+def test_mascara_cpf_pix_conta_e_telefone_em_payload_aninhado():
+    cadastro = obter_repositorio().produtores()
+    cpf, pix = str(cadastro.iloc[0]["cpf"]), str(cadastro.iloc[0]["chave_pix"])
+    conta, telefone = str(cadastro.iloc[0]["conta_corrente"]), str(cadastro.iloc[0]["telefone"])
+    payload = {"a": [f"CPF {cpf} e PIX {pix}", {"conta": conta, "tel": telefone}]}
+    texto = json.dumps(mascarar_dados_sensiveis(payload), ensure_ascii=False)
+    assert cpf not in texto and pix not in texto and conta not in texto and telefone not in texto
+    assert "***" in texto
+
+
+def test_cpf_solto_em_texto_e_mascarado_e_texto_limpo_passa_igual():
+    assert mascarar_dados_sensiveis("CPF 123.456.789-09 aqui") == "CPF ***.***.***-** aqui"
+    assert mascarar_dados_sensiveis({"msg": "300kg de goiaba para PED-2026-006"}) == {"msg": "300kg de goiaba para PED-2026-006"}
+
+
+def test_tipos_nao_string_ficam_intactos():
+    assert mascarar_dados_sensiveis({"qtd": 300, "ok": True, "nada": None}) == {"qtd": 300, "ok": True, "nada": None}
