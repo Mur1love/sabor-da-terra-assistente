@@ -19,6 +19,12 @@ from sabor_da_terra.dados.normalizacao import mascarar_cpf_em_texto
 
 # Conta corrente no formato do cadastro (28901-3, 0073921-7, 00134578-2).
 _CONTA = re.compile(r"\b\d{5,8}-\d\b")
+# Conta escrita nos documentos com separador de milhar ("C/C 55.678-9").
+_CONTA_DOCUMENTO = re.compile(r"\b\d{1,3}(?:\.\d{3})+-\d\b")
+# Agência abreviada nos documentos ("Ag. 0437") e por extenso ("agência 0437").
+_AGENCIA = re.compile(r"(?:\bAg\.?\s*|\bag[eê]ncia\s+)\d{3,5}\b", re.IGNORECASE)
+# CPF com espaços ("831 452 674 90"), como aparece escrito em documentos.
+_CPF_ESPACADO = re.compile(r"\b\d{3} \d{3} \d{3} \d{2}\b")
 
 MASCARA = "***"
 
@@ -41,10 +47,13 @@ def valores_sensiveis_do_cadastro() -> frozenset[str]:
 
 def _mascarar_texto(texto: str) -> str:
     texto = mascarar_cpf_em_texto(texto)
+    texto = _CPF_ESPACADO.sub(MASCARA, texto)
     for valor in valores_sensiveis_do_cadastro():
         if valor in texto:
             texto = texto.replace(valor, MASCARA)
-    return _CONTA.sub(MASCARA, texto)
+    texto = _CONTA.sub(MASCARA, texto)
+    texto = _CONTA_DOCUMENTO.sub(MASCARA, texto)
+    return _AGENCIA.sub(MASCARA, texto)
 
 
 def mascarar_dados_sensiveis(obj: Any) -> Any:

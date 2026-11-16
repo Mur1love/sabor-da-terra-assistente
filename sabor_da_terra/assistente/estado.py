@@ -110,9 +110,10 @@ def _produtor_do_resultado(resultado: dict[str, Any]) -> dict[str, str] | None:
 
 def _produto_do_resultado(nome_funcao: str, args: dict[str, Any], resultado: dict[str, Any]) -> str | None:
     """Nome do produto em foco, na forma que cada ferramenta devolve."""
+    item = resultado.get("item")  # verificar_conformidade traz o item avaliado
+    if isinstance(item, dict) and item.get("produto"):
+        return str(item["produto"])
     produto = resultado.get("produto")
-    if isinstance(produto, dict):  # verificar_conformidade devolve um bloco de item
-        produto = produto.get("produto")
     if not produto and nome_funcao == "rastrear_lote":
         produto = (resultado.get("lote") or {}).get("produto")
     return str(produto) if produto else None

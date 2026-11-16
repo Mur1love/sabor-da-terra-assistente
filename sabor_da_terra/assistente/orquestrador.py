@@ -47,6 +47,27 @@ SEM_RESPOSTA = "Não consegui processar sua mensagem."
 SEM_COMPOSICAO = "Não consegui compor a resposta agora; os dados das funções estão no log."
 
 
+def _content_com_args_mascarados(content: types.Content) -> types.Content:
+    """Cópia do content do modelo com os args das function_calls mascarados.
+
+    O histórico volta ao modelo inteiro a cada iteração e turno — os args
+    que o modelo escreveu (podendo conter dado de pessoa) não podem
+    sobreviver nele sem máscara.
+    """
+    partes: list[types.Part] = []
+    for parte in content.parts or []:
+        chamada = parte.function_call
+        if chamada is not None:
+            mascarada = chamada.model_copy(deep=True)
+            mascarada.args = mascarar_dados_sensiveis(dict(mascarada.args or {}))
+            partes.append(types.Part(function_call=mascarada))
+        elif parte.text is not None:
+            partes.append(types.Part.from_text(text=parte.text))
+        else:
+            partes.append(parte)
+    return types.Content(role=content.role, parts=partes)
+
+
 class Assistente:
     """A sessão de conversa: histórico em turnos, laço de funções e resposta final."""
 
@@ -95,7 +116,7 @@ class Assistente:
             if not chamadas:
                 rascunho = resposta.text
                 break
-            self._blocos[-1].append(resposta.candidates[0].content)
+            self._blocos[-1].append(_content_com_args_mascarados(resposta.candidates[0].content))
             self._blocos[-1].append(self._executar_chamadas(chamadas, executadas, erros))
 
         final = self._fechar_turno(mensagem, executadas, erros, rascunho)

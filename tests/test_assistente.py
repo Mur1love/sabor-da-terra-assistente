@@ -16,6 +16,7 @@ from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
 from sabor_da_terra.assistente.orquestrador import Assistente
 from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
 from sabor_da_terra.llm.cliente import LLMClient
+from sabor_da_terra.regras.conformidade import verificar_conformidade
 from sabor_da_terra.dados import obter_repositorio
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -32,12 +33,27 @@ def test_estado_atualiza_produtor_em_foco_por_identificar():
     assert estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
 
 
-def test_estado_atualiza_produto_por_buscar_e_por_conformidade_dict():
+def test_estado_atualiza_produto_por_buscar_e_por_conformidade():
     estado = EstadoSessao(data_referencia="2026-10-30")
     estado.atualizar("buscar_produtores", {}, {"produto": "mel silvestre"})
     assert estado.produto_em_foco == "mel silvestre"
-    estado.atualizar("verificar_conformidade", {}, {"produto": {"produto": "goiaba paluma", "quantidade": 300}})
-    assert estado.produto_em_foco == "goiaba paluma"  # quirk: "produto" é dict na conformidade
+    # forma REAL da saída de verificar_conformidade: o produto vem dentro de "item"
+    estado.atualizar("verificar_conformidade", {}, {"item": {"produto": "goiaba paluma", "quantidade": 300}})
+    assert estado.produto_em_foco == "goiaba paluma"
+
+
+def test_estado_pega_o_produto_da_conformidade_real():
+    """O estado bate na saída real da função, não numa forma inventada (leitura da revisão)."""
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    saida = verificar_conformidade(
+        {"produto": "goiaba paluma", "quantidade": 300, "organico": False},
+        "2026-11-02",
+        "Rede SuperBom Atacado",
+        "2026-10-30",
+    )
+    assert saida["encontrado"] is True  # a função rodou de verdade
+    estado.atualizar("verificar_conformidade", {"item": {"produto": "goiaba paluma", "quantidade": 300}}, saida)
+    assert estado.produto_em_foco == "goiaba paluma"
 
 
 def test_estado_atualiza_pedido_em_foco_pelo_id_na_mensagem():
@@ -99,6 +115,15 @@ def test_cpf_solto_em_texto_e_mascarado_e_texto_limpo_passa_igual():
 
 def test_tipos_nao_string_ficam_intactos():
     assert mascarar_dados_sensiveis({"qtd": 300, "ok": True, "nada": None}) == {"qtd": 300, "ok": True, "nada": None}
+
+
+def test_mascara_formatos_bancarios_de_documento():
+    # Formatos reais dos contratos (data/contratos/*.txt): conta com separador de
+    # milhar, agência abreviada e CPF com espaços — todos escapam da máscara do cadastro.
+    texto = "Pagamento via Banco do Brasil - Ag. 0437 - C/C 55.678-9. CPF 831 452 674 90."
+    saida = mascarar_dados_sensiveis(texto)
+    assert "55.678-9" not in saida and "0437" not in saida and "831 452 674 90" not in saida
+    assert "Banco do Brasil" in saida and "C/C" in saida  # institucional fica; o dado de conta vai mascarado
 
 
 # ---------------------------------------------------------------------------
@@ -397,6 +422,9 @@ def test_despacho_mascara_args_e_log(tmp_path, caplog):
         a.responder("nota com dados")
     registro = " ".join(r.getMessage() for r in caplog.records)
     assert pix not in registro and "123.456.789-09" not in registro
+    # o histórico reenvia ao modelo a cada iteração/turno — ele também não pode carregar o dado
+    historico = json.dumps([c.model_dump(mode="json", exclude_none=True) for c in a.historico], ensure_ascii=False)
+    assert pix not in historico and "123.456.789-09" not in historico
 
 
 def test_log_do_turno_mostra_funcoes_modelo_e_duracao(tmp_path, caplog):
