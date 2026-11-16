@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
+import pytest
 from google.genai import types
 from tests.dobles import ClienteFake, ModeloFake
 
@@ -457,3 +458,166 @@ def test_pacote_assistente_exporta_a_superficie_da_etapa():
                  "PROMPT_RESPOSTA_FINAL", "declarar_ferramentas", "mascarar_dados_sensiveis",
                  "NOME_PARA_FUNCAO", "MAX_CHAMADAS_POR_TURNO", "MAX_ITERACOES_POR_TURNO"):
         assert hasattr(assistente, nome), nome
+
+
+# ---------------------------------------------------------------------------
+# Diálogos do gabarito (modo fixture controlado) — critérios de aceite da #12
+# ---------------------------------------------------------------------------
+
+# Resposta estruturada do RAG (RespostaDocumental) para o turno 2 do CTX-001.
+_RESPOSTA_RAG_JOSEFA = json.dumps(
+    {
+        "resposta": (
+            "A certificação orgânica de mel silvestre de Josefa Alves de Souza (P008) venceu em "
+            "30/09/2026, com protocolo de renovação REN-2026-0456 e auditoria marcada para "
+            "15/11/2026; ela não pode comercializar mel como orgânico até a aprovação "
+            "[fonte: certificacoes/cert_organica_josefa_souza_P008.txt]."
+        ),
+        "citacoes": [
+            {
+                "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+                "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***",
+            }
+        ],
+        "lacunas": [],
+    },
+    ensure_ascii=False,
+)
+
+
+def test_ctx001_tres_turnos_resolve_josefa_sem_repetir(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("buscar_produtores", {"produto": "mel silvestre", "organico": True}),
+            Script(texto="Vou listar quem tem mel orgânico vigente."),
+            ROTEADOR("identificar_produtor", {"termo": "Josefa"}),
+            ROTEADOR("consultar_documentos", {"pergunta": "certificação orgânica de mel silvestre da produtora Josefa Alves de Souza (P008): validade e renovação"}),
+            # o planner do RAG roda DENTRO do despacho de consultar_documentos —
+            # na fila, o script dele vem exatamente entre o roteador e o rascunho
+            Script(texto='{"idioma": "pt", "topico": "certificacao", "produto": "mel silvestre", "produtor": "P008", "lote_id": null, "mes": null, "filtro_organico": true}'),
+            Script(texto="Agora consulto o certificado dela."),
+            ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}),
+            Script(texto="Vou montar o resumo dela."),
+        ],
+        "resposta": [
+            Script(texto="Para mel silvestre orgânico, os produtores vigentes são P002 (validade 20/03/2027) e P018 (validade 28/02/2027); a P008 (Josefa) está com a certificação vencida em 30/09/2026."),
+            Script(texto=_RESPOSTA_RAG_JOSEFA),
+            Script(texto="A certificação orgânica de mel silvestre de Josefa Alves de Souza (P008) venceu em 30/09/2026, com protocolo de renovação REN-2026-0456 e auditoria marcada para 15/11/2026; ela não pode comercializar mel como orgânico até a aprovação [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]."),
+        ],
+    })
+    monkeypatch_rag = _fabrica(tmp_path, fila)
+    monkeypatch_extrair = _fabrica(tmp_path, fila)
+    with (pytest.MonkeyPatch.context() as mp):
+        mp.setattr("sabor_da_terra.rag.responder.LLMClient", monkeypatch_rag)
+        mp.setattr("sabor_da_terra.triagem.extrair.LLMClient", monkeypatch_extrair)
+        a = _assistente(_fabrica(tmp_path, fila)())
+        with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+            a.responder("Quem tem mel orgânico vigente?")
+            a.responder("E a Josefa?")
+            t3 = a.responder("Manda um resumo pra ela")
+
+    # AC: o usuário não repetiu nada — as mensagens são só "E a Josefa?" e "Manda um resumo pra ela"
+    usuarios = [c for c in a.historico if c.role == "user"]
+    assert usuarios[1].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1] == "E a Josefa?"
+    assert usuarios[2].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1] == "Manda um resumo pra ela"
+    # AC: o estado da sessão resolve "ela" como P008 — injetado no turno 3 sem o usuário repetir
+    assert "P008" in usuarios[2].parts[0].text
+    assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+    # Turno 2: identificação da P008 com o certificado citado (do retrieval real)
+    t2 = a._blocos[1][-1].parts[0].text  # fechamento do turno 2
+    assert "Josefa" in t2 and "30/09/2026" in t2
+    assert "[fonte:" in t2 and "cert_organica_josefa_souza_P008" in t2
+    # Turno 3: pass-through do resumo real (valores do financeiro)
+    assert t3.startswith("Olá, Josefa")
+    assert "R$" in t3
+    # AC: as funções esperadas do gabarito aparecem no log
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    for funcao in ("buscar_produtores", "consultar_documentos", "resumo_produtor"):
+        assert funcao in registro, funcao
+    _fila_vazia(fila)
+
+
+def test_ctx002_contexto_do_pedido_mantido(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("triar_pedido", {"mensagem": "300kg de goiaba para o pedido urgente PED-2026-006 (revenda em atacado), entrega para a próxima semana"}),
+            Script(texto='{"tipo": "compra", "idioma": "pt", "comprador": "Rede SuperBom Atacado", "itens": [{"produto": "goiaba paluma", "quantidade": 300, "unidade": "kg"}]}'),
+            ROTEADOR("verificar_conformidade", {"item": {"produto": "goiaba paluma", "quantidade": 300, "organico": False}, "data_entrega": "2026-11-02", "comprador": "Rede SuperBom Atacado"}),
+            Script(texto="Vou verificar quem fornece a goiaba."),
+            ROTEADOR("verificar_conformidade", {"item": {"produto": "queijo coalho", "quantidade": 200, "organico": False}, "data_entrega": "2026-11-02", "comprador": "Rede SuperBom Atacado"}),
+            Script(texto="Vou verificar o queijo."),
+        ],
+        "resposta": [
+            Script(texto="Para os 300 kg de goiaba paluma do PED-2026-006: P001 (orgânico) e P010 (convencional) fornecem na safra [fonte: fichas_tecnicas/goiaba_paluma.txt]."),
+            Script(texto="Para os 200 kg de queijo coalho do mesmo PED-2026-006: P003 e P007 estão habilitados; P011 segue com registro sanitário pendente (REGISTRO_SANITARIO) — confirmar se o comprador aceita [fonte: fichas_tecnicas/queijo_coalho.txt]."),
+        ],
+    })
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("sabor_da_terra.triagem.extrair.LLMClient", _fabrica(tmp_path, fila))
+        a = _assistente(_fabrica(tmp_path, fila)())
+        with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+            a.responder("Quem pode fornecer os 300kg de goiaba do pedido urgente PED-2026-006?")
+            t2 = a.responder("E para atender os 200kg de queijo coalho desse mesmo pedido, quais temos?")
+
+    # AC: o pedido ficou em foco no turno 1 e foi injetado no contexto do turno 2
+    assert a.estado.pedido_em_foco == "PED-2026-006"
+    usuarios = [c for c in a.historico if c.role == "user"]
+    assert "PED-2026-006" in usuarios[1].parts[0].text  # contexto injetado
+    assert "PED-2026-006" not in usuarios[1].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1]  # o usuário não repetiu
+    assert "PED-2026-006" in t2  # a resposta mantém a referência
+    # Ferramenta real: P003/P007 elegíveis; P011 segue com registro sanitário pendente
+    tools = [c for c in a.historico if c.role == "tool"]
+    r2 = tools[2].parts[0].function_response.response
+    assert {"P003", "P007"} <= {p["produtor_id"] for p in r2["elegiveis"]}
+    p11 = next(p for p in r2["elegiveis"] if p["produtor_id"] == "P011")
+    assert "REGISTRO_SANITARIO" in p11["pendencias"]
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert registro.count("funcao=verificar_conformidade") == 2
+    _fila_vazia(fila)
+
+
+def test_ctx003_resumo_superbom_e_lotes_degradam_com_honestidade(tmp_path):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("resumo_produtor", {"produtor_id": "P003", "mes": "2026-10"}),
+            Script(texto="Vou montar o resumo do Cícero."),
+            Script(texto="Não encontrei os lotes dessas entregas: a rastreabilidade do protótipo consulta lote por ID."),
+        ],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    t1 = a.responder("Quanto o Cícero (P003) tem em atraso para receber do SuperBom?")
+    # Turno 1: pass-through do resumo real com os valores exatos do gabarito
+    assert "FIN-2026-013" in t1 and "FIN-2026-014" in t1
+    assert "Rede SuperBom Atacado" in t1
+    assert "R$ 6.020,00" in t1  # total atrasado no formato BR do resumo real
+    # Turno 2: nenhum tool acha lotes por produtor/comprador — degradação honesta
+    t2 = a.responder("Quais foram os lotes dessas entregas dele?")
+    assert "não encontrei" in t2.lower()
+    assert a.estado.produtor_em_foco["produtor_id"] == "P003"  # contexto mantido
+    _fila_vazia(fila)  # dívida registrada: falta buscar lotes por produtor/comprador (#14)
+
+
+def test_encadeamento_triar_pendentes_e_notificar_no_mesmo_turno(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("triar_pendentes", {}),
+            ROTEADOR("notificar_produtores", {}),
+            Script(texto="Notificações prontas."),
+        ],
+        "resposta": [Script(texto="Fila triada e notificações geradas para revisão; nada foi enviado.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        final = a.responder("Triar os pendentes e avisar os produtores")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert registro.index("triar_pendentes") < registro.index("notificar_produtores")  # na sequência
+    tools = [c for c in a.historico if c.role == "tool"]
+    assert tools[0].parts[0].function_response.name == "triar_pendentes"
+    assert tools[1].parts[0].function_response.name == "notificar_produtores"
+    assert tools[1].parts[0].function_response.response["enviadas"] is False  # nada foi enviado de verdade
+    assert "nada foi enviado" in final.lower()
+    # a composição viu as duas funções, nesta ordem
+    payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
+    assert [r["funcao"] for r in payload["resultados_das_funcoes"]] == ["triar_pendentes", "notificar_produtores"]
+    _fila_vazia(fila)
