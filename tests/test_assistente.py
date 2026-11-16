@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
+from sabor_da_terra.assistente.ferramentas import FERRAMENTAS, NOME_PARA_FUNCAO, declarar_ferramentas
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
 from sabor_da_terra.dados import obter_repositorio
 
@@ -93,3 +94,36 @@ def test_cpf_solto_em_texto_e_mascarado_e_texto_limpo_passa_igual():
 
 def test_tipos_nao_string_ficam_intactos():
     assert mascarar_dados_sensiveis({"qtd": 300, "ok": True, "nada": None}) == {"qtd": 300, "ok": True, "nada": None}
+
+
+# ---------------------------------------------------------------------------
+# Declaração das ferramentas
+# ---------------------------------------------------------------------------
+
+NOMES_ESPERADOS = {
+    "triar_pedido", "triar_pendentes", "consultar_documentos", "resumo_produtor",
+    "notificar_produtores", "rastrear_lote", "buscar_produtores", "preco",
+    "disponibilidade", "verificar_conformidade", "identificar_produtor",
+}
+
+
+def test_ferramentas_sao_as_da_issue_mais_identificar_produtor():
+    assert {f.__name__ for f in FERRAMENTAS} == NOMES_ESPERADOS
+    assert set(NOME_PARA_FUNCAO) == NOMES_ESPERADOS
+
+
+def test_declaracao_e_deterministica_e_esconde_interno_da_fila():
+    d1, d2 = declarar_ferramentas().model_dump(), declarar_ferramentas().model_dump()
+    assert d1 == d2  # determinística — o hash de fixture depende disso
+    nomes = {f["name"] for f in d1["function_declarations"]}
+    assert nomes == NOMES_ESPERADOS
+    pendentes = next(f for f in d1["function_declarations"] if f["name"] == "triar_pendentes")
+    assert list(pendentes["parameters"]["properties"]) == ["data_referencia"]  # sem caminho_pedidos
+
+
+def test_adaptador_triar_pendentes_delega_na_real(monkeypatch):
+    chamadas = []
+    monkeypatch.setattr("sabor_da_terra.assistente.ferramentas._triar_pendentes_real",
+                        lambda data_referencia, **k: chamadas.append(data_referencia) or {"ok": True})
+    assert NOME_PARA_FUNCAO["triar_pendentes"]("2026-10-30") == {"ok": True}
+    assert chamadas == ["2026-10-30"]
