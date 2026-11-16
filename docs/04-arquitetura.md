@@ -258,14 +258,14 @@ O fluxo compreende:
 
 1. Carregamento dos pedidos estruturados em `tests/fixtures/triagem_15_pedidos.json`.
 2. Recuperação dos metadados originais, incluindo datas de recebimento, a partir de `data/pedidos.json`.
-3. Identificação das ofertas de produtores conhecidas até a data de referência.
-4. Classificação e ordenação dos registros por prioridade.
-5. Avaliação das demandas e das condições comerciais.
-6. Geração de sugestões de alocação sujeitas à capacidade semanal e às restrições aplicáveis.
+3. Seleção das mensagens (pedidos e ofertas de produtores) recebidas até a data de referência.
+4. Classificação e ordenação dos registros: prioridade pelas regras de urgência (horas desde `data_recebimento`, contrato e sinais do texto); na mesma prioridade, prazo mais cedo e menos horas até o prazo.
+5. Avaliação das demandas e das condições comerciais. As regras da #5 são avaliadas na data em que o pedido chegou.
+6. Geração de sugestões de alocação sujeitas à capacidade semanal e às restrições aplicáveis. Pedidos que aguardam confirmação também reservam capacidade (marcada como condicionada), e a demanda de todos os pedidos da semana é comparada com a capacidade documentada (`demanda_semanal`). Quando o contrato pede (Restaurante Raízes), produtores com orgânico vigente e do município do comprador vêm primeiro.
 7. Análise de histórico e hipóteses documentais quando necessário.
 8. Cruzamento informativo entre ofertas de produtores e demandas.
 9. Consolidação dos alertas, com identificação das fontes.
-10. Retorno da fila estruturada e geração de relatório Markdown.
+10. Retorno da fila estruturada e geração de relatório em Markdown e JSON.
 
 ### 10.3 Componentes principais
 
@@ -303,7 +303,7 @@ A compatibilidade com o prazo original da demanda é representada por três esta
 
 Ofertas posteriores ao prazo original podem ser apresentadas para eventual renegociação, desde que já sejam conhecidas na data da triagem. Elas não representam disponibilidade confirmada.
 
-**Exemplo:** o PED-015 foi recebido em 30/10/2026, às 16h. Portanto, não participa do cruzamento realizado em 29/10/2026. Na triagem de 30/10, sua oferta de queijo coalho pode ser relacionada ao PED-006, mas é identificada como posterior ao prazo original de 29/10.
+**Exemplo:** o PED-015 foi recebido em 30/10/2026, às 16h. Portanto, não entra na fila nem no cruzamento realizado em 29/10/2026. Na triagem de 30/10, sua oferta de queijo coalho pode ser relacionada ao PED-006, mas é identificada como posterior ao prazo original de 29/10.
 
 ### 10.6 Histórico e ambiguidades
 
@@ -320,6 +320,7 @@ A função `triar_pendentes()` retorna uma estrutura contendo:
 - `data_referencia`;
 - `total_registros`;
 - `fila`;
+- `demanda_semanal`;
 - `capacidade_semanal_sugerida`;
 - `confirmacoes_realizadas`;
 - `notificacoes_enviadas`.
@@ -328,7 +329,7 @@ As correspondências entre ofertas e demandas são informativas. A identificaç�
 
 Na implementação validada, os indicadores `confirmacoes_realizadas` e `notificacoes_enviadas` permanecem `False`.
 
-O relatório de exemplo é gerado em `exemplos/fila_triagem.md`.
+O relatório de exemplo é gerado em `exemplos/fila_triagem.md`, com data de referência 30/10/2026 (primeiro dia em que as 15 mensagens já existem). `salvar_json` grava a mesma estrutura em JSON.
 
 ### 10.8 Validação
 
@@ -337,14 +338,14 @@ A execução de referência utiliza:
 ```python
 from sabor_da_terra.triagem.fila import triar_pendentes
 
-resultado = triar_pendentes("2026-10-29")
+resultado = triar_pendentes("2026-10-30")
 ```
 
 O processamento retorna 15 registros.
 
 Na validação realizada em 15/11/2026, a suíte automatizada apresentou:
 
-- **563 testes aprovados**;
+- **571 testes aprovados**;
 - **3 testes ignorados**;
 - **Nenhuma falha**.
 
@@ -354,6 +355,15 @@ Os testes incluem a prevenção de uso de ofertas futuras, a identificação de 
 
 A arquitetura mantém a separação entre a interpretação das mensagens pelo Gemini Flash-Lite e a execução das regras determinísticas em Python.
 
-No desenho de produção, a triagem corresponde ao uso de Vertex AI para interpretação e classificação, Cloud Run functions ou Workflows para execução das regras e BigQuery para consulta aos dados estruturados.
+A urgência combina as duas partes. O **prompt** é a classificação `compra_urgente` que o Flash-Lite já faz na extração da Etapa 9, a partir do tom e de sinais como "HOJE" e "máxima urgência". As **regras** em `priorizar.py` calculam as horas até o prazo, dão peso ao contrato e conferem sinais textuais. A triagem não faz uma segunda chamada ao modelo por mensagem.
+
+Sequência prevista no desenho de produção:
+
+| Passo local | No desenho |
+|---|---|
+| Extração e classificação (Etapa 9) | Vertex AI (Gemini Flash-Lite) |
+| `triar_pendentes`: carregar → classificar → avaliar → alocar → cruzar ofertas | Workflows orquestrando a sequência |
+| `validar_item` / `verificar_conformidade` e `classificar_urgencia` | Cloud Run functions (uma por validação) |
+| `AlocadorSemanal` e `resumir_demanda_semanal` | Cloud Run functions + BigQuery (demanda × capacidade da semana) |
 
 Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os serviços gerenciados já estejam implantados.
