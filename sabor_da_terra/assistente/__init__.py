@@ -7,10 +7,12 @@ from sabor_da_terra.assistente.ferramentas import (
     declarar_ferramentas,
 )
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
+from sabor_da_terra.assistente.orquestrador import Assistente
 from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
 from sabor_da_terra.dados import obter_repositorio
 
 __all__ = [
+    "Assistente",
     "EstadoSessao",
     "FERRAMENTAS",
     "NOME_PARA_FUNCAO",

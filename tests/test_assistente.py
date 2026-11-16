@@ -6,12 +6,15 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-import pytest
+from google.genai import types
+from tests.dobles import ClienteFake, ModeloFake
 
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
 from sabor_da_terra.assistente.ferramentas import FERRAMENTAS, NOME_PARA_FUNCAO, declarar_ferramentas
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
+from sabor_da_terra.assistente.orquestrador import Assistente
 from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
+from sabor_da_terra.llm.cliente import LLMClient
 from sabor_da_terra.dados import obter_repositorio
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -146,3 +149,264 @@ def test_prompt_resposta_final_manda_preservar_citacoes_e_usar_so_resultados():
     texto = PROMPT_RESPOSTA_FINAL.lower()
     assert "fontes_permitidas" in texto and "não invente" in texto
     assert "citaç" in texto
+
+
+# ---------------------------------------------------------------------------
+# Turno do assistente: laço de function calling
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class Script:
+    """Um script de resposta do modelo: texto e/ou function_call."""
+
+    texto: str | None = None
+    function_call: dict | None = None
+
+
+def ROTEADOR(nome: str, args: dict | None = None) -> Script:
+    """Script de roteamento que manda o assistente chamar uma função."""
+    return Script(function_call={"name": nome, "args": args or {}})
+
+
+class FilaControlada:
+    """Fila FIFO por papel COMPARTILHADA entre roteador e ferramentas aninhadas.
+
+    A ordem dos scripts é a ordem real das chamadas; `prompts`/`configs` capturam
+    tudo que foi enviado a cada papel (qualquer instância do cliente grava aqui).
+    """
+
+    def __init__(self, scripts: dict[str, list[Script]] | None = None):
+        self.scripts = scripts or {}
+        self.prompts: dict[str, list[str]] = {}
+        self.configs: dict[str, list[dict]] = {}
+
+    def pop(self, papel: str) -> Script | None:
+        fila = self.scripts.get(papel.value if hasattr(papel, "value") else papel)
+        return fila.pop(0) if fila else None
+
+
+class _LLMControlado(LLMClient):
+    """Modo fixture com fila FIFO por papel: grava sob demanda em tmp_path e reproduz.
+
+    Ordem das chamadas = ordem real do turno: roteador do assistente → chamadas
+    aninhadas das ferramentas com LLM → rascunho do roteamento → composição final.
+    """
+
+    def __init__(self, tmp_path: Path, fila: FilaControlada):
+        super().__init__(modo="fixture", pasta_fixtures=tmp_path)
+        self._fila = fila
+
+    def gerar(self, papel, prompt, **config_geracao):
+        nome_papel = papel.value if hasattr(papel, "value") else str(papel)
+        self._fila.prompts.setdefault(nome_papel, []).append(prompt if isinstance(prompt, str) else str(prompt))
+        self._fila.configs.setdefault(nome_papel, []).append(config_geracao)
+        script = self._fila.pop(papel)
+        if script is not None:
+            fake = ClienteFake(ModeloFake(texto=script.texto, function_call=script.function_call))
+            LLMClient(modo="gravar", pasta_fixtures=self._pasta_fixtures, cliente=fake, dormir=lambda _: None).gerar(
+                papel, prompt, **config_geracao
+            )
+        return super().gerar(papel, prompt, **config_geracao)
+
+
+def _fabrica(tmp_path: Path, fila: FilaControlada):
+    """Fábrica de clientes ligados à MESMA fila (roteador + ferramentas aninhadas)."""
+
+    def fabrica(*_args, **_kwargs):
+        return _LLMControlado(tmp_path, fila)
+
+    return fabrica
+
+
+def _fila_vazia(fila: FilaControlada):
+    """Assert de fim: nenhuma script sobrando (nada foi consumido silenciosamente)."""
+    sobrando = {papel: len(scripts) for papel, scripts in fila.scripts.items() if scripts}
+    assert not sobrando, f"scripts não consumidos: {sobrando}"
+
+
+def _assistente(cliente_llm, **kwargs):
+    return Assistente(cliente_llm=cliente_llm, estado=EstadoSessao(data_referencia="2026-10-30"), **kwargs)
+
+
+def test_turno_chama_funcao_real_e_fechar_com_model(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("identificar_produtor", {"termo": "Josefa"}), Script(texto="Peguei, consultando...")],
+        "resposta": [Script(texto="A produtora em foco é Josefa Alves de Souza (P008).")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("E o da Josefa?")
+    assert final == "A produtora em foco é Josefa Alves de Souza (P008)."
+    assert a.historico[-1].role == "model"
+    assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+
+
+def test_resposta_de_funcao_va_como_role_tool(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}), Script(texto="ok")],
+        "resposta": [Script(texto="R$ 32,00/kg.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("quanto está o queijo?")
+    tools = [c for c in a.historico if c.role == "tool"]
+    assert tools and tools[0].parts[0].function_response.name == "preco"
+    assert tools[0].parts[0].function_response.response["produto"] == "queijo coalho"
+
+
+def test_relogio_da_sessao_sobrepoe_o_modelo(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("identificar_produtor", {"termo": "P003", "data_referencia": "2020-01-01"}), Script(texto="ok")],
+        "resposta": [Script(texto="P003 é Cícero.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("quem é P003?")
+    tools = [c for c in a.historico if c.role == "tool"]
+    assert tools[0].parts[0].function_response.response["data_referencia"] == "2026-10-30"
+
+
+def test_triar_pedido_recebe_data_recebimento_da_sessao(tmp_path, monkeypatch):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("triar_pedido", {"mensagem": "300kg de goiaba para PED-2026-006, urgente"}),
+            Script(texto='{"tipo": "compra", "idioma": "pt", "itens": [{"produto": "goiaba paluma", "quantidade": 300, "unidade": "kg"}]}'),
+            Script(texto="extraindo..."),
+        ],
+        "resposta": [Script(texto="Pedido triado: 300 kg de goiaba.")],
+    })
+    monkeypatch.setattr("sabor_da_terra.triagem.extrair.LLMClient", _fabrica(tmp_path, fila))
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("anota esse pedido")
+    assert a.estado.pedido_em_foco == "PED-2026-006"
+    extracao = fila.prompts["triagem"][1]
+    assert "Metadados" in extracao and "2026-10-30" in extracao  # relógio chegou à extração
+
+
+def test_funcao_que_lanca_excecao_devolve_erro_honesto_sem_travar(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("verificar_conformidade", {"item": {"produto": "mel"}}), Script(texto="não consegui conferir")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    texto = a.responder("conferir o mel")
+    tools = [c for c in a.historico if c.role == "tool"]
+    assert "erro" in tools[0].parts[0].function_response.response
+    assert isinstance(texto, str)
+
+
+def test_funcao_desconhecida_devolve_erro(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("enviar_whatsapp"), Script(texto="não faço isso")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("manda no zap")
+    tools = [c for c in a.historico if c.role == "tool"]
+    assert "desconhecida" in tools[0].parts[0].function_response.response["erro"].lower()
+
+
+def test_limite_responde_erro_e_proximo_turno_funciona(tmp_path):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("identificar_produtor", {"termo": "P001"}),
+            ROTEADOR("identificar_produtor", {"termo": "P001"}),
+            ROTEADOR("identificar_produtor", {"termo": "P001"}),
+            ROTEADOR("identificar_produtor", {"termo": "P002"}),
+            Script(texto="ok"),
+        ],
+        "resposta": [Script(texto="Duas consultas feitas, a terceira ficou para depois."), Script(texto="P002 é Ana.")],
+    })
+    a = Assistente(cliente_llm=_fabrica(tmp_path, fila)(), estado=EstadoSessao(data_referencia="2026-10-30"), max_chamadas=2, max_iteracoes=3)
+    a.responder("quem é P001?")
+    conteudos = list(a.historico)
+    for i, conteudo in enumerate(conteudos):  # protocolo válido: nenhuma function_call sem resposta
+        if conteudo.role == "model" and any(p.function_call for p in conteudo.parts):
+            assert conteudos[i + 1].role == "tool"
+    a.responder("e o P002?")  # o turno seguinte ainda funciona
+    assert a.estado.produtor_em_foco["produtor_id"] == "P002"
+
+
+def test_turno_sem_funcao_usa_o_texto_do_flash_lite_e_nao_compoem(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto="Não envio mensagens: o protótipo não faz isso e nada foi enviado.")], "resposta": []})
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("manda no WhatsApp pra ele")
+    assert "nada foi enviado" in final.lower()
+    assert [c.role for c in a.historico].count("tool") == 0
+    _fila_vazia(fila)
+
+
+def test_pass_through_nao_chama_o_flash(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}), Script(texto="Segue o resumo.")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("manda um resumo pra ela")
+    assert final.startswith("Olá, Josefa")  # texto pronto do resumo real, verbatim
+    _fila_vazia(fila)  # nenhuma script de resposta consumida → o Flash não foi chamado
+
+
+def test_resultado_estruturado_vai_ao_flash_com_o_payload(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("buscar_produtores", {"produto": "mel silvestre", "organico": True}), Script(texto="P002 e P018, com P008 vencida.")],
+        "resposta": [Script(texto="Os produtores com certificação orgânica vigente para mel silvestre são P002 e P018.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("quem tem mel orgânico vigente?")
+    assert "P002" in final
+    _fila_vazia(fila)
+    payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
+    assert any(r["funcao"] == "buscar_produtores" for r in payload["resultados_das_funcoes"])
+    assert payload["estado_da_sessao"]["produto_em_foco"] == "mel silvestre"
+    assert payload["fontes_permitidas"] == []
+
+
+def test_payload_da_composicao_coleciona_fontes_das_saidas(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("rastrear_lote", {"lote_id": "LOT-2026-0089"}), Script(texto="lote encontrado")],
+        "resposta": [Script(texto="O lote LOT-2026-0089 é de queijo coalho [fonte: data/lotes.csv].")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("onde está o lote LOT-2026-0089?")
+    assert "queijo coalho" in final
+    _fila_vazia(fila)
+    payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
+    assert payload["fontes_permitidas"] == ["lotes.csv"]
+    assert payload["estado_da_sessao"]["produto_em_foco"] == "queijo coalho"
+
+
+def test_config_do_roteamento_declara_as_ferramentas(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto="Olá! Como posso ajudar?")], "resposta": []})
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("bom dia")
+    config = fila.configs["triagem"][-1]
+    assert len(config["tools"][0].function_declarations) == 11
+    assert config["system_instruction"] == PROMPT_SISTEMA
+    assert config["automatic_function_calling"].disable is True
+
+
+def test_despacho_mascara_args_e_log(tmp_path, caplog):
+    cadastro = obter_repositorio().produtores()
+    pix = str(cadastro.iloc[0]["chave_pix"])
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("identificar_produtor", {"termo": f"meu PIX é {pix}"}), Script(texto="ok")],
+        "resposta": [Script(texto="Não encontrei esse produtor.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("nota com dados")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert pix not in registro and "123.456.789-09" not in registro
+
+
+def test_log_do_turno_mostra_funcoes_modelo_e_duracao(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}), Script(texto="ok")],
+        "resposta": [Script(texto="R$ 32,00/kg.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("preço do queijo")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "preco" in registro
+    assert "turno=1" in registro
+    assert "duracao=" in registro or "duracao" in registro
