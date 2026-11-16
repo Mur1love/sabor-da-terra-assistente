@@ -11,7 +11,7 @@ def buscar(fila, identificador):
 
 
 def test_pnae_identifica_contrato():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-004")
 
     assert pedido["contrato"] is not None
@@ -20,7 +20,7 @@ def test_pnae_identifica_contrato():
 
 
 def test_pnae_orcamento_parcial():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-004")
 
     orcamento = pedido["orcamento"]
@@ -32,14 +32,14 @@ def test_pnae_orcamento_parcial():
 
 
 def test_pnae_restricao_sem_preco():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-004")
 
     assert pedido["orcamento"]["itens_com_restricao"] >= 1
 
 
 def test_pnae_preserva_alertas_documentais():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-004")
 
     codigos = {
@@ -57,7 +57,7 @@ def test_pnae_preserva_alertas_documentais():
 
 
 def test_ped006_possui_urgencia():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-006")
 
     assert pedido["urgencia"] is not None
@@ -65,7 +65,7 @@ def test_ped006_possui_urgencia():
 
 
 def test_oferta_produtor_sem_orcamento():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-015")
 
     assert pedido["orcamento"] is None
@@ -73,7 +73,7 @@ def test_oferta_produtor_sem_orcamento():
 
 
 def test_fila_mantem_15_registros():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
 
     assert resultado["total_registros"] == 15
     assert resultado["confirmacoes_realizadas"] is False

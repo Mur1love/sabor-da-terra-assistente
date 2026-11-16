@@ -19,7 +19,7 @@ def codigos(pedido):
 
 
 def test_ped007_avalia_cotacao_com_data():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-007")
 
     analise = pedido["analise_comercial"]
@@ -33,7 +33,7 @@ def test_ped007_avalia_cotacao_com_data():
 
 
 def test_ped007_preserva_problemas_de_conformidade():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-007")
 
     avaliados = {
@@ -55,7 +55,7 @@ def test_ped007_preserva_problemas_de_conformidade():
 
 
 def test_ped008_sem_prazo_nao_inventa_disponibilidade():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-008")
 
     assert "PRAZO_ENTREGA_AUSENTE" in codigos(pedido)
@@ -65,7 +65,7 @@ def test_ped008_sem_prazo_nao_inventa_disponibilidade():
 
 
 def test_ped009_identifica_documentos_e_ambiguidades():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-009")
 
     analise = pedido["analise_comercial"]
@@ -84,7 +84,7 @@ def test_ped009_identifica_documentos_e_ambiguidades():
 
 
 def test_ped010_sem_itens_especificos():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-010")
 
     assert "ITENS_NAO_ESPECIFICADOS" in codigos(pedido)
@@ -93,7 +93,7 @@ def test_ped010_sem_itens_especificos():
 
 
 def test_ped011_certificacao_internacional_pendente():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-011")
 
     documentos = pedido[
@@ -111,7 +111,7 @@ def test_ped011_certificacao_internacional_pendente():
 
 
 def test_ped013_prazo_textual_nao_e_data():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-013")
 
     assert "PRAZO_ENTREGA_NAO_RESOLVIDO" in codigos(pedido)
@@ -121,7 +121,7 @@ def test_ped013_prazo_textual_nao_e_data():
 
 
 def test_consultas_nao_reservam_capacidade():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
 
     ids = {
         "PED-2026-007",
@@ -148,7 +148,7 @@ def test_consultas_nao_reservam_capacidade():
 
 
 def test_todos_alertas_comerciais_possuem_fonte():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
 
     for pedido in resultado["fila"]:
         if pedido["tipo"] not in {"cotacao", "consulta"}:
@@ -161,7 +161,7 @@ def test_todos_alertas_comerciais_possuem_fonte():
 
 
 def test_fila_continua_com_15_registros():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
 
     assert resultado["total_registros"] == 15
     assert resultado["confirmacoes_realizadas"] is False
@@ -169,7 +169,7 @@ def test_fila_continua_com_15_registros():
 
 
 def test_ped010_retorna_catalogo_organico():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-010")
 
     catalogo = pedido["analise_comercial"]["catalogo_organico"]
@@ -181,7 +181,7 @@ def test_ped010_retorna_catalogo_organico():
 
 
 def test_ped010_produtores_ativos_e_certificados():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-010")
 
     produtos = pedido[
@@ -201,7 +201,7 @@ def test_ped010_produtores_ativos_e_certificados():
 
 
 def test_ped010_precos_com_fontes():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-010")
 
     produtos = pedido[
@@ -224,7 +224,7 @@ def test_ped010_precos_com_fontes():
 
 
 def test_ped010_nao_confirma_disponibilidade():
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
     pedido = buscar(resultado["fila"], "PED-2026-010")
 
     analise = pedido["analise_comercial"]

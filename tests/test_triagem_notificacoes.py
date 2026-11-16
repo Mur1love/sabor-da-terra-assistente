@@ -3,7 +3,7 @@
 from sabor_da_terra.triagem.fila import triar_pendentes
 
 
-def obter_ped014(data_referencia="2026-10-29"):
+def obter_ped014(data_referencia="2026-10-30"):
     resultado = triar_pendentes(data_referencia)
 
     return next(

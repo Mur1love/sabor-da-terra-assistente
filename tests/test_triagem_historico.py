@@ -76,7 +76,7 @@ def test_ped003_hipotese_documental_sem_historico():
     """PED-003 deve sugerir hipótese documental sem inventar histórico."""
     from sabor_da_terra.triagem.fila import triar_pendentes
 
-    resultado = triar_pendentes("2026-10-29")
+    resultado = triar_pendentes("2026-10-30")
 
     pedido = next(
         item for item in resultado["fila"]
@@ -103,9 +103,11 @@ def test_ped003_hipotese_documental_sem_historico():
 
     assert pedido["status"] == "aguardando_confirmacao"
 
+    # Nenhuma sugestão definitiva: só reserva condicionada à confirmação.
     assert all(
-        not alocacao["alocacoes"]
+        sugestao["condicionada"]
         for alocacao in pedido["alocacoes"]
+        for sugestao in alocacao["alocacoes"]
     )
 
     assert any(
@@ -139,7 +141,7 @@ def test_ped003_sem_ficha_nao_inventa_hipotese(monkeypatch):
     caminho_original = Path.is_file
 
     def simular_ficha_ausente(caminho):
-        if str(caminho) == "data/fichas_tecnicas/queijo_coalho.txt":
+        if str(caminho).endswith("data/fichas_tecnicas/queijo_coalho.txt"):
             return False
         return caminho_original(caminho)
 

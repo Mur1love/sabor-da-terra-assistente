@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 import json
-from datetime import date
+import math
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+
+import pandas as pd
 
 from sabor_da_terra.regras.fatos import obter_fatos
 from sabor_da_terra.triagem.alocar import AlocadorSemanal
@@ -18,7 +21,11 @@ from sabor_da_terra.triagem.schema import PedidoTriado, TipoMensagem
 from sabor_da_terra.triagem.validar import validar_item
 from sabor_da_terra.triagem.ofertas import identificar_ofertas, cruzar_ofertas
 
-CAMINHO_PEDIDOS = Path("tests/fixtures/triagem_15_pedidos.json")
+# Caminhos a partir do pacote: a triagem roda de qualquer diretório.
+_RAIZ = Path(__file__).resolve().parents[2]
+CAMINHO_PEDIDOS = _RAIZ / "tests" / "fixtures" / "triagem_15_pedidos.json"
+CAMINHO_ORIGINAIS = _RAIZ / "data" / "pedidos.json"
+FICHA_QUEIJO_COALHO = _RAIZ / "data" / "fichas_tecnicas" / "queijo_coalho.txt"
 
 TIPOS_COMPRA = {TipoMensagem.COMPRA, TipoMensagem.COMPRA_URGENTE}
 
@@ -38,7 +45,7 @@ def carregar_pedidos(
     if not isinstance(registros, list):
         raise ValueError("O arquivo de pedidos deve conter uma lista.")
 
-    caminho_originais = Path("data/pedidos.json")
+    caminho_originais = CAMINHO_ORIGINAIS
     originais_por_id = {}
 
     if caminho_originais.is_file():
@@ -80,6 +87,26 @@ def carregar_pedidos(
     return pedidos
 
 
+def _data_recebimento(registro: dict[str, Any]) -> date | None:
+    valor = registro.get("data_recebimento")
+    if not valor:
+        return None
+    try:
+        return datetime.fromisoformat(valor).date()
+    except ValueError:
+        return None
+
+
+def recebido_ate(registro: dict[str, Any], data_referencia: date) -> bool:
+    """A mensagem já tinha chegado na data da triagem?
+
+    Sem data de recebimento o registro fica na fila (com alerta
+    DATA_RECEBIMENTO_AUSENTE), para não esconder um pedido real.
+    """
+    recebimento = _data_recebimento(registro)
+    return recebimento is None or recebimento <= data_referencia
+
+
 def identificar_referencia_historica(pedido: PedidoTriado) -> str | None:
     """Identifica referências implícitas ao histórico."""
     texto = " ".join([*pedido.ambiguidades, *pedido.observacoes]).casefold()
@@ -109,7 +136,7 @@ def sugerir_hipotese_documental(
     ).casefold()
     if "queijo" not in termos or "artesanal" not in termos:
         return None
-    fonte = Path("data/fichas_tecnicas/queijo_coalho.txt")
+    fonte = FICHA_QUEIJO_COALHO
     if not fonte.is_file():
         return None
     conteudo = fonte.read_text(encoding="utf-8").casefold()
@@ -119,7 +146,7 @@ def sugerir_hipotese_documental(
         "produto": "queijo coalho",
         "descricao": "Queijo de Coalho Artesanal do Agreste",
         "tipo_evidencia": "ficha_tecnica",
-        "fonte": str(fonte),
+        "fonte": "data/fichas_tecnicas/queijo_coalho.txt",
         "historico_comprovado": False,
         "confirmado": False,
         "requer_confirmacao": True,
@@ -147,11 +174,38 @@ def identificar_contrato(comprador: str | None) -> dict[str, Any] | None:
     }
 
 def prioridade_do_registro(registro: dict[str, Any], data_referencia: date) -> dict[str, Any]:
-    """Classifica prioridade considerando o contrato."""
+    """Prioridade única do registro.
+
+    Vem das regras de urgência (horas desde `data_recebimento`, contrato e
+    sinais do texto); sem data de recebimento, vale a regra por dias.
+    A situação do prazo (vencido, próximo...) é medida na data da triagem.
+    """
     pedido: PedidoTriado = registro["pedido"]
     contrato = identificar_contrato(pedido.comprador)
-    return classificar_prioridade(
+    prioridade = classificar_prioridade(
         pedido, data_referencia=data_referencia, possui_contrato=contrato is not None
+    )
+    urgencia = calcular_urgencia(
+        registro=registro, pedido=pedido, possui_contrato=contrato is not None
+    )
+    if not urgencia["urgencia_nao_calculada"]:
+        prioridade = {**prioridade, "prioridade": urgencia["prioridade"]}
+    return {**prioridade, "urgencia": urgencia}
+
+
+def chave_da_fila(registro: dict[str, Any], data_referencia: date) -> tuple:
+    """Ordem da fila: prioridade, prazo mais cedo e menos horas até o prazo."""
+    resultado = prioridade_do_registro(registro, data_referencia)
+    try:
+        prazo = date.fromisoformat(registro["pedido"].prazo_entrega or "")
+    except ValueError:
+        prazo = date.max
+    horas = resultado["urgencia"].get("horas_restantes")
+    return (
+        ORDEM_PRIORIDADE[resultado["prioridade"]],
+        prazo,
+        horas if horas is not None else math.inf,
+        registro["id"],
     )
 
 def calcular_urgencia(
@@ -190,14 +244,10 @@ def processar_pedido(
     pedido: PedidoTriado = registro["pedido"]
     identificador = registro["id"]
     contrato = identificar_contrato(pedido.comprador)
-    prioridade = classificar_prioridade(
-        pedido,
-        data_referencia=data_referencia,
-        possui_contrato=contrato is not None,
-    )
-    urgencia = calcular_urgencia(
-        registro=registro, pedido=pedido, possui_contrato=contrato is not None
-    )
+    prioridade = prioridade_do_registro(registro, data_referencia)
+    urgencia = prioridade["urgencia"]
+    # As regras de conformidade são avaliadas no dia em que o pedido chegou.
+    data_pedido = _data_recebimento(registro) or data_referencia
     alertas: list[dict[str, Any]] = []
     avaliacoes: list[dict[str, Any]] = []
     alocacoes: list[dict[str, Any]] = []
@@ -364,7 +414,7 @@ def processar_pedido(
         item=item,
         comprador=pedido.comprador,
         data_entrega=pedido.prazo_entrega,
-        data_referencia=data_referencia.isoformat(),
+        data_referencia=data_pedido.isoformat(),
         )
         avaliacoes.append(avaliacao)
         for alerta in avaliacao.get("alertas", []):
@@ -378,13 +428,6 @@ def processar_pedido(
                 "severidade": alerta.get("severidade"),
                 "fonte": fonte or "regras.conformidade",
             })
-        if bloqueio_alocacao:
-            alocacoes.append({
-                "produto": item.produto,
-                "status": "aguardando_confirmacao",
-                "alocacoes": [],
-            })
-            continue
         if not avaliacao.get("encontrado"):
             alocacoes.append({
                 "produto": item.produto,
@@ -392,7 +435,11 @@ def processar_pedido(
                 "alocacoes": [],
             })
             continue
-        resultado = alocador.alocar_avaliacao(avaliacao)
+        # Pedido com pendência continua reservando a capacidade da semana,
+        # marcado como condicionado: só vale depois da confirmação.
+        resultado = alocador.alocar_avaliacao(
+            avaliacao, condicionada=bloqueio_alocacao
+        )
         alocacoes.append(resultado)
     # 11. Orçamento consolidado de compras.
     orcamento = consolidar_orcamento(avaliacoes)
@@ -423,6 +470,70 @@ def processar_pedido(
     }
 
 
+def resumir_demanda_semanal(
+    fila: list[dict[str, Any]],
+    alocador: AlocadorSemanal,
+) -> list[dict[str, Any]]:
+    """Soma a demanda de todos os pedidos de compra por produto e semana.
+
+    Inclui os pedidos que aguardam confirmação e compara com a capacidade
+    máxima documentada dos produtores elegíveis.
+    """
+    linhas = []
+    for resultado in fila:
+        if resultado["tipo"] not in {tipo.value for tipo in TIPOS_COMPRA}:
+            continue
+        for avaliacao in resultado.get("avaliacoes", []):
+            item = avaliacao.get("item") or {}
+            if not (avaliacao.get("encontrado") and item.get("unidade")):
+                continue
+            entrega = date.fromisoformat(avaliacao["data_entrega"])
+            linhas.append({
+                "produto": item["produto"],
+                "unidade": item["unidade"],
+                "semana_inicio": AlocadorSemanal.inicio_semana(entrega),
+                "entrega": entrega,
+                "pedido": resultado["id"],
+                "quantidade": float(item["quantidade"]),
+                "elegiveis": [
+                    produtor["produtor_id"]
+                    for produtor in avaliacao.get("elegiveis", [])
+                ],
+            })
+
+    if not linhas:
+        return []
+
+    resumo = []
+    for (produto, unidade, semana), grupo in pd.DataFrame(linhas).groupby(
+        ["produto", "unidade", "semana_inicio"]
+    ):
+        entrega = grupo["entrega"].min()
+        produtores = sorted({pid for ids in grupo["elegiveis"] for pid in ids})
+        capacidades = [
+            alocador.capacidade(pid, produto, unidade, entrega)
+            for pid in produtores
+        ]
+        capacidades = [c for c in capacidades if c is not None]
+        capacidade_maxima = sum(c["maximo"] for c in capacidades)
+        demanda = float(grupo["quantidade"].sum())
+
+        resumo.append({
+            "produto": produto,
+            "unidade": unidade,
+            "semana_inicio": semana.isoformat(),
+            "demanda_total": round(demanda, 4),
+            "pedidos": sorted(grupo["pedido"].unique().tolist()),
+            "capacidade_maxima_documentada": (
+                round(capacidade_maxima, 4) if capacidades else None
+            ),
+            "excede_capacidade": bool(capacidades) and demanda > capacidade_maxima,
+            "fontes": sorted({c["fonte"] for c in capacidades}),
+        })
+
+    return resumo
+
+
 def triar_pendentes(
     data_referencia: str,
     caminho_pedidos: Path = CAMINHO_PEDIDOS,
@@ -432,7 +543,12 @@ def triar_pendentes(
     referencia = date.fromisoformat(data_referencia)
 
     # 1. Carrega os pedidos estruturados com suas datas originais.
-    registros = carregar_pedidos(caminho_pedidos)
+    # Só entram mensagens que já tinham chegado na data da triagem.
+    registros = [
+        registro
+        for registro in carregar_pedidos(caminho_pedidos)
+        if recebido_ate(registro, referencia)
+    ]
 
     # 2. Considera somente ofertas recebidas até a data da triagem.
     # Ofertas futuras não podem influenciar decisões anteriores.
@@ -444,16 +560,11 @@ def triar_pendentes(
     # 3. Inicializa o controle de capacidade semanal.
     alocador = AlocadorSemanal()
 
-    # 4. Ordena os registros por prioridade.
+    # 4. Ordena os registros por prioridade, prazo e horas restantes.
     registros.sort(
-        key=lambda registro: (
-            ORDEM_PRIORIDADE[
-                prioridade_do_registro(
-                    registro,
-                    data_referencia=referencia,
-                )["prioridade"]
-            ],
-            registro["id"],
+        key=lambda registro: chave_da_fila(
+            registro,
+            data_referencia=referencia,
         )
     )
 
@@ -511,11 +622,32 @@ def triar_pendentes(
                     )
                 )
 
-    # 9. Retorna a fila consolidada.
+    # 9. Soma a demanda da semana de todos os pedidos e sinaliza excesso.
+    demanda_semanal = resumir_demanda_semanal(fila, alocador)
+    por_id = {resultado["id"]: resultado for resultado in fila}
+
+    for linha in demanda_semanal:
+        if not linha["excede_capacidade"]:
+            continue
+        for pedido_id in linha["pedidos"]:
+            por_id[pedido_id]["alertas"].append(criar_alerta(
+                "CAPACIDADE_SEMANAL_EXCEDIDA",
+                (
+                    f"Demanda de {linha['produto']} na semana de "
+                    f"{linha['semana_inicio']}: {linha['demanda_total']:g} "
+                    f"{linha['unidade']} ({', '.join(linha['pedidos'])}), "
+                    f"acima da capacidade documentada de "
+                    f"{linha['capacidade_maxima_documentada']:g} {linha['unidade']}."
+                ),
+                "; ".join(linha["fontes"]),
+            ))
+
+    # 10. Retorna a fila consolidada.
     return {
         "data_referencia": referencia.isoformat(),
         "total_registros": len(fila),
         "fila": fila,
+        "demanda_semanal": demanda_semanal,
         "capacidade_semanal_sugerida": [
             {
                 "produtor_id": chave[0],
