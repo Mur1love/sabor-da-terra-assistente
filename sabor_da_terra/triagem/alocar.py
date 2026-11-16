@@ -2,10 +2,43 @@
 
 from __future__ import annotations
 
+import re
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Any
 
-from sabor_da_terra.regras.fatos import Fatos, obter_fatos
+from sabor_da_terra.regras.fatos import Contrato, Fatos, obter_fatos
+from sabor_da_terra.triagem.historico import normalizar_texto
+
+_PASTA_DADOS = Path(__file__).resolve().parents[2] / "data"
+_ENDERECO = re.compile(
+    r"Endere[çc]o:.*,\s*([^,\n]+?)\s*-\s*[A-Z]{2}\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def preferencias_do_contrato(contrato: Contrato | None) -> dict[str, Any]:
+    """Preferências de alocação declaradas nas condições do contrato.
+
+    O acordo do Restaurante Raízes pede "prioridade para produtos orgânicos
+    e de produtores locais"; local = município do endereço do comprador.
+    """
+    if contrato is None:
+        return {"organico": False, "municipio_local": None}
+
+    condicoes = normalizar_texto(" ".join(contrato.condicoes))
+    municipio = None
+
+    if "prioridade" in condicoes and "produtores locais" in condicoes:
+        caminho = _PASTA_DADOS / contrato.fonte
+        if caminho.is_file():
+            achado = _ENDERECO.search(caminho.read_text(encoding="utf-8"))
+            municipio = achado.group(1).strip() if achado else None
+
+    return {
+        "organico": "prioridade" in condicoes and "organic" in condicoes,
+        "municipio_local": municipio,
+    }
 
 
 class AlocadorSemanal:
@@ -51,6 +84,31 @@ class AlocadorSemanal:
             "fonte": capacidade.fonte,
         }
 
+    def ordenar_por_preferencia(
+        self,
+        elegiveis: list[dict],
+        produto: str,
+        entrega: date,
+        preferencias: dict[str, Any],
+    ) -> list[dict]:
+        """Orgânico vigente e produtor local primeiro, quando o contrato pede."""
+
+        local = normalizar_texto(preferencias.get("municipio_local") or "")
+
+        def chave(produtor: dict) -> tuple:
+            organico = preferencias.get("organico") and any(
+                certificacao.vigente_em(entrega)
+                for certificacao in self.fatos.certificacoes_de(
+                    produtor["produtor_id"], produto
+                )
+            )
+            eh_local = bool(local) and normalizar_texto(
+                str(produtor.get("municipio") or "")
+            ) == local
+            return (not organico, not eh_local, produtor["produtor_id"])
+
+        return sorted(elegiveis, key=chave)
+
     def alocar(
         self,
         produto: str,
@@ -58,8 +116,13 @@ class AlocadorSemanal:
         unidade: str,
         entrega: date,
         elegiveis: list[dict],
+        condicionada: bool = False,
     ) -> dict[str, Any]:
-        """Sugere distribuição sem exceder capacidade semanal."""
+        """Sugere distribuição sem exceder capacidade semanal.
+
+        `condicionada=True`: o pedido ainda depende de confirmação, mas
+        reserva a capacidade da semana para não ser ignorado na soma.
+        """
 
         if quantidade <= 0:
             raise ValueError("Quantidade deve ser maior que zero.")
@@ -126,6 +189,7 @@ class AlocadorSemanal:
                 "unidade": unidade,
                 "fonte": capacidade["fonte"],
                 "confirmado": False,
+                "condicionada": condicionada,
                 "confirmar_producao": excede_minimo,
             })
 
@@ -143,10 +207,18 @@ class AlocadorSemanal:
             "produtores_com_pendencias": produtores_com_pendencias,
             "alocacoes": sugestoes,
             "semana_inicio": semana.isoformat(),
-            "status": "sugestao_nao_confirmada",
+            "status": (
+                "aguardando_confirmacao"
+                if condicionada
+                else "sugestao_nao_confirmada"
+            ),
         }
 
-    def alocar_avaliacao(self, avaliacao: dict) -> dict:
+    def alocar_avaliacao(
+        self,
+        avaliacao: dict,
+        condicionada: bool = False,
+    ) -> dict:
         """Aloca um item avaliado pelas regras de conformidade."""
 
         if not avaliacao.get("encontrado"):
@@ -160,6 +232,7 @@ class AlocadorSemanal:
 
         if not avaliacao.get("pode_atender"):
             return {
+                "produto": item["produto"],
                 "status": "nao_alocavel",
                 "motivo": (
                     "Avaliação de conformidade não permite "
@@ -171,19 +244,29 @@ class AlocadorSemanal:
 
         if not item.get("unidade"):
             return {
+                "produto": item["produto"],
                 "status": "nao_alocavel",
                 "motivo": "Unidade de venda não identificada.",
                 "alocacoes": [],
             }
 
+        entrega = date.fromisoformat(avaliacao["data_entrega"])
+        preferencias = preferencias_do_contrato(
+            self.fatos.contrato_do_comprador(avaliacao.get("comprador"))
+        )
+
         resultado = self.alocar(
             produto=item["produto"],
             quantidade=item["quantidade"],
             unidade=item["unidade"],
-            entrega=date.fromisoformat(
-                avaliacao["data_entrega"]
+            entrega=entrega,
+            elegiveis=self.ordenar_por_preferencia(
+                avaliacao.get("elegiveis", []),
+                produto=item["produto"],
+                entrega=entrega,
+                preferencias=preferencias,
             ),
-            elegiveis=avaliacao.get("elegiveis", []),
+            condicionada=condicionada,
         )
 
         resultado["alertas_conformidade"] = avaliacao.get(
