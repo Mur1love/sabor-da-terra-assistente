@@ -443,3 +443,17 @@ def test_janela_nunca_corta_turno_com_funcao(tmp_path):
     for i, conteudo in enumerate(conteudos):  # nenhuma tool sem o model de function_calls imediatamente antes
         if conteudo.role == "tool":
             assert i >= 1 and conteudos[i - 1].role == "model"
+
+
+# ---------------------------------------------------------------------------
+# Superfície do pacote
+# ---------------------------------------------------------------------------
+
+
+def test_pacote_assistente_exporta_a_superficie_da_etapa():
+    from sabor_da_terra import assistente
+
+    for nome in ("Assistente", "EstadoSessao", "FERRAMENTAS", "PROMPT_SISTEMA",
+                 "PROMPT_RESPOSTA_FINAL", "declarar_ferramentas", "mascarar_dados_sensiveis",
+                 "NOME_PARA_FUNCAO", "MAX_CHAMADAS_POR_TURNO", "MAX_ITERACOES_POR_TURNO"):
+        assert hasattr(assistente, nome), nome

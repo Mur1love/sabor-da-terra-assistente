@@ -32,3 +32,11 @@ Este diretório contém os casos de teste versionados em YAML utilizados para av
 - **Total:** 37 casos de teste (mínimo exigido: 35).
 - **Pedidos:** 100% dos 15 registros de `data/pedidos.json` cobertos.
 - **Requisitos funcionais:** linguagem coloquial, citação documental, relatórios/notificações, contexto de sessão multi-turno e recusa a inventar dados (anti-alucinação).
+
+## Preenchimento na etapa #12
+
+`funcoes_esperadas` ficou vazio quando o gabarito foi escrito (as ferramentas ainda não existiam). A
+etapa #12 preencheu apenas os casos que ela exercita no teste da orquestração — `CTX-001`
+(`buscar_produtores`, `consultar_documentos`, `resumo_produtor`), `CTX-002` (`verificar_conformidade`)
+e `CTX-003` (`resumo_produtor`). Os demais casos continuam vazios e são dívida da avaliação ponta a
+ponta (#14), que roda cada pergunta contra o modelo real.

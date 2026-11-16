@@ -19,7 +19,7 @@
     15/11/2026, não podendo comercializar mel como
     orgânico até a aprovação.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [buscar_produtores, consultar_documentos, resumo_produtor]
 
   deve_conter:
     - "Turno 1: P002 e P018 identificados"
@@ -59,7 +59,7 @@
     volume total de 200kg para o mesmo dia exige
     composição ou confirmação imediata.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [verificar_conformidade]
 
   deve_conter:
     - "Turno 1: P001 e P010 para goiaba"
@@ -98,7 +98,7 @@
     ao pedido PED-2026-SEP-018, transportados a 7°C
     e com validade até 18/10/2026.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [resumo_produtor]
 
   deve_conter:
     - "Turno 1: R$ 6.020,00 em atraso (FIN-2026-013 e FIN-2026-014)"
