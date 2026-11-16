@@ -1,12 +1,15 @@
 """Testes da fila consolidada de triagem."""
 
+import json
 from datetime import date
 
 from sabor_da_terra.triagem.alocar import AlocadorSemanal
 from sabor_da_terra.triagem.fila import (
+    CAMINHO_PEDIDOS,
     carregar_pedidos,
     identificar_referencia_historica,
     processar_pedido,
+    recebido_ate,
     triar_pendentes,
 )
 from sabor_da_terra.triagem.schema import PedidoTriado
@@ -246,3 +249,148 @@ def test_consulta_nao_consome_capacidade():
 
     assert resultado["alocacoes"] == []
     assert alocador.utilizado == {}
+
+
+def codigos(registro):
+    return {alerta["codigo"] for alerta in registro["alertas"]}
+
+
+def test_capacidade_dentro_do_limite_nao_gera_alerta():
+    """No dataset a semana de 26/10 pede 240 kg de queijo, abaixo dos 480 kg documentados."""
+    resultado = triar_pendentes("2026-10-30")
+
+    assert not any(linha["excede_capacidade"] for linha in resultado["demanda_semanal"])
+    assert all(
+        "CAPACIDADE_SEMANAL_EXCEDIDA" not in codigos(registro)
+        for registro in resultado["fila"]
+    )
+
+
+def test_capacidade_semanal_excedida_gera_alerta(tmp_path):
+    """Com o PED-006 pedindo 500 kg, a semana soma 540 kg e passa dos 480 kg."""
+    registros = json.loads(CAMINHO_PEDIDOS.read_text(encoding="utf-8"))
+    ped006 = buscar_registro(registros, "PED-2026-006")
+    queijo = next(
+        item for item in ped006["resultado"]["itens"]
+        if item["produto"] == "queijo coalho"
+    )
+    queijo["quantidade"] = 500.0
+    caminho = tmp_path / "pedidos.json"
+    caminho.write_text(json.dumps(registros, ensure_ascii=False), encoding="utf-8")
+
+    resultado = triar_pendentes("2026-10-30", caminho_pedidos=caminho)
+
+    linha = next(
+        linha for linha in resultado["demanda_semanal"]
+        if linha["produto"] == "queijo coalho"
+        and linha["semana_inicio"] == "2026-10-26"
+    )
+    assert linha["demanda_total"] == 540
+    assert linha["capacidade_maxima_documentada"] == 480
+    assert linha["excede_capacidade"] is True
+
+    afetados = {"PED-2026-001", "PED-2026-005", "PED-2026-006"}
+    for registro in resultado["fila"]:
+        alertas = [
+            alerta for alerta in registro["alertas"]
+            if alerta["codigo"] == "CAPACIDADE_SEMANAL_EXCEDIDA"
+        ]
+        if registro["id"] not in afetados:
+            assert alertas == []
+            continue
+        assert len(alertas) == 1
+        assert "540 kg" in alertas[0]["mensagem"]
+        assert "480 kg" in alertas[0]["mensagem"]
+        assert "PED-2026-001, PED-2026-005, PED-2026-006" in alertas[0]["mensagem"]
+        assert alertas[0]["fonte"] == "fichas_tecnicas/queijo_coalho.txt"
+
+
+def test_alertas_de_prazo():
+    resultado = triar_pendentes("2026-10-30")
+
+    vencido = buscar_registro(resultado["fila"], "PED-2026-006")
+    assert vencido["situacao_prazo"] == "vencido"
+    assert "PRAZO_VENCIDO" in codigos(vencido)
+
+    # "jan/2027" não vira data: o prazo fica para esclarecer.
+    textual = buscar_registro(resultado["fila"], "PED-2026-013")
+    assert textual["situacao_prazo"] == "nao_resolvido"
+    assert "PRAZO_NAO_RESOLVIDO" in codigos(textual)
+
+    no_prazo = buscar_registro(resultado["fila"], "PED-2026-004")
+    assert not codigos(no_prazo) & {"PRAZO_VENCIDO", "PRAZO_NAO_RESOLVIDO"}
+
+
+def test_contrato_identificado_cita_o_contrato():
+    resultado = triar_pendentes("2026-10-30")
+
+    esperado = {
+        "PED-2026-001": "contratos/contrato_restaurante_raizes.txt",
+        "PED-2026-002": "contratos/contrato_mercado_bom_preco.txt",
+        "PED-2026-004": "contratos/contrato_pnae_garanhuns.txt",
+    }
+    for pedido_id, fonte in esperado.items():
+        registro = buscar_registro(resultado["fila"], pedido_id)
+        alerta = next(
+            alerta for alerta in registro["alertas"]
+            if alerta["codigo"] == "CONTRATO_IDENTIFICADO"
+        )
+        assert alerta["fonte"] == fonte
+        assert registro["contrato"]["fonte"] == fonte
+
+    # SuperBom não tem contrato registrado.
+    superbom = buscar_registro(resultado["fila"], "PED-2026-006")
+    assert superbom["contrato"] is None
+    assert "CONTRATO_IDENTIFICADO" not in codigos(superbom)
+
+
+def test_referencia_historica_pede_confirmacao():
+    resultado = triar_pendentes("2026-10-30")
+
+    for pedido_id in ("PED-2026-003", "PED-2026-005"):
+        registro = buscar_registro(resultado["fila"], pedido_id)
+        alerta = next(
+            alerta for alerta in registro["alertas"]
+            if alerta["codigo"] == "CONFIRMAR_HISTORICO"
+        )
+        assert alerta["fonte"] == "data/financeiro.csv; data/lotes.csv"
+        assert registro["historico"] is not None
+        assert registro["status"] == "aguardando_confirmacao"
+        assert registro["requer_confirmacao"] is True
+
+
+def test_campo_faltante_vira_alerta():
+    resultado = triar_pendentes("2026-10-30")
+
+    registro = buscar_registro(resultado["fila"], "PED-2026-009")
+    faltantes = [
+        alerta for alerta in registro["alertas"]
+        if alerta["codigo"] == "CAMPO_FALTANTE"
+    ]
+
+    assert faltantes
+    assert all(
+        alerta["fonte"] == "pedido_estruturado.campos_faltantes"
+        for alerta in faltantes
+    )
+
+
+def test_registro_sem_data_de_recebimento_fica_na_fila_com_alerta():
+    registro = {
+        "id": "TESTE-SEM-DATA",
+        "pedido": PedidoTriado(tipo="mensagem_produtor", comprador="Produtor P001"),
+    }
+
+    # Sem data, não dá para provar que chegou depois: o registro fica na fila.
+    assert recebido_ate(registro, date(2026, 10, 30)) is True
+
+    resultado = processar_pedido(
+        registro,
+        data_referencia=date(2026, 10, 30),
+        alocador=AlocadorSemanal(),
+    )
+
+    assert "DATA_RECEBIMENTO_AUSENTE" in codigos(resultado)
+    assert resultado["urgencia"]["urgencia_nao_calculada"] is True
+    assert resultado["urgencia"]["horas_restantes"] is None
+    assert resultado["requer_confirmacao"] is True

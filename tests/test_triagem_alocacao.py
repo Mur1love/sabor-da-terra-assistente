@@ -209,8 +209,29 @@ def test_produto_nao_encontrado_nao_e_alocado():
 
     resultado = alocador.alocar_avaliacao({
         "encontrado": False,
+        "termo": "queijo artesanal",
         "aviso": "Produto não identificado.",
     })
 
     assert resultado["status"] == "nao_alocavel"
     assert resultado["alocacoes"] == []
+    # Chamada direta (fora da fila) também devolve o produto.
+    assert resultado["produto"] == "queijo artesanal"
+
+
+def test_todo_retorno_nao_alocavel_tem_produto():
+    """Os três caminhos de recusa trazem a chave produto."""
+
+    alocador = AlocadorSemanal()
+    item = {"produto": "queijo coalho", "quantidade": 10.0, "unidade": "kg"}
+
+    retornos = [
+        alocador.alocar_avaliacao({"encontrado": False}),
+        alocador.alocar_avaliacao({"encontrado": True, "item": item, "pode_atender": False}),
+        alocador.alocar_avaliacao(
+            {"encontrado": True, "item": {**item, "unidade": None}, "pode_atender": True}
+        ),
+    ]
+
+    assert all("produto" in retorno for retorno in retornos)
+    assert all(retorno["status"] == "nao_alocavel" for retorno in retornos)
