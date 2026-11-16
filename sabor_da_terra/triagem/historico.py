@@ -9,8 +9,17 @@ import unicodedata
 import pandas as pd
 
 
-CAMINHO_FINANCEIRO = Path("data/financeiro.csv")
-CAMINHO_LOTES = Path("data/lotes.csv")
+_RAIZ = Path(__file__).resolve().parents[2]
+CAMINHO_FINANCEIRO = _RAIZ / "data" / "financeiro.csv"
+CAMINHO_LOTES = _RAIZ / "data" / "lotes.csv"
+
+
+def _fonte(caminho: Path) -> str:
+    """Cita a fonte relativa à raiz do projeto (ex.: data/financeiro.csv)."""
+    try:
+        return caminho.resolve().relative_to(_RAIZ).as_posix()
+    except ValueError:
+        return str(caminho)
 
 
 def normalizar_texto(texto: str) -> str:
@@ -95,7 +104,7 @@ def identificar_historico(
                 "produto": linha["produto"],
                 "quantidade_kg": float(linha["quantidade_kg"]),
                 "data": data_registro.isoformat(),
-                "fonte": str(caminho),
+                "fonte": _fonte(caminho),
                 "registro_id": str(linha[coluna_id]),
                 "confirmado": False,
             })
