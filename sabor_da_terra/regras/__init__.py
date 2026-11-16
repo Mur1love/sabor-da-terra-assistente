@@ -8,6 +8,7 @@ verificar_conformidade.
 from sabor_da_terra.regras.alertas import Alerta
 from sabor_da_terra.regras.conformidade import FERRAMENTAS, ItemPedido, avaliar, verificar_conformidade
 from sabor_da_terra.regras.fatos import Fatos, FatosInvalidos, carregar_fatos, obter_fatos
+from sabor_da_terra.regras.produtor import alertas_do_produtor
 
 __all__ = [
     "FERRAMENTAS",
@@ -18,5 +19,6 @@ __all__ = [
     "avaliar",
     "carregar_fatos",
     "obter_fatos",
+    "alertas_do_produtor",
     "verificar_conformidade",
 ]
