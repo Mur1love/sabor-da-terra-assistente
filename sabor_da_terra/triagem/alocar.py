@@ -219,10 +219,15 @@ class AlocadorSemanal:
         avaliacao: dict,
         condicionada: bool = False,
     ) -> dict:
-        """Aloca um item avaliado pelas regras de conformidade."""
+        """Aloca um item avaliado pelas regras de conformidade.
+
+        Todo retorno traz "produto"; sem produto no catálogo, vale o termo
+        como veio no pedido (None se a avaliação não trouxer o termo).
+        """
 
         if not avaliacao.get("encontrado"):
             return {
+                "produto": avaliacao.get("termo"),
                 "status": "nao_alocavel",
                 "motivo": "Produto não identificado no catálogo.",
                 "alocacoes": [],
