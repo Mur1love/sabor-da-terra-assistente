@@ -39,6 +39,9 @@ class DadosRepository(Protocol):
     # Produtores ligados a um produto base, ativos ou não.
     def produtores_do_produto(self, produto: str) -> pd.DataFrame: ...
 
+    # Produtos base (nomes do catálogo) que o produtor fornece, em ordem.
+    def produtos_do_produtor(self, produtor_id: str) -> list[str]: ...
+
     # Linha da sazonalidade de um produto num mês, ou None.
     def sazonalidade(self, produto: str, mes: int) -> pd.Series | None: ...
 
@@ -95,6 +98,13 @@ class RepositorioLocal:
         ids = ligacoes.loc[ligacoes["produto"] == produto, "produtor_id"]
         df = self._base.produtores
         return df[df["produtor_id"].isin(ids)]
+
+    # Produtos base (nomes do catálogo) que o produtor fornece, em ordem.
+    # Produto do cadastro que não está no catálogo (feijão da P015) fica de fora.
+    def produtos_do_produtor(self, produtor_id: str) -> list[str]:
+        ligacoes = self._base.produtor_produtos
+        produtos = ligacoes.loc[ligacoes["produtor_id"] == produtor_id, "produto"].dropna()
+        return sorted(produtos.unique().tolist())
 
     # Linha da sazonalidade de um produto num mês, ou None.
     def sazonalidade(self, produto: str, mes: int) -> pd.Series | None:
