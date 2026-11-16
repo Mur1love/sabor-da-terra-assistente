@@ -410,3 +410,36 @@ def test_log_do_turno_mostra_funcoes_modelo_e_duracao(tmp_path, caplog):
     assert "preco" in registro
     assert "turno=1" in registro
     assert "duracao=" in registro or "duracao" in registro
+
+
+# ---------------------------------------------------------------------------
+# Janela de histórico (turnos completos)
+# ---------------------------------------------------------------------------
+
+
+def test_janela_mantem_turnos_completos(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto=f"ok {i}") for i in range(5)], "resposta": []})
+    a = Assistente(cliente_llm=_fabrica(tmp_path, fila)(), estado=EstadoSessao(data_referencia="2026-10-30"), janela=2)
+    for i in range(5):
+        a.responder(f"turno {i}")
+    roles = [c.role for c in a.historico]
+    assert roles.count("user") == 2 and roles[-1] == "model" and "tool" not in roles
+
+
+def test_janela_nunca_corta_turno_com_funcao(tmp_path):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}),
+            Script(texto="t1 fechado"),
+        ]
+        + [Script(texto=f"ok {i}") for i in range(3)],
+        "resposta": [Script(texto="R$ 32,00/kg.")],
+    })
+    a = Assistente(cliente_llm=_fabrica(tmp_path, fila)(), estado=EstadoSessao(data_referencia="2026-10-30"), janela=2)
+    a.responder("preço do queijo")
+    for i in range(3):
+        a.responder(f"turno {i}")
+    conteudos = list(a.historico)
+    for i, conteudo in enumerate(conteudos):  # nenhuma tool sem o model de function_calls imediatamente antes
+        if conteudo.role == "tool":
+            assert i >= 1 and conteudos[i - 1].role == "model"
