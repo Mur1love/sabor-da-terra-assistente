@@ -11,6 +11,7 @@ import pytest
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
 from sabor_da_terra.assistente.ferramentas import FERRAMENTAS, NOME_PARA_FUNCAO, declarar_ferramentas
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
+from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
 from sabor_da_terra.dados import obter_repositorio
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -127,3 +128,21 @@ def test_adaptador_triar_pendentes_delega_na_real(monkeypatch):
                         lambda data_referencia, **k: chamadas.append(data_referencia) or {"ok": True})
     assert NOME_PARA_FUNCAO["triar_pendentes"]("2026-10-30") == {"ok": True}
     assert chamadas == ["2026-10-30"]
+
+
+# ---------------------------------------------------------------------------
+# Prompts de sistema e de resposta final
+# ---------------------------------------------------------------------------
+
+
+def test_prompt_sistema_tem_as_regras_da_issue():
+    texto = PROMPT_SISTEMA.lower()
+    for trecho in ("sabor da terra", "português", "não invente", "não envia", "nada foi enviado",
+                   "não cadastra", "cpf", "pix", "fonte"):
+        assert trecho in texto, trecho
+
+
+def test_prompt_resposta_final_manda_preservar_citacoes_e_usar_so_resultados():
+    texto = PROMPT_RESPOSTA_FINAL.lower()
+    assert "fontes_permitidas" in texto and "não invente" in texto
+    assert "citaç" in texto
