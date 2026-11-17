@@ -235,7 +235,11 @@ class Assistente:
             f"{PROMPT_RESPOSTA_FINAL}\n\n"
             f"CONTEXTO DO TURNO (JSON):\n{json.dumps(payload, ensure_ascii=False, default=str)}"
         )
-        resposta = self._cliente.gerar(Papel.RESPOSTA, prompt_final, temperature=0)
+        try:
+            resposta = self._cliente.gerar(Papel.RESPOSTA, prompt_final, temperature=0)
+        except Exception as exc:  # noqa: BLE001 — 504/503 do Flash não derrubam o turno
+            logger.warning("composicao_final falhou (%s: %s); turno fecha com resposta honesta", type(exc).__name__, exc)
+            return SEM_COMPOSICAO
         return resposta.text or SEM_COMPOSICAO
 
 

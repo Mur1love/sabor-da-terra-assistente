@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 from google.genai import types
-from tests.dobles import ClienteFake, ModeloFake
+from tests.dobles import ClienteFake, Erro504, ModeloFake
 
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
 from sabor_da_terra.assistente.ferramentas import FERRAMENTAS, NOME_PARA_FUNCAO, declarar_ferramentas
@@ -184,10 +184,11 @@ def test_prompt_resposta_final_manda_preservar_citacoes_e_usar_so_resultados():
 
 @dataclass
 class Script:
-    """Um script de resposta do modelo: texto e/ou function_call."""
+    """Um script de resposta do modelo: texto, function_call ou um erro a lançar."""
 
     texto: str | None = None
     function_call: dict | None = None
+    erro: Exception | None = None
 
 
 def ROTEADOR(nome: str, args: dict | None = None) -> Script:
@@ -229,6 +230,8 @@ class _LLMControlado(LLMClient):
         self._fila.configs.setdefault(nome_papel, []).append(config_geracao)
         script = self._fila.pop(papel)
         if script is not None:
+            if script.erro is not None:
+                raise script.erro
             fake = ClienteFake(ModeloFake(texto=script.texto, function_call=script.function_call))
             LLMClient(modo="gravar", pasta_fixtures=self._pasta_fixtures, cliente=fake, dormir=lambda _: None).gerar(
                 papel, prompt, **config_geracao
@@ -384,6 +387,18 @@ def test_resultado_estruturado_vai_ao_flash_com_o_payload(tmp_path):
     assert any(r["funcao"] == "buscar_produtores" for r in payload["resultados_das_funcoes"])
     assert payload["estado_da_sessao"]["produto_em_foco"] == "mel silvestre"
     assert payload["fontes_permitidas"] == []
+
+
+def test_composicao_que_falha_devolve_resposta_honesta(tmp_path):
+    """504/503 do Flash na composição não derrubam o turno (visto na fumaça de 16/11)."""
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("buscar_produtores", {"produto": "mel silvestre", "organico": True}), Script(texto="ok")],
+        "resposta": [Script(erro=Erro504())],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("quem tem mel orgânico vigente?")
+    assert "Não consegui compor" in final  # honesto, sem traceback
+    assert a.historico[-1].role == "model"  # o protocolo do turno fica intacto
 
 
 def test_payload_da_composicao_coleciona_fontes_das_saidas(tmp_path):
