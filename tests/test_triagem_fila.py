@@ -267,7 +267,7 @@ def test_capacidade_dentro_do_limite_nao_gera_alerta():
 
 
 def test_capacidade_semanal_excedida_gera_alerta(tmp_path):
-    """Com o PED-006 pedindo 500 kg, a semana soma 540 kg e passa dos 480 kg."""
+    """Com o PED-006 pedindo 500 kg, a semana soma 540 kg e passa dos 400 kg (P011 sem SIE fora)."""
     registros = json.loads(CAMINHO_PEDIDOS.read_text(encoding="utf-8"))
     ped006 = buscar_registro(registros, "PED-2026-006")
     queijo = next(
@@ -286,7 +286,7 @@ def test_capacidade_semanal_excedida_gera_alerta(tmp_path):
         and linha["semana_inicio"] == "2026-10-26"
     )
     assert linha["demanda_total"] == 540
-    assert linha["capacidade_maxima_documentada"] == 480
+    assert linha["capacidade_maxima_documentada"] == 400  # P011 (sem SIE) sai da intermediação desde a #12
     assert linha["excede_capacidade"] is True
 
     afetados = {"PED-2026-001", "PED-2026-005", "PED-2026-006"}
@@ -300,7 +300,7 @@ def test_capacidade_semanal_excedida_gera_alerta(tmp_path):
             continue
         assert len(alertas) == 1
         assert "540 kg" in alertas[0]["mensagem"]
-        assert "480 kg" in alertas[0]["mensagem"]
+        assert "400 kg" in alertas[0]["mensagem"]
         assert "PED-2026-001, PED-2026-005, PED-2026-006" in alertas[0]["mensagem"]
         assert alertas[0]["fonte"] == "fichas_tecnicas/queijo_coalho.txt"
 

@@ -123,6 +123,7 @@ registros_sanitarios:
     situacao: ausente
     observacao: Ovos só dispensam o SIE na venda direta ao consumidor final.
     fonte: certificacoes/inspecao_adagro_2026.txt
+    dispensa_venda_direta: true
 
 # Não conformidades da inspeção da ADAGRO que limitam a venda de um produto.
 nao_conformidades:

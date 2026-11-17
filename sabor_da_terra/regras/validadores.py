@@ -243,20 +243,28 @@ def regra_registro_sanitario(ctx: Contexto) -> Avaliacao:
         if registro and registro.situacao == "vigente":
             continue
 
+        # Decisão da #12 (gabarito CTX-002): produtor de origem animal SEM registro SIE
+        # nenhum sai da intermediação — só a venda direta fica. Quando o dataset documenta
+        # dispensa para venda direta (ovos do P017), fica a pendência de confirmar com o
+        # comprador. SIE em processo (pendente) segue como pendência.
+        dispensa_venda_direta = bool(registro and registro.dispensa_venda_direta)
+        sem_registro = registro is None or (registro.situacao == "ausente" and not dispensa_venda_direta)
         estado = "tem o SIE pendente" if registro and registro.situacao == "pendente" else "não tem registro SIE"
         fonte = registro.fonte if registro else ctx.fatos.fonte_origem_animal
         observacao = f" {registro.observacao}" if registro and registro.observacao else ""
-        if exige:
-            av.excluir(pid, "SIE_EXIGIDO")
-            av.alertas.append(
-                Alerta(
-                    "SIE_EXIGIDO",
-                    GRAVE,
+        if exige or sem_registro:
+            if exige:
+                motivo = (
                     f"{_rotulo(linha)} {estado}, e o contrato {ctx.contrato.numero} exige SIE, SIM ou SISBI "
-                    f"para produto de origem animal.{observacao}",
-                    fonte,
+                    f"para produto de origem animal.{observacao}"
                 )
-            )
+            else:
+                motivo = (
+                    f"{_rotulo(linha)} {estado} para {ctx.produto}, e a venda por meio da cooperativa "
+                    f"(revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor.{observacao}"
+                )
+            av.excluir(pid, "SIE_EXIGIDO")
+            av.alertas.append(Alerta("SIE_EXIGIDO", GRAVE, motivo, fonte))
         else:
             av.pendente(pid, "REGISTRO_SANITARIO")
             comprador = ctx.comprador or "o comprador"

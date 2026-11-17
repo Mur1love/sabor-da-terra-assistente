@@ -76,6 +76,9 @@ class RegistroSanitario:
     registro: str | None
     observacao: str | None
     fonte: str
+    # Verdade quando o dataset documenta que o produto dispensa SIE na venda direta
+    # (ex.: ovos do P017): a intermediação segue pedindo confirmação ao comprador.
+    dispensa_venda_direta: bool = False
 
 
 @dataclass(frozen=True)
@@ -357,6 +360,7 @@ def _registro_sanitario(r: dict, onde: str) -> RegistroSanitario:
         registro=_campo(r, "registro", str, onde, opcional=True),
         observacao=_campo(r, "observacao", str, onde, opcional=True),
         fonte=_campo(r, "fonte", str, onde),
+        dispensa_venda_direta=bool(_campo(r, "dispensa_venda_direta", bool, onde, opcional=True)),
     )
 
 

@@ -296,7 +296,8 @@ def test_queijo_do_ped_006_cabe_mas_capacidade_nao_e_estoque():
     resultado = verificar("queijo coalho", 200, "2026-10-29", SUPERBOM)
     capacidade = resultado["capacidade"]
     assert capacidade["janela_dias"] == 7  # pedido para hoje compara com uma semana
-    assert (capacidade["minimo"], capacidade["maximo"]) == (350, 480)
+    # P011 (sem SIE) sai da intermediação desde a #12: capacidade documentada dos elegíveis
+    assert (capacidade["minimo"], capacidade["maximo"]) == (300, 400)
     assert "não é estoque" in alerta(resultado, "CAPACIDADE")["mensagem"]
     assert resultado["pode_atender"]
 
@@ -313,7 +314,7 @@ def test_capacidade_do_queijo_em_uma_semana(quantidade, codigo, pode):
 
 def test_capacidade_cresce_com_o_prazo():
     resultado = verificar("queijo coalho", 500, "2026-11-12", SUPERBOM)  # 14 dias
-    assert resultado["capacidade"]["maximo"] == 960
+    assert resultado["capacidade"]["maximo"] == 800  # P011 (sem SIE) fora da intermediação desde a #12
     assert "CAPACIDADE_EXCEDIDA" not in codigos(resultado)
 
 
