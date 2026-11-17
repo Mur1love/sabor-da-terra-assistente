@@ -17,12 +17,14 @@ from google.genai import types
 
 from sabor_da_terra.dados.consultas import (
     buscar_produtores,
+    consultar_lotes,
+    consultar_pedido,
     disponibilidade,
     identificar_produtor,
     preco,
     rastrear_lote,
 )
-from sabor_da_terra.produtores import notificar_produtores, resumo_produtor
+from sabor_da_terra.produtores import notificar_produtores, relatorio_pendencias_vencidas, resumo_produtor
 from sabor_da_terra.rag.responder import consultar_documentos
 from sabor_da_terra.regras.conformidade import verificar_conformidade
 from sabor_da_terra.triagem.extrair import triar_pedido
@@ -38,6 +40,8 @@ def triar_pendentes(data_referencia: str) -> dict[str, Any]:
 FERRAMENTAS: list[Callable] = [
     identificar_produtor,
     buscar_produtores,
+    consultar_pedido,
+    consultar_lotes,
     disponibilidade,
     preco,
     rastrear_lote,
@@ -46,6 +50,7 @@ FERRAMENTAS: list[Callable] = [
     triar_pedido,
     triar_pendentes,
     resumo_produtor,
+    relatorio_pendencias_vencidas,
     notificar_produtores,
 ]
 

@@ -56,10 +56,20 @@ class EstadoSessao:
         if nome_funcao == "triar_pedido":
             self._focar_pedido_de(args, resultado)
 
-    def _focar_pedido_de(self, args: dict[str, Any], resultado: dict[str, Any]) -> None:
-        achado = ID_PEDIDO_RE.search(str(args.get("mensagem", "")).upper())
+    def focar_pedido_do_texto(self, texto: str) -> bool:
+        """Foca o pedido citado no texto da equipe (ex.: "PED-2026-006"), se houver.
+
+        O pedido entra em foco pelo que a equipe escreveu, venha ele de `triar_pedido`
+        ou de qualquer outra função — "e o queijo desse pedido?" depende disso.
+        """
+        achado = ID_PEDIDO_RE.search(str(texto).upper())
         if achado:
             self.pedido_em_foco = achado.group(0)
+            return True
+        return False
+
+    def _focar_pedido_de(self, args: dict[str, Any], resultado: dict[str, Any]) -> None:
+        self.focar_pedido_do_texto(str(args.get("mensagem", "")))
         itens = resultado.get("itens") or []
         if itens and isinstance(itens, list):
             produto = (itens[0] or {}).get("produto")

@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b4537be12df76508",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Tue, 17 Nov 2026 14:17:25 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8841",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "A produtora Josefa Alves de Souza (P008), de Águas Belas, está com o cadastro ativo, mas a sua certificação orgânica venceu em 30/09/2026 e, portanto, **não** está vigente na data de referência (30/10/2026).",
+              "thought_signature": "EokBCoYBAWkUfROb1bIwaI2kmtEOGK8ms_QBifiOGob16S1Aae8q1ZI0qhhF8h5NvWVwq0fyXI9AaGcfMaw5pxFrFMlRAucsrJSQqrovcEvCvBJzKQliyKqUBEg7CK-wwr8SyGiL47HqksnMiUrWMzVwD7i8rgzH2jTvWJTQq7Llkrswuj-ZldHO3J0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "7GH8aqK5MYmwuMYP8ozCuAE",
+    "usage_metadata": {
+      "candidates_token_count": 72,
+      "prompt_token_count": 2623,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2623
+        }
+      ],
+      "total_token_count": 2695
+    }
+  }
+}

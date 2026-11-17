@@ -51,6 +51,9 @@ class DadosRepository(Protocol):
     # Todos os códigos de lote, em ordem.
     def ids_de_lote(self) -> list[str]: ...
 
+    # Todos os lotes, para consultas por produtor/comprador/pedido.
+    def lotes(self) -> pd.DataFrame: ...
+
     # Um lote pelo código, ou None.
     def lote(self, lote_id: str) -> pd.Series | None: ...
 
@@ -119,6 +122,10 @@ class RepositorioLocal:
     # Todos os códigos de lote, em ordem.
     def ids_de_lote(self) -> list[str]:
         return sorted(self._base.lotes["lote_id"])
+
+    # Todos os lotes, para consultas por produtor/comprador/pedido.
+    def lotes(self) -> pd.DataFrame:
+        return self._base.lotes
 
     # Um lote pelo código, ou None.
     def lote(self, lote_id: str) -> pd.Series | None:

@@ -4,17 +4,21 @@ Um turno (`responder`) roda assim:
 
 1. A mensagem do usuário é mascarada (regra 2 do docs/03) e entra no histórico
    com o contexto da sessão (relógio + focos) — é assim que "ela" vira P008.
-2. Laço de roteamento no Flash-Lite (`Papel.TRIAGEM`) com as 11 ferramentas
+2. Laço de roteamento no Flash-Lite (`Papel.TRIAGEM`) com as ferramentas
    declaradas e o function calling automático desligado: o modelo propõe
    `function_call`s, o assistente executa as funções reais (relógio da sessão
    sobrepõe o argumento, saída mascarada, erro honesto, limite por turno) e
-   devolve `function_response`s com `role="tool"`.
+   devolve `function_response`s com `role="user"` — a API do Gemini só aceita
+   user/model, e ecoa o content do modelo com a `thought_signature` preservada.
 3. Resposta final do turno: se o único resultado traz texto pronto
    (`"resposta"` do RAG, `"texto"` do resumo), esse texto vai verbatim — sem
-   segunda composição (regra 1 do docs/03). Se há síntese a fazer, o Flash
+   segunda composição (regra 1 do docs/03); nos rascunhos de comunicação
+   (resumo, notificação) o pass-through acrescenta que nada foi enviado. Se há
+   síntese a fazer, o Flash
    (`Papel.RESPOSTA`) compõe a partir do payload com os resultados mascarados.
    Sem funções, o próprio texto do Flash-Lite fecha o turno.
-4. Log por turno: funções chamadas (args mascarados), modelos, duração.
+4. Log por turno: modelos de cada papel (ou "pass-through"), funções chamadas
+   (args mascarados), funções com LLM interno, erros e duração.
 """
 
 from __future__ import annotations
@@ -28,10 +32,10 @@ from typing import Any
 from google.genai import types
 
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
-from sabor_da_terra.assistente.ferramentas import NOME_PARA_FUNCAO, declarar_ferramentas
+from sabor_da_terra.assistente.ferramentas import FERRAMENTAS_COM_LLM, NOME_PARA_FUNCAO, declarar_ferramentas
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
 from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
-from sabor_da_terra.llm.cliente import LLMClient, Papel
+from sabor_da_terra.llm.cliente import FixtureAusenteError, LLMClient, Papel
 
 logger = logging.getLogger("sabor_da_terra.assistente")
 
@@ -43,6 +47,16 @@ JANELA_HISTORICO = 6  # turnos completos que ficam no histórico
 # Saídas que já vêm com texto pronto para a equipe (RAG, resumo, notificação).
 CHAVES_TEXTO_PRONTO = ("texto", "resposta")
 
+# Papel das function responses no histórico. A API do Gemini aceita só
+# "user"/"model" (400 com role="tool", visto ao vivo em 17/11/2026); a part
+# `function_response` identifica a resposta, o papel é sempre "user".
+ROLE_RESPOSTA_FUNCAO = "user"
+
+# Saídas cujo texto é um rascunho endereçado a produtor/comprador: o pass-through
+# precisa avisar a equipe que nada saiu da cooperativa (critério 3 da #12).
+RASCUNHOS_SEM_ENVIO = ("resumo_produtor", "notificar_produtores")
+AVISO_RASCUNHO = "Rascunho para revisão da equipe; nada foi enviado."
+
 SEM_RESPOSTA = "Não consegui processar sua mensagem."
 SEM_COMPOSICAO = "Não consegui compor a resposta agora; os dados das funções estão no log."
 
@@ -52,7 +66,8 @@ def _content_com_args_mascarados(content: types.Content) -> types.Content:
 
     O histórico volta ao modelo inteiro a cada iteração e turno — os args
     que o modelo escreveu (podendo conter dado de pessoa) não podem
-    sobreviver nele sem máscara.
+    sobreviver nele sem máscara. A `thought_signature` de cada part é
+    preservada: a API do Gemini exige a assinatura de volta no eco.
     """
     partes: list[types.Part] = []
     for parte in content.parts or []:
@@ -60,7 +75,10 @@ def _content_com_args_mascarados(content: types.Content) -> types.Content:
         if chamada is not None:
             mascarada = chamada.model_copy(deep=True)
             mascarada.args = mascarar_dados_sensiveis(dict(mascarada.args or {}))
-            partes.append(types.Part(function_call=mascarada))
+            nova = types.Part(function_call=mascarada)
+            if parte.thought_signature is not None:
+                nova.thought_signature = parte.thought_signature
+            partes.append(nova)
         elif parte.text is not None:
             partes.append(types.Part.from_text(text=parte.text))
         else:
@@ -96,6 +114,7 @@ class Assistente:
         inicio = time.perf_counter()
         self._turno += 1
         mensagem = mascarar_dados_sensiveis(mensagem)
+        self.estado.focar_pedido_do_texto(mensagem)  # "PED-2026-006" entra em foco venha ele de qual função vier
 
         self._blocos.append(
             [
@@ -119,16 +138,22 @@ class Assistente:
             self._blocos[-1].append(_content_com_args_mascarados(resposta.candidates[0].content))
             self._blocos[-1].append(self._executar_chamadas(chamadas, executadas, erros))
 
-        final = self._fechar_turno(mensagem, executadas, erros, rascunho)
+        final, fechamento = self._fechar_turno(mensagem, executadas, erros, rascunho)
         self._blocos[-1].append(types.Content(role="model", parts=[types.Part.from_text(text=final)]))
 
         duracao = time.perf_counter() - inicio
+        modelos = {
+            "triagem": self._cliente.modelo(Papel.TRIAGEM),
+            # sem composição o Flash não entra no turno: quem fechou foi o roteamento ou o texto pronto
+            "resposta": self._cliente.modelo(Papel.RESPOSTA) if fechamento == "composto" else "pass-through",
+        }
         logger.info(
-            "turno=%d funcoes=%s sem_resposta=%s chamadas_api=%s duracao=%.2fs",
+            "turno=%d modelos=%s funcoes=%s com_llm_interno=%s erros=%s duracao=%.2fs",
             self._turno,
+            modelos,
             [nome for nome, _, _ in executadas],
+            [nome for nome, _, _ in executadas if nome in FERRAMENTAS_COM_LLM],
             erros,
-            self._cliente.chamadas_por_modelo(),
             duracao,
         )
         return final
@@ -138,9 +163,12 @@ class Assistente:
     # ------------------------------------------------------------------ #
 
     @property
-    def historico(self) -> tuple[types.Content, ...]:
-        """Os `janela` últimos turnos completos — nunca um turno pela metade."""
-        return tuple(conteudo for bloco in self._blocos[-self._janela :] for conteudo in bloco)
+    def historico(self) -> list[types.Content]:
+        """Os `janela` últimos turnos completos — nunca um turno pela metade.
+
+        Lista, não tupla: é a forma de `contents` que o `google-genai` serializa.
+        """
+        return [conteudo for bloco in self._blocos[-self._janela :] for conteudo in bloco]
 
     # ------------------------------------------------------------------ #
     # Despacho e fechamento                                              #
@@ -175,7 +203,7 @@ class Assistente:
                 else:
                     executadas.append((nome, dict(chamada.args or {}), saida))
             partes.append(types.Part.from_function_response(name=nome, response=saida))
-        return types.Content(role="tool", parts=partes)
+        return types.Content(role=ROLE_RESPOSTA_FUNCAO, parts=partes)
 
     def _despachar(self, nome: str, args: dict[str, Any]) -> dict[str, Any]:
         """Chama a função real: relógio da sessão injetado, saída mascarada e logada."""
@@ -202,14 +230,18 @@ class Assistente:
         executadas: list[tuple[str, dict[str, Any], dict[str, Any]]],
         erros: list[str],
         rascunho: str | None,
-    ) -> str:
+    ) -> tuple[str, str]:
+        """Fecha o turno e diz como fechou: `sem_funcao`, `pass_through` ou `composto`."""
         if not executadas:
-            return rascunho or SEM_RESPOSTA
+            return (rascunho or SEM_RESPOSTA), "sem_funcao"
         if len(executadas) == 1 and not erros:
-            pronta = next((saida[k] for _, _, saida in executadas for k in CHAVES_TEXTO_PRONTO if isinstance(saida.get(k), str)), None)
+            nome, _, saida = executadas[0]
+            pronta = next((saida[k] for k in CHAVES_TEXTO_PRONTO if isinstance(saida.get(k), str)), None)
             if pronta:
-                return pronta  # pass-through: texto validado na fonte, sem segunda composição
-        return self._compor(mensagem, executadas, rascunho)
+                if nome in RASCUNHOS_SEM_ENVIO:
+                    pronta = f"{pronta}\n\n{AVISO_RASCUNHO}"
+                return pronta, "pass_through"  # texto validado na fonte, sem segunda composição
+        return self._compor(mensagem, executadas, rascunho), "composto"
 
     def _compor(
         self,
@@ -237,6 +269,10 @@ class Assistente:
         )
         try:
             resposta = self._cliente.gerar(Papel.RESPOSTA, prompt_final, temperature=0)
+        except FixtureAusenteError:
+            # Fixture ausente é erro de infraestrutura do modo fixture, não falha
+            # do modelo: sobe para quem puder completar a gravação.
+            raise
         except Exception as exc:  # noqa: BLE001 — 504/503 do Flash não derrubam o turno
             logger.warning("composicao_final falhou (%s: %s); turno fecha com resposta honesta", type(exc).__name__, exc)
             return SEM_COMPOSICAO

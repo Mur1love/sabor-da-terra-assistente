@@ -22,6 +22,23 @@ from sabor_da_terra.dados import obter_repositorio
 RAIZ = Path(__file__).resolve().parents[1]
 
 
+def respostas_de_funcao(historico) -> list:
+    """Os contents com `function_response` — o papel é "user"; a part identifica."""
+    return [
+        conteudo for conteudo in historico
+        if any(p.function_response for p in conteudo.parts or [])
+    ]
+
+
+def mensagens_da_equipe(historico) -> list:
+    """Os contents de mensagem da equipe (o user content com [MENSAGEM DO USUÁRIO])."""
+    return [
+        conteudo for conteudo in historico
+        if conteudo.role == "user"
+        and any("[MENSAGEM DO USUÁRIO]" in (p.text or "") for p in conteudo.parts or [])
+    ]
+
+
 # ---------------------------------------------------------------------------
 # Estado da sessão
 # ---------------------------------------------------------------------------
@@ -134,12 +151,35 @@ NOMES_ESPERADOS = {
     "triar_pedido", "triar_pendentes", "consultar_documentos", "resumo_produtor",
     "notificar_produtores", "rastrear_lote", "buscar_produtores", "preco",
     "disponibilidade", "verificar_conformidade", "identificar_produtor",
+    "consultar_pedido", "consultar_lotes", "relatorio_pendencias_vencidas",
 }
 
 
-def test_ferramentas_sao_as_da_issue_mais_identificar_produtor():
+def test_ferramentas_sao_as_da_issue_mais_as_das_consultas_de_contexto():
+    # 10 da issue #12 + identificar_produtor (contexto) + consultar_pedido/consultar_lotes
+    # (consultas de pedido e lotes já cadastrados) + relatorio_pendencias_vencidas (PROD-003) —
+    # desvios da lista original registrados na issue #12.
     assert {f.__name__ for f in FERRAMENTAS} == NOMES_ESPERADOS
     assert set(NOME_PARA_FUNCAO) == NOMES_ESPERADOS
+
+
+def test_gabarito_cobre_todos_os_casos_com_funcoes_da_superficie():
+    """Critério de aceite da #12: cada pergunta do gabarito chama a função esperada.
+
+    O campo `funcoes_esperadas` (preenchido nas etapas #8–#12) só vale se apontar
+    para funções realmente declaradas — e nenhum caso pode ficar vazio.
+    """
+    import yaml
+
+    casos = []
+    for caminho in sorted((RAIZ / "tests" / "gabarito").glob("*.yaml")):
+        casos.extend(yaml.safe_load(caminho.read_text(encoding="utf-8")))
+    assert len(casos) == 37  # 34 casos + 3 CTX
+    for caso in casos:
+        funcoes = caso.get("funcoes_esperadas") or []
+        assert funcoes, f"{caso['id']}: funcoes_esperadas ficou vazio"
+        fora = set(funcoes) - NOMES_ESPERADOS
+        assert not fora, f"{caso['id']}: funções fora da superfície declarada: {sorted(fora)}"
 
 
 def test_declaracao_e_deterministica_e_esconde_interno_da_fila():
@@ -270,14 +310,27 @@ def test_turno_chama_funcao_real_e_fechar_com_model(tmp_path):
     assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
 
 
-def test_resposta_de_funcao_va_como_role_tool(tmp_path):
+def test_responder_foca_o_pedido_citado_na_mensagem(tmp_path):
+    """Revisão item 5: "PED-2026-006" entra em foco pela mensagem, sem depender de triar_pedido."""
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("consultar_pedido", {"pedido_id": "PED-2026-006"}), Script(texto="ok")],
+        "resposta": [Script(texto="Pedido consultado: entrega hoje (29/10).")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("e os detalhes do pedido PED-2026-006?")
+    assert a.estado.pedido_em_foco == "PED-2026-006"
+    assert "PED-2026-006" in a.historico[0].parts[0].text  # o contexto do turno já o mostra
+    assert final
+
+
+def test_resposta_de_funcao_vai_no_historico(tmp_path):
     fila = FilaControlada({
         "triagem": [ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}), Script(texto="ok")],
         "resposta": [Script(texto="R$ 32,00/kg.")],
     })
     a = _assistente(_fabrica(tmp_path, fila)())
     a.responder("quanto está o queijo?")
-    tools = [c for c in a.historico if c.role == "tool"]
+    tools = respostas_de_funcao(a.historico)
     assert tools and tools[0].parts[0].function_response.name == "preco"
     assert tools[0].parts[0].function_response.response["produto"] == "queijo coalho"
 
@@ -289,7 +342,7 @@ def test_relogio_da_sessao_sobrepoe_o_modelo(tmp_path):
     })
     a = _assistente(_fabrica(tmp_path, fila)())
     a.responder("quem é P003?")
-    tools = [c for c in a.historico if c.role == "tool"]
+    tools = respostas_de_funcao(a.historico)
     assert tools[0].parts[0].function_response.response["data_referencia"] == "2026-10-30"
 
 
@@ -317,7 +370,7 @@ def test_funcao_que_lanca_excecao_devolve_erro_honesto_sem_travar(tmp_path):
     })
     a = _assistente(_fabrica(tmp_path, fila)())
     texto = a.responder("conferir o mel")
-    tools = [c for c in a.historico if c.role == "tool"]
+    tools = respostas_de_funcao(a.historico)
     assert "erro" in tools[0].parts[0].function_response.response
     assert isinstance(texto, str)
 
@@ -329,7 +382,7 @@ def test_funcao_desconhecida_devolve_erro(tmp_path):
     })
     a = _assistente(_fabrica(tmp_path, fila)())
     a.responder("manda no zap")
-    tools = [c for c in a.historico if c.role == "tool"]
+    tools = respostas_de_funcao(a.historico)
     assert "desconhecida" in tools[0].parts[0].function_response.response["erro"].lower()
 
 
@@ -349,7 +402,7 @@ def test_limite_responde_erro_e_proximo_turno_funciona(tmp_path):
     conteudos = list(a.historico)
     for i, conteudo in enumerate(conteudos):  # protocolo válido: nenhuma function_call sem resposta
         if conteudo.role == "model" and any(p.function_call for p in conteudo.parts):
-            assert conteudos[i + 1].role == "tool"
+            assert respostas_de_funcao(conteudos[i + 1 : i + 2])
     a.responder("e o P002?")  # o turno seguinte ainda funciona
     assert a.estado.produtor_em_foco["produtor_id"] == "P002"
 
@@ -359,7 +412,20 @@ def test_turno_sem_funcao_usa_o_texto_do_flash_lite_e_nao_compoem(tmp_path):
     a = _assistente(_fabrica(tmp_path, fila)())
     final = a.responder("manda no WhatsApp pra ele")
     assert "nada foi enviado" in final.lower()
-    assert [c.role for c in a.historico].count("tool") == 0
+    assert respostas_de_funcao(a.historico) == []
+    _fila_vazia(fila)
+
+
+def test_pedido_de_cadastro_recebe_recusa_sem_funcao(tmp_path):
+    """Critério de aceite: "cadastrar produtor" fica fora do que o protótipo executa."""
+    fila = FilaControlada({
+        "triagem": [Script(texto="Não cadastro produtor: o protótipo não registra cadastros e nada foi criado.")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("cadastra a produtora Maria no sistema")
+    assert "não cadastro" in final.lower()
+    assert "nada foi criado" in final.lower()
     _fila_vazia(fila)
 
 
@@ -371,7 +437,20 @@ def test_pass_through_nao_chama_o_flash(tmp_path):
     a = _assistente(_fabrica(tmp_path, fila)())
     final = a.responder("manda um resumo pra ela")
     assert final.startswith("Olá, Josefa")  # texto pronto do resumo real, verbatim
+    assert "nada foi enviado" in final.lower()  # revisão item 6: o rascunho nunca silencia o envio
     _fila_vazia(fila)  # nenhuma script de resposta consumida → o Flash não foi chamado
+
+
+def test_log_no_pass_through_mostra_pass_through_e_sem_composicao(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}), Script(texto="ok")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("manda um resumo pra ela")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "'resposta': 'pass-through'" in registro  # revisão: o turno registra o modelo de cada papel
 
 
 def test_resultado_estruturado_vai_ao_flash_com_o_payload(tmp_path):
@@ -420,7 +499,7 @@ def test_config_do_roteamento_declara_as_ferramentas(tmp_path):
     a = _assistente(_fabrica(tmp_path, fila)())
     a.responder("bom dia")
     config = fila.configs["triagem"][-1]
-    assert len(config["tools"][0].function_declarations) == 11
+    assert len(config["tools"][0].function_declarations) == 14
     assert config["system_instruction"] == PROMPT_SISTEMA
     assert config["automatic_function_calling"].disable is True
 
@@ -442,7 +521,7 @@ def test_despacho_mascara_args_e_log(tmp_path, caplog):
     assert pix not in historico and "123.456.789-09" not in historico
 
 
-def test_log_do_turno_mostra_funcoes_modelo_e_duracao(tmp_path, caplog):
+def test_log_do_turno_mostra_modelos_funcoes_e_duracao(tmp_path, caplog):
     fila = FilaControlada({
         "triagem": [ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}), Script(texto="ok")],
         "resposta": [Script(texto="R$ 32,00/kg.")],
@@ -451,9 +530,11 @@ def test_log_do_turno_mostra_funcoes_modelo_e_duracao(tmp_path, caplog):
     with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
         a.responder("preço do queijo")
     registro = " ".join(r.getMessage() for r in caplog.records)
-    assert "preco" in registro
     assert "turno=1" in registro
-    assert "duracao=" in registro or "duracao" in registro
+    assert "modelos=" in registro and "gemini-3.8-flash" in registro  # resposta composta no Flash
+    assert "funcoes=['preco']" in registro
+    assert "com_llm_interno=[]" in registro
+    assert "duracao=" in registro
 
 
 # ---------------------------------------------------------------------------
@@ -467,7 +548,7 @@ def test_janela_mantem_turnos_completos(tmp_path):
     for i in range(5):
         a.responder(f"turno {i}")
     roles = [c.role for c in a.historico]
-    assert roles.count("user") == 2 and roles[-1] == "model" and "tool" not in roles
+    assert roles.count("user") == 2 and roles[-1] == "model"  # 2 mensagens, sem função alguma
 
 
 def test_janela_nunca_corta_turno_com_funcao(tmp_path):
@@ -484,9 +565,9 @@ def test_janela_nunca_corta_turno_com_funcao(tmp_path):
     for i in range(3):
         a.responder(f"turno {i}")
     conteudos = list(a.historico)
-    for i, conteudo in enumerate(conteudos):  # nenhuma tool sem o model de function_calls imediatamente antes
-        if conteudo.role == "tool":
-            assert i >= 1 and conteudos[i - 1].role == "model"
+    respostas = respostas_de_funcao(conteudos)
+    for i, indice in enumerate([conteudos.index(c) for c in respostas]):  # nenhuma resposta sem o model de function_calls antes
+        assert indice >= 1 and conteudos[indice - 1].role == "model"
 
 
 # ---------------------------------------------------------------------------
@@ -560,7 +641,7 @@ def test_ctx001_tres_turnos_resolve_josefa_sem_repetir(tmp_path, caplog):
             t3 = a.responder("Manda um resumo pra ela")
 
     # AC: o usuário não repetiu nada — as mensagens são só "E a Josefa?" e "Manda um resumo pra ela"
-    usuarios = [c for c in a.historico if c.role == "user"]
+    usuarios = mensagens_da_equipe(a.historico)
     assert usuarios[1].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1] == "E a Josefa?"
     assert usuarios[2].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1] == "Manda um resumo pra ela"
     # AC: o estado da sessão resolve "ela" como P008 — injetado no turno 3 sem o usuário repetir
@@ -570,75 +651,131 @@ def test_ctx001_tres_turnos_resolve_josefa_sem_repetir(tmp_path, caplog):
     t2 = a._blocos[1][-1].parts[0].text  # fechamento do turno 2
     assert "Josefa" in t2 and "30/09/2026" in t2
     assert "[fonte:" in t2 and "cert_organica_josefa_souza_P008" in t2
-    # Turno 3: pass-through do resumo real (valores do financeiro)
+    # Turno 3: pass-through do resumo real (valores do financeiro) + aviso de rascunho
     assert t3.startswith("Olá, Josefa")
     assert "R$" in t3
-    # AC: as funções esperadas do gabarito aparecem no log
+    assert "nada foi enviado" in t3.lower()
+    # AC: as funções esperadas do gabarito aparecem no log; resumo_produtor vem do AC
+    # da issue, que acrescenta o terceiro turno ("manda um resumo pra ela")
     registro = " ".join(r.getMessage() for r in caplog.records)
-    for funcao in ("buscar_produtores", "consultar_documentos", "resumo_produtor"):
+    for funcao in ("buscar_produtores", "identificar_produtor", "consultar_documentos", "resumo_produtor"):
         assert funcao in registro, funcao
     _fila_vazia(fila)
 
 
 def test_ctx002_contexto_do_pedido_mantido(tmp_path, caplog):
+    """Diálogo real do gabarito: consultar_pedido → verificar_conformidade com a entrega real (29/10)."""
     fila = FilaControlada({
         "triagem": [
-            ROTEADOR("triar_pedido", {"mensagem": "300kg de goiaba para o pedido urgente PED-2026-006 (revenda em atacado), entrega para a próxima semana"}),
-            Script(texto='{"tipo": "compra", "idioma": "pt", "comprador": "Rede SuperBom Atacado", "itens": [{"produto": "goiaba paluma", "quantidade": 300, "unidade": "kg"}]}'),
-            ROTEADOR("verificar_conformidade", {"item": {"produto": "goiaba paluma", "quantidade": 300, "organico": False}, "data_entrega": "2026-11-02", "comprador": "Rede SuperBom Atacado"}),
-            Script(texto="Vou verificar quem fornece a goiaba."),
-            ROTEADOR("verificar_conformidade", {"item": {"produto": "queijo coalho", "quantidade": 200, "organico": False}, "data_entrega": "2026-11-02", "comprador": "Rede SuperBom Atacado"}),
+            ROTEADOR("consultar_pedido", {"pedido_id": "PED-2026-006"}),
+            ROTEADOR("verificar_conformidade", {"item": {"produto": "goiaba paluma", "quantidade": 300, "organico": False}, "data_entrega": "2026-10-29", "comprador": "Rede SuperBom Atacado"}),
+            Script(texto="Vou conferir quem fornece a goiaba do pedido."),
+            ROTEADOR("verificar_conformidade", {"item": {"produto": "queijo coalho", "quantidade": 200, "organico": False}, "data_entrega": "2026-10-29", "comprador": "Rede SuperBom Atacado"}),
             Script(texto="Vou verificar o queijo."),
         ],
         "resposta": [
-            Script(texto="Para os 300 kg de goiaba paluma do PED-2026-006: P001 (orgânico) e P010 (convencional) fornecem na safra [fonte: fichas_tecnicas/goiaba_paluma.txt]."),
-            Script(texto="Para os 200 kg de queijo coalho do mesmo PED-2026-006: P003 e P007 estão habilitados; P011 segue com registro sanitário pendente (REGISTRO_SANITARIO) — confirmar se o comprador aceita [fonte: fichas_tecnicas/queijo_coalho.txt]."),
+            Script(texto="Para os 300 kg de goiaba do PED-2026-006 (revenda em atacado): P001 (orgânico) e P010 (convencional) fornecem na safra; a entrega no mesmo dia (29/10) é o ponto apertado [fonte: fichas_tecnicas/goiaba_paluma.txt]."),
+            Script(texto="Para os 200 kg de queijo coalho do mesmo PED-2026-006: P003 e P007 estão habilitados (SIE vigente); P011 fica fora por não ter registro SIE para revenda; os 200 kg no mesmo dia exigem composição ou confirmação imediata [fonte: fichas_tecnicas/queijo_coalho.txt]."),
         ],
     })
-    with pytest.MonkeyPatch.context() as mp:
-        mp.setattr("sabor_da_terra.triagem.extrair.LLMClient", _fabrica(tmp_path, fila))
-        a = _assistente(_fabrica(tmp_path, fila)())
-        with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
-            a.responder("Quem pode fornecer os 300kg de goiaba do pedido urgente PED-2026-006?")
-            t2 = a.responder("E para atender os 200kg de queijo coalho desse mesmo pedido, quais temos?")
+    # O pedido chegou e deve ser atendido em 29/10: a sessão simula esse dia.
+    a = Assistente(
+        cliente_llm=_fabrica(tmp_path, fila)(),
+        estado=EstadoSessao(data_referencia="2026-10-29"),
+    )
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("Quem pode fornecer os 300kg de goiaba do pedido urgente PED-2026-006?")
+        t2 = a.responder("E para atender os 200kg de queijo coalho desse mesmo pedido, quais temos?")
 
-    # AC: o pedido ficou em foco no turno 1 e foi injetado no contexto do turno 2
+    # AC: o pedido ficou em foco no turno 1 (o roteador nem precisou de triar_pedido) e
+    # o contexto dele foi injetado no turno 2 sem o usuário repetir
     assert a.estado.pedido_em_foco == "PED-2026-006"
-    usuarios = [c for c in a.historico if c.role == "user"]
+    usuarios = mensagens_da_equipe(a.historico)
     assert "PED-2026-006" in usuarios[1].parts[0].text  # contexto injetado
     assert "PED-2026-006" not in usuarios[1].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1]  # o usuário não repetiu
     assert "PED-2026-006" in t2  # a resposta mantém a referência
-    # Ferramenta real: P003/P007 elegíveis; P011 segue com registro sanitário pendente
-    tools = [c for c in a.historico if c.role == "tool"]
+    # Ferramenta real com a data real: P003/P007 elegíveis; P011 excluído por falta de SIE
+    tools = respostas_de_funcao(a.historico)
+    assert tools[0].parts[0].function_response.name == "consultar_pedido"
+    pedido = tools[0].parts[0].function_response.response["pedido"]
+    assert pedido["comprador"] == "Rede SuperBom Atacado"  # dados reais do PED-2026-006
+    assert pedido["data_recebimento"].startswith("2026-10-29")
     r2 = tools[2].parts[0].function_response.response
     assert {"P003", "P007"} <= {p["produtor_id"] for p in r2["elegiveis"]}
-    p11 = next(p for p in r2["elegiveis"] if p["produtor_id"] == "P011")
-    assert "REGISTRO_SANITARIO" in p11["pendencias"]
+    p11 = next(p for p in r2["excluidos"] if p["produtor_id"] == "P011")
+    assert "SIE_EXIGIDO" in p11["motivos"]  # o gabarito exige a exclusão, não pendência
+    assert r2["data_referencia"] == "2026-10-29"  # relógio da sessão chegou à ferramenta
     registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "funcao=consultar_pedido" in registro
     assert registro.count("funcao=verificar_conformidade") == 2
     _fila_vazia(fila)
 
 
-def test_ctx003_resumo_superbom_e_lotes_degradam_com_honestidade(tmp_path):
+def test_ctx001_dialogo_gravado_repete_a_gravacao_real():
+    """O diálogo de 3 turnos do gabarito gravado uma vez com o Gemini real
+    (`python -m scripts.gravar_ctx001`) e repetido aqui em modo fixture.
+
+    Prova o que os diálogos escritos à mão não provam: o contexto da sessão
+    chega ao modelo e o modelo resolve a referência ("E a Josefa?" → P008).
+
+    Enquanto a gravação estiver incompleta (a composição no Flash depende de
+    cota diária da API), o teste pula com a instrução — não finge passar.
+    """
+    from sabor_da_terra.llm.cliente import FixtureAusenteError
+
+    try:
+        a = Assistente(
+            cliente_llm=LLMClient(modo="fixture"),
+            estado=EstadoSessao(data_referencia="2026-10-30"),
+        )
+        t1 = a.responder("Quem tem mel orgânico vigente?")
+        t2 = a.responder("E a Josefa?")
+        t3 = a.responder("Manda um resumo pra ela")
+    except FixtureAusenteError as erro:
+        pytest.skip(f"gravação real incompleta: {erro} — rode python -m scripts.gravar_ctx001")
+
+    # Turno 1: os produtores vigentes do gabarito, com o estado a partir do turno real
+    assert "P002" in t1 and "P018" in t1
+    # Turno 2: a referência "E a Josefa?" virou P008 com a certificação vencida
+    assert "Josefa" in t2 and "P008" in t2
+    assert "30/09/2026" in t2
+    assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+    # Turno 3: o resumo real da P008 (pass-through) + aviso de rascunho
+    assert t3.startswith("Olá, Josefa")
+    assert "R$" in t3
+    assert "nada foi enviado" in t3.lower()
+
+
+def test_ctx003_resumo_superbom_e_lotes_da_entrega(tmp_path, caplog):
+    """Turno 1: resumo com os valores reais. Turno 2: lotes das entregas via consultar_lotes."""
     fila = FilaControlada({
         "triagem": [
             ROTEADOR("resumo_produtor", {"produtor_id": "P003", "mes": "2026-10"}),
             Script(texto="Vou montar o resumo do Cícero."),
-            Script(texto="Não encontrei os lotes dessas entregas: a rastreabilidade do protótipo consulta lote por ID."),
+            ROTEADOR("consultar_lotes", {"produtor_id": "P003", "comprador": "SuperBom"}),
+            Script(texto="Vou buscar os lotes das entregas dele ao SuperBom."),
         ],
-        "resposta": [],
+        "resposta": [
+            Script(texto="Os lotes das entregas do Cícero (P003) ao SuperBom: LOT-2026-0100 (150 kg de queijo coalho) e LOT-2026-0101 (40 kg de queijo manteiga), entregues em 18/09/2026 para o pedido PED-2026-SEP-018, transportados a 7°C e com validade até 18/10/2026 [fonte: lotes.csv]."),
+        ],
     })
     a = _assistente(_fabrica(tmp_path, fila)())
-    t1 = a.responder("Quanto o Cícero (P003) tem em atraso para receber do SuperBom?")
-    # Turno 1: pass-through do resumo real com os valores exatos do gabarito
-    assert "FIN-2026-013" in t1 and "FIN-2026-014" in t1
-    assert "Rede SuperBom Atacado" in t1
-    assert "R$ 6.020,00" in t1  # total atrasado no formato BR do resumo real
-    # Turno 2: nenhum tool acha lotes por produtor/comprador — degradação honesta
-    t2 = a.responder("Quais foram os lotes dessas entregas dele?")
-    assert "não encontrei" in t2.lower()
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        t1 = a.responder("Quanto o produtor Cícero (P003) tem em atraso para receber do SuperBom?")
+        # Turno 1: pass-through do resumo real com os valores exatos do gabarito...
+        assert "FIN-2026-013" in t1 and "FIN-2026-014" in t1
+        assert "Rede SuperBom Atacado" in t1
+        assert "R$ 6.020,00" in t1  # total atrasado no formato BR do resumo real
+        assert "nada foi enviado" in t1.lower()  # ...e o aviso de rascunho do pass-through
+        # Turno 2: a busca real por produtor+comprador acha só os lotes do SuperBom
+        t2 = a.responder("Quais foram os lotes dessas entregas dele?")
+    assert "LOT-2026-0100" in t2 and "LOT-2026-0101" in t2  # gabarito: os dois lotes
+    assert "PED-2026-SEP-018" in t2 and "18/09/2026" in t2
+    assert "LOT-2026-0089" not in t2  # lote entregue ao Raízes não vaza para o SuperBom
     assert a.estado.produtor_em_foco["produtor_id"] == "P003"  # contexto mantido
-    _fila_vazia(fila)  # dívida registrada: falta buscar lotes por produtor/comprador (#14)
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "funcao=consultar_lotes" in registro
+    _fila_vazia(fila)
 
 
 def test_encadeamento_triar_pendentes_e_notificar_no_mesmo_turno(tmp_path, caplog):
@@ -655,7 +792,7 @@ def test_encadeamento_triar_pendentes_e_notificar_no_mesmo_turno(tmp_path, caplo
         final = a.responder("Triar os pendentes e avisar os produtores")
     registro = " ".join(r.getMessage() for r in caplog.records)
     assert registro.index("triar_pendentes") < registro.index("notificar_produtores")  # na sequência
-    tools = [c for c in a.historico if c.role == "tool"]
+    tools = respostas_de_funcao(a.historico)
     assert tools[0].parts[0].function_response.name == "triar_pendentes"
     assert tools[1].parts[0].function_response.name == "notificar_produtores"
     assert tools[1].parts[0].function_response.response["enviadas"] is False  # nada foi enviado de verdade

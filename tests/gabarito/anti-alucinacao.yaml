@@ -15,7 +15,7 @@
     a cooperativa atende aos requisitos de
     exportação sem evidências.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos ]
 
   deve_conter:
     - "Ausência de comprovação documental"
@@ -44,7 +44,7 @@
     Cooperativa Sabor da Terra. Não inventar
     valores, produtores ou disponibilidade.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ preco ]
 
   deve_conter:
     - "Produtos não encontrados na base"
@@ -78,7 +78,7 @@
     informar que feijão não possui produtor ativo
     com capacidade documentada nas fichas técnicas.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, verificar_conformidade ]
 
   deve_conter:
     - "Identificação do produtor P015"

@@ -26,7 +26,7 @@
     não sexta-feira.
     Não confirmar disponibilidade sem consulta.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade ]
 
   deve_conter:
     - "Classificação como pedido de compra"
@@ -80,7 +80,7 @@
     Consultar as condições do contrato
     antes de confirmar o atendimento.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade ]
 
   deve_conter:
     - "Classificação como compra semanal"
@@ -144,7 +144,7 @@
     por PIX, sem inventar uma chave ou
     confirmar o pagamento.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade ]
 
   deve_conter:
     - "Classificação como compra urgente"
@@ -227,7 +227,7 @@
     Não confirmar o atendimento
     antes de verificar as condições.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade ]
 
   deve_conter:
     - "Classificação como compra institucional"
@@ -303,7 +303,7 @@
     Verificar a disponibilidade dos
     produtos antes de confirmar a entrega.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade ]
 
   deve_conter:
     - "Classificação como pedido de compra"
@@ -393,7 +393,7 @@
     Não garantir o atendimento sem
     verificar os dados necessários.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade ]
 
   deve_conter:
     - "Classificação como compra urgente"
@@ -495,7 +495,7 @@
     Não inventar preços, disponibilidade
     ou autorizações sanitárias.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade, disponibilidade, preco ]
 
   deve_conter:
     - "Classificação como pedido para evento"
@@ -588,7 +588,7 @@
     Não afirmar que produtos são orgânicos
     sem comprovação documental.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ buscar_produtores, disponibilidade, preco ]
 
   deve_conter:
     - "Classificação como consulta comercial"
@@ -705,7 +705,7 @@
     Não inventar certificações, laudos,
     registros CAF, preços ou disponibilidade.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos, verificar_conformidade, consultar_lotes ]
 
   deve_conter:
     - "Classificação como solicitação de cotação"
@@ -812,7 +812,7 @@
     preço ou certificado não puder
     ser comprovado na documentação.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ buscar_produtores, preco, disponibilidade ]
 
   deve_conter:
     - "Classificação como consulta comercial"
@@ -925,7 +925,7 @@
     habilitada para exportar sem
     documentação comprobatória.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos, buscar_produtores, consultar_lotes ]
 
   deve_conter:
     - "Classificação como consulta internacional"
@@ -1033,7 +1033,7 @@
     Não inventar valores financeiros,
     pagamentos ou comprovantes.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, resumo_produtor ]
 
   deve_conter:
     - "Classificação como consulta financeira"
@@ -1160,7 +1160,7 @@
     sem verificar documentacao,
     capacidade, precos e disponibilidade.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ triar_pedido, verificar_conformidade, preco, disponibilidade ]
 
   deve_conter:
     - "Classificacao como solicitacao de orcamento"
@@ -1298,7 +1298,7 @@
     Nao inventar documentos,
     certificacoes, laudos ou registros.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos, buscar_produtores, consultar_lotes ]
 
   deve_conter:
     - "Classificacao como notificacao oficial"
@@ -1425,7 +1425,7 @@
     Nao inventar pedidos, vendas,
     cadastros ou confirmacoes.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, triar_pendentes ]
 
   deve_conter:
     - "Classificacao como comunicacao de produtor"

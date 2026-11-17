@@ -20,7 +20,7 @@
     enquanto a certificação estiver vencida.
     Citar os documentos consultados.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ buscar_produtores, consultar_documentos ]
 
   deve_conter:
     - "Identificação de P002"
@@ -58,7 +58,7 @@
     Não inventar documentos ou exigências
     que não estejam fundamentados nas fontes.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos ]
 
   deve_conter:
     - "Cadastro dos produtores"
@@ -96,7 +96,7 @@
     R$ 3,50. Orientar que pedidos vinculados
     ao PNAE utilizem a tabela contratual.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos, preco ]
 
   deve_conter:
     - "Contrato 045/2026-PNAE"
@@ -134,7 +134,7 @@
     Explicar a limitação e recomendar a verificação
     dos documentos individuais.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos ]
 
   deve_conter:
     - "Limitação da documentação disponível"
@@ -174,7 +174,7 @@
     visual aprovada. Não inventar dados para o
     ID inexistente.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ rastrear_lote ]
 
   deve_conter:
     - "Lote 2024-089 não encontrado"
@@ -218,7 +218,7 @@
     Admitir a lacuna documental para os demais
     produtores.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ consultar_documentos ]
 
   deve_conter:
     - "Ausência de coluna DAP/CAF em produtores.csv"
@@ -258,7 +258,7 @@
     por P010 sem certificação orgânica). Não
     garantir fornecimento dos itens indisponíveis.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ disponibilidade ]
 
   deve_conter:
     - "Umbu indisponível (nenhuma) em novembro"

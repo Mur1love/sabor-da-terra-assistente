@@ -33,7 +33,7 @@
     Citar o documento utilizado
     para fundamentar a resposta.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ verificar_conformidade, consultar_documentos ]
 
   deve_conter:
     - "Identificação da produtora P008"
@@ -104,7 +104,7 @@
     foi resolvida sem comprovacao
     documental posterior.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ verificar_conformidade, consultar_documentos ]
 
   deve_conter:
     - "Identificacao do produtor P017"
@@ -170,7 +170,7 @@
     Nao inventar renovacoes,
     datas ou novos certificados.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, consultar_documentos, verificar_conformidade ]
 
   deve_conter:
     - "Identificacao da produtora P004"
@@ -244,7 +244,7 @@
     Nao inventar registros sanitarios
     ou confirmacoes de regularidade.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, verificar_conformidade, consultar_documentos ]
 
   deve_conter:
     - "Identificacao do produtor P018"
@@ -319,7 +319,7 @@
     Nao inventar estoque, producao,
     documentos ou prazos de entrega.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, verificar_conformidade ]
 
   deve_conter:
     - "Identificacao do produtor P002"

@@ -436,6 +436,79 @@ def _lote_encontrado(lote_id: str, exato: bool, termo: str) -> dict:
     }
 
 
+_CAMPOS_LOTE = [
+    "lote_id", "produto", "quantidade", "unidade", "data_colheita", "data_entrega", "validade",
+    "comprador", "pedido_id", "temperatura_transporte_c", "inspecao_visual", "observacao",
+]
+
+
+# Ferramenta: lista lotes de entregas por produtor, comprador e/ou pedido.
+def consultar_lotes(
+    produtor_id: Optional[str] = None, comprador: Optional[str] = None, pedido_id: Optional[str] = None
+) -> dict:
+    """Lista lotes de entregas filtrando por produtor, comprador e/ou pedido (informe ao menos um):
+    produto, quantidade, datas de colheita/entrega, validade e temperatura do transporte.
+    """
+    if not any((produtor_id, comprador, pedido_id)):
+        return {"encontrado": False, "aviso": "Informe o produtor, o comprador ou o pedido dos lotes."}
+
+    repo = obter_repositorio()
+    lotes = repo.lotes()
+
+    pid = _normalizar_produtor_id(produtor_id) if produtor_id else None
+    if produtor_id and pid is None:
+        return {"encontrado": False, "aviso": f"Código de produtor inválido: '{produtor_id}'. Use o formato P000."}
+    if pid:
+        if repo.produtor(pid) is None:
+            return _produtor_nao_existe(produtor_id)
+        lotes = lotes[lotes["produtor_id"] == pid]
+
+    if comprador:
+        termo = n.chave(comprador)
+        lotes = lotes[lotes["comprador"].map(lambda c: termo in n.chave(str(c or "")))]
+
+    if pedido_id:
+        id_pedido = str(pedido_id).strip().upper()
+        lotes = lotes[lotes["pedido_id"].fillna("").str.upper() == id_pedido]
+
+    if lotes.empty:
+        return {
+            "encontrado": False,
+            "aviso": "Nenhum lote corresponde a esses filtros; confira produtor, comprador ou pedido.",
+        }
+    return {
+        "encontrado": True,
+        "lotes": [_registro(linha, _CAMPOS_LOTE) for _, linha in lotes.sort_values("data_entrega").iterrows()],
+        "fonte": "lotes.csv",
+        "aviso": None,
+    }
+
+
+# Ferramenta: consulta um pedido já recebido pelo ID.
+def consultar_pedido(pedido_id: str) -> dict:
+    """Consulta um pedido já registrado pelo ID (ex.: PED-2026-006 ou PED-2026-SEP-018):
+    comprador, canal, status, data de recebimento e a mensagem original do pedido.
+    """
+    repo = obter_repositorio()
+    id_pedido = str(pedido_id).strip().upper()
+    linha = repo.pedido(id_pedido)
+    if linha is None:
+        return {
+            "encontrado": False,
+            "termo": id_pedido,
+            "aviso": f"Não existe pedido '{id_pedido}' no registro; confira o código com a equipe.",
+        }
+    return {
+        "encontrado": True,
+        "pedido": _registro(
+            linha,
+            ["pedido_id", "data_recebimento", "canal", "remetente", "comprador", "mensagem_original", "status"],
+        ),
+        "fonte": "pedidos.json",
+        "aviso": None,
+    }
+
+
 # Ferramenta: resumo financeiro do produtor no mês.
 def extrato_produtor(produtor_id: str, mes: str, data_referencia: Optional[str] = None) -> dict:
     """Extrato financeiro de um produtor: vendas do mês, recebimentos do mês, valores a receber e vencidos.
