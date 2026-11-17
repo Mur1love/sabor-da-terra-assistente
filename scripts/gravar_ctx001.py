@@ -6,7 +6,13 @@ Uso:
 
 O modo é híbrido: cada chamada procura a fixture; se ela existe, é repetida
 sem gastar cota; se falta, é gravada com `LLM_MODO=gravar`. Rodar de novo
-depois de completar a gravação não gasta nada.
+depois de completar a gravação não gasta nada. Os clientes que as ferramentas
+criam por dentro (planner e busca do RAG, extração da triagem) também passam
+pelo modo híbrido — sem isso a replay do teste não acharia as chamadas deles.
+
+Turno que fecha sem composição real (429/503/504 do Flash viram a resposta
+honesta `SEM_COMPOSICAO`) interrompe a gravação: seguir adiante gravaria os
+turnos seguintes sobre um histórico que a replay nunca reproduz.
 
 Requer GEMINI_API_KEY no .env (a cota do Flash no free tier é de 20
 solicitações/dia — se estourar, o script fecha com honestidade e pede para
@@ -18,22 +24,32 @@ import time
 
 from dotenv import load_dotenv
 
-from sabor_da_terra.llm.cliente import FixtureAusenteError, LLMClient
-from sabor_da_terra.assistente.orquestrador import Assistente
 from sabor_da_terra.assistente.estado import EstadoSessao
+from sabor_da_terra.assistente.orquestrador import SEM_COMPOSICAO, SEM_RESPOSTA, Assistente
+from sabor_da_terra.llm.cliente import FixtureAusenteError, LLMClient
 
 DATA_REFERENCIA_DEMO = "2026-10-30"
-DILOGO = (
-    "Quem tem mel orgânico vigente?",
-    "E a Josefa?",
+# Turnos 1 e 2 com as palavras do gabarito (tests/gabarito/casos-contexto.yaml, CTX-001);
+# turno 3 do critério de aceite da issue #12. "mel silvestre" explícito evita a pergunta
+# de esclarecimento entre mel silvestre e mel de jandaíra vista na gravação de 17/11.
+DIALOGO = (
+    "Quais produtores têm certificação orgânica vigente para mel silvestre?",
+    "E o da Josefa?",
     "Manda um resumo pra ela",
+)
+
+# Módulos que criam o próprio LLMClient por dentro das ferramentas.
+MODULOS_COM_CLIENTE_INTERNO = (
+    "sabor_da_terra.rag.responder",
+    "sabor_da_terra.rag.recuperacao",
+    "sabor_da_terra.triagem.extrair",
 )
 
 
 class ClienteHibrido(LLMClient):
     """Replay em fixture; quando a fixture falta, grava aquela chamada única."""
 
-    def __init__(self) -> None:
+    def __init__(self, *_args, **_kwargs) -> None:
         super().__init__(modo="fixture")
         self._gravador = LLMClient(
             modo="gravar", pasta_fixtures=self._pasta_fixtures, dormir=self._dormir
@@ -46,6 +62,21 @@ class ClienteHibrido(LLMClient):
             print(f"  → gravando fixture faltante ({papel.value})...", flush=True)
             return self._gravador.gerar(papel, prompt, **config_geracao)
 
+    def embedar(self, texto: str) -> list[float]:
+        try:
+            return super().embedar(texto)
+        except FixtureAusenteError:
+            print("  → gravando fixture faltante (embedding)...", flush=True)
+            return self._gravador.embedar(texto)
+
+
+def _ligar_clientes_internos() -> None:
+    """Faz as ferramentas criarem `ClienteHibrido` no lugar do `LLMClient`."""
+    import importlib
+
+    for nome in MODULOS_COM_CLIENTE_INTERNO:
+        setattr(importlib.import_module(nome), "LLMClient", ClienteHibrido)
+
 
 def main() -> int:
     load_dotenv()
@@ -55,14 +86,20 @@ def main() -> int:
     except RuntimeError as exc:  # chave ausente — a fumaça não roda
         print(f"FALHOU: {exc}")
         return 1
+    _ligar_clientes_internos()
     sessao = Assistente(cliente_llm=cliente, estado=EstadoSessao(data_referencia=DATA_REFERENCIA_DEMO))
-    for i, mensagem in enumerate(DILOGO, 1):
+    for i, mensagem in enumerate(DIALOGO, 1):
         print(f"== TURNO {i} ==", flush=True)
         inicio = time.perf_counter()
         try:
-            print(sessao.responder(mensagem), flush=True)
+            resposta = sessao.responder(mensagem)
         except Exception as exc:  # 429/503 do free tier são transientes
             print(f"FALHOU no turno {i}: {type(exc).__name__}: {exc}", flush=True)
+            print("Dica: rode de novo depois da janela de cota (o que já foi gravado é repetido).")
+            return 1
+        print(resposta, flush=True)
+        if resposta in (SEM_COMPOSICAO, SEM_RESPOSTA):
+            print(f"FALHOU no turno {i}: o turno fechou sem resposta do modelo (cota ou API fora).", flush=True)
             print("Dica: rode de novo depois da janela de cota (o que já foi gravado é repetido).")
             return 1
         print(f"(duracao {time.perf_counter() - inicio:.0f}s)", flush=True)
