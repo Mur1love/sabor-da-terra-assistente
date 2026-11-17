@@ -3,7 +3,7 @@ from types import SimpleNamespace
 import pytest
 
 from sabor_da_terra.llm.cliente import LLMClient, Papel
-from tests.dobles import ClienteFake, Erro429, Erro503, ModeloFake
+from tests.dobles import ClienteFake, Erro429, Erro503, Erro504, ModeloFake
 
 
 def test_retry_429_com_backoff_e_uma_chamada_contada(tmp_path):
@@ -74,3 +74,25 @@ def test_retry_503_com_backoff(tmp_path):
     assert cliente.gerar(Papel.TRIAGEM, "x").text == "ok"
     assert esperas == [10.0, 20.0]
     assert cliente.chamadas_por_modelo() == {"gemini-3.5-flash-lite": 1}
+
+
+def test_retry_504_com_backoff(tmp_path):
+    """504 DEADLINE_EXCEEDED é transitório como 503 (visto na fumaça de 16/11)."""
+    esperas = []
+
+    class ModeloInstavel:
+        def __init__(self):
+            self.falhas = 2
+
+        def generate_content(self, *, model, contents, config=None):
+            if self.falhas:
+                self.falhas -= 1
+                raise Erro504()
+            return SimpleNamespace(text="ok")
+
+    cliente = LLMClient(
+        modo="real", pasta_fixtures=tmp_path, cliente=ClienteFake(ModeloInstavel()), dormir=esperas.append
+    )
+    assert cliente.gerar(Papel.RESPOSTA, "x").text == "ok"
+    assert esperas == [10.0, 20.0]
+    assert cliente.chamadas_por_modelo() == {"gemini-3.8-flash": 1}

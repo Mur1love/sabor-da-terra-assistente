@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "75479deccfb4e0b7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Tue, 17 Nov 2026 14:15:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8532",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"idioma\": \"pt\",\n  \"topico\": \"certificacao\",\n  \"produto\": \"mel\",\n  \"produtor\": \"Josefa Alves de Souza\",\n  \"lote_id\": null,\n  \"mes\": null,\n  \"filtro_organico\": true\n}",
+              "thought_signature": "EokBCoYBAWkUfRORPBu3pgJ3QhWQIjkTICT4FUfC5f86hkxEDWzIiZ9HT6-UR2iVOUKM1PyVfbfE8ytQ1HJsZvWbNpVWN9DTD1cB68fuUa7dL8-VRTOAmWOKXf8NZ7-U5JCYRbj4Dx0W2QIy4k1q211va4ip_C141-MrsnToLq8HQBt58Vo4HbI1HdU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "iWH8apGYAvTaytMPvLyI2Q4",
+    "usage_metadata": {
+      "candidates_token_count": 71,
+      "prompt_token_count": 274,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 274
+        }
+      ],
+      "total_token_count": 345
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "certificacao",
+      "produto": "mel",
+      "produtor": "Josefa Alves de Souza",
+      "lote_id": null,
+      "mes": null,
+      "filtro_organico": true
+    }
+  }
+}

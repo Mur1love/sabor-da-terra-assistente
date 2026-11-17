@@ -25,7 +25,7 @@
     R$ 150,00, paga no mesmo dia) e concluir que o
     saldo pendente a receber de P001 é R$ 0,00.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ resumo_produtor ]
 
   deve_conter:
     - "Produtora P001 (Maria das Graças Silva Ferreira)"
@@ -74,7 +74,7 @@
     pedir confirmação se os 30kg de manteiga são
     manteiga de garrafa ou queijo manteiga.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ resumo_produtor, triar_pendentes ]
 
   deve_conter:
     - "Produtor P003 (Cícero Romão de Almeida)"
@@ -128,7 +128,7 @@
     títulos a vencer em novembro/dezembro
     (FIN-2026-023, 024, 025, 027, 030).
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ relatorio_pendencias_vencidas ]
 
   deve_conter:
     - "FIN-2026-013 (R$ 4.500,00) e FIN-2026-014 (R$ 1.520,00)"
@@ -183,7 +183,7 @@
     volumes antes da resposta do produtor.
     Citar os documentos utilizados.
 
-  funcoes_esperadas: []
+  funcoes_esperadas: [ identificar_produtor, notificar_produtores ]
 
   deve_conter:
     - "Produtor P002 (José Antônio dos Santos)"

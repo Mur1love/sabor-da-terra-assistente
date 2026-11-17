@@ -1,0 +1,806 @@
+"""Etapa 12: orquestração do assistente — estado da sessão, mascaramento, ferramentas e turno."""
+
+import json
+import logging
+from dataclasses import dataclass
+from datetime import date
+from pathlib import Path
+
+import pytest
+from google.genai import types
+from tests.dobles import ClienteFake, Erro504, ModeloFake
+
+from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
+from sabor_da_terra.assistente.ferramentas import FERRAMENTAS, NOME_PARA_FUNCAO, declarar_ferramentas
+from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
+from sabor_da_terra.assistente.orquestrador import Assistente
+from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
+from sabor_da_terra.llm.cliente import LLMClient
+from sabor_da_terra.regras.conformidade import verificar_conformidade
+from sabor_da_terra.dados import obter_repositorio
+
+RAIZ = Path(__file__).resolve().parents[1]
+
+
+def respostas_de_funcao(historico) -> list:
+    """Os contents com `function_response` — o papel é "user"; a part identifica."""
+    return [
+        conteudo for conteudo in historico
+        if any(p.function_response for p in conteudo.parts or [])
+    ]
+
+
+def mensagens_da_equipe(historico) -> list:
+    """Os contents de mensagem da equipe (o user content com [MENSAGEM DO USUÁRIO])."""
+    return [
+        conteudo for conteudo in historico
+        if conteudo.role == "user"
+        and any("[MENSAGEM DO USUÁRIO]" in (p.text or "") for p in conteudo.parts or [])
+    ]
+
+
+# ---------------------------------------------------------------------------
+# Estado da sessão
+# ---------------------------------------------------------------------------
+
+
+def test_estado_atualiza_produtor_em_foco_por_identificar():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    estado.atualizar("identificar_produtor", {}, {"encontrado": True, "produtor": {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}})
+    assert estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+
+
+def test_estado_atualiza_produto_por_buscar_e_por_conformidade():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    estado.atualizar("buscar_produtores", {}, {"produto": "mel silvestre"})
+    assert estado.produto_em_foco == "mel silvestre"
+    # forma REAL da saída de verificar_conformidade: o produto vem dentro de "item"
+    estado.atualizar("verificar_conformidade", {}, {"item": {"produto": "goiaba paluma", "quantidade": 300}})
+    assert estado.produto_em_foco == "goiaba paluma"
+
+
+def test_estado_pega_o_produto_da_conformidade_real():
+    """O estado bate na saída real da função, não numa forma inventada (leitura da revisão)."""
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    saida = verificar_conformidade(
+        {"produto": "goiaba paluma", "quantidade": 300, "organico": False},
+        "2026-11-02",
+        "Rede SuperBom Atacado",
+        "2026-10-30",
+    )
+    assert saida["encontrado"] is True  # a função rodou de verdade
+    estado.atualizar("verificar_conformidade", {"item": {"produto": "goiaba paluma", "quantidade": 300}}, saida)
+    assert estado.produto_em_foco == "goiaba paluma"
+
+
+def test_estado_atualiza_pedido_em_foco_pelo_id_na_mensagem():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    estado.atualizar("triar_pedido", {"mensagem": "300kg de goiaba para PED-2026-006, urgente"}, {"itens": [{"produto": "goiaba paluma"}]})
+    assert estado.pedido_em_foco == "PED-2026-006"
+    assert estado.produto_em_foco == "goiaba paluma"
+
+
+def test_estado_rastrear_lote_atualiza_produto():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    estado.atualizar("rastrear_lote", {}, {"encontrado": True, "lote": {"lote_id": "LOT-2026-0089", "produto": "queijo coalho"}})
+    assert estado.produto_em_foco == "queijo coalho"
+
+
+def test_estado_ignora_resultados_sem_foco():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    estado.atualizar("triar_pendentes", {}, {"total_registros": 15})
+    estado.atualizar("consultar_documentos", {}, {"resposta": "x"})
+    estado.atualizar("notificar_produtores", {}, {"notificacoes": []})
+    estado.atualizar("identificar_produtor", {}, {"encontrado": False, "aviso": "não existe"})
+    assert (estado.produtor_em_foco, estado.pedido_em_foco, estado.produto_em_foco) == (None, None, None)
+
+
+def test_data_referencia_padrao_vem_do_ambiente(monkeypatch):
+    monkeypatch.setenv("DATA_REFERENCIA", "2026-10-30")
+    assert data_referencia_padrao() == "2026-10-30"
+    monkeypatch.delenv("DATA_REFERENCIA", raising=False)
+    assert data_referencia_padrao() == date.today().isoformat()
+
+
+def test_contexto_bloco_legivel_e_serializacao_idempotente():
+    estado = EstadoSessao(data_referencia="2026-10-30", pedido_em_foco="PED-2026-006")
+    estado.atualizar("identificar_produtor", {}, {"encontrado": True, "produtor": {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}})
+    bloco = estado.contexto()
+    assert "2026-10-30" in bloco and "P008" in bloco and "PED-2026-006" in bloco
+    assert EstadoSessao.from_dict(estado.to_dict()) == estado
+
+
+# ---------------------------------------------------------------------------
+# Mascaramento de dados sensíveis
+# ---------------------------------------------------------------------------
+
+
+def test_mascara_cpf_pix_conta_e_telefone_em_payload_aninhado():
+    cadastro = obter_repositorio().produtores()
+    cpf, pix = str(cadastro.iloc[0]["cpf"]), str(cadastro.iloc[0]["chave_pix"])
+    conta, telefone = str(cadastro.iloc[0]["conta_corrente"]), str(cadastro.iloc[0]["telefone"])
+    payload = {"a": [f"CPF {cpf} e PIX {pix}", {"conta": conta, "tel": telefone}]}
+    texto = json.dumps(mascarar_dados_sensiveis(payload), ensure_ascii=False)
+    assert cpf not in texto and pix not in texto and conta not in texto and telefone not in texto
+    assert "***" in texto
+
+
+def test_cpf_solto_em_texto_e_mascarado_e_texto_limpo_passa_igual():
+    assert mascarar_dados_sensiveis("CPF 123.456.789-09 aqui") == "CPF ***.***.***-** aqui"
+    assert mascarar_dados_sensiveis({"msg": "300kg de goiaba para PED-2026-006"}) == {"msg": "300kg de goiaba para PED-2026-006"}
+
+
+def test_tipos_nao_string_ficam_intactos():
+    assert mascarar_dados_sensiveis({"qtd": 300, "ok": True, "nada": None}) == {"qtd": 300, "ok": True, "nada": None}
+
+
+def test_mascara_formatos_bancarios_de_documento():
+    # Formatos reais dos contratos (data/contratos/*.txt): conta com separador de
+    # milhar, agência abreviada e CPF com espaços — todos escapam da máscara do cadastro.
+    texto = "Pagamento via Banco do Brasil - Ag. 0437 - C/C 55.678-9. CPF 831 452 674 90."
+    saida = mascarar_dados_sensiveis(texto)
+    assert "55.678-9" not in saida and "0437" not in saida and "831 452 674 90" not in saida
+    assert "Banco do Brasil" in saida and "C/C" in saida  # institucional fica; o dado de conta vai mascarado
+
+
+# ---------------------------------------------------------------------------
+# Declaração das ferramentas
+# ---------------------------------------------------------------------------
+
+NOMES_ESPERADOS = {
+    "triar_pedido", "triar_pendentes", "consultar_documentos", "resumo_produtor",
+    "notificar_produtores", "rastrear_lote", "buscar_produtores", "preco",
+    "disponibilidade", "verificar_conformidade", "identificar_produtor",
+    "consultar_pedido", "consultar_lotes", "relatorio_pendencias_vencidas",
+}
+
+
+def test_ferramentas_sao_as_da_issue_mais_as_das_consultas_de_contexto():
+    # 10 da issue #12 + identificar_produtor (contexto) + consultar_pedido/consultar_lotes
+    # (consultas de pedido e lotes já cadastrados) + relatorio_pendencias_vencidas (PROD-003) —
+    # desvios da lista original registrados na issue #12.
+    assert {f.__name__ for f in FERRAMENTAS} == NOMES_ESPERADOS
+    assert set(NOME_PARA_FUNCAO) == NOMES_ESPERADOS
+
+
+def test_gabarito_cobre_todos_os_casos_com_funcoes_da_superficie():
+    """Critério de aceite da #12: cada pergunta do gabarito chama a função esperada.
+
+    O campo `funcoes_esperadas` (preenchido nas etapas #8–#12) só vale se apontar
+    para funções realmente declaradas — e nenhum caso pode ficar vazio.
+    """
+    import yaml
+
+    casos = []
+    for caminho in sorted((RAIZ / "tests" / "gabarito").glob("*.yaml")):
+        casos.extend(yaml.safe_load(caminho.read_text(encoding="utf-8")))
+    assert len(casos) == 37  # 34 casos + 3 CTX
+    for caso in casos:
+        funcoes = caso.get("funcoes_esperadas") or []
+        assert funcoes, f"{caso['id']}: funcoes_esperadas ficou vazio"
+        fora = set(funcoes) - NOMES_ESPERADOS
+        assert not fora, f"{caso['id']}: funções fora da superfície declarada: {sorted(fora)}"
+        # Quem classifica a mensagem (compra, cotação, consulta, mensagem de produtor,
+        # notificação oficial) é triar_pedido: caso que exige classificação a lista.
+        if any("classifica" in str(item).lower() for item in caso.get("deve_conter") or []):
+            assert "triar_pedido" in funcoes, f"{caso['id']}: exige classificação e não lista triar_pedido"
+
+
+def test_declaracao_e_deterministica_e_esconde_interno_da_fila():
+    d1, d2 = declarar_ferramentas().model_dump(), declarar_ferramentas().model_dump()
+    assert d1 == d2  # determinística — o hash de fixture depende disso
+    nomes = {f["name"] for f in d1["function_declarations"]}
+    assert nomes == NOMES_ESPERADOS
+    pendentes = next(f for f in d1["function_declarations"] if f["name"] == "triar_pendentes")
+    assert list(pendentes["parameters"]["properties"]) == ["data_referencia"]  # sem caminho_pedidos
+
+
+def test_adaptador_triar_pendentes_delega_na_real(monkeypatch):
+    chamadas = []
+    monkeypatch.setattr("sabor_da_terra.assistente.ferramentas._triar_pendentes_real",
+                        lambda data_referencia, **k: chamadas.append(data_referencia) or {"ok": True})
+    assert NOME_PARA_FUNCAO["triar_pendentes"]("2026-10-30") == {"ok": True}
+    assert chamadas == ["2026-10-30"]
+
+
+# ---------------------------------------------------------------------------
+# Prompts de sistema e de resposta final
+# ---------------------------------------------------------------------------
+
+
+def test_prompt_sistema_tem_as_regras_da_issue():
+    texto = PROMPT_SISTEMA.lower()
+    for trecho in ("sabor da terra", "português", "não invente", "não envia", "nada foi enviado",
+                   "não cadastra", "cpf", "pix", "fonte"):
+        assert trecho in texto, trecho
+
+
+def test_prompt_resposta_final_manda_preservar_citacoes_e_usar_so_resultados():
+    texto = PROMPT_RESPOSTA_FINAL.lower()
+    assert "fontes_permitidas" in texto and "não invente" in texto
+    assert "citaç" in texto
+
+
+# ---------------------------------------------------------------------------
+# Turno do assistente: laço de function calling
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class Script:
+    """Um script de resposta do modelo: texto, function_call ou um erro a lançar."""
+
+    texto: str | None = None
+    function_call: dict | None = None
+    erro: Exception | None = None
+
+
+def ROTEADOR(nome: str, args: dict | None = None) -> Script:
+    """Script de roteamento que manda o assistente chamar uma função."""
+    return Script(function_call={"name": nome, "args": args or {}})
+
+
+class FilaControlada:
+    """Fila FIFO por papel COMPARTILHADA entre roteador e ferramentas aninhadas.
+
+    A ordem dos scripts é a ordem real das chamadas; `prompts`/`configs` capturam
+    tudo que foi enviado a cada papel (qualquer instância do cliente grava aqui).
+    """
+
+    def __init__(self, scripts: dict[str, list[Script]] | None = None):
+        self.scripts = scripts or {}
+        self.prompts: dict[str, list[str]] = {}
+        self.configs: dict[str, list[dict]] = {}
+
+    def pop(self, papel: str) -> Script | None:
+        fila = self.scripts.get(papel.value if hasattr(papel, "value") else papel)
+        return fila.pop(0) if fila else None
+
+
+class _LLMControlado(LLMClient):
+    """Modo fixture com fila FIFO por papel: grava sob demanda em tmp_path e reproduz.
+
+    Ordem das chamadas = ordem real do turno: roteador do assistente → chamadas
+    aninhadas das ferramentas com LLM → rascunho do roteamento → composição final.
+    """
+
+    def __init__(self, tmp_path: Path, fila: FilaControlada):
+        super().__init__(modo="fixture", pasta_fixtures=tmp_path)
+        self._fila = fila
+
+    def gerar(self, papel, prompt, **config_geracao):
+        nome_papel = papel.value if hasattr(papel, "value") else str(papel)
+        self._fila.prompts.setdefault(nome_papel, []).append(prompt if isinstance(prompt, str) else str(prompt))
+        self._fila.configs.setdefault(nome_papel, []).append(config_geracao)
+        script = self._fila.pop(papel)
+        if script is not None:
+            if script.erro is not None:
+                raise script.erro
+            fake = ClienteFake(ModeloFake(texto=script.texto, function_call=script.function_call))
+            LLMClient(modo="gravar", pasta_fixtures=self._pasta_fixtures, cliente=fake, dormir=lambda _: None).gerar(
+                papel, prompt, **config_geracao
+            )
+        return super().gerar(papel, prompt, **config_geracao)
+
+
+def _fabrica(tmp_path: Path, fila: FilaControlada):
+    """Fábrica de clientes ligados à MESMA fila (roteador + ferramentas aninhadas)."""
+
+    def fabrica(*_args, **_kwargs):
+        return _LLMControlado(tmp_path, fila)
+
+    return fabrica
+
+
+def _fila_vazia(fila: FilaControlada):
+    """Assert de fim: nenhuma script sobrando (nada foi consumido silenciosamente)."""
+    sobrando = {papel: len(scripts) for papel, scripts in fila.scripts.items() if scripts}
+    assert not sobrando, f"scripts não consumidos: {sobrando}"
+
+
+def _assistente(cliente_llm, **kwargs):
+    return Assistente(cliente_llm=cliente_llm, estado=EstadoSessao(data_referencia="2026-10-30"), **kwargs)
+
+
+def test_turno_chama_funcao_real_e_fechar_com_model(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("identificar_produtor", {"termo": "Josefa"}), Script(texto="Peguei, consultando...")],
+        "resposta": [Script(texto="A produtora em foco é Josefa Alves de Souza (P008).")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("E o da Josefa?")
+    assert final == "A produtora em foco é Josefa Alves de Souza (P008)."
+    assert a.historico[-1].role == "model"
+    assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+
+
+def test_responder_foca_o_pedido_citado_na_mensagem(tmp_path):
+    """Revisão item 5: "PED-2026-006" entra em foco pela mensagem, sem depender de triar_pedido."""
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("consultar_pedido", {"pedido_id": "PED-2026-006"}), Script(texto="ok")],
+        "resposta": [Script(texto="Pedido consultado: entrega hoje (29/10).")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("e os detalhes do pedido PED-2026-006?")
+    assert a.estado.pedido_em_foco == "PED-2026-006"
+    assert "PED-2026-006" in a.historico[0].parts[0].text  # o contexto do turno já o mostra
+    assert final
+
+
+def test_resposta_de_funcao_vai_no_historico(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}), Script(texto="ok")],
+        "resposta": [Script(texto="R$ 32,00/kg.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("quanto está o queijo?")
+    tools = respostas_de_funcao(a.historico)
+    assert tools and tools[0].parts[0].function_response.name == "preco"
+    assert tools[0].parts[0].function_response.response["produto"] == "queijo coalho"
+
+
+def test_relogio_da_sessao_sobrepoe_o_modelo(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("identificar_produtor", {"termo": "P003", "data_referencia": "2020-01-01"}), Script(texto="ok")],
+        "resposta": [Script(texto="P003 é Cícero.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("quem é P003?")
+    tools = respostas_de_funcao(a.historico)
+    assert tools[0].parts[0].function_response.response["data_referencia"] == "2026-10-30"
+
+
+def test_triar_pedido_recebe_data_recebimento_da_sessao(tmp_path, monkeypatch):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("triar_pedido", {"mensagem": "300kg de goiaba para PED-2026-006, urgente"}),
+            Script(texto='{"tipo": "compra", "idioma": "pt", "itens": [{"produto": "goiaba paluma", "quantidade": 300, "unidade": "kg"}]}'),
+            Script(texto="extraindo..."),
+        ],
+        "resposta": [Script(texto="Pedido triado: 300 kg de goiaba.")],
+    })
+    monkeypatch.setattr("sabor_da_terra.triagem.extrair.LLMClient", _fabrica(tmp_path, fila))
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("anota esse pedido")
+    assert a.estado.pedido_em_foco == "PED-2026-006"
+    extracao = fila.prompts["triagem"][1]
+    assert "Metadados" in extracao and "2026-10-30" in extracao  # relógio chegou à extração
+
+
+def test_funcao_que_lanca_excecao_devolve_erro_honesto_sem_travar(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("verificar_conformidade", {"item": {"produto": "mel"}}), Script(texto="não consegui conferir")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    texto = a.responder("conferir o mel")
+    tools = respostas_de_funcao(a.historico)
+    assert "erro" in tools[0].parts[0].function_response.response
+    assert isinstance(texto, str)
+
+
+def test_funcao_desconhecida_devolve_erro(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("enviar_whatsapp"), Script(texto="não faço isso")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("manda no zap")
+    tools = respostas_de_funcao(a.historico)
+    assert "desconhecida" in tools[0].parts[0].function_response.response["erro"].lower()
+
+
+def test_limite_responde_erro_e_proximo_turno_funciona(tmp_path):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("identificar_produtor", {"termo": "P001"}),
+            ROTEADOR("identificar_produtor", {"termo": "P001"}),
+            ROTEADOR("identificar_produtor", {"termo": "P001"}),
+            ROTEADOR("identificar_produtor", {"termo": "P002"}),
+            Script(texto="ok"),
+        ],
+        "resposta": [Script(texto="Duas consultas feitas, a terceira ficou para depois."), Script(texto="P002 é Ana.")],
+    })
+    a = Assistente(cliente_llm=_fabrica(tmp_path, fila)(), estado=EstadoSessao(data_referencia="2026-10-30"), max_chamadas=2, max_iteracoes=3)
+    a.responder("quem é P001?")
+    conteudos = list(a.historico)
+    for i, conteudo in enumerate(conteudos):  # protocolo válido: nenhuma function_call sem resposta
+        if conteudo.role == "model" and any(p.function_call for p in conteudo.parts):
+            assert respostas_de_funcao(conteudos[i + 1 : i + 2])
+    a.responder("e o P002?")  # o turno seguinte ainda funciona
+    assert a.estado.produtor_em_foco["produtor_id"] == "P002"
+
+
+def test_turno_sem_funcao_usa_o_texto_do_flash_lite_e_nao_compoem(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto="Não envio mensagens: o protótipo não faz isso e nada foi enviado.")], "resposta": []})
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("manda no WhatsApp pra ele")
+    assert "nada foi enviado" in final.lower()
+    assert respostas_de_funcao(a.historico) == []
+    _fila_vazia(fila)
+
+
+def test_pedido_de_cadastro_recebe_recusa_sem_funcao(tmp_path):
+    """Critério de aceite: "cadastrar produtor" fica fora do que o protótipo executa."""
+    fila = FilaControlada({
+        "triagem": [Script(texto="Não cadastro produtor: o protótipo não registra cadastros e nada foi criado.")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("cadastra a produtora Maria no sistema")
+    assert "não cadastro" in final.lower()
+    assert "nada foi criado" in final.lower()
+    _fila_vazia(fila)
+
+
+def test_pass_through_nao_chama_o_flash(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}), Script(texto="Segue o resumo.")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("manda um resumo pra ela")
+    assert final.startswith("Olá, Josefa")  # texto pronto do resumo real, verbatim
+    assert "nada foi enviado" in final.lower()  # revisão item 6: o rascunho nunca silencia o envio
+    _fila_vazia(fila)  # nenhuma script de resposta consumida → o Flash não foi chamado
+
+
+def test_log_no_pass_through_mostra_pass_through_e_sem_composicao(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}), Script(texto="ok")],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("manda um resumo pra ela")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "'resposta': 'pass-through'" in registro  # revisão: o turno registra o modelo de cada papel
+
+
+def test_resultado_estruturado_vai_ao_flash_com_o_payload(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("buscar_produtores", {"produto": "mel silvestre", "organico": True}), Script(texto="P002 e P018, com P008 vencida.")],
+        "resposta": [Script(texto="Os produtores com certificação orgânica vigente para mel silvestre são P002 e P018.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("quem tem mel orgânico vigente?")
+    assert "P002" in final
+    _fila_vazia(fila)
+    payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
+    assert any(r["funcao"] == "buscar_produtores" for r in payload["resultados_das_funcoes"])
+    assert payload["estado_da_sessao"]["produto_em_foco"] == "mel silvestre"
+    assert payload["fontes_permitidas"] == []
+
+
+def test_composicao_que_falha_devolve_resposta_honesta(tmp_path):
+    """504/503 do Flash na composição não derrubam o turno (visto na fumaça de 16/11)."""
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("buscar_produtores", {"produto": "mel silvestre", "organico": True}), Script(texto="ok")],
+        "resposta": [Script(erro=Erro504())],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("quem tem mel orgânico vigente?")
+    assert "Não consegui compor" in final  # honesto, sem traceback
+    assert a.historico[-1].role == "model"  # o protocolo do turno fica intacto
+
+
+def test_payload_da_composicao_coleciona_fontes_das_saidas(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("rastrear_lote", {"lote_id": "LOT-2026-0089"}), Script(texto="lote encontrado")],
+        "resposta": [Script(texto="O lote LOT-2026-0089 é de queijo coalho [fonte: data/lotes.csv].")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    final = a.responder("onde está o lote LOT-2026-0089?")
+    assert "queijo coalho" in final
+    _fila_vazia(fila)
+    payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
+    assert payload["fontes_permitidas"] == ["lotes.csv"]
+    assert payload["estado_da_sessao"]["produto_em_foco"] == "queijo coalho"
+
+
+def test_config_do_roteamento_declara_as_ferramentas(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto="Olá! Como posso ajudar?")], "resposta": []})
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("bom dia")
+    config = fila.configs["triagem"][-1]
+    assert len(config["tools"][0].function_declarations) == 14
+    assert config["system_instruction"] == PROMPT_SISTEMA
+    assert config["automatic_function_calling"].disable is True
+
+
+def test_despacho_mascara_args_e_log(tmp_path, caplog):
+    cadastro = obter_repositorio().produtores()
+    pix = str(cadastro.iloc[0]["chave_pix"])
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("identificar_produtor", {"termo": f"meu PIX é {pix}"}), Script(texto="ok")],
+        "resposta": [Script(texto="Não encontrei esse produtor.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("nota com dados")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert pix not in registro and "123.456.789-09" not in registro
+    # o histórico reenvia ao modelo a cada iteração/turno — ele também não pode carregar o dado
+    historico = json.dumps([c.model_dump(mode="json", exclude_none=True) for c in a.historico], ensure_ascii=False)
+    assert pix not in historico and "123.456.789-09" not in historico
+
+
+def test_log_do_turno_mostra_modelos_funcoes_e_duracao(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}), Script(texto="ok")],
+        "resposta": [Script(texto="R$ 32,00/kg.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("preço do queijo")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "turno=1" in registro
+    assert "modelos=" in registro and "gemini-3.8-flash" in registro  # resposta composta no Flash
+    assert "funcoes=['preco']" in registro
+    assert "com_llm_interno=[]" in registro
+    assert "duracao=" in registro
+
+
+# ---------------------------------------------------------------------------
+# Janela de histórico (turnos completos)
+# ---------------------------------------------------------------------------
+
+
+def test_janela_mantem_turnos_completos(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto=f"ok {i}") for i in range(5)], "resposta": []})
+    a = Assistente(cliente_llm=_fabrica(tmp_path, fila)(), estado=EstadoSessao(data_referencia="2026-10-30"), janela=2)
+    for i in range(5):
+        a.responder(f"turno {i}")
+    roles = [c.role for c in a.historico]
+    assert roles.count("user") == 2 and roles[-1] == "model"  # 2 mensagens, sem função alguma
+
+
+def test_janela_nunca_corta_turno_com_funcao(tmp_path):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("preco", {"produto": "queijo coalho", "organico": False, "quantidade": 150}),
+            Script(texto="t1 fechado"),
+        ]
+        + [Script(texto=f"ok {i}") for i in range(3)],
+        "resposta": [Script(texto="R$ 32,00/kg.")],
+    })
+    a = Assistente(cliente_llm=_fabrica(tmp_path, fila)(), estado=EstadoSessao(data_referencia="2026-10-30"), janela=2)
+    a.responder("preço do queijo")
+    for i in range(3):
+        a.responder(f"turno {i}")
+    conteudos = list(a.historico)
+    respostas = respostas_de_funcao(conteudos)
+    for i, indice in enumerate([conteudos.index(c) for c in respostas]):  # nenhuma resposta sem o model de function_calls antes
+        assert indice >= 1 and conteudos[indice - 1].role == "model"
+
+
+# ---------------------------------------------------------------------------
+# Superfície do pacote
+# ---------------------------------------------------------------------------
+
+
+def test_pacote_assistente_exporta_a_superficie_da_etapa():
+    from sabor_da_terra import assistente
+
+    for nome in ("Assistente", "EstadoSessao", "FERRAMENTAS", "PROMPT_SISTEMA",
+                 "PROMPT_RESPOSTA_FINAL", "declarar_ferramentas", "mascarar_dados_sensiveis",
+                 "NOME_PARA_FUNCAO", "MAX_CHAMADAS_POR_TURNO", "MAX_ITERACOES_POR_TURNO"):
+        assert hasattr(assistente, nome), nome
+
+
+# ---------------------------------------------------------------------------
+# Diálogos do gabarito (modo fixture controlado) — critérios de aceite da #12
+# ---------------------------------------------------------------------------
+
+# Resposta estruturada do RAG (RespostaDocumental) para o turno 2 do CTX-001.
+_RESPOSTA_RAG_JOSEFA = json.dumps(
+    {
+        "resposta": (
+            "A certificação orgânica de mel silvestre de Josefa Alves de Souza (P008) venceu em "
+            "30/09/2026, com protocolo de renovação REN-2026-0456 e auditoria marcada para "
+            "15/11/2026; ela não pode comercializar mel como orgânico até a aprovação "
+            "[fonte: certificacoes/cert_organica_josefa_souza_P008.txt]."
+        ),
+        "citacoes": [
+            {
+                "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+                "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***",
+            }
+        ],
+        "lacunas": [],
+    },
+    ensure_ascii=False,
+)
+
+
+def test_ctx001_tres_turnos_resolve_josefa_sem_repetir(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("buscar_produtores", {"produto": "mel silvestre", "organico": True}),
+            Script(texto="Vou listar quem tem mel orgânico vigente."),
+            ROTEADOR("identificar_produtor", {"termo": "Josefa"}),
+            ROTEADOR("consultar_documentos", {"pergunta": "certificação orgânica de mel silvestre da produtora Josefa Alves de Souza (P008): validade e renovação"}),
+            # o planner do RAG roda DENTRO do despacho de consultar_documentos —
+            # na fila, o script dele vem exatamente entre o roteador e o rascunho
+            Script(texto='{"idioma": "pt", "topico": "certificacao", "produto": "mel silvestre", "produtor": "P008", "lote_id": null, "mes": null, "filtro_organico": true}'),
+            Script(texto="Agora consulto o certificado dela."),
+            ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}),
+            Script(texto="Vou montar o resumo dela."),
+        ],
+        "resposta": [
+            Script(texto="Para mel silvestre orgânico, os produtores vigentes são P002 (validade 20/03/2027) e P018 (validade 28/02/2027); a P008 (Josefa) está com a certificação vencida em 30/09/2026."),
+            Script(texto=_RESPOSTA_RAG_JOSEFA),
+            Script(texto="A certificação orgânica de mel silvestre de Josefa Alves de Souza (P008) venceu em 30/09/2026, com protocolo de renovação REN-2026-0456 e auditoria marcada para 15/11/2026; ela não pode comercializar mel como orgânico até a aprovação [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]."),
+        ],
+    })
+    monkeypatch_rag = _fabrica(tmp_path, fila)
+    monkeypatch_extrair = _fabrica(tmp_path, fila)
+    with (pytest.MonkeyPatch.context() as mp):
+        mp.setattr("sabor_da_terra.rag.responder.LLMClient", monkeypatch_rag)
+        mp.setattr("sabor_da_terra.triagem.extrair.LLMClient", monkeypatch_extrair)
+        a = _assistente(_fabrica(tmp_path, fila)())
+        with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+            a.responder("Quem tem mel orgânico vigente?")
+            a.responder("E a Josefa?")
+            t3 = a.responder("Manda um resumo pra ela")
+
+    # AC: o usuário não repetiu nada — as mensagens são só "E a Josefa?" e "Manda um resumo pra ela"
+    usuarios = mensagens_da_equipe(a.historico)
+    assert usuarios[1].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1] == "E a Josefa?"
+    assert usuarios[2].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1] == "Manda um resumo pra ela"
+    # AC: o estado da sessão resolve "ela" como P008 — injetado no turno 3 sem o usuário repetir
+    assert "P008" in usuarios[2].parts[0].text
+    assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+    # Turno 2: identificação da P008 com o certificado citado (do retrieval real)
+    t2 = a._blocos[1][-1].parts[0].text  # fechamento do turno 2
+    assert "Josefa" in t2 and "30/09/2026" in t2
+    assert "[fonte:" in t2 and "cert_organica_josefa_souza_P008" in t2
+    # Turno 3: pass-through do resumo real (valores do financeiro) + aviso de rascunho
+    assert t3.startswith("Olá, Josefa")
+    assert "R$" in t3
+    assert "nada foi enviado" in t3.lower()
+    # AC: as funções esperadas do gabarito aparecem no log; resumo_produtor vem do AC
+    # da issue, que acrescenta o terceiro turno ("manda um resumo pra ela")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    for funcao in ("buscar_produtores", "identificar_produtor", "consultar_documentos", "resumo_produtor"):
+        assert funcao in registro, funcao
+    _fila_vazia(fila)
+
+
+def test_ctx002_contexto_do_pedido_mantido(tmp_path, caplog):
+    """Diálogo real do gabarito: consultar_pedido → verificar_conformidade com a entrega real (29/10)."""
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("consultar_pedido", {"pedido_id": "PED-2026-006"}),
+            ROTEADOR("verificar_conformidade", {"item": {"produto": "goiaba paluma", "quantidade": 300, "organico": False}, "data_entrega": "2026-10-29", "comprador": "Rede SuperBom Atacado"}),
+            Script(texto="Vou conferir quem fornece a goiaba do pedido."),
+            ROTEADOR("verificar_conformidade", {"item": {"produto": "queijo coalho", "quantidade": 200, "organico": False}, "data_entrega": "2026-10-29", "comprador": "Rede SuperBom Atacado"}),
+            Script(texto="Vou verificar o queijo."),
+        ],
+        "resposta": [
+            Script(texto="Para os 300 kg de goiaba do PED-2026-006 (revenda em atacado): P001 (orgânico) e P010 (convencional) fornecem na safra; a entrega no mesmo dia (29/10) é o ponto apertado [fonte: fichas_tecnicas/goiaba_paluma.txt]."),
+            Script(texto="Para os 200 kg de queijo coalho do mesmo PED-2026-006: P003 e P007 estão habilitados (SIE vigente); P011 fica fora por não ter registro SIE para revenda; os 200 kg no mesmo dia exigem composição ou confirmação imediata [fonte: fichas_tecnicas/queijo_coalho.txt]."),
+        ],
+    })
+    # O pedido chegou e deve ser atendido em 29/10: a sessão simula esse dia.
+    a = Assistente(
+        cliente_llm=_fabrica(tmp_path, fila)(),
+        estado=EstadoSessao(data_referencia="2026-10-29"),
+    )
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        a.responder("Quem pode fornecer os 300kg de goiaba do pedido urgente PED-2026-006?")
+        t2 = a.responder("E para atender os 200kg de queijo coalho desse mesmo pedido, quais temos?")
+
+    # AC: o pedido ficou em foco no turno 1 (o roteador nem precisou de triar_pedido) e
+    # o contexto dele foi injetado no turno 2 sem o usuário repetir
+    assert a.estado.pedido_em_foco == "PED-2026-006"
+    usuarios = mensagens_da_equipe(a.historico)
+    assert "PED-2026-006" in usuarios[1].parts[0].text  # contexto injetado
+    assert "PED-2026-006" not in usuarios[1].parts[0].text.split("[MENSAGEM DO USUÁRIO]\n")[1]  # o usuário não repetiu
+    assert "PED-2026-006" in t2  # a resposta mantém a referência
+    # Ferramenta real com a data real: P003/P007 elegíveis; P011 excluído por falta de SIE
+    tools = respostas_de_funcao(a.historico)
+    assert tools[0].parts[0].function_response.name == "consultar_pedido"
+    pedido = tools[0].parts[0].function_response.response["pedido"]
+    assert pedido["comprador"] == "Rede SuperBom Atacado"  # dados reais do PED-2026-006
+    assert pedido["data_recebimento"].startswith("2026-10-29")
+    r2 = tools[2].parts[0].function_response.response
+    assert {"P003", "P007"} <= {p["produtor_id"] for p in r2["elegiveis"]}
+    p11 = next(p for p in r2["excluidos"] if p["produtor_id"] == "P011")
+    assert "SIE_EXIGIDO" in p11["motivos"]  # o gabarito exige a exclusão, não pendência
+    assert r2["data_referencia"] == "2026-10-29"  # relógio da sessão chegou à ferramenta
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "funcao=consultar_pedido" in registro
+    assert registro.count("funcao=verificar_conformidade") == 2
+    _fila_vazia(fila)
+
+
+def test_ctx001_dialogo_gravado_repete_a_gravacao_real():
+    """O diálogo de 3 turnos do gabarito gravado uma vez com o Gemini real
+    (`python -m scripts.gravar_ctx001`) e repetido aqui em modo fixture.
+
+    Prova o que os diálogos escritos à mão não provam: o contexto da sessão
+    chega ao modelo e o modelo resolve a referência ("E a Josefa?" → P008).
+
+    Enquanto a gravação estiver incompleta (a composição no Flash depende de
+    cota diária da API), o teste pula com a instrução — não finge passar.
+    """
+    from sabor_da_terra.llm.cliente import FixtureAusenteError
+    from scripts.gravar_ctx001 import DATA_REFERENCIA_DEMO, DIALOGO  # mesmas mensagens da gravação
+
+    try:
+        a = Assistente(
+            cliente_llm=LLMClient(modo="fixture"),
+            estado=EstadoSessao(data_referencia=DATA_REFERENCIA_DEMO),
+        )
+        t1, t2, t3 = (a.responder(mensagem) for mensagem in DIALOGO)
+    except FixtureAusenteError as erro:
+        pytest.skip(f"gravação real incompleta: {erro} — rode python -m scripts.gravar_ctx001")
+
+    # Turno 1: os produtores vigentes do gabarito, com o estado a partir do turno real
+    assert "P002" in t1 and "P018" in t1
+    # Turno 2: a referência "E a Josefa?" virou P008 com a certificação vencida
+    assert "Josefa" in t2 and "P008" in t2
+    assert "30/09/2026" in t2
+    assert a.estado.produtor_em_foco == {"produtor_id": "P008", "nome": "Josefa Alves de Souza"}
+    # Turno 3: o resumo real da P008 (pass-through) + aviso de rascunho
+    assert t3.startswith("Olá, Josefa")
+    assert "R$" in t3
+    assert "nada foi enviado" in t3.lower()
+
+
+def test_ctx003_resumo_superbom_e_lotes_da_entrega(tmp_path, caplog):
+    """Turno 1: resumo com os valores reais. Turno 2: lotes das entregas via consultar_lotes."""
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("resumo_produtor", {"produtor_id": "P003", "mes": "2026-10"}),
+            Script(texto="Vou montar o resumo do Cícero."),
+            ROTEADOR("consultar_lotes", {"produtor_id": "P003", "comprador": "SuperBom"}),
+            Script(texto="Vou buscar os lotes das entregas dele ao SuperBom."),
+        ],
+        "resposta": [
+            Script(texto="Os lotes das entregas do Cícero (P003) ao SuperBom: LOT-2026-0100 (150 kg de queijo coalho) e LOT-2026-0101 (40 kg de queijo manteiga), entregues em 18/09/2026 para o pedido PED-2026-SEP-018, transportados a 7°C e com validade até 18/10/2026 [fonte: lotes.csv]."),
+        ],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        t1 = a.responder("Quanto o produtor Cícero (P003) tem em atraso para receber do SuperBom?")
+        # Turno 1: pass-through do resumo real com os valores exatos do gabarito...
+        assert "FIN-2026-013" in t1 and "FIN-2026-014" in t1
+        assert "Rede SuperBom Atacado" in t1
+        assert "R$ 6.020,00" in t1  # total atrasado no formato BR do resumo real
+        assert "nada foi enviado" in t1.lower()  # ...e o aviso de rascunho do pass-through
+        # Turno 2: a busca real por produtor+comprador acha só os lotes do SuperBom
+        t2 = a.responder("Quais foram os lotes dessas entregas dele?")
+    assert "LOT-2026-0100" in t2 and "LOT-2026-0101" in t2  # gabarito: os dois lotes
+    assert "PED-2026-SEP-018" in t2 and "18/09/2026" in t2
+    assert "LOT-2026-0089" not in t2  # lote entregue ao Raízes não vaza para o SuperBom
+    assert a.estado.produtor_em_foco["produtor_id"] == "P003"  # contexto mantido
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert "funcao=consultar_lotes" in registro
+    _fila_vazia(fila)
+
+
+def test_encadeamento_triar_pendentes_e_notificar_no_mesmo_turno(tmp_path, caplog):
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("triar_pendentes", {}),
+            ROTEADOR("notificar_produtores", {}),
+            Script(texto="Notificações prontas."),
+        ],
+        "resposta": [Script(texto="Fila triada e notificações geradas para revisão; nada foi enviado.")],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    with caplog.at_level(logging.INFO, logger="sabor_da_terra.assistente"):
+        final = a.responder("Triar os pendentes e avisar os produtores")
+    registro = " ".join(r.getMessage() for r in caplog.records)
+    assert registro.index("triar_pendentes") < registro.index("notificar_produtores")  # na sequência
+    tools = respostas_de_funcao(a.historico)
+    assert tools[0].parts[0].function_response.name == "triar_pendentes"
+    assert tools[1].parts[0].function_response.name == "notificar_produtores"
+    assert tools[1].parts[0].function_response.response["enviadas"] is False  # nada foi enviado de verdade
+    assert "nada foi enviado" in final.lower()
+    # a composição viu as duas funções, nesta ordem
+    payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
+    assert [r["funcao"] for r in payload["resultados_das_funcoes"]] == ["triar_pendentes", "notificar_produtores"]
+    _fila_vazia(fila)

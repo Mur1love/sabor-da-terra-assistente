@@ -32,3 +32,14 @@ Este diretório contém os casos de teste versionados em YAML utilizados para av
 - **Total:** 37 casos de teste (mínimo exigido: 35).
 - **Pedidos:** 100% dos 15 registros de `data/pedidos.json` cobertos.
 - **Requisitos funcionais:** linguagem coloquial, citação documental, relatórios/notificações, contexto de sessão multi-turno e recusa a inventar dados (anti-alucinação).
+
+## Preenchimento na etapa #12
+
+`funcoes_esperadas` ficou vazio quando o gabarito foi escrito (as ferramentas ainda não existiam).
+A etapa #12 preencheu os 37 casos com o mapeamento pergunta → ferramenta da orquestração
+(`tests/test_assistente.py::test_gabarito_cobre_todos_os_casos_com_funcoes_da_superficie` guarda
+a regra: nenhum caso vazio e toda função listada declarada no assistente). Para dar conta do
+gabarito, a etapa também declarou `consultar_pedido`, `consultar_lotes` e
+`relatorio_pendencias_vencidas` além da lista original da issue #12 — desvio registrado na issue.
+A avaliação ponta a ponta (#14) roda cada pergunta contra o modelo real e verifica as funções
+esperadas no log.
