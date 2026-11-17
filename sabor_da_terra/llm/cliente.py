@@ -187,11 +187,13 @@ class LLMClient:
     def _executar_com_retry(self, acao: Callable[[], Any]) -> Any:
         """Executa a chamada HTTP repetindo apenas erros transitórios com backoff.
 
-        429 (cota) e 503 (modelo sobrecarregado) são transitórios; o limite do
-        Flash é por minuto, então as esperas (10s, 20s, 40s) somam mais de um
-        minuto até a última tentativa, cobrindo a janela de cota.
+        429 (cota), 503 (modelo sobrecarregado) e 504 (deadline do servidor) são
+        transitórios; o limite do Flash é por minuto, então as esperas (10s, 20s,
+        40s) somam mais de um minuto até a última tentativa, cobrindo a janela de
+        cota. O 504 foi visto ao vivo na fumaça de 16/11/2026 — mesma família do
+        503 (sobrecarga), sem consumir cota.
         """
-        erros_transitorios = (429, 503)
+        erros_transitorios = (429, 503, 504)
         tentativa = 1
         while True:
             try:

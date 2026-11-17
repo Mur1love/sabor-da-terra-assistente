@@ -11,8 +11,8 @@ class Erro503(Exception):
     code = 503
 
 
-class Erro503(Exception):
-    code = 503
+class Erro504(Exception):
+    code = 504
 
 
 class ModeloFake:
