@@ -180,6 +180,10 @@ def test_gabarito_cobre_todos_os_casos_com_funcoes_da_superficie():
         assert funcoes, f"{caso['id']}: funcoes_esperadas ficou vazio"
         fora = set(funcoes) - NOMES_ESPERADOS
         assert not fora, f"{caso['id']}: funções fora da superfície declarada: {sorted(fora)}"
+        # Quem classifica a mensagem (compra, cotação, consulta, mensagem de produtor,
+        # notificação oficial) é triar_pedido: caso que exige classificação a lista.
+        if any("classifica" in str(item).lower() for item in caso.get("deve_conter") or []):
+            assert "triar_pedido" in funcoes, f"{caso['id']}: exige classificação e não lista triar_pedido"
 
 
 def test_declaracao_e_deterministica_e_esconde_interno_da_fila():
@@ -722,15 +726,14 @@ def test_ctx001_dialogo_gravado_repete_a_gravacao_real():
     cota diária da API), o teste pula com a instrução — não finge passar.
     """
     from sabor_da_terra.llm.cliente import FixtureAusenteError
+    from scripts.gravar_ctx001 import DATA_REFERENCIA_DEMO, DIALOGO  # mesmas mensagens da gravação
 
     try:
         a = Assistente(
             cliente_llm=LLMClient(modo="fixture"),
-            estado=EstadoSessao(data_referencia="2026-10-30"),
+            estado=EstadoSessao(data_referencia=DATA_REFERENCIA_DEMO),
         )
-        t1 = a.responder("Quem tem mel orgânico vigente?")
-        t2 = a.responder("E a Josefa?")
-        t3 = a.responder("Manda um resumo pra ela")
+        t1, t2, t3 = (a.responder(mensagem) for mensagem in DIALOGO)
     except FixtureAusenteError as erro:
         pytest.skip(f"gravação real incompleta: {erro} — rode python -m scripts.gravar_ctx001")
 

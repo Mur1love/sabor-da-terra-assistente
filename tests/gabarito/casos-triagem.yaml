@@ -588,7 +588,7 @@
     Não afirmar que produtos são orgânicos
     sem comprovação documental.
 
-  funcoes_esperadas: [ buscar_produtores, disponibilidade, preco ]
+  funcoes_esperadas: [ triar_pedido, buscar_produtores, disponibilidade, preco ]
 
   deve_conter:
     - "Classificação como consulta comercial"
@@ -705,7 +705,7 @@
     Não inventar certificações, laudos,
     registros CAF, preços ou disponibilidade.
 
-  funcoes_esperadas: [ consultar_documentos, verificar_conformidade, consultar_lotes ]
+  funcoes_esperadas: [ triar_pedido, consultar_documentos, verificar_conformidade, disponibilidade, consultar_lotes ]
 
   deve_conter:
     - "Classificação como solicitação de cotação"
@@ -812,7 +812,7 @@
     preço ou certificado não puder
     ser comprovado na documentação.
 
-  funcoes_esperadas: [ buscar_produtores, preco, disponibilidade ]
+  funcoes_esperadas: [ triar_pedido, buscar_produtores, preco, disponibilidade ]
 
   deve_conter:
     - "Classificação como consulta comercial"
@@ -925,7 +925,7 @@
     habilitada para exportar sem
     documentação comprobatória.
 
-  funcoes_esperadas: [ consultar_documentos, buscar_produtores, consultar_lotes ]
+  funcoes_esperadas: [ triar_pedido, consultar_documentos, buscar_produtores, consultar_lotes ]
 
   deve_conter:
     - "Classificação como consulta internacional"
@@ -1033,7 +1033,7 @@
     Não inventar valores financeiros,
     pagamentos ou comprovantes.
 
-  funcoes_esperadas: [ identificar_produtor, resumo_produtor ]
+  funcoes_esperadas: [ triar_pedido, identificar_produtor, resumo_produtor ]
 
   deve_conter:
     - "Classificação como consulta financeira"
@@ -1298,7 +1298,7 @@
     Nao inventar documentos,
     certificacoes, laudos ou registros.
 
-  funcoes_esperadas: [ consultar_documentos, buscar_produtores, consultar_lotes ]
+  funcoes_esperadas: [ triar_pedido, consultar_documentos, buscar_produtores, consultar_lotes ]
 
   deve_conter:
     - "Classificacao como notificacao oficial"
@@ -1425,7 +1425,7 @@
     Nao inventar pedidos, vendas,
     cadastros ou confirmacoes.
 
-  funcoes_esperadas: [ identificar_produtor, triar_pendentes ]
+  funcoes_esperadas: [ triar_pedido, identificar_produtor, triar_pendentes ]
 
   deve_conter:
     - "Classificacao como comunicacao de produtor"
