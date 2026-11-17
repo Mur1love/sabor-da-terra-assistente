@@ -17,6 +17,7 @@ import datetime
 import os
 
 import streamlit as st
+from dotenv import load_dotenv
 
 from sabor_da_terra.assistente import Assistente, EstadoSessao, data_referencia_padrao
 from sabor_da_terra.dados import obter_repositorio
@@ -35,6 +36,8 @@ from sabor_da_terra.produtores import (
 from sabor_da_terra.triagem.fila import triar_pendentes
 
 MODOS = ("real", "fixture")
+
+load_dotenv()  # GEMINI_API_KEY, LLM_MODO e DATA_REFERENCIA do .env — antes de ler variáveis
 
 # Chaves do chat/assistente que a "Nova sessão" apaga — os widgets de
 # preferência (modo, data, mês) sobrevivem de propósito.
@@ -64,11 +67,12 @@ def _mostrar_fontes(texto: str) -> None:
 
 
 def _cor_prioridade(valor: str) -> str:
-    return CORES_PRIORIDADE.get(str(valor), "")
+    cor = CORES_PRIORIDADE.get(str(valor), "")
+    return f"background-color: {cor};" if cor else ""
 
 
 def _cor_problemas(valor: int) -> str:
-    return "#ffd7d7" if int(valor) > 0 else ""
+    return "background-color: #ffd7d7;" if int(valor) > 0 else ""
 
 
 def renderizar_atalho(atalho: dict) -> None:
@@ -87,7 +91,7 @@ def renderizar_atalho(atalho: dict) -> None:
             return
         st.dataframe(
             df.style.map(_cor_prioridade, subset=["Prioridade"]).map(_cor_problemas, subset=["Problemas"]),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
         with st.expander("🔎 Detalhes e alertas por registro", expanded=False):
@@ -171,7 +175,7 @@ with st.sidebar:
 
     if st.button(
         "🔄 Nova sessão",
-        use_container_width=True,
+        width="stretch",
         help="Apaga o histórico e o estado: o assistente não lembra nada da sessão anterior.",
     ):
         for chave in CHAVES_SESSAO:
@@ -182,7 +186,7 @@ with st.sidebar:
     st.header("🧰 Atalhos da demo")
     st.caption("Chamam as funções reais das etapas 4–11 direto, sem gastar cota do LLM.")
 
-    if st.button("Triar pedidos pendentes", use_container_width=True):
+    if st.button("Triar pedidos pendentes", width="stretch"):
         st.session_state["atalho"] = {"tipo": "fila", "dados": triar_pendentes(data_referencia)}
         st.rerun()
 
@@ -192,13 +196,13 @@ with st.sidebar:
     produtor_id = escolha.split(" — ")[0]
     mes = st.text_input("Mês do resumo (AAAA-MM)", value=data_referencia[:7], key="mes_resumo")
 
-    if st.button("Resumo do produtor", use_container_width=True):
+    if st.button("Resumo do produtor", width="stretch"):
         st.session_state["atalho"] = {"tipo": "resumo", "dados": resumo_produtor(produtor_id, mes, data_referencia)}
         st.rerun()
-    if st.button("Notificar produtores da fila", use_container_width=True):
+    if st.button("Notificar produtores da fila", width="stretch"):
         st.session_state["atalho"] = {"tipo": "notificacoes", "dados": notificar_produtores(data_referencia)}
         st.rerun()
-    if st.button("Relatório de pendências vencidas", use_container_width=True):
+    if st.button("Relatório de pendências vencidas", width="stretch"):
         st.session_state["atalho"] = {"tipo": "pendencias", "dados": relatorio_pendencias_vencidas(data_referencia)}
         st.rerun()
 
