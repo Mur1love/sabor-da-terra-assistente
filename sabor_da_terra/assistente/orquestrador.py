@@ -80,7 +80,8 @@ def _content_com_args_mascarados(content: types.Content) -> types.Content:
                 nova.thought_signature = parte.thought_signature
             partes.append(nova)
         elif parte.text is not None:
-            partes.append(types.Part.from_text(text=parte.text))
+            # cópia inteira: texto, flag `thought` e `thought_signature` voltam como vieram
+            partes.append(parte.model_copy(deep=True))
         else:
             partes.append(parte)
     return types.Content(role=content.role, parts=partes)
