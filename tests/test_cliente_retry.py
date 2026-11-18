@@ -1,5 +1,7 @@
 from types import SimpleNamespace
 
+import httpx
+
 import pytest
 
 from sabor_da_terra.llm.cliente import LLMClient, Papel
@@ -182,4 +184,39 @@ def test_failover_e_exclusivo_do_papel_resposta(tmp_path, monkeypatch):
     )
     with pytest.raises(Erro429):
         cliente.gerar(Papel.TRIAGEM, "x")
+    assert cliente.failovers() == 0
+
+
+class ModeloTimeoutNoPrincipal:
+    """O principal trava até o timeout do cliente (ReadTimeout, sem código HTTP)."""
+
+    def __init__(self):
+        self.modelos: list[str] = []
+
+    def generate_content(self, *, model, contents, config=None):
+        self.modelos.append(model)
+        if model == "gemini-3.8-flash":
+            raise httpx.ReadTimeout("The read operation timed out")
+        return SimpleNamespace(text="ok do fallback")
+
+
+def test_failover_resposta_quando_o_principal_estoura_o_timeout(tmp_path, monkeypatch):
+    """Visto ao vivo em 18/11/2026: ReadTimeout no Flash fechava o turno sem resposta."""
+    monkeypatch.setenv(VARIAVEL_FALLBACK, "gemini-3.5-flash-lite")
+    esperas = []
+    modelo = ModeloTimeoutNoPrincipal()
+    cliente = LLMClient(modo="real", pasta_fixtures=tmp_path, cliente=ClienteFake(modelo), dormir=esperas.append)
+    assert cliente.gerar(Papel.RESPOSTA, "x").text == "ok do fallback"
+    assert esperas == []  # timeout não repete no mesmo modelo: já custou o prazo inteiro
+    assert modelo.modelos == ["gemini-3.8-flash", "gemini-3.5-flash-lite"]
+    assert cliente.failovers() == 1
+
+
+def test_timeout_sem_fallback_propaga(tmp_path, monkeypatch):
+    monkeypatch.delenv(VARIAVEL_FALLBACK, raising=False)
+    cliente = LLMClient(
+        modo="real", pasta_fixtures=tmp_path, cliente=ClienteFake(ModeloTimeoutNoPrincipal()), dormir=lambda _s: None
+    )
+    with pytest.raises(httpx.ReadTimeout):
+        cliente.gerar(Papel.RESPOSTA, "x")
     assert cliente.failovers() == 0

@@ -18,10 +18,23 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Callable
 
+import httpx
 from google import genai
 from google.genai import types
 
 logger = logging.getLogger("sabor_da_terra.llm")
+
+# Erros HTTP transitórios: cota (429), sobrecarga (503) e deadline do servidor (504).
+CODIGOS_TRANSITORIOS = (429, 503, 504)
+
+
+def _estourou_o_prazo(exc: BaseException) -> bool:
+    """Timeout do lado do cliente (o `timeout=60_000` do SDK): o modelo travou.
+
+    Não tem código HTTP — sem esta checagem ele escapava do failover e o turno
+    fechava sem resposta (visto ao vivo em 18/11/2026: `ReadTimeout` no Flash).
+    """
+    return isinstance(exc, (httpx.TimeoutException, TimeoutError))
 
 MODO_PADRAO = "real"
 MODOS_VALIDOS = ("real", "fixture", "gravar")
@@ -208,13 +221,14 @@ class LLMClient:
         cota. O 504 foi visto ao vivo na fumaça de 16/11/2026 — mesma família do
         503 (sobrecarga), sem consumir cota.
         """
-        erros_transitorios = (429, 503, 504)
         tentativa = 1
         while True:
             try:
                 return acao()
             except Exception as exc:
-                if getattr(exc, "code", None) not in erros_transitorios or tentativa >= self._max_tentativas:
+                # Timeout não repete no mesmo modelo: cada tentativa já custou 60s;
+                # na composição ele segue direto para o failover.
+                if getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS or tentativa >= self._max_tentativas:
                     raise
                 self._dormir(min(60.0, 10.0 * (2 ** (tentativa - 1))))
                 tentativa += 1
@@ -238,7 +252,7 @@ class LLMClient:
             if fallback is None:
                 raise
             logger.warning(
-                "failover: cota de %s esgotada (%s); retomando com %s",
+                "failover: %s indisponível (%s); retomando com %s",
                 modelo,
                 type(exc).__name__,
                 fallback,
@@ -251,12 +265,12 @@ class LLMClient:
 
         Só o papel de RESPOSTA tem fallback (a triagem já é Flash-Lite e o
         embedding tem cota própria), só após o esgotamento dos erros
-        transitórios (429/503/504 — o que sobra do retry é cota/sobrecarga) e
-        só se o fallback for outro modelo.
+        transitórios (429/503/504 — o que sobra do retry é cota/sobrecarga) ou
+        um timeout (o modelo travou), e só se o fallback for outro modelo.
         """
         if papel is not Papel.RESPOSTA:
             return None
-        if getattr(exc, "code", None) not in {429, 503, 504}:
+        if getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS and not _estourou_o_prazo(exc):
             return None
         fallback = (os.getenv(VARIAVEL_FALLBACK) or "").strip()
         if not fallback or fallback == modelo:
