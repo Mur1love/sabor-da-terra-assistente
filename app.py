@@ -234,6 +234,17 @@ if assistente.estado.data_referencia != data_referencia:
     assistente.estado.data_referencia = data_referencia
     st.session_state["estado_sessao"] = assistente.estado.to_dict()
 
+# Consumo da sessão: contador do cliente LLM (chamadas reais; replay de fixture
+# não conta). Leitura de _cliente é só para exibição na demo.
+with st.sidebar:
+    chamadas = assistente._cliente.chamadas_por_modelo()
+    if chamadas:
+        st.caption(
+            "🔌 Chamadas reais nesta sessão: "
+            + " · ".join(f"{modelo}: {n}" for modelo, n in sorted(chamadas.items()))
+        )
+        st.caption("Medidor oficial: aistudio.google.com → Uso da API Gemini.")
+
 # Resultado do atalho da demo (acima do chat, para a banca ver sem rolar) ---- #
 
 atalho = st.session_state.get("atalho")
