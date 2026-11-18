@@ -5,6 +5,17 @@ import pytest
 from sabor_da_terra.llm.cliente import LLMClient, Papel
 from tests.dobles import ClienteFake, Erro429, Erro503, Erro504, ModeloFake
 
+VARIAVEL_FALLBACK = "GEMINI_MODELO_RESPOSTA_FALLBACK"
+
+
+class ModeloCotaPorModelo:
+    """Falha 429 apenas para o modelo principal; o fallback responde."""
+
+    def generate_content(self, *, model, contents, config=None):
+        if model == "gemini-3.8-flash":
+            raise Erro429()
+        return SimpleNamespace(text="ok do fallback")
+
 
 def test_retry_429_com_backoff_e_uma_chamada_contada(tmp_path):
     esperas = []
@@ -96,3 +107,79 @@ def test_retry_504_com_backoff(tmp_path):
     assert cliente.gerar(Papel.RESPOSTA, "x").text == "ok"
     assert esperas == [10.0, 20.0]
     assert cliente.chamadas_por_modelo() == {"gemini-3.8-flash": 1}
+
+
+# ---------------------------------------------------------------------------
+# Failover: cota do principal esgotou → retoma no modelo de fallback
+# ---------------------------------------------------------------------------
+
+
+def test_failover_resposta_quando_a_cota_do_principal_acaba(tmp_path, monkeypatch):
+    monkeypatch.setenv(VARIAVEL_FALLBACK, "gemini-3.5-flash-lite")
+    esperas = []
+    cliente = LLMClient(
+        modo="real",
+        pasta_fixtures=tmp_path,
+        cliente=ClienteFake(ModeloCotaPorModelo()),
+        dormir=esperas.append,
+    )
+    resposta = cliente.gerar(Papel.RESPOSTA, "x")
+    assert resposta.text == "ok do fallback"
+    assert esperas == [10.0, 20.0, 40.0]  # o principal esgotou as 4 tentativas
+    assert cliente.chamadas_por_modelo() == {"gemini-3.5-flash-lite": 1}
+    assert cliente.failovers() == 1
+
+
+def test_sem_fallback_configurado_o_erro_propaga(tmp_path, monkeypatch):
+    monkeypatch.delenv(VARIAVEL_FALLBACK, raising=False)
+    esperas = []
+    cliente = LLMClient(
+        modo="real",
+        pasta_fixtures=tmp_path,
+        cliente=ClienteFake(ModeloFake(falhas_429=99)),
+        dormir=esperas.append,
+        max_tentativas=2,
+    )
+    with pytest.raises(Erro429):
+        cliente.gerar(Papel.RESPOSTA, "x")
+    assert cliente.failovers() == 0
+
+
+def test_failover_nao_dispara_em_erro_nao_transitorio(tmp_path, monkeypatch):
+    monkeypatch.setenv(VARIAVEL_FALLBACK, "gemini-3.5-flash-lite")
+
+    class Erro400(Exception):
+        code = 400
+
+    class Modelo400:
+        def generate_content(self, *, model, contents, config=None):
+            raise Erro400()
+
+    esperas = []
+    cliente = LLMClient(
+        modo="real", pasta_fixtures=tmp_path, cliente=ClienteFake(Modelo400()), dormir=esperas.append
+    )
+    with pytest.raises(Erro400):
+        cliente.gerar(Papel.RESPOSTA, "x")
+    assert esperas == []  # 400 não é nem repetido
+    assert cliente.failovers() == 0
+
+
+def test_failover_e_exclusivo_do_papel_resposta(tmp_path, monkeypatch):
+    """O fallback é da composição: a triagem esgotada propaga o erro."""
+    monkeypatch.setenv(VARIAVEL_FALLBACK, "gemini-3.5-flash-lite")
+
+    class ModeloSempre429:
+        def generate_content(self, *, model, contents, config=None):
+            raise Erro429()
+
+    cliente = LLMClient(
+        modo="real",
+        pasta_fixtures=tmp_path,
+        cliente=ClienteFake(ModeloSempre429()),
+        dormir=lambda _s: None,
+        max_tentativas=2,
+    )
+    with pytest.raises(Erro429):
+        cliente.gerar(Papel.TRIAGEM, "x")
+    assert cliente.failovers() == 0
