@@ -4,7 +4,14 @@ import pytest
 
 import pandas as pd
 
-from sabor_da_terra.interface import detalhes_da_fila, extrair_fontes, formatar_fila, mensagem_de_erro
+from sabor_da_terra.interface import (
+    detalhes_da_fila,
+    estilo_celula_prioridade,
+    estilo_celula_problemas,
+    extrair_fontes,
+    formatar_fila,
+    mensagem_de_erro,
+)
 from sabor_da_terra.llm.cliente import FixtureAusenteError
 from sabor_da_terra.triagem.fila import triar_pendentes
 from tests.dobles import Erro429
@@ -85,3 +92,32 @@ def test_detalhes_da_fila_traz_alertas():
     assert detalhes[0][0].startswith("PED-2026-006")
     assert any("PRAZO_VENCIDO" in markdown for _, markdown in detalhes)
     assert all(isinstance(titulo, str) and isinstance(markdown, str) for titulo, markdown in detalhes)
+
+
+# ---------------------------------------------------------------------------
+# Destaque visual das células da fila: legível no tema claro E no escuro
+# ---------------------------------------------------------------------------
+
+
+def test_estilo_celula_pinta_fundo_e_texto():
+    """A regra carrega o texto junto: só o fundo fica ilegível no tema escuro."""
+    for regra in (
+        estilo_celula_prioridade("alta"),
+        estilo_celula_prioridade("media"),
+        estilo_celula_prioridade("baixa"),
+        estilo_celula_problemas(3),
+    ):
+        assert "background-color:" in regra
+        assert "color:" in regra
+
+
+def test_estilo_celula_prioridade_valores():
+    assert estilo_celula_prioridade("alta") == "background-color: #ffd9d9; color: #7f1d1d;"
+    assert estilo_celula_prioridade("media") == "background-color: #fff3c4; color: #713f12;"
+    assert estilo_celula_prioridade("baixa") == "background-color: #dcf5e3; color: #166534;"
+    assert estilo_celula_prioridade("desconhecida") == ""
+
+
+def test_estilo_celula_problemas_valores():
+    assert estilo_celula_problemas(0) == ""
+    assert estilo_celula_problemas(14) == "background-color: #ffd9d9; color: #7f1d1d;"

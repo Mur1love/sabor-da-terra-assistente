@@ -15,6 +15,25 @@ COLUNAS_FILA = ["Ordem", "Pedido", "Comprador", "Prioridade", "Status", "Prazo",
 
 PRAZO_OMISSO = "Não informado"
 
+# Destaque das células: fundo claro + TEXTO ESCURO na mesma regra. Só o fundo
+# deixa o texto ilegível no tema escuro do Streamlit (texto claro da plataforma
+# sobre o fundo claro da célula); com os dois fixados, legível nos dois temas.
+CORES_CELULA = {
+    "alta": "background-color: #ffd9d9; color: #7f1d1d;",
+    "media": "background-color: #fff3c4; color: #713f12;",
+    "baixa": "background-color: #dcf5e3; color: #166534;",
+}
+
+
+def estilo_celula_prioridade(prioridade: str) -> str:
+    """Regra CSS da célula de prioridade; vazio quando não é um nível conhecido."""
+    return CORES_CELULA.get(str(prioridade), "")
+
+
+def estilo_celula_problemas(problemas: int) -> str:
+    """Regra CSS da célula de contagem de problemas; vazio quando não há alerta."""
+    return CORES_CELULA["alta"] if int(problemas) > 0 else ""
+
 
 def formatar_fila(resultado: dict[str, Any]) -> pd.DataFrame:
     """A fila consolidada como DataFrame com colunas em português, ordem canônica preservada."""

@@ -23,6 +23,8 @@ from sabor_da_terra.assistente import Assistente, EstadoSessao, data_referencia_
 from sabor_da_terra.dados import obter_repositorio
 from sabor_da_terra.interface import (
     detalhes_da_fila,
+    estilo_celula_prioridade,
+    estilo_celula_problemas,
     extrair_fontes,
     formatar_fila,
     mensagem_de_erro,
@@ -42,8 +44,6 @@ load_dotenv()  # GEMINI_API_KEY, LLM_MODO e DATA_REFERENCIA do .env — antes de
 # Chaves do chat/assistente que a "Nova sessão" apaga — os widgets de
 # preferência (modo, data, mês) sobrevivem de propósito.
 CHAVES_SESSAO = ("assistente", "mensagens", "estado_sessao", "atalho", "modo_da_sessao")
-
-CORES_PRIORIDADE = {"alta": "#ffd7d7", "media": "#fff3c4", "baixa": "#e2f7e5"}
 
 TITULO_ATALHO = {
     "fila": "Fila de triagem",
@@ -66,15 +66,6 @@ def _mostrar_fontes(texto: str) -> None:
             st.markdown("\n".join(f"- {fonte}" for fonte in fontes))
 
 
-def _cor_prioridade(valor: str) -> str:
-    cor = CORES_PRIORIDADE.get(str(valor), "")
-    return f"background-color: {cor};" if cor else ""
-
-
-def _cor_problemas(valor: int) -> str:
-    return "background-color: #ffd7d7;" if int(valor) > 0 else ""
-
-
 def renderizar_atalho(atalho: dict) -> None:
     """Desenha o resultado do atalho da demo conforme o tipo."""
     tipo, dados = atalho["tipo"], atalho["dados"]
@@ -90,7 +81,7 @@ def renderizar_atalho(atalho: dict) -> None:
             st.info("Nenhum pedido pendente nesta data de referência.")
             return
         st.dataframe(
-            df.style.map(_cor_prioridade, subset=["Prioridade"]).map(_cor_problemas, subset=["Problemas"]),
+            df.style.map(estilo_celula_prioridade, subset=["Prioridade"]).map(estilo_celula_problemas, subset=["Problemas"]),
             width="stretch",
             hide_index=True,
         )
