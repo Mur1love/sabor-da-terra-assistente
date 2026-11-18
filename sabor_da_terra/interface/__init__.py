@@ -11,13 +11,14 @@ from sabor_da_terra.interface.fila import (
     estilo_celula_problemas,
     formatar_fila,
 )
-from sabor_da_terra.interface.mensagens import extrair_fontes, mensagem_de_erro
+from sabor_da_terra.interface.mensagens import extrair_fontes, fontes_da_resposta, mensagem_de_erro
 
 __all__ = [
     "detalhes_da_fila",
     "estilo_celula_prioridade",
     "estilo_celula_problemas",
     "extrair_fontes",
+    "fontes_da_resposta",
     "formatar_fila",
     "mensagem_de_erro",
 ]

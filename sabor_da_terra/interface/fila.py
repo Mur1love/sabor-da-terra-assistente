@@ -11,7 +11,9 @@ from typing import Any
 
 import pandas as pd
 
-COLUNAS_FILA = ["Ordem", "Pedido", "Comprador", "Prioridade", "Status", "Prazo", "Produtos", "Problemas"]
+# "Problemas" ao lado da "Prioridade": o destaque dos problemáticos fica visível sem rolar
+# a tabela; "Produtos" (a coluna mais larga) vai por último.
+COLUNAS_FILA = ["Ordem", "Pedido", "Comprador", "Prioridade", "Problemas", "Status", "Prazo", "Produtos"]
 
 PRAZO_OMISSO = "Não informado"
 

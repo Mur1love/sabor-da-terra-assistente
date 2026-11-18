@@ -25,7 +25,7 @@ from sabor_da_terra.interface import (
     detalhes_da_fila,
     estilo_celula_prioridade,
     estilo_celula_problemas,
-    extrair_fontes,
+    fontes_da_resposta,
     formatar_fila,
     mensagem_de_erro,
 )
@@ -58,9 +58,9 @@ TITULO_ATALHO = {
 # --------------------------------------------------------------------------- #
 
 
-def _mostrar_fontes(texto: str) -> None:
-    """Rodapé de fontes da resposta documental: os arquivos citados no texto."""
-    fontes = extrair_fontes(texto)
+def _mostrar_fontes(texto: str, fontes_do_turno: list[str] | None = None) -> None:
+    """Rodapé de fontes: arquivos das saídas das funções do turno + citações do texto."""
+    fontes = fontes_da_resposta(texto, fontes_do_turno)
     if fontes:
         with st.expander(f"Fontes ({len(fontes)})", expanded=False):
             st.markdown("\n".join(f"- {fonte}" for fonte in fontes))
@@ -185,7 +185,12 @@ with st.sidebar:
     opcoes = [f"{linha.produtor_id} — {linha.nome}" for linha in produtores.itertuples()]
     escolha = st.selectbox("Produtor", opcoes, index=0)
     produtor_id = escolha.split(" — ")[0]
-    mes = st.text_input("Mês do resumo (AAAA-MM)", value=data_referencia[:7], key="mes_resumo")
+    # O mês do resumo acompanha a data de referência quando ela muda (sem
+    # isso, mudar a data deixava o mês antigo e o resumo saía de outro mês).
+    if st.session_state.get("_data_do_mes_resumo") != data_referencia:
+        st.session_state["mes_resumo"] = data_referencia[:7]
+        st.session_state["_data_do_mes_resumo"] = data_referencia
+    mes = st.text_input("Mês do resumo (AAAA-MM)", key="mes_resumo")
 
     if st.button("Resumo do produtor", width="stretch"):
         st.session_state["atalho"] = {"tipo": "resumo", "dados": resumo_produtor(produtor_id, mes, data_referencia)}
@@ -226,20 +231,20 @@ if assistente.estado.data_referencia != data_referencia:
     st.session_state["estado_sessao"] = assistente.estado.to_dict()
 
 # Indicador de modelos: configuração por papel + consumo real da sessão
-# (chamadas bem-sucedidas; replay de fixture não conta) + failover disparado.
-# A leitura de _cliente é só para exibição na demo.
+# (chamadas bem-sucedidas do cliente do assistente; replay de fixture não
+# conta) + failover disparado.
 with st.sidebar:
     st.caption("Modelos")
-    st.caption(f"Roteamento: {assistente._cliente.modelo(Papel.TRIAGEM)}")
-    st.caption(f"Composição: {assistente._cliente.modelo(Papel.RESPOSTA)}")
-    st.caption(f"Embedding: {assistente._cliente.modelo(Papel.EMBEDDING)}")
-    chamadas = assistente._cliente.chamadas_por_modelo()
+    st.caption(f"Roteamento: {assistente.cliente.modelo(Papel.TRIAGEM)}")
+    st.caption(f"Composição: {assistente.cliente.modelo(Papel.RESPOSTA)}")
+    st.caption(f"Embedding: {assistente.cliente.modelo(Papel.EMBEDDING)}")
+    chamadas = assistente.cliente.chamadas_por_modelo()
     if chamadas:
         st.caption(
             "Chamadas nesta sessão: "
             + " · ".join(f"{modelo}: {n}" for modelo, n in sorted(chamadas.items()))
         )
-    failovers = assistente._cliente.failovers()
+    failovers = assistente.cliente.failovers()
     if failovers:
         st.caption(f"Failover para o fallback: {failovers}x")
         st.caption("Medidor oficial: aistudio.google.com, Uso da API Gemini.")
@@ -265,8 +270,12 @@ with st.expander("Estado da sessão (focos do assistente)", expanded=False):
 
 for msg in st.session_state["mensagens"]:
     with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
-        _mostrar_fontes(msg["content"])
+        if msg.get("erro"):
+            st.error(msg["content"])  # o erro fica no histórico: a pergunta não some sem resposta
+        else:
+            st.markdown(msg["content"])
+            if msg["role"] == "assistant":
+                _mostrar_fontes(msg["content"], msg.get("fontes"))
 
 if prompt := st.chat_input("Escreva sua mensagem para o assistente…"):
     st.session_state["mensagens"].append({"role": "user", "content": prompt})
@@ -276,13 +285,9 @@ if prompt := st.chat_input("Escreva sua mensagem para o assistente…"):
         with st.spinner("Consultando as funções do assistente…"):
             try:
                 resposta = assistente.responder(prompt)
+                registro = {"role": "assistant", "content": resposta, "fontes": list(assistente.fontes_do_turno)}
             except Exception as erro:  # noqa: BLE001 — nenhum stack trace na tela
-                st.error(mensagem_de_erro(erro))
-                resposta = None
-        if resposta:
-            st.markdown(resposta)
-            _mostrar_fontes(resposta)
-            st.session_state["mensagens"].append({"role": "assistant", "content": resposta})
+                registro = {"role": "assistant", "content": mensagem_de_erro(erro), "erro": True}
+    st.session_state["mensagens"].append(registro)
     st.session_state["estado_sessao"] = assistente.estado.to_dict()
-    if resposta:
-        st.rerun()
+    st.rerun()

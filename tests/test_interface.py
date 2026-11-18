@@ -9,6 +9,7 @@ from sabor_da_terra.interface import (
     estilo_celula_prioridade,
     estilo_celula_problemas,
     extrair_fontes,
+    fontes_da_resposta,
     formatar_fila,
     mensagem_de_erro,
 )
@@ -35,6 +36,27 @@ def test_extrair_fontes_sem_marcador():
     assert extrair_fontes("Não encontrei essa informação nos documentos.") == []
 
 
+def test_extrair_fontes_linha_fontes_dos_textos_prontos():
+    texto = "Olá, Josefa!\n\nFontes: data/financeiro.csv; data/produtores.csv.\n\nRascunho para revisão."
+    assert extrair_fontes(texto) == ["data/financeiro.csv", "data/produtores.csv"]
+
+
+def test_fontes_da_resposta_vem_das_funcoes_mesmo_sem_marcador():
+    """O critério da #13 não depende de o modelo escrever [fonte: ...]."""
+    assert fontes_da_resposta("P002 e P018 têm certificação vigente.", ["produtores.csv"]) == ["produtores.csv"]
+
+
+def test_fontes_da_resposta_junta_funcoes_e_texto_sem_duplicar():
+    texto = "Vencida [fonte: certificacoes/cert_P008.txt]. Fontes: data/produtores.csv."
+    fontes = fontes_da_resposta(texto, ["data/produtores.csv", "lotes.csv"])
+    assert fontes == ["produtores.csv", "lotes.csv", "certificacoes/cert_P008.txt"]
+
+
+def test_fontes_da_resposta_vazia():
+    assert fontes_da_resposta("Bom dia!", []) == []
+    assert fontes_da_resposta("Bom dia!") == []
+
+
 # ---------------------------------------------------------------------------
 # Mensagens de erro amigáveis (nada de stack trace)
 # ---------------------------------------------------------------------------
@@ -49,6 +71,12 @@ def test_mensagem_de_erro_fixture_ausente():
     assert "gravar" in mensagem_de_erro(FixtureAusenteError("x")).lower()
 
 
+def test_mensagem_de_erro_chave_ausente():
+    erro = RuntimeError("GEMINI_API_KEY não definida. Copie .env.example para .env ...")
+    msg = mensagem_de_erro(erro)
+    assert "GEMINI_API_KEY" in msg and "conexão" not in msg
+
+
 def test_mensagem_de_erro_generica():
     msg = mensagem_de_erro(RuntimeError("boom"))
     assert "Não consegui" in msg and "boom" not in msg
@@ -58,7 +86,7 @@ def test_mensagem_de_erro_generica():
 # Fila de triagem para o st.dataframe
 # ---------------------------------------------------------------------------
 
-COLUNAS_FILA = ["Ordem", "Pedido", "Comprador", "Prioridade", "Status", "Prazo", "Produtos", "Problemas"]
+COLUNAS_FILA = ["Ordem", "Pedido", "Comprador", "Prioridade", "Problemas", "Status", "Prazo", "Produtos"]
 
 
 def test_formatar_fila_15_registros_ordem_canonica():
