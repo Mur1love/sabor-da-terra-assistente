@@ -105,6 +105,15 @@ class Assistente:
         self._janela = janela
         self._blocos: list[list[types.Content]] = []  # um bloco por turno, completo
         self._turno = 0
+        # Arquivos de origem do último turno, tirados das SAÍDAS das funções
+        # (determinístico): a interface monta o rodapé de fontes a partir daqui,
+        # sem depender de o modelo escrever o marcador [fonte: ...].
+        self.fontes_do_turno: list[str] = []
+
+    @property
+    def cliente(self) -> LLMClient:
+        """O cliente LLM da sessão (modelos por papel, consumo e failover)."""
+        return self._cliente
 
     # ------------------------------------------------------------------ #
     # Turno                                                              #
@@ -114,6 +123,7 @@ class Assistente:
         """Um turno completo: roteamento, funções, resposta final e log."""
         inicio = time.perf_counter()
         self._turno += 1
+        self.fontes_do_turno = []
         mensagem = mascarar_dados_sensiveis(mensagem)
         self.estado.focar_pedido_do_texto(mensagem)  # "PED-2026-006" entra em foco venha ele de qual função vier
 
@@ -141,6 +151,8 @@ class Assistente:
 
         final, fechamento = self._fechar_turno(mensagem, executadas, erros, rascunho)
         self._blocos[-1].append(types.Content(role="model", parts=[types.Part.from_text(text=final)]))
+        if final != SEM_COMPOSICAO:  # sem resposta composta, não há o que atribuir a arquivo
+            self.fontes_do_turno = _fontes_unicas(executadas)
 
         duracao = time.perf_counter() - inicio
         modelos = {
@@ -259,9 +271,7 @@ class Assistente:
                 {"funcao": nome, "args": args, "saida": saida} for nome, args, saida in executadas
             ],
             "rascunho_do_roteamento": rascunho,
-            "fontes_permitidas": sorted(
-                fonte for _, _, saida in executadas for fonte in _fontes_da_saida(saida)
-            ),
+            "fontes_permitidas": sorted(_fontes_unicas(executadas)),
         }
         payload = mascarar_dados_sensiveis(payload)
         prompt_final = (
@@ -278,6 +288,16 @@ class Assistente:
             logger.warning("composicao_final falhou (%s: %s); turno fecha com resposta honesta", type(exc).__name__, exc)
             return SEM_COMPOSICAO
         return resposta.text or SEM_COMPOSICAO
+
+
+def _fontes_unicas(executadas: list[tuple[str, dict[str, Any], dict[str, Any]]]) -> list[str]:
+    """Arquivos citados pelas funções do turno, na ordem de chamada, sem repetição."""
+    fontes: list[str] = []
+    for _, _, saida in executadas:
+        for fonte in _fontes_da_saida(saida):
+            if fonte not in fontes:
+                fontes.append(fonte)
+    return fontes
 
 
 def _fontes_da_saida(saida: dict[str, Any]) -> list[str]:
