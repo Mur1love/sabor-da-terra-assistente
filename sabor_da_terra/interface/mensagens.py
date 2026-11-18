@@ -11,15 +11,15 @@ from sabor_da_terra.llm.cliente import FixtureAusenteError
 FONTE_RE = re.compile(r"\[fonte:\s*([^\]]+)\]")
 
 MENSAGEM_429 = (
-    "⚠️ Cota da API atingida (erro 429). O limite gratuito do Gemini é por minuto — "
+    "Cota da API atingida (erro 429). O limite gratuito do Gemini é por minuto — "
     "aguarde um instante e envie a mensagem de novo."
 )
 MENSAGEM_FIXTURE = (
-    "⚠️ Modo fixture sem resposta gravada para esta mensagem. Rode uma vez com "
+    "Modo fixture sem resposta gravada para esta mensagem. Rode uma vez com "
     "`LLM_MODO=gravar` para gravar a resposta (veja o README), ou troque para o modo real."
 )
 MENSAGEM_GENERICA = (
-    "⚠️ Não consegui responder agora. Tente de novo em instantes; "
+    "Não consegui responder agora. Tente de novo em instantes; "
     "se persistir, verifique a conexão ou o modo do LLM na barra lateral."
 )
 

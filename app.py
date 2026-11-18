@@ -27,7 +27,7 @@ from sabor_da_terra.interface import (
     formatar_fila,
     mensagem_de_erro,
 )
-from sabor_da_terra.llm.cliente import LLMClient
+from sabor_da_terra.llm.cliente import LLMClient, Papel
 from sabor_da_terra.produtores import (
     notificar_produtores,
     relatorio_pendencias_vencidas,
@@ -46,10 +46,10 @@ CHAVES_SESSAO = ("assistente", "mensagens", "estado_sessao", "atalho", "modo_da_
 CORES_PRIORIDADE = {"alta": "#ffd7d7", "media": "#fff3c4", "baixa": "#e2f7e5"}
 
 TITULO_ATALHO = {
-    "fila": "📋 Fila de triagem",
-    "resumo": "📝 Resumo do produtor",
-    "notificacoes": "📣 Notificações de novos pedidos",
-    "pendencias": "💰 Relatório de pendências vencidas",
+    "fila": "Fila de triagem",
+    "resumo": "Resumo do produtor",
+    "notificacoes": "Notificações de novos pedidos",
+    "pendencias": "Relatório de pendências vencidas",
 }
 
 
@@ -62,7 +62,7 @@ def _mostrar_fontes(texto: str) -> None:
     """Rodapé de fontes da resposta documental: os arquivos citados no texto."""
     fontes = extrair_fontes(texto)
     if fontes:
-        with st.expander(f"📚 Fontes ({len(fontes)})", expanded=False):
+        with st.expander(f"Fontes ({len(fontes)})", expanded=False):
             st.markdown("\n".join(f"- {fonte}" for fonte in fontes))
 
 
@@ -94,7 +94,7 @@ def renderizar_atalho(atalho: dict) -> None:
             width="stretch",
             hide_index=True,
         )
-        with st.expander("🔎 Detalhes e alertas por registro", expanded=False):
+        with st.expander("Detalhes e alertas por registro", expanded=False):
             for titulo, markdown in detalhes_da_fila(dados):
                 st.markdown(f"#### {titulo}")
                 st.markdown(markdown)
@@ -135,9 +135,9 @@ def renderizar_atalho(atalho: dict) -> None:
 # Página                                                                       #
 # --------------------------------------------------------------------------- #
 
-st.set_page_config(page_title="Sabor da Terra — Assistente", page_icon="🌱", layout="wide")
+st.set_page_config(page_title="Sabor da Terra — Assistente", layout="wide")
 
-st.title("🌱 Sabor da Terra — Assistente da cooperativa")
+st.title("Sabor da Terra — Assistente da cooperativa")
 st.caption(
     "Protótipo da disciplina IA Generativa e Agentes (UPE × Sauter). Nada é enviado a "
     "produtores ou compradores; as respostas documentais citam o arquivo de origem."
@@ -146,7 +146,7 @@ st.caption(
 # Barra lateral: modo, relógio da sessão e atalhos da demo ------------------ #
 
 with st.sidebar:
-    st.header("⚙️ Sessão")
+    st.header("Sessão")
 
     modo_padrao = os.getenv("LLM_MODO", "real")
     modo = st.selectbox(
@@ -174,7 +174,7 @@ with st.sidebar:
     data_referencia = data_entrada.isoformat()
 
     if st.button(
-        "🔄 Nova sessão",
+        "Nova sessão",
         width="stretch",
         help="Apaga o histórico e o estado: o assistente não lembra nada da sessão anterior.",
     ):
@@ -183,7 +183,7 @@ with st.sidebar:
         st.rerun()
 
     st.divider()
-    st.header("🧰 Atalhos da demo")
+    st.header("Atalhos da demo")
     st.caption("Chamam as funções reais das etapas 4–11 direto, sem gastar cota do LLM.")
 
     if st.button("Triar pedidos pendentes", width="stretch"):
@@ -234,16 +234,24 @@ if assistente.estado.data_referencia != data_referencia:
     assistente.estado.data_referencia = data_referencia
     st.session_state["estado_sessao"] = assistente.estado.to_dict()
 
-# Consumo da sessão: contador do cliente LLM (chamadas reais; replay de fixture
-# não conta). Leitura de _cliente é só para exibição na demo.
+# Indicador de modelos: configuração por papel + consumo real da sessão
+# (chamadas bem-sucedidas; replay de fixture não conta) + failover disparado.
+# A leitura de _cliente é só para exibição na demo.
 with st.sidebar:
+    st.caption("Modelos")
+    st.caption(f"Roteamento: {assistente._cliente.modelo(Papel.TRIAGEM)}")
+    st.caption(f"Composição: {assistente._cliente.modelo(Papel.RESPOSTA)}")
+    st.caption(f"Embedding: {assistente._cliente.modelo(Papel.EMBEDDING)}")
     chamadas = assistente._cliente.chamadas_por_modelo()
     if chamadas:
         st.caption(
-            "🔌 Chamadas reais nesta sessão: "
+            "Chamadas nesta sessão: "
             + " · ".join(f"{modelo}: {n}" for modelo, n in sorted(chamadas.items()))
         )
-        st.caption("Medidor oficial: aistudio.google.com → Uso da API Gemini.")
+    failovers = assistente._cliente.failovers()
+    if failovers:
+        st.caption(f"Failover para o fallback: {failovers}x")
+        st.caption("Medidor oficial: aistudio.google.com, Uso da API Gemini.")
 
 # Resultado do atalho da demo (acima do chat, para a banca ver sem rolar) ---- #
 
@@ -252,14 +260,14 @@ if atalho:
     with st.container(border=True):
         coluna_titulo, coluna_fechar = st.columns([0.9, 0.1])
         coluna_titulo.subheader(TITULO_ATALHO.get(atalho["tipo"], "Resultado"))
-        if coluna_fechar.button("✖", help="Fechar o resultado do atalho"):
+        if coluna_fechar.button("×", help="Fechar o resultado do atalho"):
             st.session_state.pop("atalho", None)
             st.rerun()
         renderizar_atalho(atalho)
 
 # Estado da sessão (focos da #12) — visível para a demo --------------------- #
 
-with st.expander("🔍 Estado da sessão (focos do assistente)", expanded=False):
+with st.expander("Estado da sessão (focos do assistente)", expanded=False):
     st.json(assistente.estado.to_dict())
 
 # Chat ---------------------------------------------------------------------- #

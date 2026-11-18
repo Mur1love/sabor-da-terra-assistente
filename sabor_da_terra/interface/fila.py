@@ -46,9 +46,9 @@ def detalhes_da_fila(resultado: dict[str, Any]) -> list[tuple[str, str]]:
         ]
         urgencia = registro.get("urgencia") or {}
         if urgencia.get("urgencia_nao_calculada"):
-            linhas.append(f"⏱ {urgencia.get('aviso', 'Urgência não calculada.')}")
+            linhas.append(f"{urgencia.get('aviso', 'Urgência não calculada.')}")
         elif urgencia.get("horas_restantes") is not None:
-            linhas.append(f"⏱ {urgencia['horas_restantes']:g} h até o prazo.")
+            linhas.append(f"{urgencia['horas_restantes']:g} h até o prazo.")
         alertas = registro.get("alertas") or []
         if alertas:
             linhas.append(f"**Alertas ({len(alertas)}):**")
@@ -64,7 +64,7 @@ def detalhes_da_fila(resultado: dict[str, Any]) -> list[tuple[str, str]]:
             medida = f" {quantidade:g} {unidade}".rstrip() if isinstance(quantidade, (int, float)) else ""
             linhas.append(
                 f"**Alocação sugerida:** {alocacao.get('produto')}{medida}"
-                + (f" → {produtores}" if produtores else " → sem produtor elegível")
+                + (f": {produtores}" if produtores else ": sem produtor elegível")
             )
         detalhes.append((titulo, "\n".join(linhas)))
     return detalhes
