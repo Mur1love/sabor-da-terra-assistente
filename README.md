@@ -78,20 +78,25 @@ sabor-da-terra-assistente/
 - **Chat:** converse em português; o assistente chama as funções das etapas 4–11
   por function calling e mantém o contexto ("e o dela?", "esse lote") pela
   sessão. Toda resposta documental traz as citações `[fonte: arquivo]` e o
-  rodapé **📚 Fontes** com os arquivos de origem.
-- **🔍 Estado da sessão:** data de referência e os focos atuais
+  rodapé **Fontes (N)** com os arquivos de origem.
+- **Estado da sessão:** data de referência e os focos atuais
   (produtor, pedido e produto) — é o que resolve as referências vagas.
-- **Barra lateral — ⚙️ Sessão:** **Modo do LLM** (`real` chama a API;
+- **Barra lateral — Sessão:** **Modo do LLM** (`real` chama a API;
   `fixture` reproduz as respostas gravadas em `tests/fixtures/llm`, sem custo —
   trocar o modo inicia uma sessão nova), **data de referência** (o relógio da
-  demo; por padrão vem de `DATA_REFERENCIA` do `.env`) e **🔄 Nova sessão**
+  demo; por padrão vem de `DATA_REFERENCIA` do `.env`) e **Nova sessão**
   (apaga o histórico e os focos: o assistente não lembra da sessão anterior).
-- **Barra lateral — 🧰 Atalhos da demo:** chamam as funções reais direto, sem
+- **Barra lateral — Atalhos da demo:** chamam as funções reais direto, sem
   gastar cota — **Triar pedidos pendentes** (fila dos 15 registros em
   `st.dataframe`, urgentes e problemáticos no topo, com destaque por cor e
   detalhes por registro), **Resumo do produtor**, **Notificar produtores da
   fila** e **Relatório de pendências vencidas** (resumos e notificações em
   `st.code`, copiáveis; nada é enviado).
+- **Barra lateral — Modelos:** o modelo de cada papel (roteamento, composição
+  e embedding), as chamadas reais da sessão e o contador de failover. Com
+  `GEMINI_MODELO_RESPOSTA_FALLBACK` configurado, a composição roda no Flash e,
+  se a cota dele esgotar, retoma no fallback na mesma sessão — nada vira erro
+  na tela. Medidor oficial: painel "Uso da API Gemini" do AI Studio.
 - **Erros:** erro 429 (cota) e falhas de rede viram mensagem amigável na tela —
   nunca stack trace. Sem `GEMINI_API_KEY`, rode com `LLM_MODO=fixture`.
 
