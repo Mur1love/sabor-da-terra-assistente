@@ -835,3 +835,95 @@ def test_encadeamento_triar_pendentes_e_notificar_no_mesmo_turno(tmp_path, caplo
     payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
     assert [r["funcao"] for r in payload["resultados_das_funcoes"]] == ["triar_pendentes", "notificar_produtores"]
     _fila_vazia(fila)
+
+
+def test_guarda_de_citacao_remove_arquivo_que_as_funcoes_nao_devolveram():
+    """Etapa 14 (rodada 1, TRI-006): o modelo citou `tabelas_precos_...`, arquivo inexistente."""
+    from sabor_da_terra.assistente.orquestrador import _so_citacoes_permitidas
+
+    permitidas = ["tabela_precos_outubro_2026.csv", "data/fichas_tecnicas/queijo_coalho.txt"]
+    texto = (
+        "Queijo a R$ 32,00 [fonte: tabelas_precos_outubro_2026.csv, fichas_tecnicas/queijo_coalho.txt]. "
+        "Sem certificado [fonte: certificacoes/inventado.txt]. Preço [fonte: data/tabela_precos_outubro_2026.csv]."
+    )
+    limpo = _so_citacoes_permitidas(texto, permitidas)
+    assert "tabelas_precos" not in limpo and "inventado" not in limpo
+    assert "[fonte: fichas_tecnicas/queijo_coalho.txt]" in limpo
+    assert "[fonte: data/tabela_precos_outubro_2026.csv]" in limpo
+    assert "Sem certificado." in limpo  # marcador vazio sai inteiro, sem deixar espaço
+
+
+def test_composicao_passa_pela_guarda_de_citacao(tmp_path):
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("rastrear_lote", {"lote_id": "LOT-2026-0089"}), Script(texto="ok")],
+        "resposta": [Script(texto="Lote de queijo [fonte: lotes.csv] entregue [fonte: lotes_2026.csv].")],
+    })
+    final = _assistente(_fabrica(tmp_path, fila)()).responder("onde está o lote LOT-2026-0089?")
+    assert "[fonte: lotes.csv]" in final and "lotes_2026.csv" not in final
+
+
+def test_fila_e_notificacoes_declaram_as_fontes():
+    from sabor_da_terra.produtores import notificar_produtores
+    from sabor_da_terra.rag.responder import listar_arquivos_data
+    from sabor_da_terra.triagem.fila import triar_pendentes as triar_pendentes_real
+
+    existentes = listar_arquivos_data()
+    fila = triar_pendentes_real("2026-10-30")
+    assert fila["fontes"][:2] == ["pedidos.json", "produtores.csv"]
+    assert all(f in existentes for f in fila["fontes"])  # só arquivos reais, nada de "regras.conformidade"
+    assert notificar_produtores("2026-10-30")["fontes"] == fila["fontes"]
+
+
+def test_composicao_passa_pela_trava_de_fatos(tmp_path):
+    """Etapa 14: valor ou código que o modelo inventou na composição não chega à tela."""
+    from sabor_da_terra.assistente.verificacao import AVISO_FATOS_REMOVIDOS
+
+    fila = FilaControlada({
+        "triagem": [ROTEADOR("rastrear_lote", {"lote_id": "LOT-2026-0089"}), Script(texto="ok")],
+        "resposta": [Script(texto=(
+            "O LOT-2026-0089 tem 45 kg de queijo coalho, entregue em 02/09/2026 ao Restaurante Raízes. "
+            "O lote LOT-2026-0100 seguiu junto e custou R$ 999,00."
+        ))],
+    })
+    final = _assistente(_fabrica(tmp_path, fila)()).responder("onde está o lote LOT-2026-0089?")
+    assert "LOT-2026-0089" in final and "02/09/2026" in final
+    assert "LOT-2026-0100" not in final and "999,00" not in final
+    assert final.endswith(AVISO_FATOS_REMOVIDOS)
+
+
+def test_resposta_sem_funcao_nao_afirma_fato_de_cabeca(tmp_path):
+    fila = FilaControlada({"triagem": [Script(texto="O P003 tem R$ 6.020,00 a receber. Posso ajudar em algo mais?")], "resposta": []})
+    final = _assistente(_fabrica(tmp_path, fila)()).responder("tudo bem?")
+    assert "6.020,00" not in final and "Posso ajudar em algo mais?" in final
+
+
+def test_comprador_citado_entra_em_foco_e_no_contexto():
+    """Etapa 14 (rodada 1, CTX-003): "do SuperBom" precisa sobreviver ao turno seguinte."""
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    assert estado.focar_comprador_do_texto("Quanto o Cícero (P003) tem em atraso para receber do SuperBom?")
+    assert estado.comprador_em_foco == "Rede SuperBom Atacado"
+    assert "comprador_em_foco: Rede SuperBom Atacado" in estado.contexto()
+    assert EstadoSessao.from_dict(estado.to_dict()) == estado
+
+
+def test_comprador_nao_casa_com_palavra_solta():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    for texto in ("bom dia", "qual o preço do queijo?", "organic tropical fruits for export"):
+        assert not estado.focar_comprador_do_texto(texto), texto
+    assert estado.comprador_em_foco is None
+
+
+def test_comprador_vem_do_argumento_e_do_pedido_consultado():
+    estado = EstadoSessao(data_referencia="2026-10-30")
+    estado.atualizar("consultar_pedido", {"pedido_id": "PED-2026-006"}, {"encontrado": True, "pedido": {"comprador": "Rede SuperBom Atacado"}})
+    assert estado.comprador_em_foco == "Rede SuperBom Atacado"
+    estado.atualizar("consultar_lotes", {"comprador": "Raízes"}, {"encontrado": True, "lotes": []})
+    assert estado.comprador_em_foco == "Restaurante Raízes"
+
+
+def test_pasta_nao_entra_como_fonte_do_turno():
+    """Etapa 14 (TRI-006): alerta de ausência cita a pasta `fichas_tecnicas/` — não é documento."""
+    from sabor_da_terra.assistente.orquestrador import _fontes_da_saida
+
+    saida = {"fontes": ["fichas_tecnicas/queijo_coalho.txt", "fichas_tecnicas/"], "fonte": "produtores.csv"}
+    assert _fontes_da_saida(saida) == ["fichas_tecnicas/queijo_coalho.txt", "produtores.csv"]

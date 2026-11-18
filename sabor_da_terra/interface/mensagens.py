@@ -9,6 +9,9 @@ from sabor_da_terra.llm.cliente import FixtureAusenteError
 # As citações viajam no texto como "[fonte: arquivo]" (regra 3 do prompt de
 # sistema da #12); o motor de regras também junta arquivos com "; ".
 FONTE_RE = re.compile(r"\[fonte:\s*([^\]]+)\]")
+# Vários arquivos num marcador: "; " (regras de triagem) ou ", " (o modelo
+# também escreve assim). Nome de arquivo do dataset não tem vírgula.
+SEPARADOR_FONTES_RE = re.compile(r"\s*[;,]\s*")
 # Textos prontos (resumo do produtor, relatórios) fecham com "Fontes: a; b."
 LINHA_FONTES_RE = re.compile(r"^\s*Fontes:\s*(.+?)\.?\s*$", re.MULTILINE)
 
@@ -47,13 +50,13 @@ def extrair_fontes(texto: str) -> list[str]:
     """Arquivos citados no texto da resposta, na ordem em que aparecem, sem repetição.
 
     Lê os marcadores `[fonte: ...]` e a linha `Fontes: a; b` dos textos prontos.
-    Vários arquivos num mesmo marcador (separados por ";") viram entradas
-    individuais — é assim que as fontes chegam das regras de triagem.
+    Vários arquivos num mesmo marcador (separados por ";" ou ",") viram
+    entradas individuais.
     """
     fontes: list[str] = []
     texto = str(texto or "")
     for grupo in FONTE_RE.findall(texto) + LINHA_FONTES_RE.findall(texto):
-        for arquivo in grupo.split(";"):
+        for arquivo in SEPARADOR_FONTES_RE.split(grupo):
             arquivo = arquivo.strip()
             if arquivo and arquivo not in fontes:
                 fontes.append(arquivo)
