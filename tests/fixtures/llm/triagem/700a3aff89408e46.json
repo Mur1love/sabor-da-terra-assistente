@@ -1,0 +1,64 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "700a3aff89408e46",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:15 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6162",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_8020055116030535556",
+                "args": {
+                  "data_entrega": "2026-10-30",
+                  "data_referencia": "2026-10-30",
+                  "item": {
+                    "organico": true,
+                    "produto": "mel silvestre",
+                    "quantidade": 40
+                  },
+                  "comprador": "Cooperativa Sabor da Terra"
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMmRZ8-d9VAEEzcek3pFVYLkLAkjilqShTCvsD4KuKGbzHiQ3PeITocOLFvnspP4WCPqcdzgQLM5K1z3_IqlzMyLZ430ro-Fg_wSaRjTZA23m9Fx477Pj37FroUTUMPeG1PwpBrQBKgRPTOq29kXhMmMwSXkiamZK8hTtu5TCm5ie4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "6uP9asvMAazCxdIP5-TM2A8",
+    "usage_metadata": {
+      "candidates_token_count": 81,
+      "prompt_token_count": 3315,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3315
+        }
+      ],
+      "total_token_count": 3396
+    }
+  }
+}

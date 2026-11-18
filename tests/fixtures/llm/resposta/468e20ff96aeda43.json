@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "468e20ff96aeda43",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:26:22 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3793",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Os lotes referentes a essas entregas do produtor Cícero Romão de Almeida (P003) para a Rede SuperBom Atacado são [fonte: lotes.csv]:\n\n- **LOT-2026-0100**: queijo coalho, quantidade de 150.0 kg, data de colheita 2026-09-18, data de entrega 2026-09-18, validade 2026-10-18, pedido `PED-2026-SEP-018`, temperatura de transporte de 7.0 °C e inspeção visual aprovado.\n- **LOT-2026-0101**: queijo manteiga, quantidade de 40.0 kg, data de colheita 2026-09-18, data de entrega 2026-09-18, validade 2026-10-18, pedido `PED-2026-SEP-018`, temperatura de transporte de 7.0 °C e inspeção visual aprovado.",
+              "thought_signature": "EokBCoYBAWkUfRNl1HdBkIMU3zSQBQvDNMVLk8lyiwZHLHKkoQVsrx01uQih4DSeRzmNrybmqkexPLBRCr9IvHKJYRH-eP22ZiwQIYb5y-8uL0FP6SqN0L4S0UfHMdp4ctoDnKqM597ja9rJV5eqV6Hh30nmrdpDVGN0tEQe6x2CSsGWahxGEpFuj9U="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "u9_9aprsAby7xdIPqLDU-AM",
+    "usage_metadata": {
+      "candidates_token_count": 256,
+      "prompt_token_count": 1169,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1169
+        }
+      ],
+      "total_token_count": 1425
+    },
+    "automatic_function_calling_history": []
+  }
+}

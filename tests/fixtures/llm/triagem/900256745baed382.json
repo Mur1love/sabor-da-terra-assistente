@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "900256745baed382",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:24:36 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1606",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_9550486384379364330",
+                "args": {
+                  "data_referencia": "2026-10-30",
+                  "pergunta": "Débora Cristina de Melo P018 certificação orgânica mel silvestre"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EokBCoYBAWkUfROfSQnri6B7xahWXHFovdhpVwsIq6FqIcRaP_HYPwUKMsxoZc0-cJpvvZ4eJJo5wyKeuLv2EGRIqet9mEQnbFHS45cH3si_D19LAlKnnjuDD6zYY7jJjq7cy50l5hahMLdz6tshrEKkymrobaJG8RlPbOt007bEi-eQcX-76Cx_x9I="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Ut_9atKmMsaOytMP28bDyAM",
+    "usage_metadata": {
+      "candidates_token_count": 52,
+      "prompt_token_count": 2813,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2813
+        }
+      ],
+      "total_token_count": 2865
+    }
+  }
+}

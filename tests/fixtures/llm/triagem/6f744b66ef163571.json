@@ -1,0 +1,93 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6f744b66ef163571",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:58 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1883",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Umbu: Não está disponível em novembro. Safra fev-mai apenas [fonte: sazonalidade.csv].\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Mirtilo: Não está disponível em novembro. Safra curta mai-set [fonte: sazonalidade.csv].\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Framboesa: Não está disponível em novembro. Safra jun-set. Produção pequena [fonte: sazonalidade.csv].\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Cajá: Está disponível em novembro, com nível de disponibilidade baixa.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"De acordo com o calendário de sazonalidade da cooperativa... [fonte: sazonalidade.csv]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum dos itens indisponíveis teve disponibilidade alta ou foi garantido.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não foram mencionados preços ou estoques inventados.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRO-PJ0krq7O5hXfROyHATdrIRm5-YLcakdUUKKJq6Df7i5kKBSiz0lgkQgL-U_OUcWdaMZMMamNIAR4nSEhgORSyGmuDBH33_nhkRzIA81s-kqfwtMPOlsROISuTbLXirciR7zJCVa9wvt_qFsNayr17cxMMckgCX3nYCnqVyYoQvE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "kOT9arTkPPiXkPIPxJiPiQ8",
+    "usage_metadata": {
+      "candidates_token_count": 376,
+      "prompt_token_count": 965,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 965
+        }
+      ],
+      "total_token_count": 1341
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Umbu: Não está disponível em novembro. Safra fev-mai apenas [fonte: sazonalidade.csv]."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Mirtilo: Não está disponível em novembro. Safra curta mai-set [fonte: sazonalidade.csv]."
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Framboesa: Não está disponível em novembro. Safra jun-set. Produção pequena [fonte: sazonalidade.csv]."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Cajá: Está disponível em novembro, com nível de disponibilidade baixa."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "De acordo com o calendário de sazonalidade da cooperativa... [fonte: sazonalidade.csv]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Nenhum dos itens indisponíveis teve disponibilidade alta ou foi garantido."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não foram mencionados preços ou estoques inventados."
+        }
+      ]
+    }
+  }
+}

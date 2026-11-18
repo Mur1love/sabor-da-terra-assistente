@@ -1,0 +1,98 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d0ef595d627e0336",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6139",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"José Antônio dos Santos (P002)\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Débora Cristina de Melo (P018)\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Certificação válida até 20/03/2027 e 28/02/2027\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Josefa Alves de Souza (P008) — A certificação venceu em 30/09/2026\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: produtores.csv]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Afirmou corretamente que P008 está vencida e não pode vender como orgânico\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"As datas coincidem exatamente com os dados\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Todas as informações contêm fonte produtores.csv\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPTlT3N40UPK99z8c-beUAlwpe1_gpCWj2lcfv3pzim2lD5294SvRLt_1xYJQVauN6TOr-459ts2I6nOc-enbLICS6l9RyaZcyHnnOS6M6aO-GxwZNGfFSyDgAs-q77a7_ZG2wUTC5r9cD8HQYVDtDqSRgBSmpEwDpGALD4Yv_BiiQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "CeT9apq1MsytwbUPp5H2yAk",
+    "usage_metadata": {
+      "candidates_token_count": 391,
+      "prompt_token_count": 1010,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1010
+        }
+      ],
+      "total_token_count": 1401
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "José Antônio dos Santos (P002)"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Débora Cristina de Melo (P018)"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Certificação válida até 20/03/2027 e 28/02/2027"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Josefa Alves de Souza (P008) — A certificação venceu em 30/09/2026"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "[fonte: produtores.csv]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Afirmou corretamente que P008 está vencida e não pode vender como orgânico"
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "As datas coincidem exatamente com os dados"
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Todas as informações contêm fonte produtores.csv"
+        }
+      ]
+    }
+  }
+}

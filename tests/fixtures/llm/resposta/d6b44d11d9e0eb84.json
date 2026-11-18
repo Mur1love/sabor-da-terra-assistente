@@ -1,0 +1,66 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d6b44d11d9e0eb84",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:23:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8465",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Para o fornecimento de banana prata ao PNAE, deve ser utilizado o preço de R$ 3,80/kg, conforme estabelecido no contrato específico do programa [fonte: contratos/contrato_pnae_garanhuns.txt]. Em relação à tabela geral da cooperativa, o contrato do Mercado Bom Preço indica que o fornecimento para aquele estabelecimento utiliza a tabela de preços vigente da cooperativa [fonte: contratos/contrato_mercado_bom_preco.txt], mas o contrato do PNAE define explicitamente os valores unitários específicos para os itens contratados, como a banana prata a R$ 3,80/kg [fonte: contratos/contrato_pnae_garanhuns.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"contratos/contrato_pnae_garanhuns.txt\",\n      \"trecho\": \"01. Banana prata ................ R$ 3,80/kg\"\n    },\n    {\n      \"arquivo\": \"contratos/contrato_mercado_bom_preco.txt\",\n      \"trecho\": \"PREÇOS: Conforme tabela de preços vigente da cooperativa, reajustada trimestralmente com base no IPCA.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfRPvFiwg3BZBtm0-0UgBYE1OOm-c_9Z0iSFlVGnm8vtGLlZIEpfX05ZdRBVH6acVBdaywihy3QpkEy716How9UOkQye0p8BtrbBLsnQetDKIJnv5trlx9hHNAl0wJVGjCNMFxk3nxBgbzw4nHdrQ6OfDXkMkFSmXpBxj-XhMVIbh948="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "CdH9avS_D_mJytMPmpPtmAQ",
+    "usage_metadata": {
+      "candidates_token_count": 295,
+      "prompt_token_count": 5739,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5739
+        }
+      ],
+      "total_token_count": 6034
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Para o fornecimento de banana prata ao PNAE, deve ser utilizado o preço de R$ 3,80/kg, conforme estabelecido no contrato específico do programa [fonte: contratos/contrato_pnae_garanhuns.txt]. Em relação à tabela geral da cooperativa, o contrato do Mercado Bom Preço indica que o fornecimento para aquele estabelecimento utiliza a tabela de preços vigente da cooperativa [fonte: contratos/contrato_mercado_bom_preco.txt], mas o contrato do PNAE define explicitamente os valores unitários específicos para os itens contratados, como a banana prata a R$ 3,80/kg [fonte: contratos/contrato_pnae_garanhuns.txt].",
+      "citacoes": [
+        {
+          "arquivo": "contratos/contrato_pnae_garanhuns.txt",
+          "trecho": "01. Banana prata ................ R$ 3,80/kg"
+        },
+        {
+          "arquivo": "contratos/contrato_mercado_bom_preco.txt",
+          "trecho": "PREÇOS: Conforme tabela de preços vigente da cooperativa, reajustada trimestralmente com base no IPCA."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

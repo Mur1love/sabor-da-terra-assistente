@@ -1,0 +1,93 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d4331f9145b7548e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:25:11 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=9489",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"o documento não traz essa confirmação para a totalidade dos produtores da cooperativa.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Não, nem todos os produtores da cooperativa possuem DAP ou CAF ativa ou mencionada\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"Faltou a recomendação explícita para a verificação dos documentos individuais.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente negou que todos os produtores são regulares.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há invenção de DAP ou CAF.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A confirmação foi baseada no relatório de inspeção da ADAGRO.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfROcG0nQ-w-jVB8n9mafrBhrTBroZSKAZOZdIoOu-EIieS3MaCW_sWMe8NHkUqCcTW6ssFyehVz09IjiidkK9PJ10Z6nrubCZ8Ld1OIHvPgxYap8WzY-7wvMFWaCvlCTBOyKZTsJTyGUCNS6PQwT6SE16HQlJuHVkrGx5uVvIgg_seI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "XtH9ar3zJ4760_gP6YfSEA",
+    "usage_metadata": {
+      "candidates_token_count": 350,
+      "prompt_token_count": 854,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 854
+        }
+      ],
+      "total_token_count": 1204
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "o documento não traz essa confirmação para a totalidade dos produtores da cooperativa."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Não, nem todos os produtores da cooperativa possuem DAP ou CAF ativa ou mencionada"
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "Faltou a recomendação explícita para a verificação dos documentos individuais."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente negou que todos os produtores são regulares."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não há invenção de DAP ou CAF."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A confirmação foi baseada no relatório de inspeção da ADAGRO."
+        }
+      ]
+    }
+  }
+}

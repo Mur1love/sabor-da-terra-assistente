@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8fa549484f6a3e85",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:22:14 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2186",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"idioma\": \"pt\",\n  \"topico\": \"contrato\",\n  \"produto\": \"banana\",\n  \"produtor\": null,\n  \"lote_id\": null,\n  \"mes\": null,\n  \"filtro_organico\": null\n}",
+              "thought_signature": "EokBCoYBAWkUfRNYHVaivtPgAIqtkuv2j8m9b-BPlfSoFJDWHYYjE7SRbaSr3AG5arsfA-uBkgwiJLy-kSIb0iUtowGJyhtQRsjxH7oqkQVxUyFzWvUrXq2xaKnYL4fS8MTq2fA85-7V6wvhwK_nOrycWOPK7sT5K5U8DtDVjGeDxEXHzPPivPsDmjs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "tND9atTMCqeNytMPnLSI0QM",
+    "usage_metadata": {
+      "candidates_token_count": 65,
+      "prompt_token_count": 284,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 284
+        }
+      ],
+      "total_token_count": 349
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "contrato",
+      "produto": "banana",
+      "produtor": null,
+      "lote_id": null,
+      "mes": null,
+      "filtro_organico": null
+    }
+  }
+}

@@ -26,7 +26,19 @@ from sabor_da_terra.llm.cliente import VARIAVEL_FALLBACK, FixtureAusenteError, L
 
 # Falhas conhecidas que ficaram como limitação registrada no docs/05 (id → motivo).
 # `strict=True`: se um caso desses passar a acertar, o teste avisa para tirar daqui.
-LIMITACOES_CONHECIDAS: dict[str, str] = {}
+# PROVISÓRIO — rodada 2 parcial (18/11/2026, 16 de 37 casos; o resto espera a cota).
+LIMITACOES_CONHECIDAS: dict[str, str] = {
+    "CERT-002": "orquestração: não chama verificar_conformidade; faltam NC-001 e ausência de certificação",
+    "CERT-003": "orquestração: resposta certa (11/11), mas sem verificar_conformidade",
+    "CERT-004": "orquestração: sem verificar_conformidade, não cita o SIE pendente (premissa já não é aceita)",
+    "CERT-005": "geração: omite a capacidade estimada de 300 kg/mês",
+    "DOC-001": "orquestração: resposta certa (8/8) por buscar_produtores, sem consultar_documentos",
+    "DOC-002": "recuperação: busca lexical não traz laudos e contratos institucionais",
+    "DOC-003": "orquestração + recuperação: sem preco; contrato 045/2026-PNAE não recuperado",
+    "DOC-004": "geração: não diz que cada produtor precisa de verificação individual",
+    "DOC-006": "recuperação: cruzamento DAP/CAF entre cadastro e documentos fica incompleto",
+    "PROD-002": "orquestração: sem triar_pendentes, não esclarece o tipo de manteiga",
+}
 
 
 def _parametros(conjunto: str):

@@ -1,0 +1,66 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7533f34fba6f5fe9",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:09 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2104",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Sim, o produtor P002 (José Antônio dos Santos) possui certificação orgânica válida em 29/10/2026, com validade até 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt]. Além disso, ele possui registro SIE válido para a casa do mel sob o número PE-SIE-0892 [fonte: certificacoes/cert_organica_jose_santos_P002.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_jose_santos_P002.txt\",\n      \"trecho\": \"Data de Emissão: 20/03/2025\\nData de Validade: 20/03/2027\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_jose_santos_P002.txt\",\n      \"trecho\": \"Registro SIE: PE-SIE-0892\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfRPq0J6xt1A-sCvCfXuIyi8HbyTWliHyanT8tHzhhx3rj9HTdUI7yUTZMzZqtyClRztJO8MRrMuzx5zRKj_buPUkZd76DGTWQcNk4HWZY0SvZEQSlrqWp8qHTmFrUFeAnTx7Jnnw4l8PI6K4wo8QEDcq0Y65h959EP-vIOxkL05u6Qc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "5-P9apKjDKvZ0_gP1rT2gAE",
+    "usage_metadata": {
+      "candidates_token_count": 273,
+      "prompt_token_count": 4815,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4815
+        }
+      ],
+      "total_token_count": 5088
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Sim, o produtor P002 (José Antônio dos Santos) possui certificação orgânica válida em 29/10/2026, com validade até 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt]. Além disso, ele possui registro SIE válido para a casa do mel sob o número PE-SIE-0892 [fonte: certificacoes/cert_organica_jose_santos_P002.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_jose_santos_P002.txt",
+          "trecho": "Data de Emissão: 20/03/2025\nData de Validade: 20/03/2027"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_jose_santos_P002.txt",
+          "trecho": "Registro SIE: PE-SIE-0892"
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c6155b75a20a4775",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:48:59 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5165",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"consulta\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Mercado Bom Preço\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [\n    {\n      \"produto\": \"morango\",\n      \"produto_original\": \"morango\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"amora\",\n      \"produto_original\": \"amora\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Frequência semanal: 50kg de cada por semana\",\n    \"Solicita tabela de preços\",\n    \"Exige certificação orgânica para uso no rótulo\"\n  ],\n  \"campos_faltantes\": [\n    \"prazo_entrega\"\n  ],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfROGHKseIVJZgzf0_AbisSwTiSw2cL022D96ii67SWNMGl_OEI6zclzhNl5HpuRNGpeuiVm7U1cX-Qo0Z3hXv51TPwW-sk8VpRJ4Ivte0LCCdnHt7t2h2fp9Im5oNXo8qNSpQoK5T_mr_oWbU79ttrt2T_jj9teczR29cAwKCbT6-pc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "BuX9atmMDq-tuMYP67KWkAU",
+    "usage_metadata": {
+      "candidates_token_count": 277,
+      "prompt_token_count": 2449,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2449
+        }
+      ],
+      "total_token_count": 2726
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "consulta",
+      "idioma": "pt",
+      "comprador": "Mercado Bom Preço",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "morango",
+          "produto_original": "morango",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "amora",
+          "produto_original": "amora",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Frequência semanal: 50kg de cada por semana",
+        "Solicita tabela de preços",
+        "Exige certificação orgânica para uso no rótulo"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega"
+      ],
+      "ambiguidades": []
+    }
+  }
+}

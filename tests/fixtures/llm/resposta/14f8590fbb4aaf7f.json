@@ -1,0 +1,68 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "14f8590fbb4aaf7f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:27:28 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7315",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Nos documentos da cooperativa, apenas o produtor P005 (Francisco de Assis Cordeiro) possui comprovação explícita de DAP ou CAF vigente [fonte: certificacoes/inspecao_adagro_2026.txt]. Além disso, a ficha técnica de tubérculos e raízes menciona que todos os produtores dessa linha possuem DAP ou CAF vigente [fonte: fichas_tecnicas/tuberculos_graos.txt]. O cadastro geral da cooperativa não lista essa informação para todos os produtores nos trechos disponíveis.\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"4. P005 - Francisco de Assis Cordeiro (Garanhuns) ... DAP/CAF: VIGENTE\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/tuberculos_graos.txt\",\n      \"trecho\": \"Todos possuem DAP/CAF vigente para agricultura familiar.\"\n    }\n  ],\n  \"lacunas\": [\n    \"O cadastro geral completo com a situação de DAP ou CAF de todos os produtores da cooperativa não está presente nos documentos fornecidos.\"\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPgeceHU9ar4MkEtnQBeHc4uy6cMLQ_YkEai3YpHbH9HDXxKw_ddWeuW6M8o5ESuyIeiP1nIq_d-aF7izxMglTZkzVOyVNKG2uNLZGvR2jJ9k9XwIXHCkGyM5EHz00FZVQVbHpl-p1tZAOLFW_949LZEq_go5cc85MEtaIWXHUKBnA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "6dH9atTxDo6CuMYP7dGcuAc",
+    "usage_metadata": {
+      "candidates_token_count": 290,
+      "prompt_token_count": 5477,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5477
+        }
+      ],
+      "total_token_count": 5767
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Nos documentos da cooperativa, apenas o produtor P005 (Francisco de Assis Cordeiro) possui comprovação explícita de DAP ou CAF vigente [fonte: certificacoes/inspecao_adagro_2026.txt]. Além disso, a ficha técnica de tubérculos e raízes menciona que todos os produtores dessa linha possuem DAP ou CAF vigente [fonte: fichas_tecnicas/tuberculos_graos.txt]. O cadastro geral da cooperativa não lista essa informação para todos os produtores nos trechos disponíveis.",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "4. P005 - Francisco de Assis Cordeiro (Garanhuns) ... DAP/CAF: VIGENTE"
+        },
+        {
+          "arquivo": "fichas_tecnicas/tuberculos_graos.txt",
+          "trecho": "Todos possuem DAP/CAF vigente para agricultura familiar."
+        }
+      ],
+      "lacunas": [
+        "O cadastro geral completo com a situação de DAP ou CAF de todos os produtores da cooperativa não está presente nos documentos fornecidos."
+      ]
+    }
+  }
+}

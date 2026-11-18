@@ -1,0 +1,101 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "54bc7d1428c0185c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:28:12 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7522",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra_urgente\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Rede SuperBom Atacado\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"Queijo coalho\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"queijo manteiga\",\n      \"produto_original\": \"Queijo manteiga\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel silvestre\",\n      \"produto_original\": \"Mel silvestre orgânico\",\n      \"quantidade\": 40,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"Goiaba\",\n      \"quantidade\": 300,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-10-29\",\n  \"prazo_original\": \"HOJE (29/10)\",\n  \"observacoes\": [\n    \"Pagamento por boleto em 30 dias, conforme contrato\",\n    \"Entrega no CD SuperBom, BR-423 km 12, Garanhuns\",\n    \"Risco de perda da promoção de fim de semana se não entregue hoje\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfRM-6opqI08_H45GiLL9adsWSjKj--LPB2QBEtCpUHMYoV4NqPEEbxBWJKkTDAwiMlpxT-_BWpPtOWK7ZwmLPJ1iNEz1UPyrVrjubdd-yt4b981j_v3sLn8tL_tT9i57-CqvEw02nHVR69e58uYy_KsycqiOyyE95wc1HSh_ffFJShU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "JeD9aqyiGrG9xdIPqOr2wA8",
+    "usage_metadata": {
+      "candidates_token_count": 448,
+      "prompt_token_count": 2500,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2500
+        }
+      ],
+      "total_token_count": 2948
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra_urgente",
+      "idioma": "pt",
+      "comprador": "Rede SuperBom Atacado",
+      "canal": "whatsapp",
+      "itens": [
+        {
+          "produto": "queijo coalho",
+          "produto_original": "Queijo coalho",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo manteiga",
+          "produto_original": "Queijo manteiga",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel silvestre",
+          "produto_original": "Mel silvestre orgânico",
+          "quantidade": 40,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "goiaba",
+          "produto_original": "Goiaba",
+          "quantidade": 300,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-29",
+      "prazo_original": "HOJE (29/10)",
+      "observacoes": [
+        "Pagamento por boleto em 30 dias, conforme contrato",
+        "Entrega no CD SuperBom, BR-423 km 12, Garanhuns",
+        "Risco de perda da promoção de fim de semana se não entregue hoje"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

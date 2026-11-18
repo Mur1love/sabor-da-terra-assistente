@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "21bdbe2f144c32d0",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:28:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=15914",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Análise do pedido urgente recebido da **Rede SuperBom Atacado** para **2026-10-29**:\n\n---\n\n### **1. Queijo Coalho (200 kg)**\n* **Status:** **Pode atender**, mas com restrição de produtor [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv].\n* **Produtores elegíveis:** \n  * Cícero Romão de Almeida (P003) — Caetés [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv]\n  * Antônio Carlos Pereira Lima (P007) — Lajedo [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv]\n* **Produtor excluído:** Pedro Henrique Albuquerque (P011) foi excluído porque não possui registro SIE para queijo coalho; a venda por meio da cooperativa exige SIE, SIM ou SISBI, limitando a atuação dele à venda direta ao consumidor [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv].\n* **Preço (Tabela Geral):** R$ 32,00/kg (com 5% de desconto de atacado aplicado para 200 kg). Subtotal: R$ 6.400,00 | Total com desconto: **R$ 6.080,00** [tabela_precos_outubro_2026.csv].\n* **Capacidade documentada (7 dias):** 300 kg a 400 kg entre os elegíveis (o pedido cabe na capacidade, mas é necessário confirmar o estoque físico com os produtores) [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv].\n\n---\n\n### **2. Queijo Manteiga (50 kg)**\n* **Status:** **Pode atender** [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n* **Produtor exclusivo:** Cícero Romão de Almeida (P003) — Caetés (não há outro produtor cadastrado para este item) [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n* **Preço (Tabela Geral):** R$ 38,00/kg (com 5% de desconto de atacado aplicado para 50 kg). Subtotal: R$ 1.900,00 | Total com desconto: **R$ 1.805,00** [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n* **Observação:** Não há capacidade documentada em kg informada nas fichas para queijo manteiga; é necessário confirmar a disponibilidade diretamente com o produtor [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n\n---\n\n### **3. Mel Silvestre Orgânico (40 kg)**\n* **Status:** **Pode atender**, com restrições e produtor excluído [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n* **Produtores elegíveis:**\n  * José Antônio dos Santos (P002) — Brejão [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv]\n  * Débora Cristina de Melo (P018) — Águas Belas (possui SIE pendente; confirme se a Rede SuperBom Atacado aceita) [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv]\n* **Produtora excluída:** Josefa Alves de Souza (P008) foi excluída porque sua certificação orgânica venceu em 30/09/2026 e ainda não foi renovada (a auditoria está marcada para 15/11/2026, e o protocolo de renovação não"
+            },
+            {
+              "text": " autoriza a venda como orgânico) [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n* **Preço (Tabela Geral):** R$ 58,00/kg (com 8% de desconto de atacado aplicado para 40 kg). Subtotal: R$ 2.320,00 | Total com desconto: **R$ 2.134,40** [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n* **Capacidade documentada (7 dias):** 116,7 kg no total entre os elegíveis (o pedido cabe na capacidade) [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n\n---\n\n### **4. Goiaba (300 kg)**\n* **Status:** **Pode atender**, mas requer definição da classificação (a tabela possui duas opções) [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].\n* **Produtores elegíveis:**\n  * Maria das Graças Silva Ferreira (P001) — Garanhuns [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv]\n  * Raimunda Nonata de Lima (P010) — Bom Conselho [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv]\n* **Capacidade documentada (7 dias):** 800 kg no total entre os elegíveis (o pedido cabe na capacidade) [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].\n* **Preço por opção (com 10% de desconto de atacado aplicado para 300 kg):**\n  * **Goiaba Paluma Extra:** R$ 4,00/kg. Subtotal: R$ 1.200,00 | Total com desconto: **R$ 1.080,00** [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].\n  * **Goiaba Paluma Especial:** R$ 3,50/kg. Subtotal: R$ 1.050,00 | Total com desconto: **R$ 945,00** [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].\n\n---\n\n### **Notas Gerais**\n* **Contrato:** Não há contrato registrado com a *Rede SuperBom Atacado*, portanto foram aplicadas as condições e os preços da tabela geral da cooperativa com os descontos de atacado correspondentes [tabela_precos_outubro_2026.csv].\n* **Ações:** O protótipo não envia mensagens automaticamente; cabe à equipe verificar a disponibilidade física dos estoques com os produtores elegíveis citados acima, confirmar a qualidade/classificação da goiaba desejada e realizar os alinhamentos necessários.",
+              "thought_signature": "EokBCoYBAWkUfRP4D5uTxj5zLsBxf5Kw10KxcFLnh_QihEmjv6pa_t-No7T3P98dK5a_xg2HNa7864-kTx6PD7BnyV7kB5owwDc8p5E314koQu18OKA5-bi2t3s69_rP5TcaQL14SGpo_qjZKBQQMloA4ieElMcUfZjRtQMKiF6aolBorzv7kGBrNOY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "PeD9ap6FJ-LHxdIP7tOQEQ",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4004
+        }
+      ],
+      "cached_content_token_count": 4004,
+      "candidates_token_count": 1906,
+      "prompt_token_count": 6736,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6736
+        }
+      ],
+      "total_token_count": 8642
+    }
+  }
+}

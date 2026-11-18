@@ -1,0 +1,83 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "0d68834efc840578",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:01 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5540",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_14449347600841596801",
+                "args": {
+                  "termo": "P002"
+                },
+                "name": "identificar_produtor"
+              },
+              "thought_signature": "EokBCoYBAWkUfRPuzKn9KQTG22Yp7NMYhQ5F7yujNxQwG5YZofOCCusjhBKh76gbQFddrqT51db_nH8QPv_-6Amilo598qT3WslcEX1yptf1xo1CZTSK8Ii7WxE-lNBp46x51nTrIDaEWTSEdlrG8olvYcT1OuYUSqnAeND_A0BSg4KiiENkO9aC-go="
+            },
+            {
+              "function_call": {
+                "id": "call_14449347600841593004",
+                "args": {
+                  "pergunta": "O produtor P002 possui certificacao organica e registro SIE validos para mel silvestre em 29/10/2026?",
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "consultar_documentos"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14449347600841593303",
+                "args": {
+                  "data_entrega": "2026-10-29",
+                  "comprador": "Cooperativa Sabor da Terra",
+                  "item": {
+                    "produto": "mel silvestre",
+                    "organico": true,
+                    "quantidade": 40
+                  },
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "3OP9avOBCt2suMYPtvTJ-Ao",
+    "usage_metadata": {
+      "candidates_token_count": 173,
+      "prompt_token_count": 2683,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2683
+        }
+      ],
+      "total_token_count": 2856
+    }
+  }
+}

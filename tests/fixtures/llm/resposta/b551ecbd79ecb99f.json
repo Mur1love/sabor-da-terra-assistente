@@ -1,0 +1,55 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b551ecbd79ecb99f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:25:08 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2151",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Sim, a produtora Débora Cristina de Melo (P018) possui certificação orgânica válida até 28/02/2027 [fonte: certificacoes/cert_organica_debora_melo_P018.txt]. Seus produtos certificados incluem mel silvestre (Apis mellifera) com produção estimada de 2.400 kg/ano, cera de abelha (~100 kg/ano) e pólen apícola (~200 kg/ano) [fonte: certificacoes/cert_organica_debora_melo_P018.txt].\n\nNo entanto, a cooperativa não pode confirmar o fornecimento do mel para qualquer comprador apenas com base nisso, pois a verificação de conformidade de um pedido exige checar também outros critérios essenciais para cada transação específica, tais como:"
+            },
+            {
+              "text": "\n- As exigências e o contrato do comprador (que podem requerer laudos, SIE, prazos ou cronogramas de entrega específicos);\n- A safra do produto na data da entrega;\n- A capacidade de atendimento do produtor;\n- Eventuais exclusividades ou restrições de cadastro.",
+              "thought_signature": "EokBCoYBAWkUfRNoZM_Tc3u6xCQ1SJUsJ8JEIHQw6np1UOJQWAozcsaVn3a8oUxqaqhyYOzTCtOvml6BvNt1OeABOP_FWBnPeg440CErZvlhRB9W86jGtW5a42PLR6EwY8jfzhUvUW-CCQNiDTmy2YueEWPDYXnrwYeVXO0YSIsEKa_gcgthYEUlhZ0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ct_9avXkGae-xdIPqKq16QQ",
+    "usage_metadata": {
+      "candidates_token_count": 253,
+      "prompt_token_count": 1367,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1367
+        }
+      ],
+      "total_token_count": 1620
+    },
+    "automatic_function_calling_history": []
+  }
+}

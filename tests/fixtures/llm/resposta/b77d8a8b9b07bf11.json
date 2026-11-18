@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b77d8a8b9b07bf11",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:28 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6741",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Sim, o produtor P002 (José Antônio dos Santos) pode ser considerado um fornecedor documentado de mel silvestre orgânico em 29/10/2026. \n\nSobre os seus documentos:\n- **Certificação orgânica:** Possui certificação orgânica válida em 29/10/2026, com validade até 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt].\n- **Registro SIE:** Possui registro SIE válido para a casa do mel sob o número PE-SIE-0892 [fonte: certificacoes/cert_organica_jose_santos_P002.txt].\n\nSobre a garantia de entrega de 40 kg imediatamente:\n- Não podemos garantir que ele entregará imediatamente apenas com base na verificação de conformidade. A capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fonte: fichas_tecnicas/mel_silvestre.txt].",
+              "thought_signature": "EokBCoYBAWkUfRORSqUberSGSE9oF6SOudNljDi1RO4TaSAzXq5CwTykT5VP2GABZsCnCTMONQrz7GhrM89U2EjSsZM9PZhQgdnLIQqVY7fLm_s7KM139_WLNqx5I5LFh7hxs4Ed8lIV_1t325-3ckATgvnXEf4eqeasuovcnP6iinMDW5VeH4MVi-8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "9uP9apwTr624xg_rspaQBQ",
+    "usage_metadata": {
+      "candidates_token_count": 230,
+      "prompt_token_count": 2779,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2779
+        }
+      ],
+      "total_token_count": 3009
+    },
+    "automatic_function_calling_history": []
+  }
+}

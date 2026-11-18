@@ -1,0 +1,66 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "202f957e5c0c9dd1",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:42:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5766",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_16031656914891799022",
+                "args": {
+                  "termo": "P017"
+                },
+                "name": "identificar_produtor"
+              },
+              "thought_signature": "EokBCoYBAWkUfRNSIML_BajB7w7xIM7KWICjZczclFcaV1LiYLsn7EWgJWup4EXKDTK4vo2w56zQKUZqqJmZKpsCVLtTe_QZtW7VOOwK_JTlptSipu-JKSD1_oGYVYn8EcPqfdQ5setiVtzqHKi2MsAiNzNWKxcJbsjmmTrtqHwFlyOW6iQEg4phalI="
+            },
+            {
+              "function_call": {
+                "id": "call_16031656914891799631",
+                "args": {
+                  "pergunta": "O produtor P017 possui registro SIE para frango caipira? Qual é a situação sanitária e restrições para ovos caipiras vendidos diretamente ao consumidor?"
+                },
+                "name": "consultar_documentos"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "deP9arTAJq3UiLMPkuboEA",
+    "usage_metadata": {
+      "candidates_token_count": 78,
+      "prompt_token_count": 2668,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2668
+        }
+      ],
+      "total_token_count": 2746
+    }
+  }
+}

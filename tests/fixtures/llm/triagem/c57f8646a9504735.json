@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c57f8646a9504735",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:21 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6277",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Sim, o produtor P002 (José Antônio dos Santos) pode ser considerado um fornecedor documentado de mel silvestre orgânico em 29/10/2026 [fonte: produtores.csv, certificacoes/cert_organica_jose_santos_P002.txt]. \n\nSobre os seus documentos:\n- **Certificação orgânica:** Possui certificação orgânica válida em 29/10/2026, com validade até 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt].\n- **Registro SIE:** Possui registro SIE válido para a casa do mel sob o número PE-SIE-0892 [fonte: certificacoes/cert_organica_jose_santos_P002.txt].\n\nSobre a garantia de entrega de 40 kg imediatamente:\n- Não podemos **garantir** que ele entregará imediatamente apenas com base na verificação de conformidade. A verificação indica que o pedido de 40 kg cabe na capacidade dele (capacidade de produção informada de até 70 kg em uma janela de 7 dias) [fonte: fichas_tecnicas/mel_silvestre.txt], mas a capacidade de produção **não é estoque pronto** [fonte: fichas_tecnicas/mel_silvestre.txt]. É necessário confirmar a disponibilidade física diretamente com o produtor.",
+              "thought_signature": "EokBCoYBAWkUfRPy8n3FvdzL22b99d8Sbvx-EG1cgUNE8e3tZphIzf-j9CsTnD0eecGiluoRuQJU3u9wCVzxl55T9TgSkxF6xKQnyIK4dw2wYL8hAcfhXp9Itkt5CkD1TY74QSTCJ-NaIA25hK6g6yn7vt7dlp0tY2M7SANCDmWoJD-4AzbRRoTbLUg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "7-P9aoHOLJSxytMP2KCWmQE",
+    "usage_metadata": {
+      "candidates_token_count": 323,
+      "prompt_token_count": 4353,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4353
+        }
+      ],
+      "total_token_count": 4676
+    }
+  }
+}

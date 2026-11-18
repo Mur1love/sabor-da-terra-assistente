@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e1911fa9396782d1",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:59 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1048",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_17009727509931034589",
+                "args": {
+                  "produto": "mel silvestre",
+                  "organico": true
+                },
+                "name": "buscar_produtores"
+              },
+              "thought_signature": "EokBCoYBAWkUfRPPbkSvAB7GwWex1eteV6jGd5SGpiXsWDoF36La2RsPFLo4qEQqBv22UrqRDrPrVGTENlFqdK7s31HHsJlbZXxCI2q8ZSojQquinLjIVUCkrnXC-iHaC-FI2-BLCNh2DCd0NtZhTj9gagayXQFvxOwiFcaxf7rGZfKckcrPLHh5syI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "k-T9asHBEZOQvMcP3vfiyQU",
+    "usage_metadata": {
+      "candidates_token_count": 25,
+      "prompt_token_count": 2635,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2635
+        }
+      ],
+      "total_token_count": 2660
+    }
+  }
+}

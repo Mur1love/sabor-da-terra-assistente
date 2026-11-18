@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "aa0c289b342a3a4e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:42:48 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3238",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Com base nos documentos da cooperativa, aqui estão as respostas para cada ponto:\n\n* **A cooperativa pode vender frango caipira do produtor P017 para os seus compradores?**\n  Não. A cooperativa deve suspender a intermediação de frango caipira deste produtor até que ele obtenha o registro junto ao SIE [fonte: certificacoes/inspecao_adagro_2026.txt]. O produtor P017 (Wellington da Silva Monteiro) está irregular por comercializar frango caipira sem registro no Serviço de Inspeção [fonte: certificacoes/inspecao_adagro_2026.txt].\n\n* **O produtor possui registro SIE?**\n  Não, o produtor P017 não possui registro SIE [fonte: certificacoes/inspecao_adagro_2026.txt].\n\n* **A mesma restrição se aplica aos ovos caipiras vendidos diretamente ao consumidor?**\n  Não. A restrição do registro SIE não se aplica aos ovos, pois a norma indica que os ovos não exigem SIE para venda direta ao consumidor [fonte: certificacoes/inspecao_adagro_2026.txt].",
+              "thought_signature": "EokBCoYBAWkUfROuYyo1v1LpjIxGUA5IBKNow7cIj3QNHZ2RFmYuZf-hMZx-JOqStQE0AO1_isxPLTpeUQlm_8lsKxD18A_X1AeEg6x3iemttPM5ja88njZRrG4vfv5PIcrVKzZtlQ5lFQNQUt7et67cn6Oy9CvaBpH54nFdVjvQvdOLucZlirsf8mk="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "leP9ap3pBeuyytMP8pL74A4",
+    "usage_metadata": {
+      "candidates_token_count": 266,
+      "prompt_token_count": 3290,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3290
+        }
+      ],
+      "total_token_count": 3556
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "9f60bc130831460a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:48:05 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1807",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Aqui está o resumo financeiro e operacional para o produtor **Cícero Romão de Almeida (P003)**, com base nos dados de outubro de 2026:\n\n---\n\n### **Resumo Operacional e Financeiro — Cícero Romão de Almeida (P003)**\n*Período: Outubro de 2026 (dados até 30/10/2026)*\n\n#### **1. Pagamentos em Atraso**\nHá **R$ 6.020,00** em pagamentos pendentes vencidos em 18/10/2026 (com 12 dias de atraso), referentes a vendas para a **Rede SuperBom Atacado**:\n* **FIN-2026-013**: R$ 4.500,00 (150 kg de queijo coalho). Vencimento em 18/10/2026 (*Anotação: \"ATRASADO - cobrar\"*).\n* **FIN-2026-014**: R$ 1.520,00 (40 kg de queijo manteiga). Vencimento em 18/10/2026 (*Anotação: \"ATRASADO - cobrar\"*).\n\n#### **2. Oportunidades de Pedidos e Ofertas**\n* **PED-2026-006**: Sugestão alocada para os **200 kg de queijo coalho** ofertados, destinados à **Rede SuperBom Atacado** (com prazo de entrega até 29/10/2026). Este pedido ainda não está fechado; a cooperativa deve confirmar com o produtor.\n* Em relação aos 30 kg de manteiga ofertados, não há alocações diretas pendentes listadas na fila de triagem para este lote específico no momento.\n\n---\n\n*Fontes: data/financeiro.csv; data/produtores.csv; data/pedidos.json.*",
+              "thought_signature": "EokBCoYBAWkUfRPJQDUOgo0NpcJCd245S84-l4EQRKdUd2KcPOMZaHoqUHnVzU8The2JYHskWEkEYPNqSZVmkfe3yF6MHN_B5H6h1bjaDE7mju3nJoxJSAkbPi1B93zjFnbQXdVRUHM2gpBqeAR-eY0YCVOQRQRlpRU308JKHCY2ekC7bm_CWITIPC0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "0-T9apSpK_bdytMP9K_4oAU",
+    "usage_metadata": {
+      "candidates_token_count": 458,
+      "prompt_token_count": 3805,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3805
+        }
+      ],
+      "total_token_count": 4263
+    }
+  }
+}
