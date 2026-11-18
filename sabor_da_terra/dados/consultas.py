@@ -192,6 +192,7 @@ def _produtor_identificado(linha: pd.Series, por: str, referencia: date) -> dict
         "data_referencia": referencia.isoformat(),
         "produtor": _dados_produtor(linha, referencia),
         "aviso": None if linha["ativo"] else "Produtor inativo: não recebe alocação de pedidos.",
+        "fonte": "produtores.csv",
     }
 
 
@@ -244,6 +245,7 @@ def buscar_produtores(produto: str, organico: Optional[bool] = None, data_refere
         "certificacao_vencida": [_registro(linha, ["produtor_id", "nome", "validade_certificacao"]) for _, linha in vencidos.iterrows()],
         "inativos_ignorados": inativos,
         "aviso": aviso,
+        "fonte": "produtores.csv",
     }
 
 

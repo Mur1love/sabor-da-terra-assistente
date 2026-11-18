@@ -2,21 +2,39 @@
 
 Segundo o docs/03: Flash-Lite para triagem e extração, Flash para a resposta
 final e Gemini Embedding para o RAG. O retry de 429/503 é nosso (o do SDK fica
-desligado). Há três modos: `real` só chama a API (nada é gravado — a demo e a
-triagem não poluem o repositório), `gravar` chama e grava a resposta completa
-no fixture, e `fixture` reproduz o gravado sem nenhuma chamada.
+desligado) e, quando a cota do modelo de resposta esgota, o turno retoma no
+modelo de fallback (`GEMINI_MODELO_RESPOSTA_FALLBACK`) — Flash quando há cota,
+Flash-Lite quando falta. Há três modos: `real` só chama a API (nada é gravado —
+a demo e a triagem não poluem o repositório), `gravar` chama e grava a resposta
+completa no fixture, e `fixture` reproduz o gravado sem nenhuma chamada.
 """
 
 import hashlib
 import json
+import logging
 import os
 import time
 from enum import Enum
 from pathlib import Path
 from typing import Any, Callable
 
+import httpx
 from google import genai
 from google.genai import types
+
+logger = logging.getLogger("sabor_da_terra.llm")
+
+# Erros HTTP transitórios: cota (429), sobrecarga (503) e deadline do servidor (504).
+CODIGOS_TRANSITORIOS = (429, 503, 504)
+
+
+def _estourou_o_prazo(exc: BaseException) -> bool:
+    """Timeout do lado do cliente (o `timeout=60_000` do SDK): o modelo travou.
+
+    Não tem código HTTP — sem esta checagem ele escapava do failover e o turno
+    fechava sem resposta (visto ao vivo em 18/11/2026: `ReadTimeout` no Flash).
+    """
+    return isinstance(exc, (httpx.TimeoutException, TimeoutError))
 
 MODO_PADRAO = "real"
 MODOS_VALIDOS = ("real", "fixture", "gravar")
@@ -61,6 +79,11 @@ VARIAVEIS_MODELO: dict[Papel, str] = {
     Papel.EMBEDDING: "GEMINI_MODEL_EMBEDDING",
 }
 
+# Failover da composição: quando a cota do modelo de RESPOSTA esgota (429/503/504
+# após o retry), o turno retoma no modelo de fallback — melhor dos dois mundos:
+# Flash quando há cota, Flash-Lite quando falta. Vazio = failover desligado.
+VARIAVEL_FALLBACK = "GEMINI_MODELO_RESPOSTA_FALLBACK"
+
 
 class FixtureAusenteError(RuntimeError):
     """Resposta não gravada para o par (papel, prompt, config) em modo fixture."""
@@ -90,6 +113,7 @@ class LLMClient:
         self._dormir = dormir
         self._max_tentativas = max_tentativas
         self._chamadas: dict[str, int] = {}
+        self._failovers = 0
 
     @property
     def modo(self) -> str:
@@ -98,6 +122,10 @@ class LLMClient:
     def modelo(self, papel: Papel) -> str:
         """Nome do modelo do papel; variável de ambiente vence o padrão."""
         return os.getenv(VARIAVEIS_MODELO[papel]) or MODELOS_PADRAO[papel]
+
+    def failovers(self) -> int:
+        """Quantas vezes a cota do principal esgotou e o turno retomou no fallback."""
+        return self._failovers
 
     # ------------------------------------------------------------------ #
     # Configuração do backend (Gemini API ou Vertex AI)                  #
@@ -193,13 +221,14 @@ class LLMClient:
         cota. O 504 foi visto ao vivo na fumaça de 16/11/2026 — mesma família do
         503 (sobrecarga), sem consumir cota.
         """
-        erros_transitorios = (429, 503, 504)
         tentativa = 1
         while True:
             try:
                 return acao()
             except Exception as exc:
-                if getattr(exc, "code", None) not in erros_transitorios or tentativa >= self._max_tentativas:
+                # Timeout não repete no mesmo modelo: cada tentativa já custou 60s;
+                # na composição ele segue direto para o failover.
+                if getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS or tentativa >= self._max_tentativas:
                     raise
                 self._dormir(min(60.0, 10.0 * (2 ** (tentativa - 1))))
                 tentativa += 1
@@ -216,6 +245,46 @@ class LLMClient:
         `resposta.function_calls`) — resposta sem texto é válida (etapa 12).
         """
         modelo = self.modelo(papel)
+        try:
+            return self._gerar_com_modelo(papel, modelo, prompt, config_geracao)
+        except Exception as exc:  # noqa: BLE001 — decide o failover pelo código
+            fallback = self._modelo_fallback(papel, modelo, exc)
+            if fallback is None:
+                raise
+            logger.warning(
+                "failover: %s indisponível (%s); retomando com %s",
+                modelo,
+                type(exc).__name__,
+                fallback,
+            )
+            self._failovers += 1
+            return self._gerar_com_modelo(papel, fallback, prompt, config_geracao)
+
+    def _modelo_fallback(self, papel: Papel, modelo: str, exc: Exception) -> str | None:
+        """Modelo de fallback para retomar a composição, ou None se não cabe.
+
+        Só o papel de RESPOSTA tem fallback (a triagem já é Flash-Lite e o
+        embedding tem cota própria), só após o esgotamento dos erros
+        transitórios (429/503/504 — o que sobra do retry é cota/sobrecarga) ou
+        um timeout (o modelo travou), e só se o fallback for outro modelo.
+        """
+        if papel is not Papel.RESPOSTA:
+            return None
+        if getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS and not _estourou_o_prazo(exc):
+            return None
+        fallback = (os.getenv(VARIAVEL_FALLBACK) or "").strip()
+        if not fallback or fallback == modelo:
+            return None
+        return fallback
+
+    def _gerar_com_modelo(
+        self, papel: Papel, modelo: str, prompt: str | list, config_geracao: dict[str, Any]
+    ) -> types.GenerateContentResponse:
+        """Uma geração com UM modelo dado: fixture, retry, contagem e gravação.
+
+        O hash de fixture é recalculado com o modelo dado — o failover grava
+        e reproduz sob a chave do modelo que de fato respondeu.
+        """
         chave = self._hash_fixture(papel, modelo, prompt, config_geracao or None)
         caminho = self._pasta_fixtures / papel.value / f"{chave}.json"
 

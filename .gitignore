@@ -40,3 +40,4 @@ tmp/
 
 # Cache de embeddings e índice RAG
 .cache/
+.playwright-mcp/

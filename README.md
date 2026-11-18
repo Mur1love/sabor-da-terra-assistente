@@ -37,7 +37,7 @@ sabor-da-terra-assistente/
 ├── README.md                ← este arquivo
 ├── INTEGRANTES.md           ← equipe do projeto
 ├── CONTRIBUTING.md          ← convenções de branch, commit e PR
-├── app.py                   ← entrada Streamlit (validação do ambiente)
+├── app.py                   ← interface conversacional em Streamlit (etapa 13)
 ├── requirements.txt         ← dependências com versões fixadas
 ├── .env.example             ← modelo de configuração (copie para .env)
 ├── docs/
@@ -58,7 +58,8 @@ sabor-da-terra-assistente/
 │   ├── rag/                 ← consulta documental com citação (etapa 7)
 │   ├── triagem/             ← triagem de pedidos (etapa 9)
 │   ├── produtores/          ← comunicação com produtores (etapa 11)
-│   └── assistente/          ← orquestração com function calling (etapa 12)
+│   ├── assistente/          ← orquestração com function calling (etapa 12)
+│   └── interface/           ← lógica da tela: fila para o st.dataframe, fontes, erros amigáveis (etapa 13)
 ├── tests/                   ← suíte pytest (roda offline em LLM_MODO=fixture)
 │   └── fixtures/llm/        ← respostas reais gravadas para os testes
 └── data/                    ← base de dados da cooperativa (cópia de trabalho)
@@ -67,6 +68,46 @@ sabor-da-terra-assistente/
     ├── sazonalidade.csv · tabela_precos_outubro_2026.csv · lotes.csv
     └── certificacoes/ (12 docs) · contratos/ (3) · fichas_tecnicas/ (5)
 ```
+
+## Interface conversacional (etapa 13)
+
+`streamlit run app.py` abre o chat com o assistente orquestrado (etapa 12) —
+`st.chat_input`/`st.chat_message`, histórico e estado da sessão no
+`st.session_state`. O que aparece na tela:
+
+- **Chat:** converse em português; o assistente chama as funções das etapas 4–11
+  por function calling e mantém o contexto ("e o dela?", "esse lote") pela
+  sessão. Toda resposta que usou dados da cooperativa traz o rodapé
+  **Fontes (N)** com os arquivos de origem — montado a partir do que as funções
+  devolveram, não do texto do modelo; as citações `[fonte: arquivo]` no texto
+  completam a lista.
+- **Estado da sessão:** data de referência e os focos atuais
+  (produtor, pedido e produto) — é o que resolve as referências vagas.
+- **Barra lateral — Sessão:** **Modo do LLM** (`real` chama a API;
+  `fixture` reproduz as respostas gravadas em `tests/fixtures/llm`, sem custo —
+  trocar o modo inicia uma sessão nova), **data de referência** (o relógio da
+  demo; por padrão vem de `DATA_REFERENCIA` do `.env` — para a demo, use
+  `DATA_REFERENCIA=2026-10-30`, o dia do dataset; vazio, abre na data de hoje) e **Nova sessão**
+  (apaga o histórico e os focos: o assistente não lembra da sessão anterior).
+- **Barra lateral — Atalhos da demo:** chamam as funções reais direto, sem
+  gastar cota — **Triar pedidos pendentes** (fila dos 15 registros em
+  `st.dataframe`, urgentes e problemáticos no topo, com destaque por cor e
+  detalhes por registro), **Resumo do produtor**, **Notificar produtores da
+  fila** e **Relatório de pendências vencidas** (resumos e notificações em
+  `st.code`, copiáveis; nada é enviado).
+- **Barra lateral — Modelos:** o modelo de cada papel (roteamento, composição
+  e embedding), as chamadas reais da sessão e o contador de failover. Com
+  `GEMINI_MODELO_RESPOSTA_FALLBACK` configurado, a composição roda no Flash e,
+  se ele esgotar a cota, ficar sobrecarregado ou travar até o timeout (60s),
+  retoma no fallback na mesma sessão — nada vira erro na tela. Medidor
+  oficial: painel "Uso da API Gemini" do AI Studio.
+- **Erros:** erro 429 (cota), chave ausente e falhas de rede viram mensagem
+  amigável na tela — nunca stack trace — e ficam no histórico do chat.
+- **Sem `GEMINI_API_KEY`:** os atalhos da barra lateral funcionam (não usam o
+  LLM), mas o chat não responde — o modo `fixture` só reproduz conversas já
+  gravadas, e ainda não há um diálogo completo gravado para a demo.
+
+Capturas de tela em `docs/img/`.
 
 ## Documentação
 
@@ -103,7 +144,13 @@ Requisitos: **Python 3.11 ou mais novo** e Git. Nenhuma conta Google Cloud é ne
    ```bash
    python -m scripts.smoke_llm
    ```
-5. Abra a tela de validação: `streamlit run app.py`
+5. Abra a interface conversacional:
+   ```bash
+   streamlit run app.py
+   ```
+   Converse no chat ("Que certificações a cooperativa tem?", "Triar pedidos pendentes",
+   "E o dela?") e use os atalhos da barra lateral. Detalhes na seção
+   [Interface conversacional](#interface-conversacional-etapa-13).
 6. Rode os testes (100% offline, sem gastar cota): `pytest`
 7. Gere os exemplos de comunicação com produtores em `exemplos/produtores/`:
    `python -m scripts.exemplos_produtores` (sem API) ou

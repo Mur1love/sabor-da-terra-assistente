@@ -469,7 +469,11 @@ def test_resultado_estruturado_vai_ao_flash_com_o_payload(tmp_path):
     payload = json.loads(fila.prompts["resposta"][-1].split("CONTEXTO DO TURNO (JSON):\n", 1)[1])
     assert any(r["funcao"] == "buscar_produtores" for r in payload["resultados_das_funcoes"])
     assert payload["estado_da_sessao"]["produto_em_foco"] == "mel silvestre"
-    assert payload["fontes_permitidas"] == []
+    # buscar_produtores declara a origem: o modelo pode citar e a interface mostra
+    assert payload["fontes_permitidas"] == ["produtores.csv"]
+    # a resposta do modelo não trouxe marcador nenhum, mas o turno sabe a fonte
+    assert "[fonte:" not in final
+    assert a.fontes_do_turno == ["produtores.csv"]
 
 
 def test_composicao_que_falha_devolve_resposta_honesta(tmp_path):
@@ -482,6 +486,33 @@ def test_composicao_que_falha_devolve_resposta_honesta(tmp_path):
     final = a.responder("quem tem mel orgânico vigente?")
     assert "Não consegui compor" in final  # honesto, sem traceback
     assert a.historico[-1].role == "model"  # o protocolo do turno fica intacto
+    assert a.fontes_do_turno == []  # sem resposta composta, nada a atribuir a arquivo
+
+
+def test_fontes_do_turno_no_pass_through_e_zeradas_no_turno_seguinte(tmp_path):
+    """Etapa 13: o rodapé de fontes vem das saídas das funções, não do texto do modelo."""
+    fila = FilaControlada({
+        "triagem": [
+            ROTEADOR("resumo_produtor", {"produtor_id": "P008", "mes": "2026-10"}),
+            Script(texto="Vou montar o resumo dela."),
+            Script(texto="Bom dia! Em que posso ajudar?"),
+        ],
+        "resposta": [],
+    })
+    a = _assistente(_fabrica(tmp_path, fila)())
+    a.responder("manda um resumo da P008")
+    assert "data/financeiro.csv" in a.fontes_do_turno
+    assert "data/certificacoes/cert_organica_josefa_souza_P008.txt" in a.fontes_do_turno
+    assert len(a.fontes_do_turno) == len(set(a.fontes_do_turno))  # sem repetição
+    a.responder("bom dia")  # turno sem função: nenhuma fonte herdada do anterior
+    assert a.fontes_do_turno == []
+    _fila_vazia(fila)
+
+
+def test_identificar_produtor_declara_a_fonte():
+    saida = NOME_PARA_FUNCAO["identificar_produtor"](termo="Josefa", data_referencia="2026-10-30")
+    assert saida["encontrado"] is True
+    assert saida["fonte"] == "produtores.csv"
 
 
 def test_payload_da_composicao_coleciona_fontes_das_saidas(tmp_path):
