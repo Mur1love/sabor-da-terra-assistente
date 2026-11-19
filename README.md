@@ -177,33 +177,45 @@ Capturas de tela em `docs/img/`. A de abertura do chat:
 
 ## Custos — Price Calculator do Google Cloud
 
-> **A estimativa de custo do desenho de produção está no [`docs/04-arquitetura.md` §14](docs/04-arquitetura.md#14-custo):**
-> ~US$ 26/mês de tokens (triagem no Flash-Lite, resposta e redação no Flash 3.8),
-> Agent Search dentro do nível gratuito (10.000 consultas e 10 GiB/mês) na escala
-> da narrativa e **até US$ 10/mês de Cloud Run** — teto de **< US$ 40/mês**,
-> com preços públicos conferidos em 19/11/2026.
+> **O cálculo dos tokens do Gemini (~US$ 26/mês) está no [`docs/04-arquitetura.md` §14](docs/04-arquitetura.md#14-custo).**
+> Esta seção é a estimativa da **infraestrutura** feita na calculadora oficial.
 
-### Preencher com os resultados da calculadora
+### Metodologia da estimativa de infraestrutura
 
-> **TODO (equipe):** rodar o [Price Calculator](https://cloud.google.com/products/calculator)
-> com o projeto `sabor-da-terra` na região **southamerica-east1**, imprimir/exportar
-> o resultado e transcrever a tabela abaixo (ou colar o link da estimativa
-> compartilhável). Os valores do `docs/04` §14 servem de baseline para conferência.
+A infraestrutura de produção foi estimada no [Google Cloud Pricing Calculator](https://cloud.google.com/products/calculator), em **USD por mês**, na região **São Paulo (`southamerica-east1`)**, com **preços de tabela** (conta de billing não vinculada). Conferida em 19/11/2026.
 
-**Link da estimativa:** _(colar aqui)_
+**Resultado: US$ 31,59/mês** (sem os tokens do Gemini). [Ver estimativa na calculadora](https://cloud.google.com/products/calculator?hl=pt-BR&dl=CjhDaVJoT1dFNU9XUTBOUzAzTnpjNUxUUTNNell0WVdFMFppMWxNR0ZqTldKa05EQTRObUVRQVE9PRAWGiRCQzI0MkY4QS1DNjYzLTQyMTQtOEI1QS03NzY4QzY2MDM0NTI)
 
-| Serviço | Uso estimado (narrativa: 180 produtores, 60–100 pedidos/dia) | Valor mensal (Price Calculator) |
+### Como foi montada
+
+1. **Quais serviços:** os que existem no Terraform do projeto ([`infra/terraform/`](infra/terraform/)): Cloud Run, Agent Search, BigQuery, Cloud Storage, Firestore, Pub/Sub, Secret Manager e Cloud Logging.
+2. **Quanto de cada um:** a calculadora vem preenchida com perfis de grande porte (milhões de requisições, terabytes de dados). Cada campo foi **reduzido ao porte da cooperativa** (180 produtores, 60–100 pedidos por dia). Manter os padrões inflaria o custo em centenas de dólares sem relação com o projeto.
+3. **Qual modo de cobrança:** o que reflete o desenho real. No Cloud Run, cobrança por ciclo de vida da instância (a interface Streamlit mantém uma conexão aberta por usuário). No BigQuery, modo sob demanda, em vez de slots reservados.
+
+### Configuração por serviço (exportação da calculadora)
+
+| Serviço | Configuração | US$/mês |
 |---|---|---|
-| Cloud Run | 1 instância ativa no expediente (websocket do Streamlit) | — |
-| Vertex AI — Gemini 3.5 Flash-Lite | ~100 mensagens/dia (~200K in + 80K out) | — |
-| Vertex AI — Gemini 3.8 Flash | ~166 turnos/dia (~390K in + 76K out) | — |
-| Agent Search (Standard) | ~40 consultas/dia + ~2 MB de índice | — |
-| BigQuery | ~10–50 MB de dados, consultas leves | — |
-| Cloud Storage, Firestore, Pub/Sub, Scheduler, Secret Manager, Logging | volumes ínfimos | — |
-| **Total estimado** | | **—** |
+| Cloud Run | 1 vCPU, 1 GiB, cobrança por ciclo de vida, mínimo 0 instâncias, ~12 h/dia ativas (365 h/mês): CPU $28,38 + memória $3,15 | **31,54** |
+| Cloud Storage | Standard, 1 GiB | 0,04 |
+| Cloud Logging | 2 GiB armazenados + retenção de 1 mês | 0,02 |
+| Agent Search | 1.200 consultas/mês e 0,01 GiB indexados — dentro das 10 mil consultas gratuitas | 0 |
+| BigQuery | Sob demanda: 0,1 TiB consultados, 1 GiB armazenados | 0 |
+| Firestore | ~61 mil leituras + ~15 mil escritas e 1 GiB por mês | 0 |
+| Pub/Sub | ~3 GiB publicados/mês, sem retenção extra | 0 |
+| Secret Manager | 1 segredo, 3 versões, ~10 mil acessos/mês | 0 |
+| **Total** | | **31,59** |
 
-_Datas e preços mudam — os números do `docs/04` §14 foram conferidos em 19/11/2026;
-reconfirmar na calculadora antes de qualquer decisão de billing._
+Exportação completa da calculadora: [`docs/custos/resultado-calculadora-google.csv`](docs/custos/resultado-calculadora-google.csv).
+
+### Limites
+
+- O **Cloud Run é a maior parcela**. A calculadora modela ~12 h por dia de instância ativa, mais que as ~8 h em dias úteis esperadas, então o valor é um **teto**. Os demais serviços ficam dentro dos níveis gratuitos ou em centavos.
+- **Fora desta estimativa:** os tokens do Gemini (calculados à parte no [`docs/04` §14](docs/04-arquitetura.md#14-custo)), Cloud Scheduler, Workflows, Eventarc e Artifact Registry.
+- Os volumes são **estimativas**, não medições: o protótipo não mede esse uso.
+- **Reconfirmar com a conta de billing vinculada** antes de qualquer decisão de orçamento, pois o preço negociado pode diferir do de tabela.
+
+**Total de produção (tokens + infraestrutura): < US$ 60/mês no teto da calculadora** — detalhamento completo em [`docs/04-arquitetura.md` §14](docs/04-arquitetura.md#14-custo).
 
 ## Como rodar
 
