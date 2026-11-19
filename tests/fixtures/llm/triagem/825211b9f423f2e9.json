@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "825211b9f423f2e9",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:38 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1394",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Os produtores que possuem certificação orgânica vigente para mel silvestre são:\n\n- **José Antônio dos Santos** (P002) - Município: Brejão (Validade da certificação: 2027-03-20) [fonte: produtores.csv]\n- **Débora Cristina de Melo** (P018) - Município: Águas Belas (Validade da certificação: 2027-02-28) [fonte: produtores.csv]\n\n*Aviso:* A certificação orgânica de **Josefa Alves de Souza** (P008) para mel silvestre venceu em 2026-09-30, portanto ela não pode vender como orgânica na data de referência (2026-10-30) [fonte: produtores.csv].",
+              "thought_signature": "EnsKeQFpFH0T9u7tNEWvdtB4907sHF-EZQ0ywU5LH-kjdmzQ_I5UEH8Do0FWbieJFck3--IX9TaLwK9mvrenW3D1oQEhFUd5tVD0QBCGSoRy4pK0q2e6rUyruFFkbjcyhpxs2Ba7w8HGlSh_h3-lC7JwIq8YfJ2MmXH6BaI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "qcb-arLQFLXAxdIPzMbliAc",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3990
+        }
+      ],
+      "cached_content_token_count": 3990,
+      "candidates_token_count": 189,
+      "prompt_token_count": 7496,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 7496
+        }
+      ],
+      "total_token_count": 7685
+    }
+  }
+}

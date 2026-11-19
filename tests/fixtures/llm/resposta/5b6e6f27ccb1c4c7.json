@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5b6e6f27ccb1c4c7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:49:13 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=594",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: notificacao_oficial",
+              "thought_signature": "EnsKeQFpFH0TR8QcHZ4sx8-v57V_-VWDJbdx4hWTFI7knGtdlCFlXcrCWH1EX1_X-IIXn02Wyc8eMkJnl6skk0Bd80notb-tDAGBPex8jkj1uG0rU7RePz4WNZgTWlB7YSP-C0mWerrgVI-BqgbsKq6CnsY0m96avHVIlSs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "GMb-apemMrPCxdIPseDFuAs",
+    "usage_metadata": {
+      "candidates_token_count": 9,
+      "prompt_token_count": 1195,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1195
+        }
+      ],
+      "total_token_count": 1204
+    },
+    "automatic_function_calling_history": []
+  }
+}

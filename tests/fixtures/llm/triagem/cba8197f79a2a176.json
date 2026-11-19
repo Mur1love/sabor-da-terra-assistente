@@ -1,0 +1,60 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "cba8197f79a2a176",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:38 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1992",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_11182249659933907773",
+                "args": {
+                  "mensagem": "Conforme o Contrato 045/2026-PNAE, solicitamos para o período de 04 a 08 de novembro de 2026:\nBanana prata 200kg, goiaba 100kg, macaxeira 150kg, inhame 80kg, alface 200 unidades, coentro 100 maços, tomate 50kg, mel silvestre orgânico 20kg e ovos caipiras 100 dúzias.\nTodos os produtos devem ter notas fiscais e certificações aplicáveis. Entrega no depósito central, das 7h às 12h.",
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "canal": "e-mail",
+                  "data_recebimento": "2026-10-28"
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EnsKeQFpFH0TztSaK_dtj5M6wZD_klQY5MllGo1Y41yvEunLN5oZagzCkH_V8eoJUsg7Tpyi8LF3XpXKOMsXujxnRPmeIN4mxN4ReD4hfV804WDbnFaoFtqbXnjtWRh8B0g0xK2fzM6vK55lRKAKf48TnIzru83ZbtOTjHo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "BsX-aoqTBpaquMYPhseskAQ",
+    "usage_metadata": {
+      "candidates_token_count": 216,
+      "prompt_token_count": 2771,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2771
+        }
+      ],
+      "total_token_count": 2987
+    }
+  }
+}

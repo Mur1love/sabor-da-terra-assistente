@@ -1,0 +1,65 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a8c30b5cf1b8a4c4",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:39 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1107",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_16937800484424388449",
+                "args": {
+                  "data_referencia": "2026-10-30",
+                  "termo": "Josefa"
+                },
+                "name": "identificar_produtor"
+              },
+              "thought_signature": "EnsKeQFpFH0TSw7fln0Z7AIFC1n5PpvgsDonseSKY4uP5LO74sKldjj52VZAsZo734_fRl6cq2nZncLPF1iP4jht4mfHHuVqEbYrcV_CYl_XntNgw452Q_LbUXsaGm1LH_l743c8rATFsQ2m3cDPbo76hjVwDDIryJGk6sQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "7s3-atSkILv8wbUPkdzB2Q8",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6012
+        }
+      ],
+      "cached_content_token_count": 6012,
+      "candidates_token_count": 38,
+      "prompt_token_count": 9400,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 9400
+        }
+      ],
+      "total_token_count": 9438
+    }
+  }
+}

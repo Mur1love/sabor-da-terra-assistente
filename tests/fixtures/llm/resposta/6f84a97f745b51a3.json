@@ -1,0 +1,65 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6f84a97f745b51a3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:47:33 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1105",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Não encontrei informações sobre certificação orgânica internacional ou equivalência para exportação para a União Europeia nos documentos da cooperativa [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_ana_bezerra_P004.txt\",\n      \"trecho\": \"CERTIFICADO DE CONFORMIDADE ORGÂNICA ECOCERT BRASIL CERTIFICADORA\"\n    }\n  ],\n  \"lacunas\": [\n    \"Certificação orgânica internacional\",\n    \"Equivalência para exportação para a União Europeia\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0T1EA-ac2_JLU4x0NeoCLXSifV7ICNCVB6agTwokAqNGqeqt9Xr5LLsar3cFtKmJmSS8N_MWrSCYE75iqz-7KOKW3fs2JcVgWRSwTLBRv-JIxpcBGmtoAXfPuHOhl44H1s-dYHaz9LtRxfhMV-p82b6FnTzZo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "tMX-aurCFqvIiLMPgLGQ4Qw",
+    "usage_metadata": {
+      "candidates_token_count": 167,
+      "prompt_token_count": 4420,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4420
+        }
+      ],
+      "total_token_count": 4587
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Não encontrei informações sobre certificação orgânica internacional ou equivalência para exportação para a União Europeia nos documentos da cooperativa [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_ana_bezerra_P004.txt",
+          "trecho": "CERTIFICADO DE CONFORMIDADE ORGÂNICA ECOCERT BRASIL CERTIFICADORA"
+        }
+      ],
+      "lacunas": [
+        "Certificação orgânica internacional",
+        "Equivalência para exportação para a União Europeia"
+      ]
+    }
+  }
+}

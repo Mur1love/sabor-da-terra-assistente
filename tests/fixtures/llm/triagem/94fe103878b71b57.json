@@ -1,0 +1,128 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "94fe103878b71b57",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:31 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2987",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"o produtor P002 (José Antônio dos Santos) pode ser considerado\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Possui certificação orgânica válida em 29/10/2026\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"com validade até 20/03/2027\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"sob o número PE-SIE-0892\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a capacidade estimada de 300kg por mês.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"confirme a disponibilidade com os produtores\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"A capacidade de produção não é estoque: confirme a disponibilidade\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: certificacoes/cert_organica_jose_santos_P002.txt]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A certificação é tratada como válida.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O registro SIE é apresentado corretamente.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"O estoque não foi considerado garantido.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"A entrega imediata foi negada por falta de verificação.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há invenção de documentos.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"A disponibilidade não foi afirmada sem consulta.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRMbmnWto3V3P3c5iFp69EXf-IBT_98fW_GDLcspgjX8hBBBYsEbeRXfhQuby9Kj96s2zdPOZgdw4jSxqpA_wOsm5kCWULlhR_kKApvRZc__wa9NoRCIyDBgh8bYj5wHqIZ-oHarGEpS01ub5MNFHuiwLnrwrfec3RwBvwnEbjsY9O4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "_OP9arX4MpysytMP2dTDqQw",
+    "usage_metadata": {
+      "candidates_token_count": 616,
+      "prompt_token_count": 1383,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1383
+        }
+      ],
+      "total_token_count": 1999
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "o produtor P002 (José Antônio dos Santos) pode ser considerado"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Possui certificação orgânica válida em 29/10/2026"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "com validade até 20/03/2027"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "sob o número PE-SIE-0892"
+        },
+        {
+          "indice": 4,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a capacidade estimada de 300kg por mês."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "confirme a disponibilidade com os produtores"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "A capacidade de produção não é estoque: confirme a disponibilidade"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "[fonte: certificacoes/cert_organica_jose_santos_P002.txt]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A certificação é tratada como válida."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O registro SIE é apresentado corretamente."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "O estoque não foi considerado garantido."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "A entrega imediata foi negada por falta de verificação."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Não há invenção de documentos."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "A disponibilidade não foi afirmada sem consulta."
+        }
+      ]
+    }
+  }
+}

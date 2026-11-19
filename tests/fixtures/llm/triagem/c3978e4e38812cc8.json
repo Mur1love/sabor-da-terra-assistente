@@ -1,0 +1,85 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c3978e4e38812cc8",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:20 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1429",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra_urgente\",\n  \"idioma\": \"pt\",\n  \"comprador\": null,\n  \"canal\": null,\n  \"itens\": [\n    {\n      \"produto\": \"queijo artesanal\",\n      \"produto_original\": \"aquele queijo q vcs mandaram da ultima vez, o mais artesanal sabe?\",\n      \"quantidade\": 15,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel de jandaíra\",\n      \"produto_original\": \"mel de jandaíra\",\n      \"quantidade\": 3,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-10-29\",\n  \"prazo_original\": \"amanha\",\n  \"observacoes\": [\n    \"Pagamento via Pix antecipado\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": [\n    \"queijo artesanal referido como 'aquele queijo q vcs mandaram da ultima vez, o mais artesanal sabe?'\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TnpnySKTG2PTYjK95sJjp_awWYhS44lge4ESzRGFFh5PwbDxm8B38mIklL6dugro73bSrqGqgbK49wpCS7i7bfdWI1vovj3TEOA7VBGWvS3mARGaDhujPkm8VwdSeSF8M8Ya0Lz2eN1yaU-pfky0ITh7ky8A="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "88T-aoH9B6-H1sgP8q6fgQY",
+    "usage_metadata": {
+      "candidates_token_count": 302,
+      "prompt_token_count": 2450,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2450
+        }
+      ],
+      "total_token_count": 2752
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra_urgente",
+      "idioma": "pt",
+      "comprador": null,
+      "canal": null,
+      "itens": [
+        {
+          "produto": "queijo artesanal",
+          "produto_original": "aquele queijo q vcs mandaram da ultima vez, o mais artesanal sabe?",
+          "quantidade": 15,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel de jandaíra",
+          "produto_original": "mel de jandaíra",
+          "quantidade": 3,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-10-29",
+      "prazo_original": "amanha",
+      "observacoes": [
+        "Pagamento via Pix antecipado"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "queijo artesanal referido como 'aquele queijo q vcs mandaram da ultima vez, o mais artesanal sabe?'"
+      ]
+    }
+  }
+}

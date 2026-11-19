@@ -1,0 +1,201 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "fa81d43300d6bda8",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:44 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2973",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_3134125818043943283",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_entrega": "2026-11-04",
+                  "data_referencia": "2026-10-28",
+                  "item": {
+                    "organico": false,
+                    "produto": "banana prata",
+                    "unidade": "kg",
+                    "quantidade": 200
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0Txt27OazMh5LWYJ4HtUyLqVMD4hNScNybl4CzYdSGgRt_Rj3QNC9KZ60eN0OBBZFiAR2RwycFGtabmMNNjSvRTz_p-dh9q-uRYGGvEARyVY1__S62LFtWqBt2T5l_h3w11EDj4fvDX46iM6yJGHqXRoaxXs8="
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043944528",
+                "args": {
+                  "data_referencia": "2026-10-28",
+                  "data_entrega": "2026-11-04",
+                  "item": {
+                    "organico": false,
+                    "quantidade": 100,
+                    "produto": "goiaba paluma",
+                    "unidade": "kg"
+                  },
+                  "comprador": "Contrato 045/2026-PNAE"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043941677",
+                "args": {
+                  "data_referencia": "2026-10-28",
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_entrega": "2026-11-04",
+                  "item": {
+                    "produto": "macaxeira",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 150
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043942922",
+                "args": {
+                  "item": {
+                    "produto": "inhame",
+                    "unidade": "kg",
+                    "quantidade": 80,
+                    "organico": false
+                  },
+                  "data_referencia": "2026-10-28",
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043944167",
+                "args": {
+                  "data_entrega": "2026-11-04",
+                  "data_referencia": "2026-10-28",
+                  "item": {
+                    "produto": "alface",
+                    "unidade": "unidade",
+                    "organico": false,
+                    "quantidade": 200
+                  },
+                  "comprador": "Contrato 045/2026-PNAE"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043941316",
+                "args": {
+                  "item": {
+                    "quantidade": 100,
+                    "produto": "coentro",
+                    "unidade": "maço",
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_referencia": "2026-10-28"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043942561",
+                "args": {
+                  "data_referencia": "2026-10-28",
+                  "item": {
+                    "quantidade": 50,
+                    "produto": "tomate",
+                    "unidade": "kg",
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043943806",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_referencia": "2026-10-28",
+                  "item": {
+                    "produto": "mel silvestre",
+                    "unidade": "kg",
+                    "quantidade": 20,
+                    "organico": true
+                  },
+                  "data_entrega": "2026-11-04"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_3134125818043940955",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "item": {
+                    "quantidade": 100,
+                    "produto": "ovos caipira",
+                    "unidade": "dúzia",
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-04",
+                  "data_referencia": "2026-10-28"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "CsX-arj3DubQ0_gP76iagAQ",
+    "usage_metadata": {
+      "candidates_token_count": 882,
+      "prompt_token_count": 3545,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3545
+        }
+      ],
+      "total_token_count": 4427
+    }
+  }
+}

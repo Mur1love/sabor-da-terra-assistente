@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3998349f81c0fab5",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:50:40 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3036",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Para **mel silvestre** orgânico, os produtores com certificação vigente em 2026-10-30 são [fonte: produtores.csv]:\n* **José Antônio dos Santos** (P002) - Município: Brejão, validade da certificação: 2027-03-20 [fonte: produtores.csv]\n* **Débora Cristina de Melo** (P018) - Município: Águas Belas, validade da certificação: 2027-02-28 [fonte: produtores.csv]\n\nPara **mel de jandaíra** orgânico, o produtor com certificação vigente em 2026-10-30 é [fonte: produtores.csv]:\n* **José Antônio dos Santos** (P002) - Município: Brejão, validade da certificação: 2027-03-20 [fonte: produtores.csv]\n\nAviso: Em 2026-10-30 a certificação orgânica está vencida para: P008 (Josefa Alves de Souza, venceu em 2026-09-30). Esses produtores não podem vender como orgânico [fonte: produtores.csv].",
+              "thought_signature": "EnsKeQFpFH0TpgTYuR-rrDqL4g2hqKElvme6oWQp6tD0DPyKVJ04RpZkxw3VgSo-5yqJg-g6Zy_s7yafcoKFvJMs_SOcsbqoKxDTCXkRUyJSwOWlpZALuV2dqmSkDxn506frP--tMub-2oPOyaV01-tgws6iB4dd7QCZqkg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "bcb-atOhCpT-5NoPqI21kQk",
+    "usage_metadata": {
+      "candidates_token_count": 290,
+      "prompt_token_count": 1321,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1321
+        }
+      ],
+      "total_token_count": 1611
+    },
+    "automatic_function_calling_history": []
+  }
+}

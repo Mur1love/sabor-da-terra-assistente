@@ -1,0 +1,64 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "92601302cbcd9785",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:24:42 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2650",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Não, nem todos os produtores da cooperativa possuem DAP ou CAF ativa ou mencionada em todos os documentos. O relatório de inspeção da ADAGRO menciona explicitamente que o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente [fonte: certificacoes/inspecao_adagro_2026.txt], mas o documento não traz essa confirmação para a totalidade dos produtores da cooperativa.\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"4. P005 - Francisco de Assis Cordeiro (Garanhuns)\\n     Produtos: Macaxeira, inhame, batata doce\\n     Certificação orgânica: NÃO POSSUI\\n     DAP/CAF: VIGENTE\\n     Situação: REGULAR\"\n    }\n  ],\n  \"lacunas\": [\n    \"O contexto documental não possui a relação completa informando se todos os produtores da cooperativa possuem DAP ou CAF ativa, contendo apenas dados amostrais.\"\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRO6KgD-QPcU9ZzbNyspjcJk1w-j-HLI8OlnC7jlKpxkql0uPhZ5qeK42cSSZCajeFyRiJCtIwn9XtCViY-1-YGPbXkg1kTha3AFW4L4mlElPgfrzXSzSK9sJpjmKnyqqdFcUHgcqvb1awppO0-ayWYUlIJCf56VRi_bL49Bz7rcgcc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "SNH9apDVG6OQytMPu9HHuQg",
+    "usage_metadata": {
+      "candidates_token_count": 262,
+      "prompt_token_count": 5362,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5362
+        }
+      ],
+      "total_token_count": 5624
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Não, nem todos os produtores da cooperativa possuem DAP ou CAF ativa ou mencionada em todos os documentos. O relatório de inspeção da ADAGRO menciona explicitamente que o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente [fonte: certificacoes/inspecao_adagro_2026.txt], mas o documento não traz essa confirmação para a totalidade dos produtores da cooperativa.",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "4. P005 - Francisco de Assis Cordeiro (Garanhuns)\n     Produtos: Macaxeira, inhame, batata doce\n     Certificação orgânica: NÃO POSSUI\n     DAP/CAF: VIGENTE\n     Situação: REGULAR"
+        }
+      ],
+      "lacunas": [
+        "O contexto documental não possui a relação completa informando se todos os produtores da cooperativa possuem DAP ou CAF ativa, contendo apenas dados amostrais."
+      ]
+    }
+  }
+}

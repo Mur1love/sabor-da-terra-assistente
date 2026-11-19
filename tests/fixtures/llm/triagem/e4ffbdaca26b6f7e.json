@@ -1,0 +1,201 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e4ffbdaca26b6f7e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:46 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2146",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_14668483820084538047",
+                "args": {
+                  "data_referencia": "2026-10-29",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "item": {
+                    "produto": "queijo coalho",
+                    "unidade": "kg",
+                    "quantidade": 25,
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-08"
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TWP6x_PUwQtcfs8hdkJuUhCxEmwqEiUoubvwX6GZJfXA9kDBnvwVTIOh8-Vck33J4AQgdjwX18AtPiCzVV6g1hv95-XZ5Hmg4XP5RAP9k3fw5NDv48IuYtWJK91-4TJyL58xQNPnkMaX5JN-X9BQSv-OUZJ0="
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538068",
+                "args": {
+                  "data_entrega": "2026-11-08",
+                  "data_referencia": "2026-10-29",
+                  "item": {
+                    "organico": false,
+                    "produto": "queijo manteiga",
+                    "unidade": "kg",
+                    "quantidade": 10
+                  },
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538089",
+                "args": {
+                  "data_entrega": "2026-11-08",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "data_referencia": "2026-10-29",
+                  "item": {
+                    "organico": true,
+                    "unidade": "kg",
+                    "produto": "mel",
+                    "quantidade": 8
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538110",
+                "args": {
+                  "item": {
+                    "produto": "goiaba paluma",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 20
+                  },
+                  "data_entrega": "2026-11-08",
+                  "data_referencia": "2026-10-29",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538131",
+                "args": {
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "cajá",
+                    "quantidade": 10,
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-08",
+                  "data_referencia": "2026-10-29",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538152",
+                "args": {
+                  "data_entrega": "2026-11-08",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "data_referencia": "2026-10-29",
+                  "item": {
+                    "produto": "rapadura",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 15
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538173",
+                "args": {
+                  "data_referencia": "2026-10-29",
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "quantidade": 10,
+                    "produto": "goma de tapioca",
+                    "unidade": "kg",
+                    "organico": false
+                  },
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538194",
+                "args": {
+                  "item": {
+                    "produto": "frango caipira",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 40
+                  },
+                  "data_referencia": "2026-10-29",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "data_entrega": "2026-11-08"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14668483820084538215",
+                "args": {
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "quantidade": 30,
+                    "produto": "ovos caipira",
+                    "unidade": "dúzia",
+                    "organico": false
+                  },
+                  "data_referencia": "2026-10-29",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ScX-aouoApOh5NoPrYme8Aw",
+    "usage_metadata": {
+      "candidates_token_count": 899,
+      "prompt_token_count": 3484,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3484
+        }
+      ],
+      "total_token_count": 4383
+    }
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2e2cf44adc642d60",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:18:06 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4053",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_15165109327202861005",
+                "args": {
+                  "item": {
+                    "quantidade": 50,
+                    "produto": "queijo coalho",
+                    "unidade": "kg",
+                    "organico": false
+                  },
+                  "data_entrega": "2027-01-15",
+                  "comprador": "SESC-PE"
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TQMICxOuTw3Z50S0xxkNT1rGVLorkKNHQ9Pih7vwTbc27mUP1GNy5uokbGug2V8bJC934oMBau7RwQuKJ-GH5d5srjorslmEblRPH-yTU880syu9EI5MTkJIonkoqCFA-_0LoLhyUZcjzgVi0sdDGnJzodKk="
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202857434",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "produto": "mel silvestre",
+                    "unidade": "kg",
+                    "quantidade": 10
+                  },
+                  "comprador": "SESC-PE",
+                  "data_entrega": "2027-01-15"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202857959",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "produto": "ovos caipira",
+                    "quantidade": 200,
+                    "unidade": "dúzia"
+                  },
+                  "data_entrega": "2027-01-15",
+                  "comprador": "SESC-PE"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202858484",
+                "args": {
+                  "comprador": "SESC-PE",
+                  "item": {
+                    "produto": "frango caipira",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 100
+                  },
+                  "data_entrega": "2027-01-15"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202859009",
+                "args": {
+                  "comprador": "SESC-PE",
+                  "item": {
+                    "produto": "macaxeira",
+                    "quantidade": 80,
+                    "organico": false,
+                    "unidade": "kg"
+                  },
+                  "data_entrega": "2027-01-15"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202859534",
+                "args": {
+                  "organico": false,
+                  "quantidade": 50,
+                  "produto": "queijo coalho"
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202860059",
+                "args": {
+                  "quantidade": 10,
+                  "produto": "mel silvestre",
+                  "organico": false
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202860584",
+                "args": {
+                  "quantidade": 200,
+                  "produto": "ovos caipira",
+                  "organico": false
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202857013",
+                "args": {
+                  "organico": false,
+                  "quantidade": 100,
+                  "produto": "frango caipira"
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202857538",
+                "args": {
+                  "produto": "macaxeira",
+                  "organico": false,
+                  "quantidade": 80
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202858063",
+                "args": {
+                  "produto": "macaxeira",
+                  "mes": "janeiro"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_15165109327202858588",
+                "args": {
+                  "mes": "janeiro",
+                  "produto": "mel silvestre"
+                },
+                "name": "disponibilidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "2sz-asurPPGxytMP-KTb4A4",
+    "usage_metadata": {
+      "candidates_token_count": 536,
+      "prompt_token_count": 3604,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3604
+        }
+      ],
+      "total_token_count": 4140
+    }
+  }
+}

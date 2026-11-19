@@ -1,0 +1,98 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "254727011d1d3882",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:27:49 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1637",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta menciona apenas que o cadastro geral não lista essa informação, mas não cita explicitamente que produtores.csv não possui a coluna.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"apenas o produtor P005 (Francisco de Assis Cordeiro) possui comprovação explícita de DAP ou CAF vigente\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a comprovação documental para o produtor P013 (Edmilson Pereira da Silva).\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não cita o registro DAP SDR/PE-2019-0051098 para a produtora P008.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"O cadastro geral da cooperativa não lista essa informação para todos os produtores nos trechos disponíveis.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: certificacoes/inspecao_adagro_2026.txt] e [fonte: fichas_tecnicas/tuberculos_graos.txt]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta não afirma que todos os 18 produtores têm DAP/CAF ativa.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há números de DAP/CAF inventados na resposta.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPAlxu0IuelnYOY6v7Dz_xEtHu2dWtrgfaFE7qtKpEVgVf9MMCXR4x_ClvYlbvYwlpvBEnga7GxuKnAWCCiX_DQpCbJfNobPua8QQ6-AbQPANxRZlA9gkbBlKc6zgVMqA7aADHKZmoVDIl5Me58L4zQBl_CM8GwsKJTBVs1ReMHMEs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "BNL9as3kAafJ0_gPqfj38AQ",
+    "usage_metadata": {
+      "candidates_token_count": 467,
+      "prompt_token_count": 1041,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1041
+        }
+      ],
+      "total_token_count": 1508
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": false,
+          "evidencia": "A resposta menciona apenas que o cadastro geral não lista essa informação, mas não cita explicitamente que produtores.csv não possui a coluna."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "apenas o produtor P005 (Francisco de Assis Cordeiro) possui comprovação explícita de DAP ou CAF vigente"
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a comprovação documental para o produtor P013 (Edmilson Pereira da Silva)."
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "A resposta não cita o registro DAP SDR/PE-2019-0051098 para a produtora P008."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "O cadastro geral da cooperativa não lista essa informação para todos os produtores nos trechos disponíveis."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "[fonte: certificacoes/inspecao_adagro_2026.txt] e [fonte: fichas_tecnicas/tuberculos_graos.txt]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A resposta não afirma que todos os 18 produtores têm DAP/CAF ativa."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não há números de DAP/CAF inventados na resposta."
+        }
+      ]
+    }
+  }
+}

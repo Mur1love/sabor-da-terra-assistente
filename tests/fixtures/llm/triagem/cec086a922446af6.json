@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "cec086a922446af6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:26:18 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8705",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Os lotes referentes a essas entregas do produtor Cícero (P003) para a Rede SuperBom Atacado são [fonte: lotes.csv]:\n\n- **LOT-2026-0100**: 150 kg de queijo coalho (referente ao pedido `PED-2026-SEP-018`), colhido e entregue em 18/09/2026, com validade até 18/10/2026, temperatura de transporte de 7°C e inspeção visual aprovada.\n- **LOT-2026-0101**: 40 kg de queijo manteiga (referente ao pedido `PED-2026-SEP-018`), colhido e entregue em 18/09/2026, com validade até 18/10/2026, temperatura de transporte de 7°C e inspeção visual aprovada.",
+              "thought_signature": "EokBCoYBAWkUfRNUYyFMA8vEtbnjCvGOqSlt9C_vowg4RoKcb1XEvbgHwtGw2KPxVJpp1uM9-ZvJ9VvU9YkCpegW4V-vmVDNfFdgTJ8NU3R7NCw3xWRoeNU3OxAJamhtJgP6byUZtVDmbd4H-1OZhE5RP9AjibaKVwk9OtlWOiwBEn9Q9AoDAqy_Q-w="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "st_9atnhFZDx0_gPxcag2AY",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1997
+        }
+      ],
+      "cached_content_token_count": 1997,
+      "candidates_token_count": 224,
+      "prompt_token_count": 4699,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4699
+        }
+      ],
+      "total_token_count": 4923
+    }
+  }
+}

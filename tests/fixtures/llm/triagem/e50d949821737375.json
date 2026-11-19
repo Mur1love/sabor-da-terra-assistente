@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e50d949821737375",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:41:07 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5056",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não podemos acionar o produtor P015 (Geraldo Manoel Barbosa) para esta demanda, pois ele está **inativo** no cadastro e não recebe alocação de pedidos [fonte: produtores.csv]. \n\nAlém disso, sobre os itens consultados:\n- **Macaxeira (150kg):** O produtor P015 foi excluído justamente por estar inativo [fonte: produtores.csv]. O produtor elegível para fornecer macaxeira é o **P005 (Francisco de Assis Cordeiro)** [fonte: produtores.csv,"
+            },
+            {
+              "text": " fichas_tecnicas/tuberculos_graos.txt].\n- **Feijão (100kg):** Não há nenhum produto cadastrado no catálogo correspondente a \"feijão\".",
+              "thought_signature": "EokBCoYBAWkUfRMcEO5_FyWOV2PXHDON4v4lmf1-1ivAw-Ob25JIxlMS0Su_ONmRTfe37ivcpb8rb3h0eA5omO0F2ixKduCckxiLL_PdYfohDdsuoParEkEfK4wl557oBSvHmGePZPdNhmC15d1vRHRjgEvKtZiJUP9MPOQzBUGrsor74zIGDGMcNs0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "LuP9arP9OtmD1sgP8fjPoQQ",
+    "usage_metadata": {
+      "candidates_token_count": 174,
+      "prompt_token_count": 3754,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3754
+        }
+      ],
+      "total_token_count": 3928
+    }
+  }
+}

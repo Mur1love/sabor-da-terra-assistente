@@ -1,0 +1,82 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5e47338381021455",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:26 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2868",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_11421464809657680613",
+                "args": {
+                  "produto": "ovos caipira"
+                },
+                "name": "buscar_produtores"
+              },
+              "thought_signature": "EnsKeQFpFH0TA0sReFQXH80pW2623dv23HW_rx2IKYnApLg-OhhGDHUX16U9MbuRImUd8JWOpgw03SEK0XnOO7uXVuJxV6QVb8PbT3xKaObWCYqcZQ55yWOexO21KLrlk7Wv4jRlhtX6qpU_3Q7UTD4buxx7A73Ttoe2Ef8="
+            },
+            {
+              "function_call": {
+                "id": "call_11421464809657680740",
+                "args": {
+                  "produto": "frango caipira"
+                },
+                "name": "buscar_produtores"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_11421464809657680867",
+                "args": {
+                  "produto": "macaxeira"
+                },
+                "name": "buscar_produtores"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "58X-atjsJPOb0_gP--XAqQI",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3980
+        }
+      ],
+      "cached_content_token_count": 3980,
+      "candidates_token_count": 64,
+      "prompt_token_count": 6407,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6407
+        }
+      ],
+      "total_token_count": 6471
+    }
+  }
+}

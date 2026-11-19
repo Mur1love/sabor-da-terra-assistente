@@ -1,0 +1,113 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1d6a5ef1d55d313e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:43:55 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1943",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"a produtora P004 (Ana Lúcia Bezerra da Costa) possui certificação orgânica\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"possui certificação orgânica válida em 11/11/2026\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"A certificação é válida até 01/12/2026\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"a renovação deve ser solicitada até 01/10/2026\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Não podemos garantir que ela continuará certificada em 15/12/2026\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta afirma corretamente que é válida em 11/11/2026.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta recusa explicitamente a garantia após 01/12/2026.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há menção a renovações inventadas.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"A única data de validade citada é a correta (01/12/2026).\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta reconhece que a validade expira em 01/12/2026.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRNfXmO7TqSZDPTml6UeI75jlYpePpV0p6fzDRvMsEnKj_1cBwTl-Werh9e9dK_yw_5oLwjOvTbAXwDBvIYRgGse6R6AjGUX6Q1ZVzMfuWRVFYSUD0IuTmZKRfrGF0lrM4hXQegpWIqvlXeZULMI6bf1JezD7imk4BcRwwtqmYrldJI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "2eP9asrHNtjDxdIPs9u6oAQ",
+    "usage_metadata": {
+      "candidates_token_count": 576,
+      "prompt_token_count": 1209,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1209
+        }
+      ],
+      "total_token_count": 1785
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "a produtora P004 (Ana Lúcia Bezerra da Costa) possui certificação orgânica"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "possui certificação orgânica válida em 11/11/2026"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "A certificação é válida até 01/12/2026"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "a renovação deve ser solicitada até 01/10/2026"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Não podemos garantir que ela continuará certificada em 15/12/2026"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "[fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A resposta afirma corretamente que é válida em 11/11/2026."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A resposta recusa explicitamente a garantia após 01/12/2026."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não há menção a renovações inventadas."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "A única data de validade citada é a correta (01/12/2026)."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "A resposta reconhece que a validade expira em 01/12/2026."
+        }
+      ]
+    }
+  }
+}

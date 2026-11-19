@@ -122,6 +122,7 @@ Capturas de tela em `docs/img/`.
 - **`docs/02-dataset.md`** — descrição campo a campo dos 8 grupos de dados e das **armadilhas propositalmente escondidas** neles (certificação vencida, produtor sem registro sanitário, pedidos que não são pedidos de compra, pagamentos atrasados…).
 - **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
 - **`docs/04-arquitetura.md`** — **arquitetura de referência** (rascunho da etapa 2): stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google e diagramas Mermaid. A §11 traz o **caminho para produção** (etapa 15): os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo.
+- **`docs/05-avaliacao.md`** — **avaliação ponta a ponta** (etapa 14): o gabarito de 37 casos rodado contra o assistente integrado, com acerto por desafio e por requisito funcional, citações válidas, anti-alucinação, a comparação entre as rodadas, o teste de cota da demo e as limitações conhecidas. Comando único: `pytest tests/test_gabarito.py`.
 
 ## Como rodar
 

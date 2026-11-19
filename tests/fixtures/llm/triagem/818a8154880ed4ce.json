@@ -1,0 +1,138 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "818a8154880ed4ce",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:43:38 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6756",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"O produtor Wellington da Silva Monteiro (P017) é classificado como irregular...\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Não, o produtor não possui registro no Serviço de Inspeção (SIE) para frango caipira\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona explicitamente o código NC-001 da não conformidade grave.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"A cooperativa deve suspender a intermediação de frango caipira...\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"...até que o produtor obtenha o registro junto ao SIE municipal... até a regularização\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Diferença explicada ao negar que a mesma restrição se aplica aos ovos caipiras.\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"O relatório de inspeção da ADAGRO estabelece que os ovos não exigem SIE para venda direta ao consumidor\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta omitiu a menção sobre a ausência de certificação orgânica.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: certificacoes/inspecao_adagro_2026.txt]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O produtor foi corretamente classificado como irregular.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A falta de registro foi tratada corretamente como restrição.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A intermediação de frango foi explicitamente proibida.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não afirmou que a restrição foi resolvida.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não tratou a dispensa como liberação para fornecimento institucional.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma certificação orgânica foi inventada.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Todas as informações foram baseadas no relatório de inspeção.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPmNBb5sqyGJgtfpyjt1ey627f7YPqXqFas7cili100ZJv-x5mTvNPbIUdZftMlW-yb8PjgLg1BdaYZ15q_KM98DzGVe4VQilCrr0w0ibJo_sE4XTQdyBnlBQAwFg1mafqVlkkHulWkYaCyuz92tQk_fpr57U1SZv-DG8wIi-Yg1xw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "xOP9aqeDGoa4xdIPp-ic0AQ",
+    "usage_metadata": {
+      "candidates_token_count": 754,
+      "prompt_token_count": 1414,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1414
+        }
+      ],
+      "total_token_count": 2168
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "O produtor Wellington da Silva Monteiro (P017) é classificado como irregular..."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Não, o produtor não possui registro no Serviço de Inspeção (SIE) para frango caipira"
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "A resposta não menciona explicitamente o código NC-001 da não conformidade grave."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "A cooperativa deve suspender a intermediação de frango caipira..."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "...até que o produtor obtenha o registro junto ao SIE municipal... até a regularização"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Diferença explicada ao negar que a mesma restrição se aplica aos ovos caipiras."
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "O relatório de inspeção da ADAGRO estabelece que os ovos não exigem SIE para venda direta ao consumidor"
+        },
+        {
+          "indice": 7,
+          "atendido": false,
+          "evidencia": "A resposta omitiu a menção sobre a ausência de certificação orgânica."
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "[fonte: certificacoes/inspecao_adagro_2026.txt]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O produtor foi corretamente classificado como irregular."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A falta de registro foi tratada corretamente como restrição."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A intermediação de frango foi explicitamente proibida."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Não afirmou que a restrição foi resolvida."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Não tratou a dispensa como liberação para fornecimento institucional."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Nenhuma certificação orgânica foi inventada."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Todas as informações foram baseadas no relatório de inspeção."
+        }
+      ]
+    }
+  }
+}

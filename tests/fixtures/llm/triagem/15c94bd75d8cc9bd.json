@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "15c94bd75d8cc9bd",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:12 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1968",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebemos a sua solicitação de cotação e disponibilidade para fornecimento semanal. \n\nIdentificamos algumas ambiguidades na sua mensagem que precisam de esclarecimento para prosseguirmos:\n- As **frutas variadas** somam 100kg no total, mas não há a divisão específica da quantidade por fruta (goiaba, banana, manga e maracujá).\n- As **hortaliças** somam 60kg no total, mas também não trazem a divisão específica por produto (alface, couve, espinafre, tomate e cebolinha).\n- O item **\"mel puro\"** pode se referir ao mel de jandaíra ou ao mel silvestre — por favor, especifique qual deseja.\n- Faltou informar a data ou o prazo exato para a primeira entrega.\n\nSobre a disponibilidade em **outubro** (segundo o calendário de sazonalidade da cooperativa, fonte: `sazonalidade.csv`):\n- **Goiaba Paluma:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Banana Prata:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Manga Tommy:** Disponível, nível de média [fonte: sazonalidade.csv].\n- **Maracujá:** Disponível, nível de média [fonte: sazonalidade.csv].\n- **Alface:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Couve:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Espinafre:** Disponível, nível de alta [fonte: sazonalidade.csv].\n\nAssim que nos enviar o detalhamento das quantidades por item, o tipo de mel e a data de entrega, poderemos calcular os preços, verificar a conformidade dos produtores e repassar as informações solicitadas (certificações, laudos, rastreabilidade e fichas técnicas).",
+              "thought_signature": "EnsKeQFpFH0Tpi5bwm6n2KIUjLM7omxLhVqFTo9Rt-FhhLz22wgdWxI4xyrxx4FccOYZ7XutfoypB4wKjJEmiR1t06lA_zFcCg1yfaSAxuEJlse9v704mu4Vf327gNWKnwOIMSTKDzvuPQnStVdYiROiJqQqw__Mpa3VRas="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Y8X-arbJAq7DxdIPwfjQoQE",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1951
+        }
+      ],
+      "cached_content_token_count": 1951,
+      "candidates_token_count": 426,
+      "prompt_token_count": 4573,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4573
+        }
+      ],
+      "total_token_count": 4999
+    }
+  }
+}

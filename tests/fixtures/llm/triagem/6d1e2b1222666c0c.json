@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6d1e2b1222666c0c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:35 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2567",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Com base nos dados da cooperativa, os produtores que possuem certificação orgânica vigente para fornecer mel silvestre são:\n\n* **José Antônio dos Santos** (P002) — Brejão (Certificação válida até 20/03/2027) [fonte: produtores.csv]\n* **Débora Cristina de Melo** (P018) — Águas Belas (Certificação válida até 28/02/2027) [fonte: produtores.csv]\n\nAlém disso, há um produtor cuja certificação está vencida e não pode vender o produto como orgânico [fonte: produtores.csv]:\n* **Josefa Alves de Souza** (P008) — A certificação venceu em 30/09/2026 [fonte: produtores.csv].",
+              "thought_signature": "EokBCoYBAWkUfRO2fVmQlntACFH0vnJmFn9EuSQvviDEtPSeGzcur8SJF4Wb1RXFIfTXrLYa77G6MBATp0MA8e5FbCOR92EJJnPtAS4NCA1EZkeJnth8UnhnCH6ni0gD7XchQwn_WQJCWgsihxcmCPxn_WK3YlPjY54msycfHTW-ABcJRrEWNI4N7wI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "AeT9apDWJI760_gP6YfSEA",
+    "usage_metadata": {
+      "candidates_token_count": 185,
+      "prompt_token_count": 3012,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3012
+        }
+      ],
+      "total_token_count": 3197
+    }
+  }
+}

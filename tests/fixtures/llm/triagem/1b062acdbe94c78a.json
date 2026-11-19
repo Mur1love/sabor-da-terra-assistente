@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1b062acdbe94c78a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:48:28 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5715",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_13918378614886650349",
+                "args": {
+                  "remetente": "Carlos",
+                  "data_recebimento": "2026-10-28",
+                  "comprador": "Carlos",
+                  "mensagem": "Bom dia! Preciso pra essa sexta (01/nov): 30kg de queijo coalho, 10kg de manteiga de garrafa, 5kg de mel silvestre, 20 maços de coentro e 10 de cebolinha. Se tiver ricota fresca também quero uns 5kg. Obrigado! Carlos.",
+                  "canal": "WhatsApp"
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EokBCoYBAWkUfRO0JCSqzL66qfOvtbovdJ4XSaziJiyIlfbmijbK14G-ny_3c4kLywCJunYiXE5L6KFtsYhQSt1mMS_9igomGsO_ges027ZH3qyY15rn29wgyDfud9N-b4WPi5LqMSuMZEBg3YmNeMDVf5t5LbNfZyt7SDDXEPq_XToniM1vhg8iYug="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "5-T9auWTFIq-xdIPnreEqAM",
+    "usage_metadata": {
+      "candidates_token_count": 132,
+      "prompt_token_count": 2695,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2695
+        }
+      ],
+      "total_token_count": 2827
+    }
+  }
+}

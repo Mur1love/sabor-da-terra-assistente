@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "df278432908766e3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:06 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2136",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_1631008439896699982",
+                "args": {
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "relatorio_pendencias_vencidas"
+              },
+              "thought_signature": "EnsKeQFpFH0TYVJJSg1t8FgTnGEC3DQV0SLbYlMnuOawARFjFdqSItEBGiBlXuwdB5u-UJ6s2KzIlqa0fiZFKdo0EUtOgHOyajkPXBR275N6xJIxh2tYKTfwcRq1Mb9DnHfmX_uEcP3lKY8VgM52YqZY3sjtCKgK6NNP-oE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "1MX-asCXNv3FxdIPyc7WmQM",
+    "usage_metadata": {
+      "candidates_token_count": 34,
+      "prompt_token_count": 3862,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3862
+        }
+      ],
+      "total_token_count": 3896
+    }
+  }
+}

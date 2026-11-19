@@ -26,7 +26,7 @@ from dotenv import load_dotenv
 
 from sabor_da_terra.assistente.estado import EstadoSessao
 from sabor_da_terra.assistente.orquestrador import SEM_COMPOSICAO, SEM_RESPOSTA, Assistente
-from sabor_da_terra.llm.cliente import FixtureAusenteError, LLMClient
+from sabor_da_terra.avaliacao.clientes import ClienteHibrido, ligar_clientes_internos
 
 DATA_REFERENCIA_DEMO = "2026-10-30"
 # Turnos 1 e 2 com as palavras do gabarito (tests/gabarito/casos-contexto.yaml, CTX-001);
@@ -38,45 +38,6 @@ DIALOGO = (
     "Manda um resumo pra ela",
 )
 
-# Módulos que criam o próprio LLMClient por dentro das ferramentas.
-MODULOS_COM_CLIENTE_INTERNO = (
-    "sabor_da_terra.rag.responder",
-    "sabor_da_terra.rag.recuperacao",
-    "sabor_da_terra.triagem.extrair",
-)
-
-
-class ClienteHibrido(LLMClient):
-    """Replay em fixture; quando a fixture falta, grava aquela chamada única."""
-
-    def __init__(self, *_args, **_kwargs) -> None:
-        super().__init__(modo="fixture")
-        self._gravador = LLMClient(
-            modo="gravar", pasta_fixtures=self._pasta_fixtures, dormir=self._dormir
-        )
-
-    def gerar(self, papel, prompt, **config_geracao):
-        try:
-            return super().gerar(papel, prompt, **config_geracao)
-        except FixtureAusenteError:
-            print(f"  → gravando fixture faltante ({papel.value})...", flush=True)
-            return self._gravador.gerar(papel, prompt, **config_geracao)
-
-    def embedar(self, texto: str) -> list[float]:
-        try:
-            return super().embedar(texto)
-        except FixtureAusenteError:
-            print("  → gravando fixture faltante (embedding)...", flush=True)
-            return self._gravador.embedar(texto)
-
-
-def _ligar_clientes_internos() -> None:
-    """Faz as ferramentas criarem `ClienteHibrido` no lugar do `LLMClient`."""
-    import importlib
-
-    for nome in MODULOS_COM_CLIENTE_INTERNO:
-        setattr(importlib.import_module(nome), "LLMClient", ClienteHibrido)
-
 
 def main() -> int:
     load_dotenv()
@@ -86,7 +47,7 @@ def main() -> int:
     except RuntimeError as exc:  # chave ausente — a fumaça não roda
         print(f"FALHOU: {exc}")
         return 1
-    _ligar_clientes_internos()
+    ligar_clientes_internos()
     sessao = Assistente(cliente_llm=cliente, estado=EstadoSessao(data_referencia=DATA_REFERENCIA_DEMO))
     for i, mensagem in enumerate(DIALOGO, 1):
         print(f"== TURNO {i} ==", flush=True)

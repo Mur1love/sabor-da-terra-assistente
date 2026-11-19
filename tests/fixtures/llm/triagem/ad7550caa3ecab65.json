@@ -1,0 +1,144 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ad7550caa3ecab65",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:14:34 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3979",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_4320329234580208676",
+                "args": {
+                  "data_entrega": "2026-11-01",
+                  "comprador": "Carlos",
+                  "item": {
+                    "produto": "queijo coalho",
+                    "organico": false,
+                    "unidade": "kg",
+                    "quantidade": 30
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TAnaARWRE4CJK0IGq8jI4yOeEOXx_PsxcnsvnJx5K63QBBmesafJz9LxDKHpc9UkLftvbs3Rkk3Z5DwU3vRIeFiy4A8pYpy-s-MTFAGnnFA8wMGTgtq9zW0wJea_sFYjLV_EYnnrBGugdSo-BkUDhzJ2kmtI="
+            },
+            {
+              "function_call": {
+                "id": "call_4320329234580207813",
+                "args": {
+                  "item": {
+                    "quantidade": 10,
+                    "produto": "manteiga de garrafa",
+                    "organico": false,
+                    "unidade": "kg"
+                  },
+                  "data_entrega": "2026-11-01",
+                  "comprador": "Carlos"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_4320329234580206950",
+                "args": {
+                  "data_entrega": "2026-11-01",
+                  "comprador": "Carlos",
+                  "item": {
+                    "quantidade": 5,
+                    "produto": "mel silvestre",
+                    "organico": false,
+                    "unidade": "kg"
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_4320329234580206087",
+                "args": {
+                  "data_entrega": "2026-11-01",
+                  "comprador": "Carlos",
+                  "item": {
+                    "unidade": "maço",
+                    "quantidade": 20,
+                    "organico": false,
+                    "produto": "coentro"
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_4320329234580209320",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "produto": "cebolinha",
+                    "unidade": "maço",
+                    "quantidade": 10
+                  },
+                  "data_entrega": "2026-11-01",
+                  "comprador": "Carlos"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_4320329234580208457",
+                "args": {
+                  "item": {
+                    "produto": "ricota",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 5
+                  },
+                  "comprador": "Carlos",
+                  "data_entrega": "2026-11-01"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "B8z-avPIApuyytMPgtmm2A4",
+    "usage_metadata": {
+      "candidates_token_count": 392,
+      "prompt_token_count": 3301,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3301
+        }
+      ],
+      "total_token_count": 3693
+    }
+  }
+}

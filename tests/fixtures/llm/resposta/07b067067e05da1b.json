@@ -1,0 +1,66 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "07b067067e05da1b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:48 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3608",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"A certificação orgânica de Josefa Alves de Souza (P008) expirou em 30/09/2026, encontrando-se vencida em relação à data de referência (30/10/2026) [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Sobre o protocolo de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, com auditoria de renovação agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até que a renovação seja concluída, seus produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"Data de Validade: 30/09/2026  *** VENCIDA ***\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456).\\nAuditoria de renovação agendada para 15/11/2026.\\nAté a conclusão da renovação, os produtos NÃO podem ser comercializados\\ncomo orgânicos.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EnsKeQFpFH0TjhE3Pkm2bp0pMPw858sb3G3UP9MaE-1GZpj7ftvmp_544JVhA_R2GSCTKEZBpd_cLZz8XkJYS5GtsWOorZ04Bzl3qRhap1IDUpvpkk4yuECeb33ZKRJyLmwU6vv5mMqaR1SK6yn3GewRssxIjmGRXQw4zJc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "9M3-asW-POWO1sgPopK3kQU",
+    "usage_metadata": {
+      "candidates_token_count": 422,
+      "prompt_token_count": 4061,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4061
+        }
+      ],
+      "total_token_count": 4483
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "A certificação orgânica de Josefa Alves de Souza (P008) expirou em 30/09/2026, encontrando-se vencida em relação à data de referência (30/10/2026) [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Sobre o protocolo de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, com auditoria de renovação agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até que a renovação seja concluída, seus produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456).\nAuditoria de renovação agendada para 15/11/2026.\nAté a conclusão da renovação, os produtos NÃO podem ser comercializados\ncomo orgânicos."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a93a875e72357231",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:47:42 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1383",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_16045642492863757264",
+                "args": {
+                  "data_entrega": "2026-10-29",
+                  "comprador": "Rede SuperBom Atacado",
+                  "item": {
+                    "quantidade": 300,
+                    "produto": "goiaba",
+                    "organico": false
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EokBCoYBAWkUfRP6mqo1EslOlZSPPs08EVGHz5Lqs_ixkozQuUa2YR_KJ5BSB-aQN9SI1NF4Qy40YOJwo6x9ZA1RP9BKyt6BjoTeQWyMzW7SUpvh9A86nM6sU78ar4hkoEtnv8rkt1pTTuuQjwOYLAotoWwlHzAxO78hjjZ12tir0SqTBKSxpWDlsCE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "veT9ao7PK6T46tkP3Kat2Qw",
+    "usage_metadata": {
+      "candidates_token_count": 65,
+      "prompt_token_count": 2933,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2933
+        }
+      ],
+      "total_token_count": 2998
+    }
+  }
+}

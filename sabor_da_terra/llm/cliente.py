@@ -36,6 +36,17 @@ def _estourou_o_prazo(exc: BaseException) -> bool:
     """
     return isinstance(exc, (httpx.TimeoutException, TimeoutError))
 
+
+def _cota_diaria_esgotada(exc: BaseException) -> bool:
+    """429 de cota por DIA (quotaId `...PerDay...`): repetir no mesmo modelo é inútil.
+
+    O 429 por minuto passa em segundos e vale o backoff; o diário só volta
+    à meia-noite do Pacífico — o certo é ir direto ao fallback. Visto na
+    rodada de 18/11/2026: cada composição esperava 70s à toa antes do failover.
+    """
+    texto = str(exc)
+    return getattr(exc, "code", None) == 429 and ("PerDay" in texto or "per day" in texto.lower())
+
 MODO_PADRAO = "real"
 MODOS_VALIDOS = ("real", "fixture", "gravar")
 
@@ -227,8 +238,13 @@ class LLMClient:
                 return acao()
             except Exception as exc:
                 # Timeout não repete no mesmo modelo: cada tentativa já custou 60s;
-                # na composição ele segue direto para o failover.
-                if getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS or tentativa >= self._max_tentativas:
+                # na composição ele segue direto para o failover. Cota DIÁRIA
+                # esgotada também não: esperar 70s não traz a cota de volta.
+                if (
+                    getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS
+                    or _cota_diaria_esgotada(exc)
+                    or tentativa >= self._max_tentativas
+                ):
                     raise
                 self._dormir(min(60.0, 10.0 * (2 ** (tentativa - 1))))
                 tentativa += 1
@@ -251,6 +267,10 @@ class LLMClient:
             fallback = self._modelo_fallback(papel, modelo, exc)
             if fallback is None:
                 raise
+            if isinstance(exc, FixtureAusenteError):
+                # Replay procurando a gravação feita pelo fallback: não é um failover novo.
+                logger.debug("replay: sem fixture de %s; procurando a de %s", modelo, fallback)
+                return self._gerar_com_modelo(papel, fallback, prompt, config_geracao)
             logger.warning(
                 "failover: %s indisponível (%s); retomando com %s",
                 modelo,
@@ -270,7 +290,15 @@ class LLMClient:
         """
         if papel is not Papel.RESPOSTA:
             return None
-        if getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS and not _estourou_o_prazo(exc):
+        # Em modo fixture, a gravação pode ter sido feita pelo fallback (o
+        # principal falhou ao gravar): a fixture do principal não existe e a
+        # do fallback, sim — o replay precisa reproduzir o mesmo caminho.
+        replay_do_failover = self.modo == "fixture" and isinstance(exc, FixtureAusenteError)
+        if (
+            getattr(exc, "code", None) not in CODIGOS_TRANSITORIOS
+            and not _estourou_o_prazo(exc)
+            and not replay_do_failover
+        ):
             return None
         fallback = (os.getenv(VARIAVEL_FALLBACK) or "").strip()
         if not fallback or fallback == modelo:

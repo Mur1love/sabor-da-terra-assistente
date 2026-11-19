@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c1ee396ead50bd23",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:27 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2237",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebemos a sua solicitação de cotação e disponibilidade para fornecimento semanal. \n\n### Sazonalidade dos Produtos em Outubro (2026):\n* **Goiaba (Paluma):** Disponível (Alta) [fonte: sazonalidade.csv] — *Pico dez-mar. Fora de safra jun-ago.*\n* **Banana (Prata):** Disponível (Alta) [fonte: sazonalidade.csv] — *Produção contínua o ano todo.*\n* **Manga (Tommy):** Disponível (Média) [fonte: sazonalidade.csv] — *Safra out-mar. Indisponível mai-ago.*\n* **Maracujá:** Disponível (Média) [fonte: sazonalidade.csv] — *Pico mar-mai.*\n* **Alface:** Disponível (Alta) [fonte: sazonalidade.csv] — *Produção contínua em Garanhuns (clima ameno).*\n* **Couve:** Disponível (Alta) [fonte: sazonalidade.csv] — *Produção contínua.*\n* **Espinafre:** Disponível (Alta) [fonte: sazonalidade.csv] — *Produção contínua em Garanhuns.*\n* **Tomate:** Disponível (Alta) [fonte: sazonalidade.csv] — *Dois picos: jun-jul e out-jan.*\n* **Cebolinha:** Disponível (Alta) [fonte: sazonalidade.csv] — *Produção contínua.*\n* **Ovos caipiras:** Disponível (Alta) [fonte: sazonalidade.csv] — *Contínuo, ~120 dúzias/semana.*\n* **Mel silvestre:** Disponível (Média) [fonte: sazonalidade.csv] — *Maior produção abr-jun (florada).* (Nota: Identificamos o mel solicitado como mel silvestre).\n\n### Observações e Ambigüidades Identificadas na Mensagem:\n1. **Divisão de Quantidades:** As solicitações de \"Frutas variadas (100kg no total)\" e \"Hortaliças (60kg no total)\" não especificam as quantidades individuais por produto.\n2. **Prazo de Entrega:** Não foi informado o prazo ou a data de entrega desejada.\n3. **Tipo de Mel:** Solicitamos esclarecer se o mel desejado é **mel silvestre** (já verificado em safra) ou **mel de jandaíra**.\n\nPara prosseguirmos com a verificação de conformidade completa (incluindo produtores elegíveis, certificações orgânicas, laudos sanitários e preços aplicados), por favor, informe:\n- A quantidade exata desejada para cada fruta e hortaliça;\n- A data/prazo para a primeira entrega;\n- O comprador responsável pelo pedido;\n- A preferência exata para o tipo de mel.",
+              "thought_signature": "EnsKeQFpFH0Tzdz2KFLeOf7FWQX5Q3G61Xc-kXS5hjb9GbI6gY88ScDyPH-GM-5ULlrpL_DRQv0SwhvQm09rnITjZZRNLiHpw54kxzXZlo9GBWtXZgaDA85YXM6QT_4emImpgUoqzYoLzK3HaWWNnM3vIsjdBZ6kJkN_C8g="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "tcz-aqarMvaj5NoP7M6N4Qs",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1963
+        }
+      ],
+      "cached_content_token_count": 1963,
+      "candidates_token_count": 656,
+      "prompt_token_count": 4693,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4693
+        }
+      ],
+      "total_token_count": 5349
+    }
+  }
+}

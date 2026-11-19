@@ -1,0 +1,113 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7c00db34ef5a0cd6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:42:13 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5318",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"a produtora P008 (Josefa Alves de Souza)\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"certificado orgânico ORG-PE-2024-003876 venceu em 30/09/2026\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"O pedido de renovação não libera a venda como orgânico: até a conclusão da renovação\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"a auditoria está marcada para 15/11/2026\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Não, a produtora P008 ... não pode fornecer mel silvestre como orgânico em 29/10/2026\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: certificacoes/cert_organica_josefa_souza_P008.txt]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta afirma corretamente que a certificação venceu.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta deixa claro que a renovação não libera a venda.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A auditoria é tratada apenas como agendamento e não certificação emitida.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"O mel é negado como orgânico para a data consultada.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Todas as informações baseiam-se na fonte informada.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPFbh5P_Dz0EQo_Y_dkQ8XUyvK3obnaWo0nojNxGPDv1_omAMhghi7hXICTyvV3Y3Kao7aWgfyseVCpK-WGfPpXZxmhmk0xWEtYflzgNgZ2ogL1mtyPKgitmF_JCPbLZ-uVxgEFgHiKwqgAsf7w-8obH_rDiYSwjyFpFlt5sf8CWNw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "cOP9auSRA5eGiLMP2JueoAI",
+    "usage_metadata": {
+      "candidates_token_count": 560,
+      "prompt_token_count": 1265,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1265
+        }
+      ],
+      "total_token_count": 1825
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "a produtora P008 (Josefa Alves de Souza)"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "certificado orgânico ORG-PE-2024-003876 venceu em 30/09/2026"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "O pedido de renovação não libera a venda como orgânico: até a conclusão da renovação"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "a auditoria está marcada para 15/11/2026"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Não, a produtora P008 ... não pode fornecer mel silvestre como orgânico em 29/10/2026"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "[fonte: certificacoes/cert_organica_josefa_souza_P008.txt]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A resposta afirma corretamente que a certificação venceu."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A resposta deixa claro que a renovação não libera a venda."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A auditoria é tratada apenas como agendamento e não certificação emitida."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "O mel é negado como orgânico para a data consultada."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Todas as informações baseiam-se na fonte informada."
+        }
+      ]
+    }
+  }
+}

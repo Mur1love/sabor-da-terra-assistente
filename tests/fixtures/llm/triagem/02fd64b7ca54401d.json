@@ -1,0 +1,60 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "02fd64b7ca54401d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:48:53 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1886",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_8442516010017882378",
+                "args": {
+                  "canal": "WhatsApp",
+                  "comprador": "Mercado Bom Preço",
+                  "data_recebimento": "2026-10-29",
+                  "mensagem": "E aí pessoal! Vcs tem morango e amora? To querendo fazer uma linha nova de sorvetes. Preciso de uns 50kg de cada por semana se o preço for bom. Manda a tabela de preço aí. Ah e precisa ser orgânico pq vou botar no rótulo."
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EokBCoYBAWkUfRPy5MO7pZlc9uq6ejKSYE1_ahkf-auestGACbnMz_3rzLs5QWuISMceWoSnd6qvBcGk-KhlIlsBUIA3SS0v09nVCW5f9L1z7EtPPhwHSHBQnOjCKT_Cp-D5Gue6DWHSf7uWDeEn6vgfIB_WIhe_1HJfWD8sYohCtdqW_mVfmrz2Klg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "BOX9ateFKPiXkPIPxJiPiQ8",
+    "usage_metadata": {
+      "candidates_token_count": 119,
+      "prompt_token_count": 2689,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2689
+        }
+      ],
+      "total_token_count": 2808
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "345a44ef5354e24b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:35 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4169",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Análise do pedido urgente recebido da **Rede SuperBom Atacado** para **2026-10-29** (Tipo: compra_urgente) [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv]:\n\n---\n\n### **1. Queijo coalho**\n* **Quantidade:** 200.0 kg [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv]\n* **Prazo:** 2026-10-29 [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv]\n* **Alertas de conformidade:** \n  * P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv].\n  * O pedido de 200 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: de 300 a 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv].\n  * Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços [fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv].\n\n---\n\n### **2. Queijo manteiga**\n* **Quantidade:** 50.0 kg [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv]\n* **Prazo:** 2026-10-29 [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv]\n* **Alertas de conformidade:** \n  * Não há capacidade documentada em kg para queijo manteiga nos produtores elegíveis; confirme a quantidade com eles [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n  * Só P003 (Cícero Romão de Almeida) fornece queijo manteiga: não há outro produtor se ele não puder atender [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n  * Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços [fichas_tecnicas/, produtores.csv, tabela_precos_outubro_2026.csv].\n\n---\n\n### **3. Mel silvestre**\n* **Quantidade:** 40.0 kg (exige orgânico) [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv]\n* **Prazo:** 2026-10-29 [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv]\n* **Alertas de conformidade:** \n  * P008 (Josefa Alves de Souza): a certificação orgânica ORG-PE-2024-003876 não vale em 29/10/2026; venceu em 30/09/2026. A renovação foi pedida em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está marcada para 15/11/2026. O pedido de renovação não libera a venda como orgânico. Não pode vender mel silvestre como orgânico [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n  * P018 (Débora Cristina de Melo) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se Rede SuperBom Atacado aceita [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n  * O pedido de 40 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 116,7 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n  * Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços [certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, tabela_precos_outubro_2026.csv].\n\n---\n\n### **4. Goiaba paluma**\n* **Quantidade:** 300.0 kg [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv]\n* **Prazo:** 2026-10-29 [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv]\n* **Alertas de conformidade:** \n  * O pedido de 300 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 800 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].\n  * Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços [fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].",
+              "thought_signature": "EnsKeQFpFH0TxL8ujmvr_VfkP_iW4W2VXbIPFWJOCf5TLVB64lVglxn-fEQMdbIOfSla8msxSPVaAsuYp8U748R1h9GwBYQnXwj8mXSDZQIWk8u7sB6nPYrbakVfcI8H8gT-rpcjEEaHwQzqgY_Nq7sX1jhLZ6vM88gE4wc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "PMX-auWkDfL_5NoP8LD2qAU",
+    "usage_metadata": {
+      "candidates_token_count": 1584,
+      "prompt_token_count": 7112,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 7112
+        }
+      ],
+      "total_token_count": 8696
+    },
+    "automatic_function_calling_history": []
+  }
+}

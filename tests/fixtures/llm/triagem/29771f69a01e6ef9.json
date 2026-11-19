@@ -1,0 +1,103 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "29771f69a01e6ef9",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:26 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5778",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"vistoria dos produtores e seus registros\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Com base nos documentos disponíveis, os documentos e itens necessários...\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona laudos sanitários dos últimos 12 meses.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"rastreabilidade por sistema de lotes\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona contratos institucionais.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: certificacoes/inspecao_adagro_2026.txt]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não foram apresentados documentos inexistentes como disponíveis.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há menção a exigências inventadas fora da fonte.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta contém referências documentais explícitas.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRP0cgFqg89S2HGv616UTntdPWsGXgHNqFwJStr6wSUlzJ2gHuGDf63SIKEaUakWzl4oqHJ2Hhq-nXrY2gAF5ye7GzfttdvoorJ2Q725tXXL2MqV5bZCwW8xnRR9oMQZOzxh0NU8VOdgJgXiaIIqG-E1wOpmnOQgMVdqdFRRBF1oIwY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "MeT9apLvAqOQytMPu9HHuQg",
+    "usage_metadata": {
+      "candidates_token_count": 400,
+      "prompt_token_count": 930,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 930
+        }
+      ],
+      "total_token_count": 1330
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "vistoria dos produtores e seus registros"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Com base nos documentos disponíveis, os documentos e itens necessários..."
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "A resposta não menciona laudos sanitários dos últimos 12 meses."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "rastreabilidade por sistema de lotes"
+        },
+        {
+          "indice": 4,
+          "atendido": false,
+          "evidencia": "A resposta não menciona contratos institucionais."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "[fonte: certificacoes/inspecao_adagro_2026.txt]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Não foram apresentados documentos inexistentes como disponíveis."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não há menção a exigências inventadas fora da fonte."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A resposta contém referências documentais explícitas."
+        }
+      ]
+    }
+  }
+}

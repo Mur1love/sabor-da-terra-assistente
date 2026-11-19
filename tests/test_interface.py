@@ -149,3 +149,9 @@ def test_estilo_celula_prioridade_valores():
 def test_estilo_celula_problemas_valores():
     assert estilo_celula_problemas(0) == ""
     assert estilo_celula_problemas(14) == "background-color: #ffd9d9; color: #7f1d1d;"
+
+
+def test_extrair_fontes_aceita_virgula_como_separador():
+    """Etapa 14: o modelo também escreve [fonte: a, b]."""
+    texto = "Queijo [fonte: tabela_precos_outubro_2026.csv, fichas_tecnicas/queijo_coalho.txt]."
+    assert extrair_fontes(texto) == ["tabela_precos_outubro_2026.csv", "fichas_tecnicas/queijo_coalho.txt"]

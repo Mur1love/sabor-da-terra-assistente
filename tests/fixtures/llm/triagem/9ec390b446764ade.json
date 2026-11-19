@@ -1,0 +1,93 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "9ec390b446764ade",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:41:18 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5465",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Não podemos acionar o produtor P015 (Geraldo Manoel Barbosa)\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"pois ele está inativo no cadastro\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Não podemos acionar o produtor P015 (Geraldo Manoel Barbosa) para esta demanda\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"O produtor elegível para fornecer macaxeira é o P005 (Francisco de Assis Cordeiro)\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: produtores.csv]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente corretamente afirmou que o produtor está inativo.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente informou que nenhum produto corresponde a feijão.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPG6Fblgv_9_zq_xEQzJigfZs3DSw7ucVNV4P9N9P3Kz4XqCqHOn-6taZ9YTkh7Fy8xioD-yUqLdR5laJfMk8wWrl8-twN__B0VSg37DJvlt6eL-lziYv7pVxJBHEQ5S_bxQZ0weoMLZXLh4ziUcdiNlVmc8T_wfLOdSwX8EZ9Xr5c="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "OeP9asfcIN2ho_UPpr3DaA",
+    "usage_metadata": {
+      "candidates_token_count": 344,
+      "prompt_token_count": 1003,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1003
+        }
+      ],
+      "total_token_count": 1347
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Não podemos acionar o produtor P015 (Geraldo Manoel Barbosa)"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "pois ele está inativo no cadastro"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Não podemos acionar o produtor P015 (Geraldo Manoel Barbosa) para esta demanda"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "O produtor elegível para fornecer macaxeira é o P005 (Francisco de Assis Cordeiro)"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "[fonte: produtores.csv]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente corretamente afirmou que o produtor está inativo."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O assistente informou que nenhum produto corresponde a feijão."
+        }
+      ]
+    }
+  }
+}

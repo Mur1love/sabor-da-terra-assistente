@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3613239b25ce9e79",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=10920",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_1234908291198718037",
+                "args": {
+                  "pergunta": "Qual preço devemos utilizar para fornecer banana ao PNAE? O preço é o mesmo da tabela geral da cooperativa?"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EokBCoYBAWkUfRPklr3E-oVRV18x-iXwYjud7glzQb1tBTUJYroj63C9hTUkQPgIFa39ZBxzkEoPuweWFN1Bhzj5wnIb-xkVJFIuci1pLhk5f_kaVJhC28FFK_vnD--C42uUlfOtFcqI2gAKEq6IkFxD1Mk08_EFB3C4zBgCM7Hi3okc1uNzNt-KXhU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "N-T9arvJB4mswbUP-MeLsAw",
+    "usage_metadata": {
+      "candidates_token_count": 43,
+      "prompt_token_count": 2644,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2644
+        }
+      ],
+      "total_token_count": 2687
+    }
+  }
+}

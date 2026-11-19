@@ -1,0 +1,93 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7633c6461e02082a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:25:27 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4112",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"O contexto documental não possui a relação completa informando se todos os produtores da cooperativa possuem DAP ou CAF ativa\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"relatório de inspeção da ADAGRO menciona explicitamente que o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"mas o documento não traz essa confirmação para a totalidade dos produtores da cooperativa.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Antes de usar essa informação, confirme caso a caso, com o produtor ou com o documento original.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não afirmou que todos os produtores são regulares, informou que há dados apenas amostrais.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não inventou DAP ou CAF, citou apenas a existente para P005.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não realizou confirmação cadastral sem evidências; destacou a limitação documental.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TOpaFnN94j6UsFBhLKZD4o8dms_KcVM0iC2BmuW2mqbRKlLnYv-AYxT_1RTttcTp7IGFI3K68mT1Q4ihX9FfH-5iR3HMtAIfMYeIeGFXLU0vqI4SSNlLnwp7mqunWmnSoRJGav-2Coa2VgoT76cwKA4O4vrw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "k87-au2yB_-t5NoPg5vU2As",
+    "usage_metadata": {
+      "candidates_token_count": 389,
+      "prompt_token_count": 918,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 918
+        }
+      ],
+      "total_token_count": 1307
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "O contexto documental não possui a relação completa informando se todos os produtores da cooperativa possuem DAP ou CAF ativa"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "relatório de inspeção da ADAGRO menciona explicitamente que o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "mas o documento não traz essa confirmação para a totalidade dos produtores da cooperativa."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Antes de usar essa informação, confirme caso a caso, com o produtor ou com o documento original."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Não afirmou que todos os produtores são regulares, informou que há dados apenas amostrais."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não inventou DAP ou CAF, citou apenas a existente para P005."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não realizou confirmação cadastral sem evidências; destacou a limitação documental."
+        }
+      ]
+    }
+  }
+}

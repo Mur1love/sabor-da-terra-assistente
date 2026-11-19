@@ -1,0 +1,73 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8ca4d953a4c6bbd7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:53 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1250",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"consulta\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"Mercado Alvorada\",\n  \"canal\": \"whatsapp\",\n  \"itens\": [],\n  \"prazo_entrega\": null,\n  \"prazo_original\": \"toda segunda-feira de manhã\",\n  \"observacoes\": [\n    \"Deseja fornecimento mensal de produtos com certificação orgânica\",\n    \"Solicita lista completa de produtos orgânicos, produtores, validades das certificações e preços\",\n    \"Retirada prevista para toda segunda-feira de manhã\"\n  ],\n  \"campos_faltantes\": [\n    \"itens_especificos\",\n    \"quantidade\"\n  ],\n  \"ambiguidades\": [\n    \"tudo que vocês tiverem COM certificação orgânica\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TK1-NSfXf1IkjJ3XLsY86sUA-eVHObVa0_bApVrbLEjfo_7G0pqPFYMoTzjVMhq0BYxqyk6b2RpyQ11BND_r5FGesOPYK0_3Ew4wIfUCF_Z3MIGJpiwPE5PUEFGZJZ3BOdX7GTksmg_OL5qqU4kZKKakQ4tw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "jMX-aoP9IdHj5NoPm9r2yQs",
+    "usage_metadata": {
+      "candidates_token_count": 193,
+      "prompt_token_count": 2447,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2447
+        }
+      ],
+      "total_token_count": 2640
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "consulta",
+      "idioma": "pt",
+      "comprador": "Mercado Alvorada",
+      "canal": "whatsapp",
+      "itens": [],
+      "prazo_entrega": null,
+      "prazo_original": "toda segunda-feira de manhã",
+      "observacoes": [
+        "Deseja fornecimento mensal de produtos com certificação orgânica",
+        "Solicita lista completa de produtos orgânicos, produtores, validades das certificações e preços",
+        "Retirada prevista para toda segunda-feira de manhã"
+      ],
+      "campos_faltantes": [
+        "itens_especificos",
+        "quantidade"
+      ],
+      "ambiguidades": [
+        "tudo que vocês tiverem COM certificação orgânica"
+      ]
+    }
+  }
+}

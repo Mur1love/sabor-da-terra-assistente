@@ -1,0 +1,77 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "699f98786b0efa05",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:16:22 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3908",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_1176364312458083355",
+                "args": {
+                  "quantidade": 300,
+                  "produto": "goiaba paluma extra",
+                  "organico": false
+                },
+                "name": "preco"
+              },
+              "thought_signature": "EnsKeQFpFH0TgGARv0PzjJY1ElzcUnDUJS_ldsGUse2WaQ3v_cIHdd3_wC26CS6v7KfvFjjKc783tZXWfB7oaydpVzfV-zkXQPRxAY2VLa5jFOAMXyjZzEZEwM10gWNnEwAQ81xFxULZFaI_5BIm_MM4vYfaoAis-SOsuiI="
+            },
+            {
+              "function_call": {
+                "id": "call_1176364312458080768",
+                "args": {
+                  "produto": "goiaba paluma especial",
+                  "organico": false,
+                  "quantidade": 300
+                },
+                "name": "preco"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "csz-aoPYJ8yCytMPl6HqYQ",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4006
+        }
+      ],
+      "cached_content_token_count": 4006,
+      "candidates_token_count": 60,
+      "prompt_token_count": 6564,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6564
+        }
+      ],
+      "total_token_count": 6624
+    }
+  }
+}

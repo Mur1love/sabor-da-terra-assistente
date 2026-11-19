@@ -1,0 +1,66 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "4b2c67e72d575c7b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:39:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6151",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_6492526157526722490",
+                "args": {
+                  "pergunta": "café torrado"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMv4AgsLJhsWHFP_oxW-PeXi8VjYFeTTpoYxlY47S6Br5RjLl78MYXqST6p-C2KWe3LNHVYHkscPqyc-JfaIWxuUpKSIkDiP66S1g-PCylptgCSEGK8hX0Ta6G-lxpE2OaBrgB7nuE0M9ZvWVlr6IoCUf_2GOIhnXBY_DSKkA7S2Wg="
+            },
+            {
+              "function_call": {
+                "id": "call_6492526157526721815",
+                "args": {
+                  "pergunta": "carne bovina"
+                },
+                "name": "consultar_documentos"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "5OL9aqTPML-1xdIPmczh2A0",
+    "usage_metadata": {
+      "candidates_token_count": 44,
+      "prompt_token_count": 2790,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2790
+        }
+      ],
+      "total_token_count": 2834
+    }
+  }
+}

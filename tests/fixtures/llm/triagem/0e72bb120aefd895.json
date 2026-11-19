@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "0e72bb120aefd895",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:15:31 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7503",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi o pedido referente ao **Contrato 045/2026-PNAE** para o período de 04 a 08 de novembro de 2026 e fiz a verificação de conformidade de cada item para a data de entrega (04/11/2026). \n\nAbaixo está o resultado da análise para os preços do contrato [contratos/contrato_pnae_garanhuns.txt], elegibilidade e alertas encontrados:\n\n---\n\n### 1. Banana prata (200 kg)\n* **Status:** `Pode atender: Sim`\n* **Produtor elegível:** Severina Maria das Nascimento (`P006`) [produtores.csv]\n* **Preço contratual:** R$ 3,80/kg (Total: R$ 760,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * Nenhum documento comprova DAP ou CAF vigente para P006, e o contrato 045/2026-PNAE exige. Comprove antes de faturar [contratos/contrato_pnae_garanhuns.txt].\n  * Não há capacidade documentada em kg para banana prata nos produtores elegíveis; confirme a quantidade com eles [fichas_tecnicas/].\n  * Só P006 fornece banana prata: não há outro produtor se ele não puder atender [produtores.csv].\n\n### 2. Goiaba paluma (100 kg)\n* **Status:** `Pode atender: Sim`\n* **Produtores elegíveis:** Maria das Graças Silva Ferreira (`P001`) e Raimunda Nonata de Lima (`P010`) [produtores.csv]\n* **Preço contratual:** R$ 5,20/kg (Total: R$ 520,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * P001: a DAP/CAF (SDR/PE-2019-0047821) aparece no documento sem validade, e o contrato exige DAP ou CAF vigente. Comprove antes de faturar [certificacoes/cert_organica_maria_silva_P001.txt].\n  * P010: nenhum documento comprova DAP ou CAF vigente, e o contrato exige. Comprove antes de faturar [contratos/contrato_pnae_garanhuns.txt].\n  * O pedido de 100 kg cabe na capacidade documentada de 800 kg em 7 dias (estoque deve ser confirmado) [fichas_tecnicas/goiaba_paluma.txt].\n\n### 3. Macaxeira (150 kg)\n* **Status:** `Pode atender: Sim`\n* **Produtor elegível:** Francisco de Assis Cordeiro (`P005`) [produtores.csv]\n* **Preço contratual:** R$ 3,50/kg (Total: R$ 525,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * P015 (Geraldo Manoel Barbosa) está inativo no cadastro e foi excluído [produtores.csv].\n  * O pedido de 150 kg cabe na capacidade de 400 kg em 7 dias [fichas_tecnicas/tuberculos_graos.txt].\n  * Só P005 fornece macaxeira [produtores.csv].\n\n### 4. Inhame (80 kg)\n* **Status:** `Pode atender: Sim`\n* **Produtor elegível:** Francisco de Assis Cordeiro (`P005`) [produtores.csv]\n* **Preço contratual:** R$ 5,00/kg (Total: R$ 400,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * O pedido de 80 kg cabe na capacidade de 200 kg em 7 dias [fichas_tecnicas/tuberculos_graos.txt].\n  * Só P005 fornece inhame [produtores.csv].\n\n### 5. Alface (200 unidades)\n* **Status:** `Pode atender: Sim`\n* **Produtores elegíveis:** Ana Lúcia Bezerra da Costa (`P004`) e Marcos Vinícius da Rocha (`P009`) [produtores.csv]\n* **Preço contratual:** R$ 2,80/unidade (Total: R$ 560,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * DAP/CAF sem validade documentada nos registros de P004 (`certificacoes/cert_organica_ana_bezerra_P004.txt`) e P009 (`contratos/contrato_pnae_garanhuns.txt`).\n  * Não há capacidade documentada em unidades para alface; confirme com os produtores [fichas_tecnicas/].\n\n### 6. Coentro (100 maços)\n* **Status:** `Pode atender: Sim`\n* **Produtor elegível:** Ana Lúcia Bezerra da Costa (`P004`) [produtores.csv]\n* **Preço contratual:** R$ 2,00/maço (Total: R$ 200,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * DAP/CAF sem validade documentada para P004 [certificacoes/cert_organica_ana_bezerra_P004.txt].\n  * Não há capacidade documentada em maço; confirme a quantidade [fichas_tecnicas/].\n  * Só P004 fornece coentro [produtores.csv].\n\n### 7. Tomate (50 kg)\n* **Status:** `Pode atender: Sim`\n* **Produtor elegível:** Luciana Ferreira Gomes (`P012`) [produtores.csv]\n* **Preço contratual:** R$ 7,00/kg (Total: R$ 350,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * P012 possui DAP/CAF sem validade documentada [certificacoes/cert_organica_luciana_gomes_P012.txt].\n  * O pedido de 50 kg cabe na capacidade de 400 kg em 7 dias [fichas_tecnicas/hortalicas.txt].\n  * Só P012 fornece tomate [produtores.csv].\n\n### 8. Mel silvestre orgânico (20 kg)\n* **Status:** `Pode atender: Sim`\n* **Produtor elegível:** José Antônio dos Santos (`P002`) [produtores.csv]\n* **Preço contratual:** R$ 58,00/kg (Total: R$ 1.160,00) [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * **Excluídos:** Josefa Alves de Souza (`P008`) teve certificação orgânica vencida em 30/09/2026 [certificacoes/cert_organica_josefa_souza_P008.txt]; Débora Cristina de Melo (`P018`) está com o SIE pendente [fichas_tecnicas/mel_silvestre.txt].\n  * P002 está elegível, mas sua DAP/CAF aparece sem validade no documento [certificacoes/cert_organica_jose_santos_P002.txt].\n  * O pedido de 20 kg cabe na capacidade de 70 kg em 7 dias [fichas_tecnicas/mel_silvestre.txt].\n\n### 9. Ovos caipiras (100 dúzias)\n* **Status:** `Pode atender: Não` ❌\n* **Produtores elegíveis:** Nenhum [produtores.csv]\n* **Preço contratual:** R$ 18,00/dúzia [contratos/contrato_pnae_garanhuns.txt]\n* **Alertas:**\n  * Wellington da Silva Monteiro (`P017`) foi excluído pois não tem registro SIE, e o contrato PNAE exige SIE, SIM ou SISBI para produtos de origem animal (ovos só dispensam o SIE na venda direta ao consumidor final) [certificacoes/inspecao_adagro_2026.txt].\n\n---\n\n**Resumo geral:** O pedido pode ser parcialmente atendido, exceto pelo item **ovos caipiras**, devido à falta de produtor com registro SIE válido para este contrato. Há pendências de comprovação de DAP/CAF vigente em vários produtores que precisam ser regularizadas antes do faturamento, além da necessidade de notas fiscais individuais por produtor conforme exigido pelo Contrato 045/2026-PNAE [contratos/contrato_pnae_garanhuns.txt].",
+              "thought_signature": "EnsKeQFpFH0TerZadb0UDWsbdRT2iqsEGMfzgYgqANTfk_n4AuhtiGpcSpHxpgyxN3huEkrk5dNpH_8Iu4RZzMkLXaJDRqtSv3kJQGSsPRoqoIbNw5_XX_kOJMCLs5x4PE_aey7fs89X1uOVVODJc3__SWcuWeJUyGj6EAk="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "PMz-atqhLcTbytMPs7-Z8QI",
+    "usage_metadata": {
+      "candidates_token_count": 2147,
+      "prompt_token_count": 12204,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 12204
+        }
+      ],
+      "total_token_count": 14351
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "9b0a37cb8ad540a6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:49:04 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5219",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_13024984457565942822",
+                "args": {
+                  "comprador": "Mercado Bom Preço",
+                  "data_entrega": "2026-11-05",
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "morango",
+                    "organico": true,
+                    "quantidade": 50
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMQPK_YaxxvBXuabQRAtDUUEMKDHsmUH0Ol-owmcfd355DKPN2JCwuPFb7mmsGHqQrA0R4tBtMK1NSFpizjbaNUwsdoemjSnGhOxj1Rs6GNpqKbl7eZfz5N2DHeR9ncVIbH5q53swEzLhOgzP8QvBdpxHycdqTd5Tff3J35zy0KCWQ="
+            },
+            {
+              "function_call": {
+                "id": "call_13024984457565942197",
+                "args": {
+                  "item": {
+                    "produto": "amora",
+                    "unidade": "kg",
+                    "quantidade": 50,
+                    "organico": true
+                  },
+                  "data_entrega": "2026-11-05",
+                  "comprador": "Mercado Bom Preço"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_13024984457565945668",
+                "args": {
+                  "organico": true,
+                  "produto": "morango",
+                  "quantidade": 50
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_13024984457565945043",
+                "args": {
+                  "produto": "amora",
+                  "quantidade": 50,
+                  "organico": true
+                },
+                "name": "preco"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "C-X9at_GMPaLzLEPrdK-0Ac",
+    "usage_metadata": {
+      "candidates_token_count": 186,
+      "prompt_token_count": 2993,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2993
+        }
+      ],
+      "total_token_count": 3179
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "93581133505c7a4e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:44:06 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5198",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"idioma\": \"pt\",\n  \"topico\": \"certificacao\",\n  \"produto\": \"mel silvestre\",\n  \"produtor\": \"P002\",\n  \"lote_id\": null,\n  \"mes\": \"outubro\",\n  \"filtro_organico\": true\n}",
+              "thought_signature": "EokBCoYBAWkUfRNuQjhHNwxWUywXuLhA7TXMyVFnjHRX9KwF3zk0r-GVAoFE-NaPNyH6Y7ZilNRCv7Y0Jo6gEs3-Yp7S8DT9MvZe14LVpdzJv9bU2c0UqfmtaU0TPXkSD-3yvtFbtMWpRDXsiVKH16RCPb9txalc1KMqDj99XgxqGZLDLCxONy19ob0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "4eP9as_9NZvaytMPm__TmAU",
+    "usage_metadata": {
+      "candidates_token_count": 74,
+      "prompt_token_count": 294,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 294
+        }
+      ],
+      "total_token_count": 368
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "certificacao",
+      "produto": "mel silvestre",
+      "produtor": "P002",
+      "lote_id": null,
+      "mes": "outubro",
+      "filtro_organico": true
+    }
+  }
+}

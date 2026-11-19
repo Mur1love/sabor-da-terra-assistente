@@ -1,0 +1,78 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f6b86e3e13721ca0",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:39:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1838",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Não foram encontradas certificações internacionais (como USDA ou União Europeia) nos documentos da cooperativa\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Os documentos contêm apenas certificações de conformidade orgânica de âmbito nacional\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente negou explicitamente a existência de certificações internacionais.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente não garantiu conformidade para exportação.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPx9Udqdg_Mj6VACJ_jkd7q1l-dyTf04lkisj84cLUMWyuKlRSVhPkuAp9HGGM6nCAsKgUMV5MXzkiWPBJoeNpALXNmzdB4I9kwhE9qYBTNI0cYzq3USAUka49AKW-oi8fMMjUMB-hATbQ80NYIPnOth8rDfIhFEFwZT8GiErfwAa4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "4eL9ap7fIZbhytMPkffCkAU",
+    "usage_metadata": {
+      "candidates_token_count": 211,
+      "prompt_token_count": 802,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 802
+        }
+      ],
+      "total_token_count": 1013
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Não foram encontradas certificações internacionais (como USDA ou União Europeia) nos documentos da cooperativa"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Os documentos contêm apenas certificações de conformidade orgânica de âmbito nacional"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente negou explicitamente a existência de certificações internacionais."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O assistente não garantiu conformidade para exportação."
+        }
+      ]
+    }
+  }
+}

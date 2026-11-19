@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1cb1491b6a7de689",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:34 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1152",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: compra_urgente\n\nItens do pedido:\n1. Produto: queijo artesanal (quantidade: 15.0, unidade: kg, prazo: 2026-10-29)\n   - Alerta de conformidade: Nenhum produto do catálogo corresponde a 'queijo artesanal'.\n2. Produto: mel de jandaíra (quantidade: 3.0, unidade: kg, prazo: 2026-10-29)\n   - Alerta de conformidade: O pedido de 3 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 3,5 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: certificacoes/cert_organica_jose_santos_P002.txt]\n   - Alerta de conformidade: Só P002 (José Antônio dos Santos) fornece mel de jandaíra: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n   - Alerta de conformidade: Não há contrato registrado com 'Desconhecido': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]",
+              "thought_signature": "EnsKeQFpFH0T5OpdXbU7FtqWE7ppn6NwAl0VOvaHpC7F1cNj3_dEwRlsKKr9fH9onzHJ4vRa3jfZ5odMovKIXBXtYmAaCXSMOwF3pexyppm6hyZ2PQjCL70EL7JI3EnHQcCOj_AxcNrxC4YmueSFM_umyrawlRmQpS1QQzU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "AsX-aonuAf3FxdIPyc7WmQM",
+    "usage_metadata": {
+      "candidates_token_count": 278,
+      "prompt_token_count": 2318,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2318
+        }
+      ],
+      "total_token_count": 2596
+    },
+    "automatic_function_calling_history": []
+  }
+}

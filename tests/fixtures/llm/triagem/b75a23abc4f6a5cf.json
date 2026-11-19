@@ -1,0 +1,130 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b75a23abc4f6a5cf",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3208",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"cotacao\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"SESC-PE\",\n  \"canal\": null,\n  \"itens\": [\n    {\n      \"produto\": \"frutas variadas\",\n      \"produto_original\": \"Frutas variadas\",\n      \"quantidade\": 500,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"hortaliças variadas\",\n      \"produto_original\": \"Hortalicas variadas\",\n      \"quantidade\": 200,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"queijo coalho\",\n      \"produto_original\": \"Queijo coalho\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel\",\n      \"produto_original\": \"Mel\",\n      \"quantidade\": 10,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ovos caipira\",\n      \"produto_original\": \"Ovos\",\n      \"quantidade\": 200,\n      \"unidade\": \"dúzia\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"frango caipira\",\n      \"produto_original\": \"Frango caipira\",\n      \"quantidade\": 100,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"macaxeira\",\n      \"produto_original\": \"Macaxeira\",\n      \"quantidade\": 80,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2027-01\",\n  \"prazo_original\": \"janeiro de 2027\",\n  \"observacoes\": [\n    \"Destino para colônia de férias com 200 crianças durante 15 dias\",\n    \"Solicita orçamento detalhado com preços unitários\",\n    \"Exige informação sobre DAP/CAF ativa dos produtores\",\n    \"Pagamento via empenho\",\n    \"Emissão de nota fiscal com os dados cadastrais do SESC-PE\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": [\n    \"Frutas variadas\",\n    \"Hortaliças variadas\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TeO6zrSyi-5yamPCWWwh9KtEuQ44gXM--Qo8aC6AlTUWdj95D-7udtxyNAd_mz4fXmTHWRaUGMCJn84TKCuIGIXNj03V3Dsu4RKbLkV5Jtef2oZ4O7qxfKWDl6NMfUprJtXZMUhvW8Rj876fvgUfspsekFf0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "4MX-ape8EPa3xdIP2J_ggQk",
+    "usage_metadata": {
+      "candidates_token_count": 676,
+      "prompt_token_count": 2546,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2546
+        }
+      ],
+      "total_token_count": 3222
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "SESC-PE",
+      "canal": null,
+      "itens": [
+        {
+          "produto": "frutas variadas",
+          "produto_original": "Frutas variadas",
+          "quantidade": 500,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "hortaliças variadas",
+          "produto_original": "Hortalicas variadas",
+          "quantidade": 200,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "queijo coalho",
+          "produto_original": "Queijo coalho",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "mel",
+          "produto_original": "Mel",
+          "quantidade": 10,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos",
+          "quantidade": 200,
+          "unidade": "dúzia",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "frango caipira",
+          "produto_original": "Frango caipira",
+          "quantidade": 100,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "Macaxeira",
+          "quantidade": 80,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2027-01",
+      "prazo_original": "janeiro de 2027",
+      "observacoes": [
+        "Destino para colônia de férias com 200 crianças durante 15 dias",
+        "Solicita orçamento detalhado com preços unitários",
+        "Exige informação sobre DAP/CAF ativa dos produtores",
+        "Pagamento via empenho",
+        "Emissão de nota fiscal com os dados cadastrais do SESC-PE"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": [
+        "Frutas variadas",
+        "Hortaliças variadas"
+      ]
+    }
+  }
+}

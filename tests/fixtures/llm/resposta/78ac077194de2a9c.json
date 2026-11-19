@@ -1,0 +1,55 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "78ac077194de2a9c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1474",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "De acordo com o calendário de sazonalidade da cooperativa, a disponibilidade para entrega em novembro de 2026 é a seguinte:\n\n* **Umbu:** Não está disponível em novembro. Safra fev-mai apenas [fonte: sazonalidade.csv].\n* **Mirtilo:** Não está disponível em novembro. Safra curta mai-set [fonte: saz"
+            },
+            {
+              "text": "onalidade.csv].\n* **Framboesa:** Não está disponível em novembro. Safra jun-set. Produção pequena [fonte: sazonalidade.csv].\n* **Cajá:** Está disponível em novembro, com nível de disponibilidade baixa. Safra muito curta: nov-jan [fonte: sazonalidade.csv].",
+              "thought_signature": "EokBCoYBAWkUfRPFWd1e5Em6gv92hZFkoPGS8QpwpUfiPd3cLD3sqTUq7yqB0IzCkH4yzCy4q3kT07XmXNvZvzsMth-EIbUl-Ii-nfCarkUStggIPGmBj7Ij5n8hPjp18i0ig48hlh_ERpasxlHmkeeUKGpoMhlrsx54y8MaDjEXWQdzDqhNJI1lWWo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "hOT9atjCA5Dx0_gPxcag2AY",
+    "usage_metadata": {
+      "candidates_token_count": 151,
+      "prompt_token_count": 1117,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1117
+        }
+      ],
+      "total_token_count": 1268
+    },
+    "automatic_function_calling_history": []
+  }
+}

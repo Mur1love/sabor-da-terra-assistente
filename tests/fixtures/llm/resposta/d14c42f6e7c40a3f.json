@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d14c42f6e7c40a3f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:47:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=997",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Para o pedido urgente PED-2026-006 da Rede SuperBom Atacado [fonte: pedidos.json], os produtores cadastrados para o fornecimento de goiaba paluma [fonte: produtores.csv, sazonalidade.csv] são:\n\n* **Maria das Graças Silva Ferreira** (P001) – Município: Garanhuns, com certificação orgânica válida até 2027-06-15 [fonte: produtores.csv].\n* **Raimunda Nonata de Lima** (P010) – Município: Bom Conselho, sem certificação orgânica [fonte: produtores.csv].",
+              "thought_signature": "EokBCoYBAWkUfRNLehXZr4Z5q5lPIiqaVusoGdW4UWF0LzRHiejRoDOKrOLX5nRxZlyowq8D0igLHJg2Gq_w_zY72FK7bH14pBB8DKjO4Z08FZ4m5EC65D8v54nA2eTo7Gg0DjS-dFMqbZZdKlH079cFjAjnKGDwM_NWUne9jBah9BTM4eoaNRvI70w="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "yeT9aqGrNdXcodAP4b_qqQc",
+    "usage_metadata": {
+      "candidates_token_count": 146,
+      "prompt_token_count": 1352,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1352
+        }
+      ],
+      "total_token_count": 1498
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -153,6 +153,7 @@ def notificacoes_da_fila(fila: dict[str, Any], produtor_id: str | None = None) -
         "notificacoes": notificacoes,
         "enviadas": False,
         "aviso": "Textos gerados para revisão da equipe; nada foi enviado nem confirmado.",
+        "fontes": list(fila.get("fontes") or ["pedidos.json", "produtores.csv"]),
     }
 
 

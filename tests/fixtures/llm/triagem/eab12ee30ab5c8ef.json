@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "eab12ee30ab5c8ef",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:26:02 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6632",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O produtor Cícero (P003) tem um total de **R$ 6.020,00** em atraso para receber da Rede SuperBom Atacado, divididos em dois pagamentos que venceram em 18/10/2026 (com 12 dias de atraso em relação a 30/10/2026):\n\n- **FIN-2026-013**: R$ 4.500,00 referentes a 150 kg de queijo coalho (vencimento em 18/10/2026) [fonte: `data/financeiro.csv`, `data/produtores.csv`, `data/pedidos.json`].\n- **FIN-2026-014**: R$ 1.520,00 referentes a 40 kg de queijo manteiga (vencimento em 18/10/2026) [fonte: `data/financeiro.csv`, `data/produtores.csv`, `data/pedidos.json`].",
+              "thought_signature": "EokBCoYBAWkUfRMl9nN7Y85St-APoIDc7bUvx8XRXHvCFFmx71ysj0LPEdXy-kfTP6vYpkvQiJwq_Q0GVhjpF1XUKzZLkmMn7qbRaLueb5SJlquuEd8sbE-jN1H_N8he7JVE2zzU4-xewKkEBQOg1Juk7HFzFgLbA0ntVfvdy9-ExAkwvDpg4QA1ZuQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "pN_9atfNE8LmytMP-6fi2Ag",
+    "usage_metadata": {
+      "candidates_token_count": 252,
+      "prompt_token_count": 3773,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3773
+        }
+      ],
+      "total_token_count": 4025
+    }
+  }
+}

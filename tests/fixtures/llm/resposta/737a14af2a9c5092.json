@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "737a14af2a9c5092",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:42:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5933",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Com base nos documentos da cooperativa, aqui estão as respostas para cada ponto:\n\n* **A cooperativa pode vender frango caipira do produtor P017 para os seus compradores?**\n  Não. A cooperativa deve suspender a intermediação de frango caipira até que o produtor obtenha o registro junto ao SIE municipal [fonte: certificacoes/inspecao_adagro_2026.txt]. O produtor Wellington da Silva Monteiro (P017) é classificado como irregular por ser produtor de frango caipira sem o referido registro, com a comercialização limitada à venda direta ao consumidor final até a regularização [fonte: certificacoes/inspecao_adagro_2026.txt].\n\n* **O produtor possui registro SIE?**\n  Não, o produtor não possui registro no Serviço de Inspeção (SIE) para frango caipira [fonte: certificacoes/inspecao_adagro_2026.txt].\n\n* **A mesma restrição se aplica aos ovos caipiras vendidos diretamente ao consumidor?**\n  Não. O relatório de inspeção da ADAGRO estabelece que os ovos não exigem SIE para venda direta ao consumidor [fonte: certificacoes/inspecao_adagro_2026.txt].",
+              "thought_signature": "EokBCoYBAWkUfRMT9-KgmUZQrHMDRLmdUoKe0ooBFnxnpgi3Lk7KIcvBtiOtKF0vvQHs85_hsaclucEfZXj7wyNpH3fzZbw3Vsa7boUU6sjdy54NpKURNB7XZlK7hSab45VLDgMBdjGF2ca4xPXdeSXpI5jCSXNkyXlxzwbolMw61f3Cm8tLWtj65dI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "mOP9auiPFPHYytMPrd2toQ0",
+    "usage_metadata": {
+      "candidates_token_count": 286,
+      "prompt_token_count": 1516,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1516
+        }
+      ],
+      "total_token_count": 1802
+    },
+    "automatic_function_calling_history": []
+  }
+}

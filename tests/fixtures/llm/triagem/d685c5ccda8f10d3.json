@@ -1,0 +1,184 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d685c5ccda8f10d3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:11 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1844",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_14848323102343751348",
+                "args": {
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "goiaba paluma",
+                    "quantidade": 50,
+                    "organico": false
+                  },
+                  "data_referencia": "2026-10-28",
+                  "comprador": "não informado",
+                  "data_entrega": "2026-11-04"
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TJCnY2vCXYuYK_MxwFTMWsfq1XvqtC3KvmsN2KBmhuM7paOOjyAjvvEaFzhCwqbg7E0qv-PVrq8dU5z_9sgg1EQ-1XgEwiWL5tDagVOEUuBetqB1YY0TtTSTHi8yM_zSqwr2MumGH3qUdxnV_hV-wuNQxCIE="
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343749721",
+                "args": {
+                  "data_entrega": "2026-11-04",
+                  "data_referencia": "2026-10-28",
+                  "comprador": "não informado",
+                  "item": {
+                    "quantidade": 40,
+                    "produto": "banana prata",
+                    "unidade": "kg",
+                    "organico": false
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343752190",
+                "args": {
+                  "data_referencia": "2026-10-28",
+                  "item": {
+                    "organico": false,
+                    "quantidade": 25,
+                    "produto": "maracujá",
+                    "unidade": "kg"
+                  },
+                  "data_entrega": "2026-11-04",
+                  "comprador": "não informado"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343750563",
+                "args": {
+                  "data_referencia": "2026-10-28",
+                  "comprador": "não informado",
+                  "item": {
+                    "quantidade": 60,
+                    "produto": "macaxeira",
+                    "unidade": "kg",
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-04"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343753032",
+                "args": {
+                  "data_referencia": "2026-10-28",
+                  "data_entrega": "2026-11-04",
+                  "comprador": "não informado",
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "inhame",
+                    "organico": false,
+                    "quantidade": 30
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343751405",
+                "args": {
+                  "item": {
+                    "quantidade": 20,
+                    "produto": "tomate",
+                    "unidade": "kg",
+                    "organico": false
+                  },
+                  "data_referencia": "2026-10-28",
+                  "data_entrega": "2026-11-04",
+                  "comprador": "não informado"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343749778",
+                "args": {
+                  "item": {
+                    "produto": "alface",
+                    "unidade": "unidade",
+                    "organico": false,
+                    "quantidade": 50
+                  },
+                  "comprador": "não informado",
+                  "data_entrega": "2026-11-04",
+                  "data_referencia": "2026-10-28"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_14848323102343752247",
+                "args": {
+                  "comprador": "não informado",
+                  "item": {
+                    "organico": false,
+                    "quantidade": 30,
+                    "unidade": "maço",
+                    "produto": "rúcula"
+                  },
+                  "data_entrega": "2026-11-04",
+                  "data_referencia": "2026-10-28"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "6cT-au6aOretxdIPrJ3vyAU",
+    "usage_metadata": {
+      "candidates_token_count": 672,
+      "prompt_token_count": 3386,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3386
+        }
+      ],
+      "total_token_count": 4058
+    }
+  }
+}

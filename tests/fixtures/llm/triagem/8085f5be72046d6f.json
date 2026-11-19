@@ -1,0 +1,80 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8085f5be72046d6f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:15:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3152",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_16699047262000520751",
+                "args": {
+                  "data_entrega": "2026-10-31",
+                  "comprador": "Lúcia",
+                  "item": {
+                    "organico": false,
+                    "quantidade": 10,
+                    "unidade": "kg",
+                    "produto": "queijo coalho"
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0ThjpTuN6pSVnW-HFlTsrzgK-nhmeoqkNgh_ceAxcMwGcuQ1Rnro-3f0nMjqbD9h5nL-c7HSZe0sQTOFoO20GJr11fUjx_qFRGxzWeE7glMq10re9gx8bX9e7pjhQ8Fatl_gztbLNGfNxjCSnT1oDlBt-KNcE="
+            },
+            {
+              "function_call": {
+                "id": "call_16699047262000520162",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "quantidade": 5,
+                    "produto": "manteiga",
+                    "unidade": "kg"
+                  },
+                  "comprador": "Lúcia",
+                  "data_entrega": "2026-10-31"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "V8z-asrvJJT-5NoPqI21kQk",
+    "usage_metadata": {
+      "candidates_token_count": 134,
+      "prompt_token_count": 3010,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3010
+        }
+      ],
+      "total_token_count": 3144
+    }
+  }
+}

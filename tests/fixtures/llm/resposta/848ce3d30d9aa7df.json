@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "848ce3d30d9aa7df",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:50 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=10803",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: notificação oficial.\n\nA mensagem é uma notificação da ADAGRO informando que a Cooperativa Sabor da Terra será submetida a inspeção sanitária nos dias 11 e 12 de novembro de 2026, sendo exigido manter disponíveis o cadastro atualizado de todos os produtores, certificações orgânicas vigentes, laudos sanitários dos últimos 12 meses, registros de rastreabilidade dos últimos 3 lotes de cada produto e contratos com compradores institucionais. O não atendimento poderá resultar em suspensão do SIE.\n\nResumo do que a mensagem pede, prazos e o que a equipe precisa fazer com base nos documentos consultados:\n\n- **Prazo de entrega:** 2026-11-12 (referente aos dias 11 e 12 de novembro de 2026).\n- **Observações extraídas:**\n  - Inspeção sanitária da ADAGRO na Cooperativa Sabor da Terra nos dias 11 e 12 de novembro de 2026.\n  - Manter disponível cadastro de produtores, certificações orgânicas, laudos sanitários, registros de rastreabilidade e contratos.\n  - O não atendimento poderá resultar em suspensão do SIE.\n\nSituação dos documentos e exigências com base na base documental da cooperativa:\n\n- **Certificações orgânicas vigentes:**\n  - Para a produtora Maria das Graças Silva Ferreira (P001), o certificado emitido pela IBD Certificações é válido até 15/06/2027 [fonte: certificacoes/cert_organica_maria_silva_P001.txt].\n  - Para os produtores de mel silvestre José Antônio dos Santos (P002) e Débora Cristina de Melo (P018), as certificações orgânicas são válidas até 03/2027 e 02/2027, respectivamente [fonte: fichas_tecnicas/mel_silvestre.txt].\n  - A produtora Josefa Alves de Souza (P008) encontra-se com a certificação orgânica vencida em 30/09/2026 e em processo de renovação, havendo alerta para não comercializar seus produtos como orgânicos até a conclusão da renovação [fonte: fichas_tecnicas/mel_silvestre.txt].\n\n- **O que falta / Lacunas:** Não foram encontrados em nossa base documental informações sobre laudos sanitários dos últimos 12 meses, nem contratos com compradores institucionais.",
+              "thought_signature": "EnsKeQFpFH0TPzlx7bwTfY-c3KpoF7Gvfnt5kHgrjbEr_Tgqjsm2t75b2TncLdketS_OwpwSOeeo-lG7TGqwP6ATxwP75cpN4Kq15L2fH16TkvVaNArb42mdo4BhH-k9-6plDeyjhzqpkrxWI8AnVzqWvMDi-v4TmDYXQx0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "tM3-aubnFo7c0_gPmOKJoAI",
+    "usage_metadata": {
+      "candidates_token_count": 571,
+      "prompt_token_count": 2194,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2194
+        }
+      ],
+      "total_token_count": 2765
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a9aaa62cd8b02bc7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:14:44 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2957",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: compra (canal: whatsapp)\n\nItens solicitados:\n- **queijo coalho**: quantidade 30.0 kg, prazo 2026-11-01 (opcional: não, orgânico: não). Alertas de conformidade:\n  - P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final [fonte: fichas_tecnicas/queijo_coalho.txt].\n  - O pedido de 30 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: de 300 a 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fonte: fichas_tecnicas/queijo_coalho.txt].\n  - Não há contrato registrado com 'Carlos': vale a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\n- **manteiga de garrafa**: quantidade 10.0 kg, prazo 2026-11-01 (opcional: não, orgânico: não). Alertas de conformidade:\n  - O pedido de 10 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 40 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fonte: certificacoes/cert_organica_antonio_lima_P007.txt].\n  - Só P007 (Antônio Carlos Pereira Lima) fornece manteiga de garrafa: não há outro produtor se ele não puder atender [fonte: produtores.csv].\n  - Não há contrato registrado com 'Carlos': vale a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\n- **mel silvestre**: quantidade 5.0 kg, prazo 2026-11-01 (opcional: não, orgânico: não). Alertas de conformidade:\n  - P008 (Josefa Alves de Souza) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se Carlos aceita [fonte: fichas_tecnicas/mel_silvestre.txt].\n  - P018 (Débora Cristina de Melo) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se Carlos aceita [fonte: fichas_tecnicas/mel_silvestre.txt].\n  - O pedido de 5 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 151,7 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fonte: fichas_tecnicas/mel_silvestre.txt].\n  - Não há contrato registrado com 'Carlos': vale a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\n- **coentro**: quantidade 20.0 maço, prazo 2026-11-01 (opcional: não, orgânico: não). Alertas de conformidade:\n  - Não há capacidade documentada em maço para coentro nos produtores elegíveis; confirme a quantidade com eles.\n  - Só P004 (Ana Lúcia Bezerra da Costa) fornece coentro: não há outro produtor se ele não puder atender [fonte: produtores.csv].\n  - Não há contrato registrado com 'Carlos': vale a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\n- **cebolinha**: quantidade 10.0 maço, prazo 2026-11-01 (opcional: não, orgânico: não). Alertas de conformidade:\n  - Não há capacidade documentada em maço para cebolinha nos produtores elegíveis; confirme a quantidade com eles.\n  - Só P004 (Ana Lúcia Bezerra da Costa) fornece cebolinha: não há outro produtor se ele não puder atender [fonte: produtores.csv].\n  - Não há contrato registrado com 'Carlos': vale a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\n- **ricota**: quantidade 5.0 kg, prazo 2026-11-01 (opcional: sim, orgânico: não). Alertas de conformidade:\n  - Não há capacidade documentada em kg para ricota nos produtores elegíveis; confirme a quantidade com eles.\n  - Só P003 (Cícero Romão de Almeida) fornece ricota: não há outro produtor se ele não puder atender [fonte: produtores.csv].\n  - Não há contrato registrado com 'Carlos': vale a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\nObservações:\n- Conflito de data: mensagem informa 'sexta' junto com 01/11/2026, mas 01/11/2026 cai em domingo (a sexta-feira correspondente seria 30/10/2026).\n\nCampos faltantes:\n- Não informado.\n\nAmbiguidades:\n- Conflito de data: mensagem informa 'sexta' junto com 01/11/2026, mas 01/11/2026 cai em domingo (a sexta-feira correspondente seria 30/10/2026).",
+              "thought_signature": "EnsKeQFpFH0TfJ2J6CZa0wcgouFyIeeLYmsT-XBG_2EZ7xe2eE8LyFP0ICDLEM0AEpoqAvttnToD0gracXVE5ixRVghtceoe2GssWE0S3cpnauyslSuae6lk5Cvqr345BkjHMQfIDptaME5H4qW4tmbqIudiHhsK2mWymT4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Ecz-aruBMJ6wytMPqdCq8QM",
+    "usage_metadata": {
+      "candidates_token_count": 1297,
+      "prompt_token_count": 7010,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 7010
+        }
+      ],
+      "total_token_count": 8307
+    },
+    "automatic_function_calling_history": []
+  }
+}

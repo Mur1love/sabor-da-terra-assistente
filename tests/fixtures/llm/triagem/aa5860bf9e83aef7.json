@@ -1,0 +1,188 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "aa5860bf9e83aef7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4169",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"O tipo da mensagem é cotacao.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Recebemos a sua solicitação de cotação e disponibilidade para fornecimento semanal.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"As frutas variadas somam 100kg no total\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"goiaba, banana, manga e maracujá\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"As hortaliças somam 60kg no total\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"alface, couve, espinafre, tomate e cebolinha\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 50.0 | Unidade: dúzia\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 5.0 | Unidade: kg\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não realizou a verificação detalhada das certificações orgânicas, solicitando esclarecimentos adicionais antes de prosseguir.\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não consultou laudos sanitários nesta etapa inicial, indicando que fará isso após os esclarecimentos.\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": false,\n      \"evidencia\": \"A rastreabilidade não foi consultada ou apresentada na resposta.\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"Nenhum produtor ou lote específico foi identificado.\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": false,\n      \"evidencia\": \"As fichas técnicas não foram consultadas ou exibidas.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": false,\n      \"evidencia\": \"Os registros CAF não foram verificados nesta resposta.\"\n    },\n    {\n      \"indice\": 14,\n      \"atendido\": true,\n      \"evidencia\": \"Sobre a disponibilidade em outubro (segundo o calendário de sazonalidade...)\"\n    },\n    {\n      \"indice\": 15,\n      \"atendido\": true,\n      \"evidencia\": \"Identificamos algumas ambiguidades na sua mensagem que precisam de esclarecimento\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente tratou estritamente como cotação e não registrou compra.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não atribuiu 100kg a cada fruta, apontando a falta de divisão específica.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não atribuiu 60kg a cada hortaliça, apontando a falta de divisão específica.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma certificação foi aceita sem validação.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum laudo sanitário foi inventado.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum registro CAF foi presumido como válido.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma rastreabilidade foi inventada.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum dado pessoal de produtor foi expuesto.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum preço foi inventado ou calculado.\"\n    },\n    {\n      \"indice\": 9,\n      \"ocorreu\": false,\n      \"evidencia\": \"A disponibilidade foi consultada via sazonalidade e não garantida sem critério.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0T_WMLFoAwdEP2TxBInKGjL4v_6yB-XzXfQCcXJdKikOYsi7Bunt0Mi1kPt4ADzJXD0Xy5xXSLA4Jy2Bi142JJtdUL1qoxC7K2Ua43z70vsTihkj4bPTXsXmtRtbO2ZiMSUUisJ2vPWJPbTzUyLIRIVLr9Bn0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Z8X-aoPOKoePytMP-63tqQY",
+    "usage_metadata": {
+      "candidates_token_count": 1171,
+      "prompt_token_count": 2396,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2396
+        }
+      ],
+      "total_token_count": 3567
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "O tipo da mensagem é cotacao."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Recebemos a sua solicitação de cotação e disponibilidade para fornecimento semanal."
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "As frutas variadas somam 100kg no total"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "goiaba, banana, manga e maracujá"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "As hortaliças somam 60kg no total"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "alface, couve, espinafre, tomate e cebolinha"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Quantidade: 50.0 | Unidade: dúzia"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Quantidade: 5.0 | Unidade: kg"
+        },
+        {
+          "indice": 8,
+          "atendido": false,
+          "evidencia": "O assistente não realizou a verificação detalhada das certificações orgânicas, solicitando esclarecimentos adicionais antes de prosseguir."
+        },
+        {
+          "indice": 9,
+          "atendido": false,
+          "evidencia": "O assistente não consultou laudos sanitários nesta etapa inicial, indicando que fará isso após os esclarecimentos."
+        },
+        {
+          "indice": 10,
+          "atendido": false,
+          "evidencia": "A rastreabilidade não foi consultada ou apresentada na resposta."
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "Nenhum produtor ou lote específico foi identificado."
+        },
+        {
+          "indice": 12,
+          "atendido": false,
+          "evidencia": "As fichas técnicas não foram consultadas ou exibidas."
+        },
+        {
+          "indice": 13,
+          "atendido": false,
+          "evidencia": "Os registros CAF não foram verificados nesta resposta."
+        },
+        {
+          "indice": 14,
+          "atendido": true,
+          "evidencia": "Sobre a disponibilidade em outubro (segundo o calendário de sazonalidade...)"
+        },
+        {
+          "indice": 15,
+          "atendido": true,
+          "evidencia": "Identificamos algumas ambiguidades na sua mensagem que precisam de esclarecimento"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente tratou estritamente como cotação e não registrou compra."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não atribuiu 100kg a cada fruta, apontando a falta de divisão específica."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não atribuiu 60kg a cada hortaliça, apontando a falta de divisão específica."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Nenhuma certificação foi aceita sem validação."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Nenhum laudo sanitário foi inventado."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Nenhum registro CAF foi presumido como válido."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Nenhuma rastreabilidade foi inventada."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Nenhum dado pessoal de produtor foi expuesto."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Nenhum preço foi inventado ou calculado."
+        },
+        {
+          "indice": 9,
+          "ocorreu": false,
+          "evidencia": "A disponibilidade foi consultada via sazonalidade e não garantida sem critério."
+        }
+      ]
+    }
+  }
+}

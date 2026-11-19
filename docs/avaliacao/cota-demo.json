@@ -1,0 +1,137 @@
+{
+  "data": "2026-11-19",
+  "data_referencia": "2026-10-30",
+  "turnos": [
+    {
+      "etapa": "triagem com problemas (PED-006)",
+      "mensagem": "Chegou este pedido do SuperBom, faz a triagem:\n\nPEDIDO URGENTE\n\nNecessitamos com máxima urgência para HOJE (29/10):\n- Queijo coalho: 200kg\n- Queijo manteiga: 50kg\n- Mel silvestre orgânico: 40kg\n- Goiaba: 300kg\n\nPagamento: boleto 30 dias conforme contrato.\nEntrega: CD SuperBom, BR-423 km 12, Garanhuns.\n\nSe não atenderem hoje perdemos a promoção de fim de semana.\n\nRoberto Cavalcanti\nGerente de Compras",
+      "resposta": "**Tipo da mensagem:** compra_urgente [fonte: tabela_precos_outubro_2026.csv]\n\n### Itens solicitados:\n- **queijo coalho**: 200.0 kg [fonte: fichas_tecnicas/queijo_coalho.txt]  \n  - *Alerta de conformidade:* A data de entrega (2026-10-29) é anterior à data de referência (2026-10-30). [fonte: fichas_tecnicas/queijo_coalho.txt]  \n  - *Outros alertas:* P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final. [fonte: fichas_tecnicas/queijo_coalho.txt]  \n  - *Outros alertas:* O pedido de 200 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: de 300 a 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/queijo_coalho.txt]  \n  - *Outros alertas:* Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n- **queijo manteiga**: 50.0 kg [fonte: produtores.csv]  \n  - *Alerta de conformidade:* A data de entrega (2026-10-29) é anterior à data de referência (2026-10-30). [fonte: produtores.csv]  \n  - *Outros alertas:* Não há capacidade documentada em kg para queijo manteiga nos produtores elegíveis; confirme a quantidade com eles.  \n  - *Outros alertas:* Só P003 (Cícero Romão de Almeida) fornece queijo manteiga: não há outro produtor se ele não puder atender. [fonte: produtores.csv]  \n  - *Outros alertas:* Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n- **mel silvestre**: 40.0 kg [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]  \n  - *Alerta de conformidade:* A data de entrega (2026-10-29) é anterior à data de referência (2026-10-30). [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]  \n  - *Outros alertas:* P008 (Josefa Alves de Souza): a certificação orgânica ORG-PE-2024-003876 não vale em 30/10/2026; venceu em 30/09/2026. A renovação foi pedida em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está marcada para 15/11/2026. O pedido de renovação não libera a venda como orgânico. Não pode vender mel silvestre como orgânico. [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]  \n  - *Outros alertas:* P018 (Débora Cristina de Melo) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se Rede SuperBom Atacado aceita. [fonte: fichas_tecnicas/mel_silvestre.txt]  \n  - *Outros alertas:* O pedido de 40 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 116,7 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/mel_silvestre.txt]  \n  - *Outros alertas:* Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n- **goiaba paluma**: 300.0 kg [fonte: fichas_tecnicas/goiaba_paluma.txt]  \n  - *Alerta de conformidade:* A data de entrega (2026-10-29) é anterior à data de referência (2026-10-30). [fonte: fichas_tecnicas/goiaba_paluma.txt]  \n  - *Outros alertas:* O pedido de 300 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 800 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/goiaba_paluma.txt]  \n  - *Outros alertas:* Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]  \n  - *Outros alertas:* 'goiaba paluma' tem mais de um preço na tabela: goiaba paluma extra, goiaba paluma especial. Pergunte qual. [fonte: tabela_precos_outubro_2026.csv]  \n  - *Outros alertas:* Pico dez-mar. Fora de safra jun-ago. [fonte: sazonalidade.csv]\n\n### Observações extraídas:\n- Pagamento: boleto 30 dias conforme contrato [fonte: tabela_precos_outubro_2026.csv]\n- Local de entrega: CD SuperBom, BR-423 km 12, Garanhuns [fonte: tabela_precos_outubro_2026.csv]\n- Risco de perda de promoção de fim de semana [fonte: tabela_precos_outubro_2026.csv]",
+      "funcoes": [
+        "triar_pedido",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "verificar_conformidade",
+        "disponibilidade"
+      ],
+      "fontes": [
+        "fichas_tecnicas/queijo_coalho.txt",
+        "tabela_precos_outubro_2026.csv",
+        "produtores.csv",
+        "certificacoes/cert_organica_josefa_souza_P008.txt",
+        "fichas_tecnicas/mel_silvestre.txt",
+        "fichas_tecnicas/goiaba_paluma.txt",
+        "sazonalidade.csv"
+      ],
+      "demanda_por_papel": {
+        "triagem": 5,
+        "resposta": 1
+      },
+      "duracao_s": 24.8
+    },
+    {
+      "etapa": "consulta documental com citação",
+      "mensagem": "Quais produtores têm certificação orgânica vigente para mel silvestre?",
+      "resposta": "Os produtores com certificação orgânica vigente para mel silvestre em 30/10/2026 são:\n\n* **José Antônio dos Santos** (P002) - Município: Brejão — Certificação vigente até 2027-03-20 [fonte: produtores.csv].\n* **Débora Cristina de Melo** (P018) - Município: Águas Belas — Certificação vigente até 2027-02-28 [fonte: produtores.csv].\n\n*Aviso:* Em 2026-10-30 a certificação orgânica está vencida para: P008 (Josefa Alves de Souza, venceu em 2026-09-30). Esses produtores não podem vender como orgânico [fonte: produtores.csv].",
+      "funcoes": [
+        "buscar_produtores"
+      ],
+      "fontes": [
+        "produtores.csv"
+      ],
+      "demanda_por_papel": {
+        "triagem": 2,
+        "resposta": 1
+      },
+      "duracao_s": 7.3
+    },
+    {
+      "etapa": "continuidade de contexto",
+      "mensagem": "E o da Josefa?",
+      "resposta": "A certificação orgânica de Josefa Alves de Souza (P008), de Águas Belas, expirou em 30/09/2026, encontrando-se vencida em relação à data de referência (30/10/2026) [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. \n\nSobre o protocolo de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, com auditoria de renovação agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até que a renovação seja concluída, seus produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+      "funcoes": [
+        "identificar_produtor",
+        "consultar_documentos"
+      ],
+      "fontes": [
+        "produtores.csv",
+        "certificacoes/cert_organica_josefa_souza_P008.txt"
+      ],
+      "demanda_por_papel": {
+        "triagem": 4,
+        "resposta": 2
+      },
+      "duracao_s": 17.0
+    },
+    {
+      "etapa": "caso 'não sei' (lote inexistente)",
+      "mensagem": "Onde está o lote LOT-2024-089?",
+      "resposta": "O lote `LOT-2024-089` não foi encontrado (o número correto mais próximo é `LOT-2026-0089`) [fonte: lotes.csv]. \n\nAbaixo estão os dados do lote **LOT-2026-0089**:\n* **Produto:** Queijo coalho (45 kg) [fonte: lotes.csv]\n* **Produtor:** Cícero Romão de Almeida (P003), de Caetés [fonte: lotes.csv]\n* **Comprador:** Restaurante Raízes [fonte: lotes.csv]\n* **Pedido associado:** PED-2026-SEP-003 [fonte: lotes.csv]\n* **Data de colheita:** 01/09/2026 [fonte: lotes.csv]\n* **Data de entrega:** 02/09/2026 [fonte: lotes.csv]\n* **Validade:** 02/10/2026 [fonte: lotes.csv]\n* **Temperatura de transporte:** 8°C (ambiente climatizado) [fonte: lotes.csv]\n* **Inspeção visual:** Aprovado [fonte: lotes.csv]\n* **Status do pagamento:** Pago (Transação FIN-2026-003, no valor de R$ 1.440,00, liquidada em 05/09/2026) [fonte: lotes.csv].",
+      "funcoes": [
+        "rastrear_lote",
+        "rastrear_lote"
+      ],
+      "fontes": [
+        "lotes.csv"
+      ],
+      "demanda_por_papel": {
+        "triagem": 3,
+        "resposta": 1
+      },
+      "duracao_s": 46.6
+    },
+    {
+      "etapa": "resumo de produtor (PED-012)",
+      "mensagem": "A produtora do telefone (87) 99812-3456 quer saber quanto vendeu esse mês e se o pagamento do Mercado Bom Preço de setembro já caiu. Monta o resumo dela.",
+      "resposta": "Não encontrei nenhum produtor associado ao telefone `***` no cadastro. Poderia fornecer o nome ou o código correto do produtor para que eu possa gerar o resumo solicitado?",
+      "funcoes": [
+        "identificar_produtor"
+      ],
+      "fontes": [],
+      "demanda_por_papel": {
+        "triagem": 2,
+        "resposta": 1
+      },
+      "duracao_s": 5.9
+    }
+  ],
+  "demanda_por_papel": {
+    "triagem": 16,
+    "resposta": 6
+  },
+  "consumo_real_da_simulacao": {
+    "chamadas_reais": {
+      "gemini-3.5-flash-lite": 20
+    },
+    "replays": 2,
+    "failovers": 0,
+    "demanda_por_papel": {
+      "resposta": 6,
+      "triagem": 16
+    }
+  },
+  "cota_docs03": {
+    "triagem": {
+      "modelo": "Flash-Lite",
+      "rpm": 15,
+      "rpd": 500,
+      "demanda_da_demo": 16,
+      "pico_por_turno": 5,
+      "cabe_no_rpd": true,
+      "demos_por_dia": 31
+    },
+    "resposta": {
+      "modelo": "Flash",
+      "rpm": 5,
+      "rpd": 20,
+      "demanda_da_demo": 6,
+      "pico_por_turno": 2,
+      "cabe_no_rpd": true,
+      "demos_por_dia": 3
+    }
+  }
+}

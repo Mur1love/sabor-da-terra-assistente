@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "cbe3b3f2381bb8bf",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:55 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2704",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: cotação\n\nItens do pedido:\n* queijo coalho: 25.0 kg, prazo 2026-11-08\n  * Alertas de conformidade:\n    * P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final. [fonte: fichas_tecnicas/queijo_coalho.txt]\n    * O pedido de 25 kg cabe na capacidade. Capacidade documentada dos elegíveis em 10 dias: de 428,6 a 571,4 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/queijo_coalho.txt]\n    * Não há contrato registrado com 'evento de 08/nov, jantar regional com 120 convidados': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n* queijo manteiga: 10.0 kg, prazo 2026-11-08\n  * Alertas de conformidade:\n    * Não há capacidade documentada em kg para queijo manteiga nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]\n    * Só P003 (Cícero Romão de Almeida) fornece queijo manteiga: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    * Não há contrato registrado com 'evento de 08/nov, jantar regional com 120 convidados': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n* mel: 8.0 kg, prazo 2026-11-08\n* goiaba paluma: 20.0 kg, prazo 2026-11-08\n  * Alertas de conformidade:\n    * O pedido de 20 kg cabe na capacidade. Capacidade documentada dos elegíveis em 10 dias: 1142,9 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/goiaba_paluma.txt]\n    * Não há contrato registrado com 'evento de 08/nov, jantar regional com 120 convidados': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n* cajá: 10.0 kg, prazo 2026-11-08\n  * Alertas de conformidade:\n    * Cajá tem disponibilidade baixa em novembro; confirme a quantidade com os produtores. Safra muito curta: nov-jan. [fonte: sazonalidade.csv]\n    * Não há capacidade documentada em kg para cajá nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]\n    * Só P010 (Raimunda Nonata de Lima) fornece cajá: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    * Não há contrato registrado com 'evento de 08/nov, jantar regional com 120 convidados': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n* rapadura: 15.0 kg, prazo 2026-11-08\n* goma de tapioca: 10.0 kg, prazo 2026-11-08\n* frango caipira: 40.0 kg, prazo 2026-11-08\n* ovos caipira: 30.0 dúzia, prazo 2026-11-08\n\nObservações:\n- Jantar regional para 120 convidados\n- Solicita disponibilidade e valor total\n\nCampos faltantes:\n- Nenhum\n\nAmbiguidades:\n- 'mel' pode ser: mel de jandaíra, mel silvestre. Pergunte qual.\n- Nenhum produto do catálogo corresponde a 'goma de tapioca'.",
+              "thought_signature": "EnsKeQFpFH0TLo2Y_OnhjGKgglsj4NTgFzux7Rc2n_ZLm1hgJZ1UirJLewfUVGM3eDrWvM1Q9RnoK6qQxPaBGBYaqJefzw54TzFNqdWcgyAKX2Kv8rgNB_-u9UMm6-4KfpRVbSRakOfenPhLzy3KWK4wkP4m_KXTsGLmYDM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "hM3-areEML3kiLMPhNbByAU",
+    "usage_metadata": {
+      "candidates_token_count": 987,
+      "prompt_token_count": 8312,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 8312
+        }
+      ],
+      "total_token_count": 9299
+    },
+    "automatic_function_calling_history": []
+  }
+}

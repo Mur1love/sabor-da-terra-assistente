@@ -1,0 +1,64 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "4824fe1211f1bb1f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:26 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=795",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_13693414131129829286",
+                "args": {
+                  "data_entrega": "2026-10-31",
+                  "comprador": "Lúcia",
+                  "item": {
+                    "quantidade": 5,
+                    "produto": "manteiga",
+                    "organico": false,
+                    "unidade": "kg"
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TDs9rKOwhlrTFCbFAx_yfTh1RJ2KNGFs7cdKjUpS50cjZGXaZQaeV0RT7aH9qh3mZMnq1g46b-eP9swtCGM5vWKLhcu21CsL-teGhUpOlEXiaW7niFPiL5b6g5lQmeqcZhsdOAx1IGny8EnBoc9HjGIawsUA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "NsX-apWaDOuEuMYPosDy0AM",
+    "usage_metadata": {
+      "candidates_token_count": 66,
+      "prompt_token_count": 3753,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3753
+        }
+      ],
+      "total_token_count": 3819
+    }
+  }
+}

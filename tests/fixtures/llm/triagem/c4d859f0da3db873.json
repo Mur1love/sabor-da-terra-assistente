@@ -1,0 +1,70 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c4d859f0da3db873",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:39:48 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1082",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_4944886778160045528",
+                "args": {
+                  "organico": true,
+                  "produto": "café torrado",
+                  "quantidade": 1
+                },
+                "name": "preco"
+              },
+              "thought_signature": "EokBCoYBAWkUfRNAXjfqqYHxXr1XSa13MwibbAlnSQzH77KbWoq688AuecnCYdEIutE-OKCEVw9QSA4k3nHjTyg6dYDyOlKu_rNGtHZTm8TS_QlNRtC5HVhYtHArDA_mDtMfmPH8GFu3rEDq8PBaaHWoO98XUT79nqZqE_TEHhokK4EoMeZZbOi56cw="
+            },
+            {
+              "function_call": {
+                "id": "call_4944886778160044445",
+                "args": {
+                  "produto": "carne bovina",
+                  "organico": false,
+                  "quantidade": 1
+                },
+                "name": "preco"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "4-L9aqatKe_jytMP3K27qQU",
+    "usage_metadata": {
+      "candidates_token_count": 52,
+      "prompt_token_count": 2648,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2648
+        }
+      ],
+      "total_token_count": 2700
+    }
+  }
+}

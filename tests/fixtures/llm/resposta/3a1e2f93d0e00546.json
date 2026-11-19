@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3a1e2f93d0e00546",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:41:13 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5497",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não podemos acionar o produtor P015 (Geraldo Manoel Barbosa) para esta demanda, pois ele está inativo no cadastro e não recebe alocação de pedidos [fonte: produtores.csv].\n\nSobre os itens consultados:\n- **Macaxeira (150kg):** O produtor P015 foi excluído por estar inativo [fonte: produtores.csv]. O produtor elegível para fornecer macaxeira é o P005 (Francisco de Assis Cordeiro) [fonte: produtores.csv].\n- **Feijão (100kg):** Nenhum produto do catálogo corresponde a 'feijão'.",
+              "thought_signature": "EokBCoYBAWkUfRPQe1ZAExFhhtIGnWABvaPUJULpXDq35NfW9pRL9qAlcvcmk80vx2RSgp7W4ldjR0KiM70X7zQKo_9H3QBI75PP6koLqUN155nqNXOuvy8Rii9B1_hNNj9eHuqrTu8PunomDAGVQrxwUY6do_W1oem0fl1mHJLviJBgir2MLdyGeUc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "M-P9apXJPLmB1sgP4aa9gQU",
+    "usage_metadata": {
+      "candidates_token_count": 146,
+      "prompt_token_count": 1988,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1988
+        }
+      ],
+      "total_token_count": 2134
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "338a7aa9fdc538bd",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:00 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3636",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi o pedido de Carlos enviado pelo WhatsApp.\n\n⚠️ **Conflito de data identificado na triagem:** A mensagem menciona \"sexta (01/nov)\", mas 01/11/2026 cai em um domingo. A sexta-feira correspondente é **30/10/2026**. Abaixo está a análise dos itens considerando a data de entrega informada (01/11/2026) e a tabela geral de preços de outubro/2026 [fonte: `tabela_precos_outubro_2026.csv`]:\n\n---\n\n### Resumo dos Itens e Conformidade\n\n1. **Queijo Coalho** (30 kg)\n   * **Status:** Pode ser atendido.\n   * **Produtores elegíveis:** Cícero Romão de Almeida (P003) e Antônio Carlos Pereira Lima (P007) [fonte: `fichas_tecnicas/queijo_coalho.txt`].\n   * *Alerta:* Pedro Henrique Albuquerque (P011) foi excluído para este pedido por não possuir registro SIE/SIM/SISBI para revenda (sua ficha técnica restringe a venda ao consumidor final) [fonte: `fichas_tecnicas/queijo_coalho.txt`].\n   * **Preço unitário:** R$ 32,00/kg | **Subtotal:** R$ 960,00 [fonte: `tabela_precos_outubro_2026.csv`].\n\n2. **Manteiga de Garrafa** (10 kg)\n   * **Status:** Pode ser atendido.\n   * **Produtor exclusivo:** Antônio Carlos Pereira Lima (P007) [fonte: `produtores.csv`, `certificacoes/cert_organica_antonio_lima_P007.txt`].\n   * **Preço unitário:** R$ 45,00/kg | **Subtotal:** R$ 450,00 [fonte: `tabela_precos_outubro_2026.csv`].\n\n3. **Mel Silvestre** (5 kg)\n   * **Status:** Pode ser atendido.\n   * **Produtores elegíveis:** José Antônio dos Santos (P002), Josefa Alves de Souza (P008) e Débora Cristina de Melo (P018) [fonte: `fichas_tecnicas/mel_silvestre.txt`].\n   * *Alerta:* Os produtores P008 e P018 estão com o SIE pendente. Caso o comprador exija registro sanitário rigoroso, priorizar P002 [fonte: `fichas_tecnicas/mel_silvestre.txt`].\n   * **Preço unitário:** R$ 48,00/kg | **Subtotal:** R$ 240,00 [fonte: `tabela_precos_outubro_2026.csv`].\n\n4. **Coentro** (20 maços)\n   * **Status:** Pode ser atendido.\n   * **Produtor exclusivo:** Ana Lúcia Bezerra da Costa (P004) [fonte: `produtores.csv`].\n   * **Preço unitário:** R$ 1,80/maço | **Subtotal:** R$ 36,00 [fonte: `tabela_precos_outubro_2026.csv`].\n\n5. **Cebolinha** (10 maços)\n   * **Status:** Pode ser atendido.\n   * **Produtor exclusivo:** Ana Lúcia Bezerra da Costa (P004) [fonte: `produtores.csv`].\n   * **Preço unitário:** R$ 1,80/maço | **Subtotal:** R$ 18,00 [fonte: `tabela_precos_outubro_2026.csv`].\n\n6. **Ricota** (5 kg — item opcional)\n   * **Status:** Pode ser atendido.\n   * **Produtor exclusivo:** Cícero Romão de Almeida (P003) [fonte: `produtores.csv`].\n   * **Preço unitário:** R$ 28,00/kg | **Subtotal:** R$ 140,00 [fonte: `tabela_precos_outubro_2026.csv`].\n\n---\n\n* **Valor total estimado do pedido:** R$ 1.844,00 (incluindo a ricota).\n* Como não há contrato registrado com Carlos, foi aplicada a tabela geral de preços [fonte: `tabela_precos_outubro_2026.csv`]. \n\nPor favor, confirme com a equipe se a entrega deve ser ajustada para a sexta-feira (30/10) devido à divergência com o dia da semana.",
+              "thought_signature": "EnsKeQFpFH0TapQRS5jJWJtJpqAjq6mpzaXNrGvb2wI28KazLhw6iomb6EbOrgW76891HobZKvXx3XYqLDNHPPXp50IHGVLpN4jLiABQkZ7nFaMQXs4ZEKNHh7yb-IL5n2ifqskTcpv9w_oP7q8xEj3n9fuN85TsRvk0jco="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "3MT-aueeMb-1xdIP0-zkyQs",
+    "usage_metadata": {
+      "candidates_token_count": 1123,
+      "prompt_token_count": 7424,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 7424
+        }
+      ],
+      "total_token_count": 8547
+    }
+  }
+}

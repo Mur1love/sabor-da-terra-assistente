@@ -1,0 +1,138 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5451fc0c807b39cf",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:03 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2040",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: consulta\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Produto: morango | Quantidade: 50.0 | Unidade: kg\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Produto: amora | Quantidade: 50.0 | Unidade: kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a condição de preço para a compra.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não indica que a certificação orgânica é obrigatória.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": false,\n      \"evidencia\": \"Não há menção à validade das certificações.\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não apresenta os valores da tabela de preços.\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": false,\n      \"evidencia\": \"Não há menção a sazonalidade.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Capacidade documentada dos elegíveis em 7 dias: 150 kg e 40 kg\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A mensagem foi tratada como consulta e não como pedido.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há confirmação de compra.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum produto convencional foi oferecido como orgânico.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não houve aceitação de certificação vencida.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum preço foi inventado ou exibido.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"A disponibilidade não foi garantida, pois foram apontados limites e alertas.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os produtos e quantidades listados correspondem exatamente à solicitação.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TbnHJhN_hACf5S6AYc8X5Jx4L1Vei2EFxrCBGf8Owk2GR-jo8iYLm_l-d2YcmZut4q-URq5wpXtbNRrGFtt7tVtRIMxlVz3F8LMNPBYiPPWyHBwy6mr1sNv32MBATM90tFsxBEOknN_MIrK3K720v11bMJ4Q="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "WcX-auyXOsuwytMPpPiP2A8",
+    "usage_metadata": {
+      "candidates_token_count": 700,
+      "prompt_token_count": 1729,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1729
+        }
+      ],
+      "total_token_count": 2429
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: consulta"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Produto: morango | Quantidade: 50.0 | Unidade: kg"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Produto: amora | Quantidade: 50.0 | Unidade: kg"
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a condição de preço para a compra."
+        },
+        {
+          "indice": 4,
+          "atendido": false,
+          "evidencia": "A resposta não indica que a certificação orgânica é obrigatória."
+        },
+        {
+          "indice": 5,
+          "atendido": false,
+          "evidencia": "Não há menção à validade das certificações."
+        },
+        {
+          "indice": 6,
+          "atendido": false,
+          "evidencia": "A resposta não apresenta os valores da tabela de preços."
+        },
+        {
+          "indice": 7,
+          "atendido": false,
+          "evidencia": "Não há menção a sazonalidade."
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Capacidade documentada dos elegíveis em 7 dias: 150 kg e 40 kg"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A mensagem foi tratada como consulta e não como pedido."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não há confirmação de compra."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Nenhum produto convencional foi oferecido como orgânico."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Não houve aceitação de certificação vencida."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Nenhum preço foi inventado ou exibido."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "A disponibilidade não foi garantida, pois foram apontados limites e alertas."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Os produtos e quantidades listados correspondem exatamente à solicitação."
+        }
+      ]
+    }
+  }
+}

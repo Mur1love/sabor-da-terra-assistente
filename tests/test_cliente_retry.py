@@ -220,3 +220,91 @@ def test_timeout_sem_fallback_propaga(tmp_path, monkeypatch):
     with pytest.raises(httpx.ReadTimeout):
         cliente.gerar(Papel.RESPOSTA, "x")
     assert cliente.failovers() == 0
+
+
+class Erro429Diario(Exception):
+    """429 de cota diária: o quotaId do free tier vem no texto do erro."""
+
+    code = 429
+
+    def __str__(self) -> str:
+        return "429 RESOURCE_EXHAUSTED. {'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier'}"
+
+
+class ModeloCotaDiariaNoPrincipal:
+    def __init__(self):
+        self.modelos: list[str] = []
+
+    def generate_content(self, *, model, contents, config=None):
+        self.modelos.append(model)
+        if model == "gemini-3.8-flash":
+            raise Erro429Diario()
+        return SimpleNamespace(text="ok do fallback")
+
+
+def test_cota_diaria_esgotada_vai_direto_ao_fallback(tmp_path, monkeypatch):
+    """Etapa 14: a cota diária não volta em 70s — nenhuma espera antes do failover."""
+    monkeypatch.setenv(VARIAVEL_FALLBACK, "gemini-3.5-flash-lite")
+    esperas = []
+    modelo = ModeloCotaDiariaNoPrincipal()
+    cliente = LLMClient(modo="real", pasta_fixtures=tmp_path, cliente=ClienteFake(modelo), dormir=esperas.append)
+    assert cliente.gerar(Papel.RESPOSTA, "x").text == "ok do fallback"
+    assert esperas == []
+    assert modelo.modelos == ["gemini-3.8-flash", "gemini-3.5-flash-lite"]
+
+
+def test_cota_por_minuto_ainda_espera_o_backoff(tmp_path):
+    """O 429 por minuto (sem PerDay) continua com o backoff de 10s, 20s, 40s."""
+    esperas = []
+    cliente = LLMClient(
+        modo="real", pasta_fixtures=tmp_path, cliente=ClienteFake(ModeloFake(falhas_429=2)), dormir=esperas.append
+    )
+    cliente.gerar(Papel.TRIAGEM, "x")
+    assert esperas == [10.0, 20.0]
+
+
+def test_replay_em_fixture_reproduz_a_resposta_gravada_pelo_fallback(tmp_path, monkeypatch):
+    """O failover gravou sob a chave do fallback; o replay precisa achar o mesmo caminho."""
+    monkeypatch.setenv(VARIAVEL_FALLBACK, "gemini-3.5-flash-lite")
+    class ModeloRealNoFallback(ModeloFake):
+        """Resposta REAL do SDK no fallback (o modo gravar serializa com to_json_dict)."""
+
+        def generate_content(self, *, model, contents, config=None):
+            if model == "gemini-3.8-flash":
+                raise Erro429Diario()
+            return super().generate_content(model=model, contents=contents, config=config)
+
+    gravador = LLMClient(
+        modo="gravar",
+        pasta_fixtures=tmp_path,
+        cliente=ClienteFake(ModeloRealNoFallback(texto="ok do fallback")),
+        dormir=lambda _s: None,
+    )
+    gravador.gerar(Papel.RESPOSTA, "pergunta")
+    gravadas = sorted(p.name for p in (tmp_path / "resposta").glob("*.json"))
+    assert len(gravadas) == 1  # só a resposta do fallback existe
+
+    replay = LLMClient(modo="fixture", pasta_fixtures=tmp_path)
+    assert replay.gerar(Papel.RESPOSTA, "pergunta").text == "ok do fallback"
+
+
+def test_replay_sem_fallback_configurado_continua_acusando_a_fixture_ausente(tmp_path, monkeypatch):
+    monkeypatch.delenv(VARIAVEL_FALLBACK, raising=False)
+    from sabor_da_terra.llm.cliente import FixtureAusenteError
+
+    with pytest.raises(FixtureAusenteError):
+        LLMClient(modo="fixture", pasta_fixtures=tmp_path).gerar(Papel.RESPOSTA, "nada gravado")
+
+
+def test_cota_diaria_reconhecida_pela_mensagem():
+    """A mensagem do 429 diário diz 'requests per day' (visto em 18/11/2026)."""
+    from sabor_da_terra.llm.cliente import _cota_diaria_esgotada
+
+    class Erro429Mensagem(Exception):
+        code = 429
+
+        def __str__(self):
+            return "429 RESOURCE_EXHAUSTED. Generate content requests per day limit, limit: 500"
+
+    assert _cota_diaria_esgotada(Erro429Mensagem())
+    assert not _cota_diaria_esgotada(Erro429())  # o 429 por minuto continua com backoff

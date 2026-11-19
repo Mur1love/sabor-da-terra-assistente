@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ce6dd75cd7856840",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:01 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=10475",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi o pedido semanal e fiz a triagem e a verificação de conformidade para todos os itens. Abaixo estão os resultados, lembrando que o comprador não foi informado na mensagem:\n\n### 1. Triagem do Pedido\n* **Tipo:** Compra\n* **Data de recebimento:** 28/10/2026\n* **Prazo de entrega informado:** 04/11/2026 (terça-feira) [Obs.: A mensagem menciona \"terça, 04/11\", mas 04/11/2026 cai em uma quarta-feira; a terça correspondente seria 03/11/2026].\n* **Local de entrega:** Centro de distribuição\n* **Observações:** Emitir nota fiscal para o CNPJ informado; dados de contato registrados no pedido.\n* **Comprador:** Não informado (necessário identificar para checar contratos específicos).\n\n---\n\n### 2. Verificação de Conformidade e Preços por Item (para entrega em 04/11/2026)\n\n* **Goiaba Paluma (50 kg)**\n  * **Produtores elegíveis:** Maria das Graças Silva Ferreira (P001) e Raimunda Nonata de Lima (P010) [fonte: fichas_tecnicas/goiaba_paluma.txt, tabela_precos_outubro_2026.csv].\n  * **Conformidade:** O pedido cabe na capacidade documentada (800 kg em 7 dias) [fonte: fichas_tecnicas/goiaba_paluma.txt]. Alerta: O pedido de 50 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 800 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/goiaba_paluma.txt]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** Há mais de um tipo na tabela (`goiaba paluma extra` e `goiaba paluma especial`). É necessário confirmar qual variedade o cliente deseja [fonte: tabela_precos_outubro_2026.csv].\n\n* **Banana Prata (40 kg)**\n  * **Produtor elegível:** Severina Maria do Nascimento (P006) — *Produtor exclusivo para este produto* [fonte: produtores.csv, tabela_precos_outubro_2026.csv].\n  * **Conformidade:** Alerta: Não há capacidade documentada em kg para banana prata nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]; Só P006 (Severina Maria do Nascimento) fornece banana prata: não há outro produtor se ele não puder atender. [fonte: produtores.csv]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 3,50 / kg | Subtotal: R$ 140,00 (sem desconto de atacado, volume mínimo de 50 kg) [fonte: tabela_precos_outubro_2026.csv].\n\n* **Maracujá (25 kg)**\n  * **Produtor elegível:** Severina Maria do Nascimento (P006) — *Produtor exclusivo para este produto* [fonte: produtores.csv, tabela_precos_outubro_2026.csv].\n  * **Conformidade:** Alerta: Não há capacidade documentada em kg para maracujá nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]; Só P006 (Severina Maria do Nascimento) fornece maracujá: não há outro produtor se ele não puder atender. [fonte: produtores.csv]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 6,00 / kg | Subtotal: R$ 150,00 (sem desconto de atacado, volume mínimo de 50 kg) [fonte: tabela_precos_outubro_2026.csv].\n\n* **Macaxeira (60 kg)**\n  * **Produtor elegível:** Francisco de Assis Cordeiro (P005) — *Produtor exclusivo* [fonte: produtores.csv, fichas_tecnicas/tuberculos_graos.txt, tabela_precos_outubro_2026.csv].\n  * **Conformidade:** O pedido cabe na capacidade (400 kg em 7 dias). Alerta: P015 (Geraldo Manoel Barbosa) está inativo no cadastro e não recebe alocação. [fonte: produtores.csv]; O pedido de 60 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/tuberculos_graos.txt]; Só P005 (Francisco de Assis Cordeiro) fornece macaxeira: não há outro produtor se ele não puder atender. [fonte: produtores.csv]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 3,20 / kg | Subtotal: R$ 192,00 (sem desconto de atacado, volume mínimo de 100 kg) [fonte: tabela_precos_outubro_2026.csv].\n\n* **Inhame (30 kg)**\n  * **Produtor elegível:** Francisco de Assis Cordeiro (P005) — *Produtor exclusivo* [fonte: produtores.csv, fichas_tecnicas/tuberculos_graos.txt, tabela_precos_outubro_2026.csv].\n  * **Conformidade:** O pedido cabe na capacidade (200 kg em 7 dias) [fonte: fichas_tecnicas/tuberculos_graos.txt]. Alerta: O pedido de 30 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 200 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/tuberculos_graos.txt]; Só P005 (Francisco de Assis Cordeiro) fornece inhame: não há outro produtor se ele não puder atender. [fonte: produtores.csv]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 4,80 / kg | Subtotal: R$ 144,00 (observação de pico de safra abr-jul; sem desconto de atacado, volume mínimo de 50 kg) [fonte: tabela_precos_outubro_2026.csv].\n\n* **Tomate (20 kg)**\n  * **Produtor elegível:** Luciana Ferreira Gomes (P012) — *Produtor exclusivo* [fonte: produtores.csv, fichas_tecnicas/hortalicas.txt, tabela_precos_outubro_2026.csv].\n  * **Conformidade:** O pedido cabe na capacidade (400 kg em 7 dias) [fonte: fichas_tecnicas/hortalicas.txt]. Alerta: O pedido de 20 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/hortalicas.txt]; Só P012 (Luciana Ferreira Gomes) fornece tomate: não há outro produtor se ele não puder atender. [fonte: produtores.csv]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 6,00 / kg (Tomate Santa Cruz) | Subtotal: R$ 120,00 (sem desconto de atacado, volume mínimo de 50 kg) [fonte: tabela_precos_outubro_2026.csv].\n\n* **Alface (50 unidades)**\n  * **Produtores elegíveis:** Ana Lúcia Bezerra da Costa (P004) e Marcos Vinícius da Rocha (P009) [fonte: tabela_precos_outubro_2026.csv].\n  * **Conformidade:** Alerta: Não há capacidade documentada em unidade para alface nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 2,50 / unidade | Subtotal: R$ 125,00 com **5% de desconto de atacado aplicado** (atingiu o volume mínimo de 50 unidades) | Total: R$ 118,75 [fonte: tabela_precos_outubro_2026.csv].\n\n* **Rúcula (30 maços)**\n  * **Produtores elegíveis:** Ana Lúcia Bezerra da Costa (P004) e Marcos Vinícius da Rocha (P009) [fonte: tabela_precos_outubro_2026.csv].\n  * **Conformidade:** Alerta: Não há capacidade documentada em maço para rúcula nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]; Não há contrato registrado com 'nao_informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv].\n  * **Preço:** R$ 3,00 / maço | Subtotal: R$ 90,00 com **5% de desconto de atacado aplicado** (atingiu o volume mínimo de 30 maços) | Total: R$ 85,50 [fonte: tabela_precos_outubro_2026.csv].\n\n---\n**Pendências para prosseguir:**\n1. Esclarecer o conflito de data (terça-feira vs. 04/11 que cai em quarta).\n2. Identificar o nome do comprador para verificar se há contrato específico cadastrado.\n3. Confirmar a variedade da goiaba paluma (extra ou especial).",
+              "thought_signature": "EnsKeQFpFH0TAlITH722YMFkK0cpSm_Ih_m-m06OAp-VUUwv-iiNrHcnLqKNtN8QsVGyUyEAQ2rKOR3Jsvt-7ddyvoFaiX6GFF5cf_IPJr2dfav4qZaoJmHdRaEqg_pAK1QtkxFx6Pg96LfQwebnn2L3Dm4UN9Rpzetn1Xc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "R83-atWPA56wytMPqdCq8QM",
+    "usage_metadata": {
+      "candidates_token_count": 2536,
+      "prompt_token_count": 9101,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 9101
+        }
+      ],
+      "total_token_count": 11637
+    },
+    "automatic_function_calling_history": []
+  }
+}

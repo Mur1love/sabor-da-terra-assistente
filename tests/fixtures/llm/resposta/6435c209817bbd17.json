@@ -1,0 +1,62 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6435c209817bbd17",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 16:16:34 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7192",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"A certificação orgânica da produtora P004 (Ana Lúcia Bezerra da Costa) possui validade até 01/12/2026 [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]. O certificado destaca que a certificação está próxima do vencimento e a renovação deve ser solicitada até 01/10/2026 [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_ana_bezerra_P004.txt\",\n      \"trecho\": \"Data de Validade: 01/12/2026\\n\\nATENÇÃO: CERTIFICAÇÃO PRÓXIMA DO VENCIMENTO.\\nRenovação deve ser solicitada até 01/10/2026.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfRO0fBPAMH0pEOkRdA4UwWgkhom6vnua4cA5ywxfiCRx_n77wnrvlbLvSx2snMBauz2KEguVTAvMsP8pjeXo8qWnNDh2LzABI713dD6UOqSXeJXtEau2kjBmJ0v0YjO0eLGCTX8aUyrix8J78APmRFfcC00ynC0hHLO3BYIpmj0kEYs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "W8_9aoO1PM-tuMYPqd7i2As",
+    "usage_metadata": {
+      "candidates_token_count": 244,
+      "prompt_token_count": 3863,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3863
+        }
+      ],
+      "total_token_count": 4107
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "A certificação orgânica da produtora P004 (Ana Lúcia Bezerra da Costa) possui validade até 01/12/2026 [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]. O certificado destaca que a certificação está próxima do vencimento e a renovação deve ser solicitada até 01/10/2026 [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_ana_bezerra_P004.txt",
+          "trecho": "Data de Validade: 01/12/2026\n\nATENÇÃO: CERTIFICAÇÃO PRÓXIMA DO VENCIMENTO.\nRenovação deve ser solicitada até 01/10/2026."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

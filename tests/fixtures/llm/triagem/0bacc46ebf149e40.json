@@ -1,0 +1,59 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "0bacc46ebf149e40",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:50:15 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3634",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_9648095059644368054",
+                "args": {
+                  "organico": false,
+                  "quantidade": 50,
+                  "produto": "queijo coalho"
+                },
+                "name": "preco"
+              },
+              "thought_signature": "EnsKeQFpFH0TABHicqmjIjrhVFJbmWcWc1uPewnI511fLLauDAWXGZBrLhoPmZeVrZEqxd5s-ghTHo2OEAeSrQit44iBm8vjy2n382hruORxrUj3fMGEhOXhp7j-i6x8vpkiWwRBk9GVyjfTzLnCTskVBQhMNB5CQstOhE8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "VMb-auOBOoKsuMYPhNWVmA0",
+    "usage_metadata": {
+      "candidates_token_count": 27,
+      "prompt_token_count": 2637,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2637
+        }
+      ],
+      "total_token_count": 2664
+    }
+  }
+}

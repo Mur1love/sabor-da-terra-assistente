@@ -1,0 +1,55 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "133b8a7c0ff3f815",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:41:52 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8911",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não, a produtora P008 (Josefa Alves de Souza) não pode fornecer mel silvestre como orgânico em 29/10/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. \n\nSobre a solicitação de renovação:\n* O certificado orgânico ORG-PE-2024-003876 venceu em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\n* A renovação foi pedida em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está marcada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\n* **O pedido de renovação não libera a venda como orgânico**: até a conclusão da renovação, os produtos não"
+            },
+            {
+              "text": " podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+              "thought_signature": "EokBCoYBAWkUfRO8e4bobQJKhexd7II7148iqDehgVXKs_gzPs2sXUUR0yarAkii01B0qC8Azj5QpYnl0zSU4wtefRT6gLhEV-n5b9iIoGAgjI5lu9yCE5h3WMPbCrhf_YmAKGH1fEY8fZ6lbZNpTgLwGqAhHvlHvF-DmFtIvdYg9m7L-wktiEh-I9M="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "V-P9auzULNj7wbUPiN-MoAg",
+    "usage_metadata": {
+      "candidates_token_count": 266,
+      "prompt_token_count": 2435,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2435
+        }
+      ],
+      "total_token_count": 2701
+    },
+    "automatic_function_calling_history": []
+  }
+}

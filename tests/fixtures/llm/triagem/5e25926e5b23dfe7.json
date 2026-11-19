@@ -1,0 +1,60 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5e25926e5b23dfe7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:48:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=892",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_1465922388860683697",
+                "args": {
+                  "data_recebimento": "2026-10-28",
+                  "comprador": null,
+                  "remetente": null,
+                  "mensagem": "oi td bem? to precisando daquele queijo q vcs mandaram da ultima vez, o mais artesanal sabe? uns 15kg. e tem mel de jandaíra?? quero 3kg. preciso urgente pra amanha se possivel. manda o pix q eu transfiro agora"
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EokBCoYBAWkUfRPDotPHuCa_nfB7YvbaWn3fkBhKxWGGo6Gs5x92ojVArlDpPhEYZ73mJjGA2-vx3qVLbvA-slhp8sBzjEQATH_1-XfRTGbbmO27F2Nb3psDRh0LVjl46HNwy8GcnVMVKxbdCq-KBw-jOldm0VA_uRmKksU-eK-coIcNzbaiUBUM90I="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "_uT9aoigKYPFytMPz-WRqA4",
+    "usage_metadata": {
+      "candidates_token_count": 110,
+      "prompt_token_count": 2683,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2683
+        }
+      ],
+      "total_token_count": 2793
+    }
+  }
+}

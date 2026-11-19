@@ -1,0 +1,66 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8a2792dc4e5361e7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:41:41 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1963",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"A certificação orgânica para o mel silvestre de Josefa Alves de Souza (P008) está vencida [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. O certificado expirou em 30/09/2026, antes da data de referência de 30/10/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. A produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456 e a auditoria está agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até a conclusão do processo de renovação, os produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"Data de Validade: 30/09/2026  *** VENCIDA ***\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"NOTA: Este certificado EXPIROU em 30/09/2026. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456). Auditoria de renovação agendada para 15/11/2026. Até a conclusão da renovação, os produtos NÃO podem ser comercializados como orgânicos.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EnsKeQFpFH0TFXp12LiKlJbnzaPsY9sNSnqP-c50kZCW6bth29_XTOLB_AcLaT2UcEYyIvDZgD5ZQUtlT_UTzwHO0hSA6XnsRP72j7CFxb96qyi2gd0NSc4HPCmIPEddc6sDIgQujtGphn9Q3L8GfgUGWVDzA32JVYLuwMs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "U8T-aofrIICoytMP4qvu0Qs",
+    "usage_metadata": {
+      "candidates_token_count": 456,
+      "prompt_token_count": 4686,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4686
+        }
+      ],
+      "total_token_count": 5142
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "A certificação orgânica para o mel silvestre de Josefa Alves de Souza (P008) está vencida [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. O certificado expirou em 30/09/2026, antes da data de referência de 30/10/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. A produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456 e a auditoria está agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até a conclusão do processo de renovação, os produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "NOTA: Este certificado EXPIROU em 30/09/2026. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456). Auditoria de renovação agendada para 15/11/2026. Até a conclusão da renovação, os produtos NÃO podem ser comercializados como orgânicos."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

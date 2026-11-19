@@ -1,0 +1,173 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "59c7298051144386",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:23 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3635",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"A mensagem recebida por e-mail é do tipo compra\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"referente ao Contrato 045/2026-PNAE\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"1. banana prata — Quantidade: 200.0 kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"2. goiaba paluma (solicitado como goiaba) — Quantidade: 100.0 kg\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"3. macaxeira — Quantidade: 150.0 kg\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"4. inhame — Quantidade: 80.0 kg\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"5. alface — Quantidade: 200.0 unidade\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"6. coentro — Quantidade: 100.0 maço\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"7. tomate — Quantidade: 50.0 kg\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"8. mel silvestre (solicitado como mel silvestre orgânico) — Quantidade: 20.0 kg\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"9. ovos caipira (solicitado como ovos caipiras) — Quantidade: 100.0 dúzia\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente informou apenas a data pontual 2026-11-04 e omitiu o período de 04 a 08 de novembro de 2026.\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": false,\n      \"evidencia\": \"O horário de 7h às 12h mencionado no pedido não foi citado na resposta do assistente.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": true,\n      \"evidencia\": \"Prefeitura de Garanhuns (PNAE) paga R$ 3,80/kg por banana prata pelo contrato 045/2026-PNAE, não pela tabela geral\"\n    },\n    {\n      \"indice\": 14,\n      \"atendido\": true,\n      \"evidencia\": \"produto orgânico só com certificação válida\"\n    },\n    {\n      \"indice\": 15,\n      \"atendido\": false,\n      \"evidencia\": \"As exigências sanitárias para ovos caipiras não foram verificadas devido à interrupção na análise do item.\"\n    },\n    {\n      \"indice\": 16,\n      \"atendido\": true,\n      \"evidencia\": \"nenhum documento comprova DAP ou CAF vigente, e o contrato 045/2026-PNAE exige. Comprove antes de faturar\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente utilizou os preços específicos do contrato 045/2026-PNAE.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente apontou as falhas e exigiu a comprovação da DAP ou CAF, sem aceitar documentos vencidos.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente alertou sobre a falta de documentação e exigiu a regularização antes do faturamento.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente baseou-se nas fichas técnicas e capacidade documentada.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"O atendimento não foi confirmado; o assistente listou pendências e alertas.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os produtos e quantidades foram corretamente identificados.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TKM08q-fd6M66c1VD1M7X5fMwNZWQGU410Vgp17k19R0i1JY7CKY6yLYSNSzAuy1gdrOycZse2kV6kd91rQAFNBz6vdr_82qeGOO9GJCPwIhTxzRo5bGmYhux2mrcbbAW-Svby5uqtZOL62MRcBWKQXvgcbU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "MMX-avKtHp6QytMP4ZnFmQc",
+    "usage_metadata": {
+      "candidates_token_count": 1212,
+      "prompt_token_count": 4311,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4311
+        }
+      ],
+      "total_token_count": 5523
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "A mensagem recebida por e-mail é do tipo compra"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "referente ao Contrato 045/2026-PNAE"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "1. banana prata — Quantidade: 200.0 kg"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "2. goiaba paluma (solicitado como goiaba) — Quantidade: 100.0 kg"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "3. macaxeira — Quantidade: 150.0 kg"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "4. inhame — Quantidade: 80.0 kg"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "5. alface — Quantidade: 200.0 unidade"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "6. coentro — Quantidade: 100.0 maço"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "7. tomate — Quantidade: 50.0 kg"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "8. mel silvestre (solicitado como mel silvestre orgânico) — Quantidade: 20.0 kg"
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "9. ovos caipira (solicitado como ovos caipiras) — Quantidade: 100.0 dúzia"
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "O assistente informou apenas a data pontual 2026-11-04 e omitiu o período de 04 a 08 de novembro de 2026."
+        },
+        {
+          "indice": 12,
+          "atendido": false,
+          "evidencia": "O horário de 7h às 12h mencionado no pedido não foi citado na resposta do assistente."
+        },
+        {
+          "indice": 13,
+          "atendido": true,
+          "evidencia": "Prefeitura de Garanhuns (PNAE) paga R$ 3,80/kg por banana prata pelo contrato 045/2026-PNAE, não pela tabela geral"
+        },
+        {
+          "indice": 14,
+          "atendido": true,
+          "evidencia": "produto orgânico só com certificação válida"
+        },
+        {
+          "indice": 15,
+          "atendido": false,
+          "evidencia": "As exigências sanitárias para ovos caipiras não foram verificadas devido à interrupção na análise do item."
+        },
+        {
+          "indice": 16,
+          "atendido": true,
+          "evidencia": "nenhum documento comprova DAP ou CAF vigente, e o contrato 045/2026-PNAE exige. Comprove antes de faturar"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente utilizou os preços específicos do contrato 045/2026-PNAE."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O assistente apontou as falhas e exigiu a comprovação da DAP ou CAF, sem aceitar documentos vencidos."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "O assistente alertou sobre a falta de documentação e exigiu a regularização antes do faturamento."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "O assistente baseou-se nas fichas técnicas e capacidade documentada."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "O atendimento não foi confirmado; o assistente listou pendências e alertas."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Os produtos e quantidades foram corretamente identificados."
+        }
+      ]
+    }
+  }
+}

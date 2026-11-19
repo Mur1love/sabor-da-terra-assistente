@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2affdca0b1003b8e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:24 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6097",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O lote `2024-089` não existe, sendo o mais próximo o `LOT-2026-0089` [fonte: lotes.csv]. \n\nAqui estão as informações de origem e rastreabilidade:\n\n- **Produto:** Queijo coalho (45 kg) [fonte: lotes.csv]\n- **Produtor:** Cícero Romão de Almeida (ID: P003, de Caetés) [fonte: lotes.csv]\n- **Datas:** Colheita em 01/09/2026, entrega em 02/09/2026 e validade até 02/10/2026 [fonte: lotes.csv]\n- **Transporte:** Realizado sem ambiente refrigerado, a 8 °C [fonte: lotes.csv]\n- **Comprador:** Restaurante Raízes [fonte: lotes.csv]\n- **Pedido associado:** `PED-2026-SEP-003` [fonte: lotes.csv]\n- **Transação:** Pago em 05/09/2026 (Transação `FIN-2026-003`, no valor total de R$ 1.440,00) [fonte: lotes.csv]",
+              "thought_signature": "EokBCoYBAWkUfRPh-xjunOFZe6kMCUSMVKCWGaxF484EXZpDXWmQDmbZ0mgiXJdPlXKeF6yTyrkgadTIf14uVW7yOpDqNWhSUvRjS2LMscocbFiGI6vG0zUFDu0-qxvpttxY8Ot7LBBhssF_21mq072qWFIme8vzAcvm_LlMBd0Suqkur2fvCIIf1Tw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "auT9arjvD767iLMPj5eKgQw",
+    "usage_metadata": {
+      "candidates_token_count": 300,
+      "prompt_token_count": 1388,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1388
+        }
+      ],
+      "total_token_count": 1688
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f7330ba4e24c7860",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:03 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3461",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Segundo o calendário de sazonalidade da cooperativa (`sazonalidade.csv`):\n\n* **Goiaba:** Está disponível em novembro, com nível de disponibilidade **alta** (a observação indica pico de dezembro a março e fora de safra de junho a agosto).\n* **Umbu:** **Não** está disponível em novembro (a safra ocorre apenas de fevereiro a maio, com nível de disponibilidade **nenhuma**).",
+              "thought_signature": "EnsKeQFpFH0TMhppgMP0xsKNSTynQmR5NauVF-rUoN_mKvSdiZywdxSV03RY23euviIuH1GobrCtD2IG2UCMHj_UaazKU3e9sAzSnBpvGf08PXAGsyJhvLnWdnaQUL2HBiWgJSS36azBg28ej5num_peHrcGKQlyks7UKmc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "hMb-as3OOv3gytMPmaWGkAs",
+    "usage_metadata": {
+      "candidates_token_count": 92,
+      "prompt_token_count": 2827,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2827
+        }
+      ],
+      "total_token_count": 2919
+    }
+  }
+}
