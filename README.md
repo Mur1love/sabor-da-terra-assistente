@@ -13,7 +13,7 @@
 
 ## Arquitetura em uma página
 
-> **Documento oficial:** [`docs/04-arquitetura.md`](docs/04-arquitetura.md) — entregável obrigatório de 19/11/2026. Fontes editáveis dos diagramas: [`docs/img/`](docs/img/) (`.drawio` + PNG).
+> Detalhes, decisões por componente, diagramas e tabelas: [`docs/04-arquitetura.md`](docs/04-arquitetura.md). Fontes editáveis dos diagramas: [`docs/img/`](docs/img/) (`.drawio` + PNG).
 
 **Produção (mundo Google)** — as 4 camadas e os fluxos principais:
 
@@ -43,38 +43,26 @@
 - Mantém o **contexto da conversa** durante a sessão.
 - Quando **não souber a resposta**, diz claramente — **sem inventar**.
 
-## Entregáveis e datas
-
-| Data | Evento |
-|------|--------|
-| 05/11/2026 | Divulgação da formação dos grupos |
-| **19/11/2026** | **Entrega obrigatória da arquitetura** — modificações após esta data são desconsideradas |
-| 20–21/11/2026 | Apresentação e demonstração do protótipo funcional |
-
-Entregas finais: **(1)** protótipo funcional com **demonstração ao vivo**; **(2)** apresentação de **10 minutos** explicando decisões técnicas, alternativas consideradas e limitações.
-
 ## Guia de navegação
-
-> O avaliador vai navegar pelo repositório — a tabela abaixo leva direto a cada entrega. Os **links do projeto** (desafio, dataset, diretriz) são as fontes de verdade do escopo; os de **arquitetura e avaliação** são os entregáveis.
 
 | Você quer ver… | Vá direto em |
 |---|---|
-| 🏛️ **A arquitetura final** (documento oficial, obrigatório de 19/11) | [`docs/04-arquitetura.md`](docs/04-arquitetura.md) |
-| 📊 **As decisões por componente** — local ↔ Google Cloud, com justificativa e alternativa considerada (dentro e fora do Google) | [§2](docs/04-arquitetura.md#2-tabela-de-mapeamento-por-componente) e [§4](docs/04-arquitetura.md#4-componentes-de-apoio-só-no-desenho) |
-| 🧭 **Os diagramas** — produção, protótipo local e as sequências dos 3 desafios | [§8](docs/04-arquitetura.md#8-diagrama), [§12](docs/04-arquitetura.md#12-diagramas-de-sequência-dos-3-desafios) e [`docs/img/`](docs/img/) |
-| 💰 **O custo** — estratégia do protótipo e estimativa de produção na escala da narrativa | [§14](docs/04-arquitetura.md#14-custo) |
-| 🏗️ **O Well-Architected Framework** — uma decisão concreta por pilar | [§13](docs/04-arquitetura.md#13-google-cloud-well-architected-framework) |
-| 🛡️ **O anti-alucinação** — como a citação é validada no protótipo e em produção | [§15](docs/04-arquitetura.md#15-anti-alucinação-citação-validada-no-protótipo-e-em-produção) |
-| 🚀 **O caminho para produção** — Terraform, Workflows, Dockerfile e comandos `gcloud` | [`infra/`](infra/) e [§11](docs/04-arquitetura.md#11-caminho-para-produção-etapa-15-issue-15) |
-| 📏 **Os resultados da avaliação** — 37 casos, acerto por desafio e por requisito | [`docs/05-avaliacao.md`](docs/05-avaliacao.md) |
-| ⚠️ **As limitações e próximos passos** | [§16](docs/04-arquitetura.md#16-limitações-e-próximos-passos) |
-| 🎒 **O escopo obrigatório do desafio** (cenário, problemas, requisitos, datas) | [`docs/01-documento-base.md`](docs/01-documento-base.md) |
-| 🧨 **As armadilhas escondidas no dataset** | [`docs/02-dataset.md`](docs/02-dataset.md) |
-| 📐 **A diretriz de arquitetura** (regras do projeto para toda decisão) | [`docs/03-diretriz-arquitetura.md`](docs/03-diretriz-arquitetura.md) |
-| 🧩 **O código de cada desafio** — triagem (A), RAG (B) e produtores (C) | [`sabor_da_terra/`](sabor_da_terra/) |
-| 💬 **A interface conversacional** | [`app.py`](app.py) |
-| ✅ **Os testes** — suíte completa offline em modo fixture | [`tests/`](tests/) |
-| 🖼️ **Capturas de tela da interface** | [`docs/img/01-chat-inicial.png`](docs/img/01-chat-inicial.png) |
+| **A arquitetura final** | [`docs/04-arquitetura.md`](docs/04-arquitetura.md) |
+| **As decisões por componente** — local ↔ Google Cloud, com justificativa e alternativa considerada (dentro e fora do Google) | [§2](docs/04-arquitetura.md#2-tabela-de-mapeamento-por-componente) e [§4](docs/04-arquitetura.md#4-componentes-de-apoio-só-no-desenho) |
+| **Os diagramas** — produção, protótipo local e as sequências dos 3 desafios | [§8](docs/04-arquitetura.md#8-diagrama), [§12](docs/04-arquitetura.md#12-diagramas-de-sequência-dos-3-desafios) e [`docs/img/`](docs/img/) |
+| **O custo** — estratégia do protótipo, estimativa de produção na escala da narrativa e a estimativa da calculadora | [§14](docs/04-arquitetura.md#14-custo) e [Custos — Price Calculator](#custos--price-calculator-do-google-cloud) |
+| **O Well-Architected Framework** — uma decisão concreta por pilar | [§13](docs/04-arquitetura.md#13-google-cloud-well-architected-framework) |
+| **O anti-alucinação** — como a citação é validada no protótipo e em produção | [§15](docs/04-arquitetura.md#15-anti-alucinação-citação-validada-no-protótipo-e-em-produção) |
+| **O caminho para produção** — Terraform, Workflows, Dockerfile e comandos `gcloud` | [`infra/`](infra/) e [§11](docs/04-arquitetura.md#11-caminho-para-produção-etapa-15-issue-15) |
+| **Os resultados da avaliação** — 37 casos, acerto por desafio e por requisito | [`docs/05-avaliacao.md`](docs/05-avaliacao.md) |
+| **As limitações e próximos passos** | [§16](docs/04-arquitetura.md#16-limitações-e-próximos-passos) |
+| **O escopo do desafio** (cenário, problemas, requisitos, datas) | [`docs/01-documento-base.md`](docs/01-documento-base.md) |
+| **As armadilhas escondidas no dataset** | [`docs/02-dataset.md`](docs/02-dataset.md) |
+| **A diretriz de arquitetura** (regras do projeto para toda decisão) | [`docs/03-diretriz-arquitetura.md`](docs/03-diretriz-arquitetura.md) |
+| **O código de cada desafio** — triagem (A), RAG (B) e produtores (C) | [`sabor_da_terra/`](sabor_da_terra/) |
+| **A interface conversacional** | [`app.py`](app.py) |
+| **Os testes** — suíte completa offline em modo fixture | [`tests/`](tests/) |
+| **Capturas de tela da interface** | [`docs/img/`](docs/img/) |
 
 ## Estrutura do repositório
 
@@ -163,16 +151,22 @@ sabor-da-terra-assistente/
   LLM), mas o chat não responde — o modo `fixture` só reproduz conversas já
   gravadas, e ainda não há um diálogo completo gravado para a demo.
 
-Capturas de tela em `docs/img/`. A de abertura do chat:
+A conversa documental com fonte citada — tema **escuro** e **claro** (modo
+`fixture` reproduzindo a resposta gravada do caso DOC-001 do gabarito, sem
+custo de API):
 
-![Chat inicial da interface](docs/img/01-chat-inicial.png)
+![Conversa documental com fonte citada — tema escuro](docs/img/08-chat-conversa.png)
+
+![Conversa documental com fonte citada — tema claro](docs/img/09-chat-conversa-claro.png)
+
+Demais capturas em `docs/img/`.
 
 ## Documentação
 
 - **`docs/01-documento-base.md`** — tudo que o documento oficial define: cenário, problema, desafios, requisitos, entregáveis e datas.
 - **`docs/02-dataset.md`** — descrição campo a campo dos 8 grupos de dados e das **armadilhas propositalmente escondidas** neles (certificação vencida, produtor sem registro sanitário, pedidos que não são pedidos de compra, pagamentos atrasados…).
 - **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
-- **`docs/04-arquitetura.md`** — **arquitetura de referência final** (etapa 16, entregável obrigatório de 19/11): visão geral (problema, usuários, os 3 desafios e os 6 requisitos com a evidência da avaliação), stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google, diagramas de arquitetura (local e produção) e de sequência dos 3 desafios — em Mermaid e em versões draw.io com ícones oficiais em `docs/img/` —, **Google Cloud Well-Architected Framework** (uma decisão concreta por pilar), **custo** (estratégia do protótipo e estimativa de produção na escala da narrativa), **anti-alucinação** (validação no protótipo e equivalentes gerenciados em produção), o **caminho para produção** (§11, etapa 15: os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo) e as **limitações e próximos passos** (iguais às do `docs/05`).
+- **`docs/04-arquitetura.md`** — **arquitetura de referência final** (etapa 16): visão geral (problema, usuários, os 3 desafios e os 6 requisitos com a evidência da avaliação), stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google, diagramas de arquitetura (local e produção) e de sequência dos 3 desafios — em Mermaid e em versões draw.io com ícones oficiais em `docs/img/` —, **Google Cloud Well-Architected Framework** (uma decisão concreta por pilar), **custo** (estratégia do protótipo e estimativa de produção na escala da narrativa), **anti-alucinação** (validação no protótipo e equivalentes gerenciados em produção), o **caminho para produção** (§11, etapa 15: os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo) e as **limitações e próximos passos** (iguais às do `docs/05`).
 - **`docs/05-avaliacao.md`** — **avaliação ponta a ponta** (etapa 14): o gabarito de 37 casos rodado contra o assistente integrado, com acerto por desafio e por requisito funcional, citações válidas, anti-alucinação, a comparação entre as rodadas, o teste de cota da demo e as limitações conhecidas. Comando único: `pytest tests/test_gabarito.py`.
 
 ## Custos — Price Calculator do Google Cloud
