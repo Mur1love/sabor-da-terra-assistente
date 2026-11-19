@@ -35,14 +35,22 @@ from google.genai import types
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
 from sabor_da_terra.assistente.ferramentas import FERRAMENTAS_COM_LLM, NOME_PARA_FUNCAO, declarar_ferramentas
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
-from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
+from sabor_da_terra.assistente.prompt import (
+    PROMPT_RESPOSTA_FINAL,
+    PROMPT_RESPOSTA_TRIAGEM,
+    PROMPT_SISTEMA,
+    proximos_passos_da_triagem,
+)
 from sabor_da_terra.assistente.verificacao import Universo, so_fatos_com_respaldo
 from sabor_da_terra.llm.cliente import FixtureAusenteError, LLMClient, Papel
 
 logger = logging.getLogger("sabor_da_terra.assistente")
 
 # Limites do turno: o laço nunca fica preso no function calling.
-MAX_CHAMADAS_POR_TURNO = 8
+# Um pedido de 9 itens pede 9 verificações de conformidade, mais preço e
+# disponibilidade; com 8, a triagem parava no meio (rodada 2 da #14). As funções
+# depois da triagem são locais, sem LLM: o teto protege o turno, não a cota.
+MAX_CHAMADAS_POR_TURNO = 24
 MAX_ITERACOES_POR_TURNO = 4
 JANELA_HISTORICO = 6  # turnos completos que ficam no histórico
 
@@ -242,6 +250,10 @@ class Assistente:
         except Exception as exc:  # noqa: BLE001 — o erro vai ao modelo com honestidade
             saida = {"erro": str(exc)}
         saida = mascarar_dados_sensiveis(saida)
+        if nome == "triar_pedido" and isinstance(saida, dict) and not saida.get("erro"):
+            passos = proximos_passos_da_triagem(saida)
+            if passos:
+                saida = {**saida, "proximos_passos": passos}
         self.estado.atualizar(nome, args, saida)
         return saida
 
@@ -264,6 +276,8 @@ class Assistente:
             if pronta:
                 if nome in RASCUNHOS_SEM_ENVIO:
                     pronta = f"{pronta}\n\n{AVISO_RASCUNHO}"
+                if nome == "consultar_documentos":
+                    pronta = _com_lacunas(pronta, saida)
                 return pronta, "pass_through"  # texto validado na fonte, sem segunda composição
         return self._compor(mensagem, executadas, rascunho), "composto"
 
@@ -278,15 +292,20 @@ class Assistente:
             "data_referencia": self.estado.data_referencia,
             "estado_da_sessao": self.estado.to_dict(),
             "pergunta": mensagem,
+            # `proximos_passos` orienta o roteamento; não é dado para a resposta.
             "resultados_das_funcoes": [
-                {"funcao": nome, "args": args, "saida": saida} for nome, args, saida in executadas
+                {"funcao": nome, "args": args, "saida": {k: v for k, v in saida.items() if k != "proximos_passos"}}
+                for nome, args, saida in executadas
             ],
             "rascunho_do_roteamento": rascunho,
             "fontes_permitidas": sorted(_fontes_unicas(executadas)),
         }
         payload = mascarar_dados_sensiveis(payload)
+        regras = PROMPT_RESPOSTA_FINAL
+        if any(nome == "triar_pedido" for nome, _, _ in executadas):
+            regras = f"{regras}\n{PROMPT_RESPOSTA_TRIAGEM}"
         prompt_final = (
-            f"{PROMPT_RESPOSTA_FINAL}\n\n"
+            f"{regras}\n\n"
             f"CONTEXTO DO TURNO (JSON):\n{json.dumps(payload, ensure_ascii=False, default=str)}"
         )
         try:
@@ -312,6 +331,22 @@ class Assistente:
 
 _MARCADOR_FONTE_RE = re.compile(r"\s*\[fonte:\s*([^\]]+)\]")
 _SEPARADOR_FONTES_RE = re.compile(r"\s*[;,]\s*")
+
+
+def _com_lacunas(texto: str, saida: dict[str, Any]) -> str:
+    """Resposta documental + o que os documentos não cobrem (campo `lacunas` do RAG).
+
+    Quando o RAG achou resposta mas só parcial ("o documento não traz isso para
+    todos os produtores"), a lacuna vira um aviso explícito para a equipe
+    conferir caso a caso. Lacuna sozinha (nada encontrado) já é a resposta.
+    """
+    lacunas = [str(item).strip().rstrip(".") for item in saida.get("lacunas") or [] if str(item).strip()]
+    if not saida.get("encontrado") or not lacunas:
+        return texto
+    return (
+        f"{texto}\n\n**O que os documentos não cobrem:** {'; '.join(lacunas)}. "
+        "Antes de usar essa informação, confirme caso a caso, com o produtor ou com o documento original."
+    )
 
 
 def _sem_prefixo_data(fonte: str) -> str:

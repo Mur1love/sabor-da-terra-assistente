@@ -927,3 +927,63 @@ def test_pasta_nao_entra_como_fonte_do_turno():
 
     saida = {"fontes": ["fichas_tecnicas/queijo_coalho.txt", "fichas_tecnicas/"], "fonte": "produtores.csv"}
     assert _fontes_da_saida(saida) == ["fichas_tecnicas/queijo_coalho.txt", "produtores.csv"]
+
+
+# --------------------------------------------------------------------------- #
+# Prompt 1.5.0 (rodada 3 da #14): próximos passos da triagem e lacunas do RAG  #
+# --------------------------------------------------------------------------- #
+
+
+def test_proximos_passos_dependem_do_tipo_da_triagem():
+    from sabor_da_terra.assistente.prompt import proximos_passos_da_triagem
+
+    itens = [{"produto": "goiaba paluma"}]
+    compra = proximos_passos_da_triagem({"tipo": "compra", "itens": itens})
+    cotacao = proximos_passos_da_triagem({"tipo": "cotacao", "itens": itens})
+    notificacao = proximos_passos_da_triagem({"tipo": "notificacao_oficial", "itens": []})
+
+    assert "verificar_conformidade" in compra and "CADA item" in compra
+    assert "preco e disponibilidade de cada produto" in cotacao
+    assert "consultar_documentos" in notificacao
+    assert "identificar_produtor" in proximos_passos_da_triagem({"tipo": "mensagem_produtor"})
+    assert proximos_passos_da_triagem({"tipo": "compra", "itens": []}) is None
+    assert proximos_passos_da_triagem({"tipo": "consulta", "itens": itens}) is None
+
+
+def test_lacunas_do_rag_aparecem_so_quando_a_resposta_e_parcial():
+    from sabor_da_terra.assistente.orquestrador import _com_lacunas
+
+    texto = "P005 tem DAP vigente [fonte: certificacoes/inspecao_adagro_2026.txt]."
+    parcial = _com_lacunas(texto, {"encontrado": True, "lacunas": ["Situação dos demais produtores."]})
+    assert parcial.startswith(texto)
+    assert "**O que os documentos não cobrem:** Situação dos demais produtores." in parcial
+    assert "confirme caso a caso" in parcial
+
+    # Sem lacuna, ou quando nada foi encontrado (a lacuna já é a resposta): texto intacto.
+    assert _com_lacunas(texto, {"encontrado": True, "lacunas": []}) == texto
+    assert _com_lacunas("Não encontrei.", {"encontrado": False, "lacunas": ["nada"]}) == "Não encontrei."
+
+
+def test_proximos_passos_vao_ao_roteamento_mas_nao_ao_compositor(monkeypatch):
+    from sabor_da_terra.assistente import orquestrador
+
+    monkeypatch.setitem(
+        orquestrador.NOME_PARA_FUNCAO,
+        "triar_pedido",
+        lambda mensagem, data_recebimento=None: {"tipo": "compra", "itens": [{"produto": "mel silvestre"}]},
+    )
+    assistente = Assistente(cliente_llm=None, estado=EstadoSessao(data_referencia="2026-10-30"))
+    saida = assistente._despachar("triar_pedido", {"mensagem": "10kg de mel"})
+    assert "verificar_conformidade" in saida["proximos_passos"]
+
+    prompts: list[str] = []
+
+    class _Compositor:
+        def gerar(self, papel, prompt, **_):
+            prompts.append(prompt)
+            return type("R", (), {"text": "ok"})()
+
+    assistente._cliente = _Compositor()
+    assistente._compor("10kg de mel", [("triar_pedido", {}, saida)], None)
+    assert "proximos_passos" not in prompts[0]
+    assert "Regras da triagem" in prompts[0]

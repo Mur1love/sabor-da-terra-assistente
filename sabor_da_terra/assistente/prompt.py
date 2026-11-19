@@ -5,7 +5,7 @@ funções). O de resposta final governa a composição no Flash (que só enxerga
 os resultados das funções do turno). Textos em português, versionados.
 """
 
-VERSAO_PROMPT_ASSISTENTE = "1.4.0"
+VERSAO_PROMPT_ASSISTENTE = "1.5.0"
 
 PROMPT_SISTEMA = """Você é o assistente da equipe da Cooperativa Sabor da Terra, no Agreste de Pernambuco.
 Converse sempre em português.
@@ -66,3 +66,42 @@ Se houver `triar_pedido`, diga o tipo da mensagem e liste cada item com produto,
 unidade e prazo exatamente como vieram; traga os alertas de conformidade item a item.
 Se `resultados_das_funcoes` trouxer `resumo_produtor` ou `notificar_produtores`, o texto é um
 rascunho para a equipe revisar: diga claramente que nada foi enviado ao produtor."""
+
+
+# Regra extra da composição, anexada só nos turnos com `triar_pedido` (1.5.0).
+# Fica fora do PROMPT_RESPOSTA_FINAL para não mudar a composição dos outros
+# turnos: a regra base lista os itens, e esta traz o resto da mensagem.
+PROMPT_RESPOSTA_TRIAGEM = """Regras da triagem (este turno tem `triar_pedido`):
+Além dos itens, traga o que a mensagem pede e que a triagem extraiu em `observacoes`,
+`campos_faltantes` e `ambiguidades`: local, data e janela de entrega, nota fiscal, forma de
+pagamento, exigências documentais e o que precisa ser confirmado com quem escreveu.
+Se a triagem não trouxer itens (notificação oficial, consulta, mensagem de produtor), não pare
+no tipo da mensagem: resuma o que ela pede, os prazos e o que a equipe precisa fazer, usando
+os demais resultados do turno."""
+
+
+# Orientação devolvida junto com a saída de `triar_pedido` (1.5.0): diz ao
+# roteamento quais consultas a triagem pede em seguida. Vai na resposta da
+# função, não no prompt de sistema, para não mudar o roteamento dos outros turnos.
+def proximos_passos_da_triagem(triagem: dict) -> str | None:
+    tipo = triagem.get("tipo")
+    if tipo in ("compra", "compra_urgente", "cotacao") and triagem.get("itens"):
+        passos = (
+            "Chame verificar_conformidade para CADA item extraído, todos na mesma resposta, com "
+            "data_entrega = prazo_entrega e o comprador."
+        )
+        if tipo == "cotacao":
+            passos += " Por ser cotação, chame também preco e disponibilidade de cada produto."
+        else:
+            passos += " Se a mensagem pedir preço, orçamento ou disponibilidade, chame preco e disponibilidade."
+        return passos
+    if tipo == "notificacao_oficial":
+        return (
+            "A triagem só classificou a notificação; ainda não responda. A equipe precisa saber o que a "
+            "cooperativa já tem do que o órgão pede: chame agora consultar_documentos (certificações, "
+            "laudos, contratos) e, se a notificação pedir cadastro ou rastreabilidade, buscar_produtores "
+            "e consultar_lotes."
+        )
+    if tipo == "mensagem_produtor":
+        return "Identifique o produtor com identificar_produtor antes de responder sobre pedidos ou vendas dele."
+    return None
