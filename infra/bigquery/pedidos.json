@@ -1,0 +1,37 @@
+[
+  {
+    "name": "pedido_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "data_recebimento",
+    "type": "DATETIME",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "canal",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "remetente",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "comprador",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "mensagem_original",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  }
+]

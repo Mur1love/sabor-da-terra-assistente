@@ -1,0 +1,17 @@
+[
+  {
+    "name": "produtor_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "produto_cadastrado",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "produto",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  }
+]

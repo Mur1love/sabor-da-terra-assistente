@@ -1,0 +1,83 @@
+[
+  {
+    "name": "id_transacao",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "data",
+    "type": "DATE",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "produtor_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "comprador",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "tipo",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "produto",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "quantidade",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "unidade",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "valor_unitario",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "valor_total",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "forma_pagamento",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "status_pagamento",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "data_vencimento",
+    "type": "DATE",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "data_pagamento",
+    "type": "DATE",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "chave_pix_deposito",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Dado pessoal ou bancário: as ferramentas do assistente nunca devolvem este campo."
+  },
+  {
+    "name": "observacao",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  }
+]

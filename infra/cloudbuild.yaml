@@ -1,0 +1,72 @@
+# Pipeline do assistente no Cloud Build (etapa 15, issue #15):
+#   testes (offline, LLM_MODO=fixture) → build da imagem → push no Artifact
+#   Registry → deploy no Cloud Run.
+#
+# NÃO EXECUTADO NO PROTÓTIPO. Roda da raiz do repositório:
+#   gcloud builds submit --config infra/cloudbuild.yaml \
+#     --substitutions=_REGIAO=<REGIAO> .
+# ou por um gatilho do Cloud Build ligado à branch main (docs/04 §11).
+#
+# O serviço, a conta sdt-app e as variáveis já existem pelo Terraform
+# (infra/terraform/run.tf); o deploy só troca a imagem.
+
+substitutions:
+  _REGIAO: "" # sem valor real: vem do gatilho ou do --substitutions
+  _SERVICO: sabor-da-terra
+  _REPOSITORIO: sabor-da-terra
+
+serviceAccount: projects/$PROJECT_ID/serviceAccounts/sdt-deploy@$PROJECT_ID.iam.gserviceaccount.com
+
+options:
+  # Exigido com conta de serviço própria; os logs vão para o Cloud Logging.
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  # 1. Testes: a suíte não chama a API (respostas gravadas em tests/fixtures).
+  - id: testes
+    name: python:3.11-slim
+    entrypoint: bash
+    env:
+      - LLM_MODO=fixture
+    args:
+      - -c
+      - |
+        pip install --quiet --no-cache-dir -r requirements.txt
+        python -m pytest -q
+
+  # 2. Build da imagem com a tag do build (e latest para o Terraform).
+  # BUILD_ID existe em todo build; SHORT_SHA só em build disparado por gatilho
+  # de repositório e viria vazio no `gcloud builds submit`.
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    waitFor: [testes]
+    args:
+      - build
+      - -t
+      - ${_REGIAO}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORIO}/app:$BUILD_ID
+      - -t
+      - ${_REGIAO}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORIO}/app:latest
+      - .
+
+  # 3. Push antes do deploy: o Cloud Run precisa achar a imagem no registro.
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    waitFor: [build]
+    args:
+      - push
+      - --all-tags
+      - ${_REGIAO}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORIO}/app
+
+  # 4. Deploy: nova revisão com a imagem do build; o resto da configuração
+  # (conta, variáveis, segredo, escala) continua a do Terraform.
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    waitFor: [push]
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICO}
+      - --image=${_REGIAO}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORIO}/app:$BUILD_ID
+      - --region=${_REGIAO}
+      - --quiet

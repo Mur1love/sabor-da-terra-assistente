@@ -1,0 +1,172 @@
+# Fluxo da triagem de UM pedido no Workflows (etapa 15, issue #15).
+#
+# Espelha o processamento local de sabor_da_terra/triagem/fila.py (#10):
+#   extração (Etapa 9, Flash-Lite) → validações (regras da #5, por item)
+#   → urgência (regras + sinal do prompt) → alocação na capacidade da semana.
+#
+# Cada passo é uma Cloud Run function com o mesmo código Python do protótipo
+# (infra/terraform/triagem.tf); as URLs chegam por variável de ambiente do
+# próprio workflow (user_env_vars). Nada aqui confirma pedido nem notifica
+# produtor: como no local, confirmacoes_realizadas e notificacoes_enviadas
+# ficam false e a decisão é da equipe.
+#
+# Entrada: o evento do Eventarc quando o pedido chega pelo tópico
+# pedidos-entrada (mensagem Pub/Sub em base64) ou, numa execução manual, o
+# próprio pedido:
+#   {"pedido_id": "PED-2026-001", "mensagem": "...", "canal": "email",
+#    "remetente": "...", "comprador": "...", "data_recebimento": "2026-10-28T09:15:00"}
+#
+# NÃO EXECUTADO NO PROTÓTIPO: validado só como YAML. As variáveis
+# URL_* são as que o Terraform define em triagem.tf (local.funcoes).
+
+main:
+  params: [evento]
+  steps:
+    - ler_pedido:
+        assign:
+          - mensagem_pubsub: ${map.get(evento, ["data", "message", "data"])}
+          - pedido: ${evento}
+    - decodificar_pubsub:
+        switch:
+          - condition: ${mensagem_pubsub != null}
+            steps:
+              - ler_mensagem:
+                  assign:
+                    - pedido: ${json.decode(base64.decode(mensagem_pubsub))}
+    - preparar:
+        assign:
+          - pedido_id: ${pedido.pedido_id}
+          - recebido_em: ${default(map.get(pedido, "data_recebimento"), time.format(sys.now()))}
+          # As regras da #5 valem no dia em que o pedido chegou (fila.py, passo 5).
+          - dia_do_pedido: ${text.substring(recebido_em, 0, 10)}
+          - avaliacoes: []
+          - alertas: []
+          - alocacoes: []
+
+    # 1. Classificação e extração estruturada (triagem/extrair.py).
+    - extrair:
+        call: http.post
+        args:
+          url: ${sys.get_env("URL_EXTRAIR_PEDIDO")}
+          auth:
+            type: OIDC
+          timeout: 120
+          body:
+            mensagem: ${pedido.mensagem}
+            data_recebimento: ${recebido_em}
+            canal: ${map.get(pedido, "canal")}
+            comprador: ${map.get(pedido, "comprador")}
+            remetente: ${map.get(pedido, "remetente")}
+        result: extracao
+    - guardar_extracao:
+        assign:
+          - triado: ${extracao.body}
+
+    # Só pedido e cotação passam pelas regras de venda; oferta de produtor,
+    # consulta e notificação oficial seguem direto para a urgência.
+    - precisa_validar:
+        switch:
+          - condition: ${triado.tipo in ["compra", "compra_urgente", "cotacao"]}
+            next: validar_itens
+        next: classificar_urgencia
+
+    # 2. Validações: verificar_conformidade (regras/conformidade.py) por item,
+    # em paralelo. Item sem quantidade não é validado: vira alerta, como o
+    # CAMPO_FALTANTE da fila local.
+    - validar_itens:
+        parallel:
+          shared: [avaliacoes, alertas]
+          for:
+            value: item
+            in: ${triado.itens}
+            steps:
+              - tem_quantidade:
+                  switch:
+                    - condition: ${map.get(item, "quantidade") == null}
+                      steps:
+                        - registrar_falta:
+                            assign:
+                              - alerta:
+                                  codigo: CAMPO_FALTANTE
+                                  mensagem: ${"Quantidade não informada para " + item.produto}
+                                  fonte: pedido_estruturado.itens
+                              - alertas: ${list.concat(alertas, alerta)}
+                    - condition: true
+                      steps:
+                        - verificar_conformidade:
+                            call: http.post
+                            args:
+                              url: ${sys.get_env("URL_VALIDAR_ITEM")}
+                              auth:
+                                type: OIDC
+                              timeout: 60
+                              body:
+                                item:
+                                  produto: ${item.produto}
+                                  quantidade: ${item.quantidade}
+                                  unidade: ${map.get(item, "unidade")}
+                                  organico: ${map.get(item, "exige_organico")}
+                                data_entrega: ${default(map.get(triado, "prazo_entrega"), dia_do_pedido)}
+                                comprador: ${default(map.get(triado, "comprador"), "")}
+                                data_referencia: ${dia_do_pedido}
+                            result: conformidade
+                        - guardar_avaliacao:
+                            assign:
+                              - avaliacoes: ${list.concat(avaliacoes, conformidade.body)}
+
+    # 3. Urgência (triagem/priorizar.py): horas até o prazo, contrato e sinais
+    # do texto; o "prompt" é a classificação compra_urgente já feita no passo 1.
+    - classificar_urgencia:
+        call: http.post
+        args:
+          url: ${sys.get_env("URL_CLASSIFICAR_URGENCIA")}
+          auth:
+            type: OIDC
+          timeout: 60
+          body:
+            pedido: ${triado}
+            data_recebimento: ${recebido_em}
+            mensagem_original: ${pedido.mensagem}
+            avaliacoes: ${avaliacoes}
+        result: urgencia
+
+    # 4. Alocação (triagem/alocar.py): sugestão dentro da capacidade semanal,
+    # reservada como condicionada. Sugestão não é reserva nem confirmação.
+    - precisa_alocar:
+        switch:
+          - condition: ${len(avaliacoes) > 0}
+            next: alocar
+        next: montar_resultado
+    - alocar:
+        call: http.post
+        args:
+          url: ${sys.get_env("URL_ALOCAR_SEMANA")}
+          auth:
+            type: OIDC
+          timeout: 60
+          body:
+            pedido_id: ${pedido_id}
+            pedido: ${triado}
+            avaliacoes: ${avaliacoes}
+            urgencia: ${urgencia.body}
+            data_referencia: ${dia_do_pedido}
+        result: alocacao
+    - guardar_alocacao:
+        assign:
+          - alocacoes: ${alocacao.body.alocacoes}
+
+    - montar_resultado:
+        assign:
+          - resultado:
+              id: ${pedido_id}
+              data_recebimento: ${recebido_em}
+              pedido: ${triado}
+              urgencia: ${urgencia.body}
+              avaliacoes: ${avaliacoes}
+              alocacoes: ${alocacoes}
+              alertas: ${alertas}
+              confirmacoes_realizadas: false
+              notificacoes_enviadas: false
+
+    - devolver:
+        return: ${resultado}

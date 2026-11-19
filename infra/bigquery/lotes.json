@@ -1,0 +1,77 @@
+[
+  {
+    "name": "lote_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "data_colheita",
+    "type": "DATE",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "data_entrega",
+    "type": "DATE",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "produtor_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "produto",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "quantidade",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "unidade",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "comprador",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "pedido_id",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "temperatura_transporte_c",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "transporte_ambiente",
+    "type": "BOOL",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "validade",
+    "type": "DATE",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "inspecao_visual",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "observacao",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "id_transacao",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  }
+]
