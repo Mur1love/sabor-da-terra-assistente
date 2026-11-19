@@ -90,7 +90,7 @@ A tabela da equipe — base de todas as decisões abaixo:
 | Componente no protótipo (local) | Serviço Google Cloud (produção) | Justificativa | Alternativa considerada |
 |---|---|---|---|
 | **[área] Interface conversacional** — Streamlit (`st.chat_input`, `st.session_state`), chat textual em PT-BR para a equipe da cooperativa | **Cloud Run** (container com a UI) | Servidor de container gerenciado, escala a zero (custo ~0 fora do horário de uso) e publicação da UI sem gerenciar servidor — coerente com o papel do Cloud Run como "UI + entrada do assistente" | **Fora:** Gradio — mesma facilidade, mas menos controle de sessão/estado que o Streamlit e equipe já domina Streamlit. **Dentro:** Gemini Enterprise — dá chat pronto, mas o desafio exige construir o assistente (triagem, RAG, função) e não só consumir um produto fechado |
-| **[área] Orquestração do assistente** — loop conversacional, **function calling nativo** via `google-genai`, contexto de sessão em `st.session_state` | **Vertex AI (Gemini)** — agente servido no Gemini | Function calling nativo evita parsing manual de JSON/regex e mantém o contexto da conversa no próprio modelo; Vertex AI dá IAM, identidade de serviço e régua de custos em produção | **Fora:** LangChain — camada de abstração a mais do que o protótipo precisa; o function calling nativo já resolve. Ollama (exemplo do `docs/03`) — exigiria infra de GPU fora do escopo. **Dentro:** Google ADK — dá mais estrutura (runners, sessões gerenciadas) do que o protótipo precisa; reavaliar na versão final (#16) se a orquestração crescer |
+| **[área] Orquestração do assistente** — loop conversacional, **function calling nativo** via `google-genai`, contexto de sessão em `st.session_state` | **Vertex AI (Gemini)** — agente servido no Gemini | Function calling nativo evita parsing manual de JSON/regex e mantém o contexto da conversa no próprio modelo; Vertex AI dá IAM, identidade de serviço e régua de custos em produção | **Fora:** LangChain — camada de abstração a mais do que o protótipo precisa; o function calling nativo já resolve. Ollama (exemplo do `docs/03`) — exigiria infra de GPU fora do escopo. **Dentro:** Google ADK — dá mais estrutura (runners, sessões gerenciadas) do que o protótipo precisa; reavaliado nesta versão final e mantido fora — só entra se a orquestração crescer (§16.2) |
 | **[área] Triagem de pedidos (Desafio A, parte 1)** — classificação do tipo de mensagem (compra × cotação × consulta × produtor × órgão) e extração estruturada (produtos, quantidades, prazos, comprador) com **Gemini Flash-Lite** + saída JSON | **Vertex AI (Gemini Flash-Lite)** | Volume alto de mensagens coloquiais por dia (60–100 na narrativa) pede modelo barato e rápido; Flash-Lite aguenta o volume no free tier e o PT-BR coloquial é ponto forte do Gemini | **Fora:** regex/spaCy — quebram com abreviação, erro de digitação e informação implícita, exatamente o requisito central. Ollama — infra de GPU fora do escopo. **Dentro:** Gemini Flash para tudo — gasta a quota restrita do Flash com volume que o Flash-Lite resolve (princípio de custo do `docs/03`) |
 | **Classificação de urgência e sinalização (Desafio A, parte 2)** — regras determinísticas (prazo ≤ X dias, volume acima da capacidade, produto fora de safra, certificação vencida) + prompt para casos ambíguos | **Cloud Run functions / Workflows** | A urgência precisa ser **determinística e auditável** (regras de negócio em código), com o LLM só cobrindo a cauda ambígua — separar isso em função serverless mantém o custo baixo e a decisão rastreável | **Fora:** script cron no próprio servidor da UI — sem escalonamento e mistura responsabilidade de UI com regra de negócio. **Dentro:** só prompt, sem regras — não determinístico, dificulta avaliação (#6) e gasta quota do modelo com algo que uma regra resolve |
 | **[área] RAG documental (Desafio B)** — ingestão/indexação de `data/certificacoes/`, `contratos/` e `fichas_tecnicas/`, busca semântica e resposta **com citação do documento de origem** (LlamaIndex `CitationQueryEngine` + embeddings do Gemini) | **Agent Search (antigo Vertex AI Search)** | Busca gerenciada do Google com ranking, snippets/answers e grounding — substitui o índice vetorial local sem operar infra de busca; nome vigente conferido em 10/11/2026 (o produto "Vertex AI Search" foi renomeado para "Agent Search") | **Fora:** implementação própria sem framework — reinventa chunking/reranking/citação que o LlamaIndex já entrega. ChromaDB + sentence-transformers — armazenamento vetorial local sem caminho direto para o mundo Google. **Dentro:** Vertex AI RAG Engine — gerenciado, mas menos controle sobre chunking/citação do que o LlamaIndex dá hoje; File Search da Gemini API — ótimo para protótipo rápido, porém amarra a troca ao ecossistema Gemini API. **Decisão registrada:** usar **LlamaIndex** no protótipo — corpus pequeno (20 documentos: 12 certificações, 3 contratos e 5 fichas), a citação do documento de origem é requisito central e o `CitationQueryEngine` entrega citação inline de graça, sem custo de serviço gerenciado |
@@ -241,7 +241,7 @@ flowchart TB
     FUN -.-> LOG
 ```
 
-Versão draw.io (ícones oficiais do Google Cloud, editável em `docs/img/arquitetura-producao-google.drawio`):
+Versão draw.io (ícones oficiais do Google Cloud, editável em `docs/img/arquitetura-google.drawio`):
 
 ![Arquitetura de produção no Google Cloud](img/arquitetura-producao-google.png)
 
@@ -288,12 +288,12 @@ dados operacionais.
 
 ---
 
-### 8.4 Grounding e verificação de citações em produção (Etapa 8)
+### 8.4 Grounding e verificação de citações em produção
 
-Em produção no Google Cloud, a pipeline local de consulta documental (sabor_da_terra/rag/responder.py + saída estruturada Pydantic com pós-validação de fontes) corresponde a dois recursos nativos da Vertex AI:
-
-- **Respostas fundamentadas com citação via Agent Search (antigo Vertex AI Search):** o serviço recupera os trechos mais relevantes dos documentos armazenados no Cloud Storage e gera respostas com *extractive segments* e metadados de origem (*citations*), dispensando pós-processamento manual de índice local.
-- **Check Grounding API da Vertex AI (groundingConfig / CheckGrounding):** valida automaticamente se cada afirmação gerada pelo Gemini possui suporte factual nos trechos recuperados (*grounding chunks*), atribuindo pontuações de suporte e bloqueando ou sinalizando afirmações sem lastro documental — equivalente gerenciado à nossa validação pós-geração de citações e política de lacuna (*"não encontrei essa informação nos documentos"*).
+O equivalente de produção da validação de citações do protótipo é o **Agent
+Search (antigo Vertex AI Search)** com respostas fundamentadas e a **Check
+Grounding API** da Vertex AI. O mapeamento mecanismo a mecanismo está na
+§15.2.
 
 ---
 
@@ -688,7 +688,7 @@ Versão draw.io (editável em `docs/img/sequencia-desafio-c.drawio`):
 | **Excelência operacional** | Toda a infraestrutura do desenho existe como **Terraform revisável** (`infra/terraform/` — `fmt`/`validate` passando) e o deploy segue pipeline **testes → build → push → deploy** (`infra/cloudbuild.yaml`) com a suíte rodando **offline em `LLM_MODO=fixture`** antes de qualquer publicação; diagnóstico central no **Cloud Logging** | §11.1, §11.2, §4 |
 | **Segurança e privacidade** | O Cloud Run **não tem acesso público**: login Google pelo IAP nativo, liberado só ao grupo `membros_equipe`; a chave da API vive no **Secret Manager** (nunca `.env` em produção nem no repositório); IAM de **menor privilégio** por conta de serviço, sem papel básico (`iam.tf`); produção usa identidade de serviço (ADC/IAM), não chave | §11.2 (run.tf, iam.tf), §4 (Secret Manager) |
 | **Confiabilidade** | Pedidos entram por **Pub/Sub** (Eventarc → Workflows), desacoplando canais do processamento com retry e sem depender da UI estar de pé; a sessão do assistente persiste no **Firestore**, sobrevivendo a reinícios e escala horizontal; as regras de urgência são **determinísticas em código**, reexecutáveis e auditáveis | §4 (Pub/Sub + Scheduler, Firestore), §2 (urgência) |
-| **Otimização de custo** | **Cloud Run escala a zero** (custo ~0 fora do horário de uso); divisão de modelos **Flash-Lite para volume / Flash para resposta** herdada do `docs/03`; dados analíticos em **BigQuery** (SQL barato); no protótipo, free tier com plano B de US$ 5 — a estimativa de produção na escala da narrativa fica abaixo de US$ 30/mês (§14) | §1, §2, §14, `docs/03` |
+| **Otimização de custo** | **Cloud Run escala a zero** fora do expediente (a instância só cobra enquanto a equipe usa); divisão de modelos **Flash-Lite para volume / Flash para resposta** herdada do `docs/03`; dados analíticos em **BigQuery** (SQL barato); no protótipo, free tier com plano B de US$ 5 — a estimativa de produção na escala da narrativa fica abaixo de US$ 40/mês (§14) | §1, §2, §14, `docs/03` |
 | **Desempenho** | **Function calling nativo** com saída JSON estruturada em um turno; modelo por papel (triagem no Flash-Lite, resposta no Flash) em vez de um modelo caro para tudo; agregações (soma, comparação de datas, pendências) em **SQL/código**, nunca no modelo — o contexto da conversa fica enxuto e a resposta sai auditável | §2, §5 (princípios 1 e 3) |
 | **Sustentabilidade** | Sem infraestrutura própria (nada de GPUs ou servidores ociosos): serviços gerenciados que **escalam a zero**, região única (`southamerica-east1`, próxima dos usuários) e corpus pequeno (dezenas de documentos) indexado em serviço gerenciado em vez de cluster vetorial dedicado | §11.2, §14 |
 
@@ -730,23 +730,31 @@ Hipóteses de volume por dia (fechado no 100 pedidos, teto da narrativa):
 | Uso | Chamadas/dia | Tokens/dia (entrada + saída) | Custo/dia |
 |---|---|---|---|
 | Triagem e extração (Flash-Lite) | ~100 mensagens | ~200K + ~80K | ~$0,26 |
-| Respostas conversacionais (Flash) | ~60 turnos | ~240K + ~36K | ~$0,29 |
-| Notificações e resumos (Flash) | ~100 + resumo mensal dos 180 produtores (~6/dia na média) | ~156K + ~43K | ~$0,29 |
+| Respostas conversacionais (Flash) | ~60 turnos | ~240K + ~36K | ~$0,32 |
+| Notificações e resumos (Flash) | ~100 + resumo mensal dos 180 produtores (~6/dia na média) | ~156K + ~43K | ~$0,28 |
 | Consultas documentais (Agent Search Standard) | ~40 consultas | ~2 MB de índice | $0 — dentro de 10.000 consultas e 10 GiB grátis/mês |
 | Embeddings e indexação | incremental | trivial | ~$0 |
-| **Total de tokens e busca** | | | **~$0,84/dia** |
+| **Total de tokens e busca** | | | **~$0,85/dia** (~US$ 26/mês) |
 
-Itens de infraestrutura (todos com free tier ou volume ínfimo): Cloud Run
-escala a zero com poucas sessões simultâneas da equipe (< US$ 10/mês);
-BigQuery dentro do nível gratuito (10 GB de armazenamento, 1 TB de consulta
-mês); Cloud Storage (~2 MB de documentos), Firestore, Pub/Sub, Cloud
-Scheduler, Secret Manager e Cloud Logging em volumes de centavos.
+Itens de infraestrutura: BigQuery dentro do nível gratuito (10 GB de
+armazenamento, 1 TB de consulta/mês); Cloud Storage (~2 MB de documentos),
+Firestore, Pub/Sub, Cloud Scheduler, Secret Manager e Cloud Logging em volumes
+de centavos. O **Cloud Run não cabe no nível gratuito**: o Streamlit mantém um
+websocket aberto por sessão (`session_affinity`, `infra/terraform/run.tf`),
+então a instância (1 vCPU / 1 GiB) fica ativa durante o expediente da equipe,
+não só nas requisições. Estimativa: **até US$ 10/mês** para uma instância ativa
+cerca de 8 h por dia útil; fora do expediente ele escala a zero.
 
-**Ordem de grandeza da produção: < US$ 30/mês** (~US$ 25/mês + 10% do
-endpoint regional), dominado pelos tokens do Gemini. A comparação que
-interessa à apresentação: **a operação completa em produção custa por mês o
-que o plano B do protótipo custa em uma única reserva** (US$ 5 de prepay), e
-atriagem de um dia inteiro de trabalho manual (Dona Lúcia e Seu Antônio) sai
+| Parcela | US$/mês |
+|---|---|
+| Tokens e busca (~$0,85/dia × 30) | ~26 |
+| Acréscimo de ~10% do endpoint regional nos modelos | ~3 |
+| Cloud Run (UI da equipe) | até 10 |
+| **Total** | **< 40** |
+
+**Ordem de grandeza da produção: < US$ 40/mês**, dominada pelos tokens do
+Gemini e pela instância da UI. A comparação que interessa à apresentação: a
+triagem de um dia inteiro de trabalho manual (Dona Lúcia e Seu Antônio) sai
 por menos de um dólar de modelo. O item que pode deslanchar o orçamento é o
 Agent Search **Enterprise** (US$ 4/1.000 consultas, com respostas geradas) —
 para o caso da cooperativa, o Standard, com citações nos trechos, já atende o
@@ -786,7 +794,7 @@ requisito de fonte (§15).
 ### 15.2 O equivalente em produção (Google Cloud)
 
 Em produção, a pipeline local de consulta documental corresponde a dois
-recursos nativos (detalhes técnicos na §8.4):
+recursos nativos:
 
 - **Agent Search (antigo Vertex AI Search) com respostas fundamentadas:**
   o serviço recupera os trechos mais relevantes dos documentos no Cloud
