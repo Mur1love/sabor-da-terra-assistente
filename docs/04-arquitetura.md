@@ -702,7 +702,7 @@ Versão draw.io (editável em `docs/img/sequencia-desafio-c.drawio`):
 | **Excelência operacional** | Toda a infraestrutura do desenho existe como **Terraform revisável** (`infra/terraform/` — `fmt`/`validate` passando) e o deploy segue pipeline **testes → build → push → deploy** (`infra/cloudbuild.yaml`) com a suíte rodando **offline em `LLM_MODO=fixture`** antes de qualquer publicação; diagnóstico central no **Cloud Logging** | §11.1, §11.2, §4 |
 | **Segurança e privacidade** | O Cloud Run **não tem acesso público**: login Google pelo IAP nativo, liberado só ao grupo `membros_equipe`; a chave da API vive no **Secret Manager** (nunca `.env` em produção nem no repositório); IAM de **menor privilégio** por conta de serviço, sem papel básico (`iam.tf`); produção usa identidade de serviço (ADC/IAM), não chave | §11.2 (run.tf, iam.tf), §4 (Secret Manager) |
 | **Confiabilidade** | Pedidos entram por **Pub/Sub** (Eventarc → Workflows), desacoplando canais do processamento com retry e sem depender da UI estar de pé; a sessão do assistente persiste no **Firestore**, sobrevivendo a reinícios e escala horizontal; as regras de urgência são **determinísticas em código**, reexecutáveis e auditáveis | §4 (Pub/Sub + Scheduler, Firestore), §2 (urgência) |
-| **Otimização de custo** | **Cloud Run escala a zero** fora do expediente (a instância só cobra enquanto a equipe usa); divisão de modelos **Flash-Lite para volume / Flash para resposta** herdada do `docs/03`; dados analíticos em **BigQuery** (SQL barato); no protótipo, free tier com plano B de US$ 5 — a estimativa de produção na escala da narrativa fica abaixo de US$ 60/mês no teto da calculadora (§14) | §1, §2, §14, `docs/03` |
+| **Otimização de custo** | **Cloud Run escala a zero** fora do expediente (a instância só cobra enquanto a equipe usa); divisão de modelos **Flash-Lite para volume / Flash para resposta** herdada do `docs/03`; dados analíticos em **BigQuery** (SQL barato); no protótipo, free tier com plano B de US$ 5 — a estimativa de produção na escala da narrativa fica em torno de US$ 61/mês (§14) | §1, §2, §14, `docs/03` |
 | **Desempenho** | **Function calling nativo** com saída JSON estruturada em um turno; modelo por papel (triagem no Flash-Lite, resposta no Flash) em vez de um modelo caro para tudo; agregações (soma, comparação de datas, pendências) em **SQL/código**, nunca no modelo — o contexto da conversa fica enxuto e a resposta sai auditável | §2, §5 (princípios 1 e 3) |
 | **Sustentabilidade** | Sem infraestrutura própria (nada de GPUs ou servidores ociosos): serviços gerenciados que **escalam a zero**, região única (`southamerica-east1`, próxima dos usuários) e corpus pequeno (dezenas de documentos) indexado em serviço gerenciado em vez de cluster vetorial dedicado | §11.2, §14 |
 
@@ -724,14 +724,44 @@ o teste de cota da demo (`docs/05`) fechou em 16 chamadas Flash-Lite e
 
 ### 14.2 Estimativa de produção na escala do `docs/01`
 
-> Narrativa do desafio: **180 produtores**, **60–100 pedidos/dia**, 12
-> municípios. Preços de referência públicos, conferidos em **19/11/2026**
-> (páginas de preço do Google Cloud e da Gemini API) — **confirmar no Price
-> Calculator antes de qualquer decisão de billing**: preços mudam, o
-> endpoint regional (`southamerica-east1`, não-global) custa ~10% a mais nos
-> modelos e o promocional do Flash 3.8 vale até 31/12/2026.
+**Resultado:** ~**US$ 61/mês** na escala da narrativa (**180 produtores**,
+**60–100 pedidos/dia**, 12 municípios; fechado em 100 pedidos/dia, o teto).
+Dois blocos de peso parecido:
 
-Preços usados (endpoint global, USD por 1M de tokens):
+| Bloco | Origem do número | US$/mês |
+|---|---|---|
+| A. Inferência e busca (Gemini, Agent Search) | Cálculo próprio com preços públicos | ~26 |
+| A. Acréscimo do endpoint regional (~10% nos modelos) | Margem de projeto | ~3 |
+| B. Infraestrutura (Cloud Run, BigQuery, Storage, Firestore, Pub/Sub, Secret Manager, Logging, Agent Search) | **Google Cloud Pricing Calculator**, `southamerica-east1`, USD | 31,59 |
+| **Total** | | **~61** |
+
+> **Base.** Preços públicos do Google Cloud e da Gemini API conferidos em
+> **19/11/2026**; estimativa de infraestrutura montada na calculadora na mesma
+> data (valores de tabela, **sem** preço negociado — a conta de billing não
+> estava vinculada). Estimativa compartilhável: [Pricing Calculator](https://cloud.google.com/products/calculator?hl=pt-BR&dl=CjhDaVJoT1dFNU9XUTBOUzAzTnpjNUxUUTNNell0WVdFMFppMWxNR0ZqTldKa05EQTRObUVRQVE9PRAWGiRCQzI0MkY4QS1DNjYzLTQyMTQtOEI1QS03NzY4QzY2MDM0NTI); exportação completa em [`docs/custos/resultado-calculadora-google.csv`](custos/resultado-calculadora-google.csv). **Reconfirmar na
+> calculadora com a conta de billing antes de qualquer decisão de orçamento.**
+
+**Leitura para decisão:**
+- O Cloud Run é praticamente toda a infraestrutura: **US$ 31,54 dos 31,59**
+  (~99,8%; CPU 28,38 + memória 3,15). Os demais serviços somam centavos
+  (Storage 0,035 e Logging 0,02) ou US$ 0, dentro dos níveis gratuitos. É
+  também o ponto de maior folga: a calculadora assume **365 h/mês** de
+  instância ativa (~12 h/dia), acima das ~176 h (8 h × 22 dias úteis)
+  previstas (§B.1).
+- Os tokens do Gemini escalam com o volume de mensagens; a infraestrutura é
+  quase fixa. Dobrar o volume de pedidos aumenta sobretudo o bloco A.
+- Faixa plausível: **~US$ 45 a ~61/mês**. O limite inferior reduz o Cloud Run
+  proporcionalmente às horas úteis (176 ÷ 365 × 31,54 ≈ US$ 15); é conta
+  nossa, **não** da calculadora, e supõe que o custo é linear nas horas
+  ativas.
+
+#### A. Inferência e busca: ~US$ 26 + ~US$ 3 por mês
+
+**Decisão de desenho — dois modelos por custo e função** (estratégia do
+`docs/03`): Flash-Lite para o volume (triagem, extração estruturada, juiz de
+avaliação); Flash só para redação (resposta conversacional e notificações).
+
+Preços usados (endpoint global, USD por 1 milhão de tokens):
 
 | Modelo | Entrada | Saída | Uso no desenho |
 |---|---|---|---|
@@ -739,7 +769,7 @@ Preços usados (endpoint global, USD por 1M de tokens):
 | Gemini 3.8 Flash | $0,75 | $3,75 (promo até 31/12/2026) | resposta conversacional e redação |
 | Agent Search (Standard) | $1,50 / 1.000 consultas | — | RAG documental com citação |
 
-Hipóteses de volume por dia (fechado no 100 pedidos, teto da narrativa):
+Volume por dia (teto da narrativa):
 
 | Uso | Chamadas/dia | Tokens/dia (entrada + saída) | Custo/dia |
 |---|---|---|---|
@@ -750,65 +780,85 @@ Hipóteses de volume por dia (fechado no 100 pedidos, teto da narrativa):
 | Embeddings e indexação | incremental | trivial | ~$0 |
 | **Total de tokens e busca** | | | **~$0,85/dia** (~US$ 26/mês) |
 
-Itens de infraestrutura: BigQuery dentro do nível gratuito (10 GB de
-armazenamento, 1 TB de consulta/mês); Cloud Storage (~2 MB de documentos),
-Firestore, Pub/Sub, Cloud Scheduler, Secret Manager e Cloud Logging em volumes
-de centavos. O **Cloud Run não cabe no nível gratuito**: o Streamlit mantém um
-websocket aberto por sessão (`session_affinity`, `infra/terraform/run.tf`),
-então a instância (1 vCPU / 1 GiB) fica ativa durante o expediente da equipe,
-não só nas requisições. A estimativa interna era **até US$ 10/mês** para uma
-instância ativa cerca de 8 h por dia útil; a estimativa da calculadora oficial
-(§14.3) modela ~12 h/dia e chega a **US$ 31,54/mês** — o teto adotado abaixo.
+Conta: custo = (tokens ÷ 10⁶) × preço. Triagem: 0,2 × 0,30 + 0,08 × 2,50 ≈
+$0,26/dia. Soma ≈ $0,85/dia × 30 ≈ **US$ 26/mês**.
 
-### 14.3 Estimativa de infraestrutura no Price Calculator (19/11/2026)
+**Acréscimo regional (~US$ 3):** os preços acima são do endpoint **global**; o
+endpoint regional (`southamerica-east1`) custa ~10% a mais nos modelos
+(10% × 26 ≈ 2,6). Entra como margem caso a produção coloque a inferência na
+mesma região do Cloud Run e dos dados.
 
-A infraestrutura de produção foi estimada no [Google Cloud Pricing
-Calculator](https://cloud.google.com/products/calculator), em **USD por mês**,
-na região **São Paulo (`southamerica-east1`)**, com preços de tabela (billing
-não vinculado). Cada campo foi **reduzido ao porte da cooperativa** (os perfis
-pré-preenchidos da calculadora são de grande porte: milhões de requisições,
-terabytes de dados) e o modo de cobrança seguiu o desenho real: no Cloud Run,
-**por ciclo de vida da instância**; no BigQuery, sob demanda, em vez de slots
-reservados. Exportação completa em
-[`docs/custos/resultado-calculadora-google.csv`](custos/resultado-calculadora-google.csv)
-e [estimativa compartilhável na calculadora](https://cloud.google.com/products/calculator?hl=pt-BR&dl=CjhDaVJoT1dFNU9XUTBOUzAzTnpjNUxUUTNNell0WVdFMFppMWxNR0ZqTldKa05EQTRObUVRQVE9PRAWGiRCQzI0MkY4QS1DNjYzLTQyMTQtOEI1QS03NzY4QzY2MDM0NTI).
+**Confiança:** os **preços** são públicos; os **volumes de tokens por
+chamada são extrapolados**, não medidos em carga. O que há de medição é o
+teste de cota da demo: 16 chamadas Flash-Lite e 6 Flash (`docs/05`).
+Sensibilidade: ±50% no volume de tokens move o total em ~±US$ 13.
 
-| Serviço | Configuração | US$/mês |
+#### B. Infraestrutura: US$ 31,59/mês (Pricing Calculator)
+
+Cada serviço abaixo existe no Terraform (`infra/terraform/`). A coluna
+"Origem" separa o que vem do projeto do que é estimativa.
+
+| Serviço | Papel no desenho | Configuração na calculadora | Justificativa técnica | Origem |
+|---|---|---|---|---|
+| **Cloud Run** | UI Streamlit da equipe (`run.tf`) | Service, 1 vCPU / 1 GiB, cobrança por ciclo de vida da instância, mínimo 0 instâncias, 10 mil req/mês, forma de tráfego "daily peak and trough" (365 h/mês) | Ver §B.1 | Dimensionamento: projeto. Requisições: estimativa |
+| **Agent Search** (Standard) | RAG documental com citação | Standard 1.200 consultas/mês, ~2 MB indexados; Enterprise e Generative Answers em 0 | Standard já entrega a citação do trecho de origem (requisito, §15); Enterprise/Generative Answers pagam por geração que o LlamaIndex já faz no protótipo | Índice: medido. Consultas: estimativa |
+| **BigQuery** | Dados analíticos da cooperativa | **Sob demanda**, ~0,1 TiB consultado e 1 GiB armazenado por mês | Editions (slots reservados) é capacidade dimensionada para cargas grandes e custaria milhares de dólares para dados desse porte; sob demanda cabe no nível gratuito (1 TiB de consulta, 10 GiB) | Estimativa |
+| **Cloud Storage** | Documentos para indexação e código das funções | Standard, ~1 GiB | Corpus de ~2 MB; 1 GiB é folga. O padrão da calculadora (5.000 GiB) custaria dezenas de dólares | Corpus: medido |
+| **Firestore** | Sessão do assistente entre turnos (`SessionStore`, §4) | 2.000 leituras/dia, 500 escritas/dia, 1 GiB | `st.session_state` é volátil e por processo; com escala horizontal a sessão precisa persistir. Cada turno lê e grava a sessão (~60 turnos/dia), então os valores têm folga e ficam sob o nível gratuito diário | Estimativa. **Não implementado no protótipo** (§11.4) |
+| **Pub/Sub** | Entrada de pedidos (Eventarc → Workflows) e notificações | 0,1 GiB publicado/dia (~3 GiB/mês), sem retenção extra nem snapshots | Desacopla canais de entrada do processamento, com retry. ~100 mensagens pequenas/dia ocupam ~1 MiB; 0,1 GiB é margem, dentro dos 10 GiB gratuitos/mês | Estimativa |
+| **Secret Manager** | `gemini_api_key` | 3 versões ativas, ~10 mil acessos/mês | Segredo fora do código e da imagem. O Terraform cria 1 segredo (`gemini_api_key`); as 3 versões são margem para rotação (versão atual e anteriores). Custo US$ 0 na calculadora | Segredo: projeto. Versões e acessos: estimativa |
+| **Cloud Logging** | Logs do Cloud Run e das funções | 2 GiB armazenados/mês e 2 GiB de retenção | Ingestão sob os 50 GiB gratuitos por projeto (custo US$ 0); a retenção é o que gera os US$ 0,02 do item | Estimativa |
+
+**Valores padrão da calculadora trocados:** a calculadora vem preenchida com
+perfis de grande porte (10 milhões de requisições, 20 TiB no BigQuery, 5.000
+GiB no Storage, 2 milhões de leituras/dia no Firestore, 50 GiB, 1 GiB/dia no
+Pub/Sub, 100 GiB de logs). Mantê-los inflaria o custo em centenas de dólares
+sem relação com a carga da cooperativa; cada campo foi reduzido ao porte do
+projeto. No detalhamento exportado da calculadora (CSV), os serviços fora do
+Cloud Run ficam em **US$ 0**, exceto Cloud Storage (US$ 0,035) e a retenção
+de logs do Cloud Logging (US$ 0,02). Soma conferida:
+28,3824 + 3,1536 + 0,035 + 0,02 = **31,591**.
+
+##### B.1 Cloud Run: por que as escolhas e por que é a maior parcela
+
+- **Cobrança por ciclo de vida da instância (CPU sempre alocada).** O
+  Streamlit mantém um websocket aberto por sessão (`session_affinity` em
+  `run.tf`); com a cobrança "só durante a requisição" a CPU seria estrangulada
+  fora delas, o que **subestimaria** o custo e degradaria a sessão. É a opção
+  coerente com a arquitetura.
+- **Mínimo de 0 instâncias.** Escala a zero fora do expediente; é o que
+  mantém o custo proporcional ao uso. O custo é a troca com a latência da
+  primeira requisição (cold start) após ociosidade.
+- **1 vCPU / 1 GiB.** Valor do Terraform; a UI é leve (a inferência roda no
+  Vertex AI/Gemini, não na instância).
+- **Região São Paulo (Tier 2).** Mesma região dos demais serviços regionais
+  (`variables.tf`); o preço é maior que o de regiões dos EUA.
+- **Forma de tráfego "daily peak and trough".** A calculadora modela a
+  instância ativa **365 h/mês** (~12 h/dia, todos os dias); a equipe deve usar
+  ~176 h (8 h × 22 dias úteis). **Por isso o valor é conservador (teto), não
+  central.**
+- **Composição do valor (exportação em CSV).** CPU: US$ 28,38; memória:
+  US$ 3,15; total do Cloud Run: **US$ 31,54**. A soma dos itens exportados
+  fecha com o total da calculadora (US$ 31,591).
+- **Compromisso (CUD):** não usado; não faz sentido comprometer capacidade
+  num protótipo com uso variável.
+
+
+**Riscos de custo:**
+| Risco | Efeito | Mitigação |
 |---|---|---|
-| Cloud Run | 1 vCPU / 1 GiB, cobrança por ciclo de vida, mín. 0 instâncias, ~12 h/dia ativas (365 h/mês): CPU $28,38 + memória $3,15 | **31,54** |
-| Cloud Storage | Standard, 1 GiB | 0,04 |
-| Cloud Logging | 2 GiB armazenados + retenção de 1 mês | 0,02 |
-| Agent Search | 1.200 consultas/mês e 0,01 GiB indexados — dentro das 10 mil consultas gratuitas | 0 |
-| BigQuery | Sob demanda: 0,1 TiB consultados, 1 GiB armazenados | 0 |
-| Firestore | ~61 mil leituras + ~15 mil escritas e 1 GiB por mês | 0 |
-| Pub/Sub | ~3 GiB publicados/mês, sem retenção extra | 0 |
-| Secret Manager | 1 segredo, 3 versões, ~10 mil acessos/mês | 0 |
-| **Total da infraestrutura** | | **31,59** |
+| Fim do preço promocional do Flash 3.8 (31/12/2026) | Custo de tokens do Flash pode subir | Reavaliar os preços em janeiro/2027; manter a divisão Flash-Lite/Flash |
+| Agent Search **Enterprise** (US$ 4/1.000 consultas, com respostas geradas) | Pode deslanchar o orçamento | O Standard já atende o requisito de citação; só migrar com necessidade comprovada |
+| Volume de mensagens acima de 100/dia | Escala sobretudo os tokens (bloco A) | Monitorar tokens por dia; manter triagem no Flash-Lite |
+| Endpoint regional | ~+10% nos modelos | Já incluído como margem (~US$ 3) |
+| Aumento do tempo de uso da UI | Escala o Cloud Run | Mantém mínimo 0; revisar o horário real de uso |
 
-**Limites:** o Cloud Run modelado a ~12 h/dia está acima das ~8 h úteis
-esperadas — o valor é **teto**, não esperado; os volumes são **estimativas**,
-não medições (o protótipo não mede esse uso); **fora da estimativa** ficam os
-tokens do Gemini (calculados acima), Cloud Scheduler, Workflows, Eventarc e
-Artifact Registry; reconfirmar com a conta de billing vinculada antes de
-qualquer decisão de orçamento.
-
-| Parcela | US$/mês |
-|---|---|
-| Tokens e busca (~$0,85/dia × 30) | ~26 |
-| Acréscimo de ~10% do endpoint regional nos modelos | ~3 |
-| Infraestrutura — teto da calculadora (§14.3) | 31,59 |
-| **Total (teto)** | **< 60** |
-
-**Ordem de grandeza da produção: < US$ 60/mês no teto da calculadora** — a
-instância do Cloud Run modelada a ~12 h/dia está acima das ~8 h úteis
-esperadas (≈ US$ 21/mês à tarifa da calculadora, US$ 0,086/h), então o valor é
-teto, não esperado. Dominada pelos tokens do Gemini e pela instância da UI. A
-comparação que interessa à apresentação: a triagem de um dia inteiro de
-trabalho manual (Dona Lúcia e Seu Antônio) sai por menos de um dólar de
-modelo. O item que pode deslanchar o orçamento é o Agent Search
-**Enterprise** (US$ 4/1.000 consultas, com respostas geradas) — para o caso da
-cooperativa, o Standard, com citações nos trechos, já atende o requisito de
-fonte (§15).
+**Conclusão:** a produção na escala da cooperativa fica na ordem de **dezenas
+de dólares por mês (~US$ 61 no teto, ~US$ 45 no cenário de 8 h/dia útil)**,
+e não de milhares, dominada por duas parcelas: tokens do Gemini e a
+instância do Cloud Run. A comparação que interessa à apresentação: a triagem
+de um dia inteiro de trabalho manual (Dona Lúcia e Seu Antônio) sai por menos
+de um dólar de modelo.
 
 ---
 

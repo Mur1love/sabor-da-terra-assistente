@@ -215,7 +215,7 @@ Exportação completa da calculadora: [`docs/custos/resultado-calculadora-google
 - Os volumes são **estimativas**, não medições: o protótipo não mede esse uso.
 - **Reconfirmar com a conta de billing vinculada** antes de qualquer decisão de orçamento, pois o preço negociado pode diferir do de tabela.
 
-**Total de produção (tokens + infraestrutura): < US$ 60/mês no teto da calculadora** — detalhamento completo em [`docs/04-arquitetura.md` §14](docs/04-arquitetura.md#14-custo).
+**Total de produção (tokens + infraestrutura): ~US$ 61/mês no teto da calculadora** — detalhamento completo em [`docs/04-arquitetura.md` §14](docs/04-arquitetura.md#14-custo).
 
 ## Como rodar
 
