@@ -1,0 +1,52 @@
+[
+  {
+    "name": "produto",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "produto_base",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "unidade",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "preco_convencional",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "preco_organico",
+    "type": "NUMERIC",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "tem_oferta_convencional",
+    "type": "BOOL",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "tem_oferta_organica",
+    "type": "BOOL",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "desconto_atacado_pct",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "volume_minimo_atacado",
+    "type": "NUMERIC",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "observacao",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  }
+]

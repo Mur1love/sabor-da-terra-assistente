@@ -1,0 +1,22 @@
+[
+  {
+    "name": "produto",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "mes",
+    "type": "INT64",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "nivel",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "observacao",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  }
+]

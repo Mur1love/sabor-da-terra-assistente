@@ -1,0 +1,32 @@
+# Segredos nunca entram na imagem.
+.env
+.env.*
+*.key
+*.pem
+
+# Ambiente e caches locais.
+.venv/
+venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.cache/
+.rag_index/
+.llama_index/
+storage/
+
+# O que não roda no container.
+.git/
+.github/
+.claude/
+.superpowers/
+.playwright-mcp/
+docs/
+exemplos/
+infra/
+scripts/
+tests/
+!tests/fixtures/
+*.md

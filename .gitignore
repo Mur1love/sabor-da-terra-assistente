@@ -23,6 +23,17 @@ storage/
 .superpowers/
 docs/superpowers/
 
+# ==== Terraform (estado e providers nunca vão para o git) ====
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+terraform.tfvars
+*.auto.tfvars
+override.tf
+override.tf.json
+
 # ==== Node ====
 node_modules/
 
