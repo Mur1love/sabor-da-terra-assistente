@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ff75c74c4d7c509e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5727",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Com base na consulta aos dados da cooperativa, segue a triagem da mensagem e o orçamento solicitado para o **SESC-PE** para entrega em **janeiro de 2027**:\n\n### 1. Ambigüidades e Itens Não Catalogados\n- **Frutas variadas (500 kg)** e **Hortaliças variadas (200 kg)**: Não há produtos com esses nomes exatos no catálogo da cooperativa [fonte: triar_pedido]. O mais próximo para frutas é a geleia de frutas, e não há correspondente genérico para hortaliças. É necessário confirmar quais itens específicos do catálogo o SESC-PE deseja.\n- **Mel**: A cooperativa possui *mel silvestre* e *mel de jandaíra* [fonte: triar_pedido]. Para o orçamento, utilizamos o mel silvestre.\n\n---\n\n### 2. Orçamento Detalhado por Item\n\n* **Queijo Coalho (50 kg)** [fonte: tabela_precos_outubro_2026.csv]\n  - Preço unitário: R$ 32,00 / kg [fonte: tabela_precos_outubro_2026.csv]\n  - Subtotal: R$ 1.600,00 [fonte: tabela_precos_outubro_2026.csv]\n  - *Alerta de conformidade:* O produtor P011 (Pedro Henrique Albuquerque) não possui registro SIE para queijo coalho, estando restrito à venda direta ao consumidor final. Os produtores elegíveis para fornecimento via cooperativa são P003 (Cícero Romão de Almeida) e P007 (Antônio Carlos Pereira Lima) [fonte: fichas_tecnicas/queijo_coalho.txt].\n\n* **Mel Silvestre (10 kg)** [fonte: tabela_precos_outubro_2026.csv]\n  - Preço unitário: R$ 48,00 / kg [fonte: tabela_precos_outubro_2026.csv]\n  - Subtotal: R$ 480,00 [fonte: tabela_precos_outubro_2026.csv]\n  - *Alerta de conformidade:* Produtores elegíveis: P002 (José Antônio dos Santos). Os produtores P008 (Josefa Alves de Souza) e P018 (Débora Cristina de Melo) estão com o SIE pendente para mel silvestre, o que pode não ser aceito por compradores com exigência sanitária [fonte: fichas_tecnicas/mel_silvestre.txt].\n\n* **Ovos Caipira (200 dúzias)** [fonte: tabela_precos_outubro_2026.csv]\n  - Preço unitário: R$ 18,00 / dúzia (com 5% de desconto de atacado aplicado) [fonte: tabela_precos_outubro_2026.csv]\n  - Subtotal: R$ 3.420,00 (valor bruto de R$ 3.600,00 com desconto de R$ 180,00) [fonte: tabela_precos_outubro_2026.csv]\n  - *Alerta de conformidade:* O único produtor que fornece ovos caipira é P017 (Wellington da Silva Monteiro), que está sem registro SIE (pendência sanitária) [fonte: certificacoes/inspecao_adagro_2026.txt, produtores.csv].\n\n* **Frango Caipira (100 kg)** [fonte: tabela_precos_outubro_2026.csv]\n  - Preço unitário: R$ 28,00 / kg (com 5% de desconto de atacado aplicado) [fonte: tabela_precos_outubro_2026.csv]\n  - Subtotal: R$ 2.660,00 (valor bruto de R$ 2.800,00 com desconto de R$ 140,00) [fonte: tabela_precos_outubro_2026.csv]\n  - *Alerta de conformidade:* **Impedido de atendimento.** O único produtor de frango caipira é P017 (Wellington da Silva Monteiro), que está sob não conformidade sanitária grave (NC-001 / ADAGRO-AM-2026-0189) sem registro no SIE, exigindo a suspensão da intermediação pela cooperativa para este item [fonte: certificacoes/inspecao_adagro_2026.txt, produtores.csv].\n\n* **Macaxeira (80 kg)** [fonte: tabela_precos_outubro_2026.csv]\n  - Preço unitário: R$ 3,20 / kg [fonte: tabela_precos_outubro_2026.csv]\n  - Subtotal: R$ 256,00 [fonte: tabela_precos_outubro_2026.csv]\n  - *Disponibilidade em janeiro:* Em safra (nível de produção alta) [fonte: sazonalidade.csv].\n  - *Produtor elegível:* P005 (Francisco de Assis Cordeiro) [fonte: fichas_tecnicas/tuberculos_graos.txt, produtores.csv].\n\n---\n\n### 3. Sobre a DAP / CAF Ativa dos Produtores\nOs documentos da cooperativa estabelecem que todos os produtores devem possuir DAP ou CAF vigente [fonte: contratos/contrato_pnae_garanhuns.txt]. No entanto, a base de dados da cooperativa não contém uma listagem nominal individualizada atestando o status ativo da DAP/CAF de cada produtor [fonte: contratos/contrato_pnae_garanhuns.txt].\n\n---\n\n### 4. Pagamento e Nota Fiscal\n- **Pagamento via empenho:** A cooperativa opera com faturamento e condições comerciais gerais descritas em tabela, não havendo restrição cadastral impeditiva para essa modalidade.\n- **Nota Fiscal:** A emissão de notas fiscais com os dados cadastrais do SESC-PE deve ser informada à equipe administrativa para alinhamento com a emissão padrão da cooperativa.",
+              "thought_signature": "EnsKeQFpFH0T1Q3F7zKPgbiKj_jIRwcAwdmRCpQAtv6N4etbgmi-m76uBHt0poBFuCvmnzhelJwVJrhEPcMVSzv7eivy7IxYnNA44vOacWrVsZrGDfvP50vT0DuA0p6UDEhbJG-C6bvBIhfPNK65Qfzg3_Am4xHdFTihjeM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ls3-avrjMsmho_UP7bba4Qc",
+    "usage_metadata": {
+      "candidates_token_count": 1433,
+      "prompt_token_count": 9006,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 9006
+        }
+      ],
+      "total_token_count": 10439
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8fa8e88c865ec84a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:55 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4656",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "A certificação orgânica de Josefa Alves de Souza (P008), de Águas Belas, expirou em 30/09/2026, encontrando-se vencida em relação à data de referência (30/10/2026) [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. \n\nSobre o protocolo de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, com auditoria de renovação agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até que a renovação seja concluída, seus produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+              "thought_signature": "EnsKeQFpFH0TKoQxxZfA_EH-wVh2paBObDkVWNdrrQeJYv8Eh7tC8aCn-AeB0u6TTp1jbEAYrsYNrRkn7VE5VgEq9JVFFsx2p2IVUnkhLSMY2zVGNhFaeGCNyjj_uZ5rKvmV7QRPTrytimWmUn16tfL8fBHPQ0lqv1CLB3k="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "-s3-avqRKdi-uMYPivHr6Q4",
+    "usage_metadata": {
+      "candidates_token_count": 219,
+      "prompt_token_count": 1433,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1433
+        }
+      ],
+      "total_token_count": 1652
+    },
+    "automatic_function_calling_history": []
+  }
+}

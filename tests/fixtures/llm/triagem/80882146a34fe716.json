@@ -1,0 +1,93 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "80882146a34fe716",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:41:56 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1617",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Maria das Graças Silva Ferreira (P001) e Raimunda Nonata de Lima (P010) citados para o fornecimento de goiaba.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": false,\n      \"evidencia\": \"Faltou mencionar explicitamente o número do pedido PED-2026-006 no Turno 2.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Cícero Romão de Almeida (P003) e Antônio Carlos Pereira Lima (P007) foram apresentados.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"O produtor P011 foi listado e não excluído por falta de SIE.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": false,\n      \"evidencia\": \"Faltou a citação das fichas técnicas na resposta do assistente.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": true,\n      \"evidencia\": \"Pedro Henrique Albuquerque (P011) foi indicado como produtor apto.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": true,\n      \"evidencia\": \"A resposta do Turno 2 não menciona o pedido PED-2026-006.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TvDGSTKTyD4QgmdZZoxvo40enm-E4sWZcluPIuvPa8POcqFE5ML4mx7s_oRtOLR6b35O3pUG8YYY2iHUXDodlinix5PC9Y0hJn1ICfKACbRjzMWzj5ABwpOVit2lNY6tw8Kdhr_DyrvYpWTo54TfHj1CK0wg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Y8T-aqn_Gt_aytMPlM3TqAw",
+    "usage_metadata": {
+      "candidates_token_count": 398,
+      "prompt_token_count": 1325,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1325
+        }
+      ],
+      "total_token_count": 1723
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Maria das Graças Silva Ferreira (P001) e Raimunda Nonata de Lima (P010) citados para o fornecimento de goiaba."
+        },
+        {
+          "indice": 1,
+          "atendido": false,
+          "evidencia": "Faltou mencionar explicitamente o número do pedido PED-2026-006 no Turno 2."
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Cícero Romão de Almeida (P003) e Antônio Carlos Pereira Lima (P007) foram apresentados."
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "O produtor P011 foi listado e não excluído por falta de SIE."
+        },
+        {
+          "indice": 4,
+          "atendido": false,
+          "evidencia": "Faltou a citação das fichas técnicas na resposta do assistente."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": true,
+          "evidencia": "Pedro Henrique Albuquerque (P011) foi indicado como produtor apto."
+        },
+        {
+          "indice": 1,
+          "ocorreu": true,
+          "evidencia": "A resposta do Turno 2 não menciona o pedido PED-2026-006."
+        }
+      ]
+    }
+  }
+}

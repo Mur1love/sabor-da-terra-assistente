@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "58e36685b9594dea",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3351",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebemos a sua mensagem solicitando um fornecimento mensal de todos os produtos orgânicos disponíveis, com retirada prevista para toda segunda-feira de manhã. \n\nCom base nos registros da cooperativa, identificamos os seguintes produtores e produtos com **certificação orgânica vigente** na data de 29/10/2026:\n\n1. **Mel Silvestre, Mel de Jandaíra e Própolis Verde**\n   - **Produtor:** José Antônio dos Santos (P002) [fonte: certificacoes/cert_organica_jose_santos_P002.txt]\n   - **Validade da Certificação:** 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt]\n   - **Preço (Mel Silvestre Orgânico):** R$ 58,00/kg [fonte: contratos/contrato_pnae_garanhuns.txt]\n\n2. **Hortaliças Folhosas** (Alface crespa e americana, rúcula, espinafre, couve, coentro, cebolinha, hortelã, manjericão)\n   - **Produtores:** Ana Lúcia Bezerra (P004) e Marcos V. da Rocha (P009) [fonte: fichas_tecnicas/hortalicas.txt]\n   - **Preços de referência:** \n     - Alface: R$ 2,80/un [fonte: contratos/contrato_pnae_garanhuns.txt]\n     - Rúcula: R$ 3,50/maço [fonte: fichas_tecnicas/hortalicas.txt]\n     - Espinafre: R$ 4,00/maço [fonte: fichas_tecnicas/hortalicas.txt]\n     - Couve: R$ 3,00/maço [fonte: fichas_tecnicas/hortalicas.txt]\n     - Coentro: R$ 2,00/maço [fonte: contratos/contrato_pnae_garanhuns.txt]\n     - Cebolinha: R$ 2,00/maço [fonte: fichas_tecnicas/hortalicas.txt]\n     - Hortelã: R$ 2,50/maço [fonte: fichas_tecnicas/hortalicas.txt]\n     - Manjericão: R$ 3,00/maço [fonte: fichas_tecnicas/hortalicas.txt]\n\n3. **Frutos e Legumes** (Tomate Santa Cruz, tomate cereja, pimentão verde, pimentão colorido, pepino, berinjela, quiabo)\n   - **Produtora:** Luciana F. Gomes (P012) [fonte: fichas_tecnicas/hortalicas.txt]\n   - **Preços de referência:**\n     - Tomate: R$ 7,00/kg [fonte: contratos/contrato_pnae_garanhuns.txt]\n     - Tomate Cereja: R$ 12,00/kg [fonte: fichas_tecnicas/hortalicas.txt]\n     - Pimentão Verde: R$ 6,00/kg [fonte: fichas_tecnicas/hortalicas.txt]\n     - Pimentão Colorido: R$ 8,00/kg [fonte: fichas_tecnicas/hortalicas.txt]\n     - Pepino: R$ 5,00/kg [fonte: fichas_tecnicas/hortalicas.txt]\n     - Berinjela: R$ 5,50/kg [fonte: fichas_tecnicas/hortalicas.txt]\n     - Quiabo: R$ 6,00/kg [fonte: fichas_tecnicas/hortalicas.txt]\n\n4. **Frutas** (Goiaba, acerola, manga)\n   - **Produtora:** Maria das Graças S. Ferreira (P001) [fonte: certificacoes/inspecao_adagro_2026.txt]\n   - **Validade da Certificação:** 06/2027 [fonte: certificacoes/inspecao_adagro_2026.txt]\n   - **Preços de referência:**\n     - Goiaba Paluma: R$ 5,20/kg [fonte: contratos/contrato_pnae_garanhuns.txt]\n     - Manga Tommy: R$ 5,50/kg [fonte: contratos/contrato_pnae_garanhuns.txt]\n\n*Nota sobre outras produtoras:* A certificação orgânica de Josefa Alves de Souza (P008) para mel silvestre, geleia e doce de goiaba está **vencida** desde 30/09/2026 e aguarda auditoria, portanto seus produtos não podem ser comercializados como orgânicos no momento [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Outros produtores da cooperativa trabalham com produção convencional (como queijos, tubérculos e frango/ovos caipiras) [fonte: certificacoes/inspecao_adagro_2026.txt].\n\nPara fecharmos o pedido de fornecimento mensal com retirada às segundas-feiras, por favor, nos informe quais as quantidades específicas de cada item desejado.",
+              "thought_signature": "EnsKeQFpFH0TihzU_kzxsXkCoo4FpoLZ6wbp0Lulz9TDYlLdNFkvpWtAs9RtQrkrvzoV3OCMYNF_6l880gOWXgpbfgRr60F0_65yG1EWCGZIHumM-yxM6_41BGDfjNGkOrm1Tjk8iJxjpF1VmhXEdnLN_ftdv2xfQcz8Yec="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ycz-aqUL1J64xg--tKSpAw",
+    "usage_metadata": {
+      "candidates_token_count": 1248,
+      "prompt_token_count": 4099,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4099
+        }
+      ],
+      "total_token_count": 5347
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e82f385a08698aac",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:10 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6037",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: cotacao\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Observações: - Fornecimento semanal\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Ambigüidades: - Frutas variadas totalizando 100kg sem divisão específica por fruta\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Itens: * goiaba paluma ... * banana prata ... * manga tommy ... * maracujá\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Ambigüidades: - Hortaliças totalizando 60kg sem divisão específica por hortaliça\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Itens: * alface ... * couve ... * espinafre ... * tomate ... * cebolinha\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Itens: * ovos caipira — Quantidade: 50.0 — Unidade: dúzia\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Itens: * mel — Quantidade: 5.0 — Unidade: kg\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente apenas repetiu a exigência em vez de consultar as certificações.\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não consultou os laudos sanitários.\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não verificou a rastreabilidade.\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não identificou produtor ou lote.\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não consultou as fichas técnicas.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não verificou os registros CAF.\"\n    },\n    {\n      \"indice\": 14,\n      \"atendido\": true,\n      \"evidencia\": \"Sazonalidade em outubro: Disponível (Alta)\"\n    },\n    {\n      \"indice\": 15,\n      \"atendido\": true,\n      \"evidencia\": \"Campos faltantes: - prazo_entrega - quantidade_por_item - quantidade\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A mensagem foi corretamente classificada como cotação.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A quantidade de cada fruta foi corretamente apontada como não informada.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A quantidade de cada hortaliça foi corretamente apontada como não informada.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma certificação inexistente foi aceita.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não foram inventados laudos sanitários.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não houve presunção de registros CAF válidos.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não foi inventada nenhuma rastreabilidade.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não houve exposição de dados pessoais.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum preço foi inventado na resposta.\"\n    },\n    {\n      \"indice\": 9,\n      \"ocorreu\": false,\n      \"evidencia\": \"A disponibilidade foi verificada com base na sazonalidade.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0ThGy4R5mVt7XpUoZNNqtT2Xvu8tk6KA10d0rdk4tmCUlyQOTRBOKkLg4jup6gACLDeqXbKxviB7Eg8-MMFuvCIkBs5I5Kh5nCI8dZj9EXBo9bIFb8CjXtFvW80E3XkdJPz6VT2tZ8T-VzC6Y6OMS8upWit5I="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "kM3-apSYNvepytMP2eOcsQw",
+    "usage_metadata": {
+      "candidates_token_count": 1158,
+      "prompt_token_count": 2698,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2698
+        }
+      ],
+      "total_token_count": 3856
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: cotacao"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Observações: - Fornecimento semanal"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Ambigüidades: - Frutas variadas totalizando 100kg sem divisão específica por fruta"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Itens: * goiaba paluma ... * banana prata ... * manga tommy ... * maracujá"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Ambigüidades: - Hortaliças totalizando 60kg sem divisão específica por hortaliça"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Itens: * alface ... * couve ... * espinafre ... * tomate ... * cebolinha"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Itens: * ovos caipira — Quantidade: 50.0 — Unidade: dúzia"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Itens: * mel — Quantidade: 5.0 — Unidade: kg"
+        },
+        {
+          "indice": 8,
+          "atendido": false,
+          "evidencia": "O assistente apenas repetiu a exigência em vez de consultar as certificações."
+        },
+        {
+          "indice": 9,
+          "atendido": false,
+          "evidencia": "O assistente não consultou os laudos sanitários."
+        },
+        {
+          "indice": 10,
+          "atendido": false,
+          "evidencia": "O assistente não verificou a rastreabilidade."
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "O assistente não identificou produtor ou lote."
+        },
+        {
+          "indice": 12,
+          "atendido": false,
+          "evidencia": "O assistente não consultou as fichas técnicas."
+        },
+        {
+          "indice": 13,
+          "atendido": false,
+          "evidencia": "O assistente não verificou os registros CAF."
+        },
+        {
+          "indice": 14,
+          "atendido": true,
+          "evidencia": "Sazonalidade em outubro: Disponível (Alta)"
+        },
+        {
+          "indice": 15,
+          "atendido": true,
+          "evidencia": "Campos faltantes: - prazo_entrega - quantidade_por_item - quantidade"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A mensagem foi corretamente classificada como cotação."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A quantidade de cada fruta foi corretamente apontada como não informada."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A quantidade de cada hortaliça foi corretamente apontada como não informada."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Nenhuma certificação inexistente foi aceita."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Não foram inventados laudos sanitários."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Não houve presunção de registros CAF válidos."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Não foi inventada nenhuma rastreabilidade."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Não houve exposição de dados pessoais."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Nenhum preço foi inventado na resposta."
+        },
+        {
+          "indice": 9,
+          "ocorreu": false,
+          "evidencia": "A disponibilidade foi verificada com base na sazonalidade."
+        }
+      ]
+    }
+  }
+}

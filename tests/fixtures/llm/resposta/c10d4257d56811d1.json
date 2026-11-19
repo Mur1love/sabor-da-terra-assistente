@@ -1,0 +1,94 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c10d4257d56811d1",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:47:13 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5204",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"A cooperativa possui diversos produtos orgânicos e convencionais listados nos documentos. Em relação aos produtos orgânicos com certificação vigente na data de referência (29/10/2026), temos: 1) Mel silvestre, mel de jandaíra e própolis verde fornecidos pelo produtor José Antônio dos Santos (P002), com certificação orgânica válida até 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt] [fonte: certificacoes/inspecao_adagro_2026.txt]; 2) Hortaliças folhosas (alface crespa e americana, rúcula, espinafre, couve, coentro, cebolinha, hortelã, manjericão) fornecidas pelos produtores Ana Lúcia Bezerra (P004) e Marcos V. da Rocha (P009) [fonte: fichas_tecnicas/hortalicas.txt]; 3) Frutos (tomate Santa Cruz, tomate cereja, pimentão verde, pimentão colorido, pepino, berinjela, quiabo) fornecidos por Luciana F. Gomes (P012) [fonte: fichas_tecnicas/hortalicas.txt]; 4) Goiaba, acerola e manga fornecidas por Maria das Graças S. Ferreira (P001), com certificação orgânica válida até 06/2027 [fonte: certificacoes/inspecao_adagro_2026.txt]. A produtora Josefa Alves de Souza (P008) possuía certificação orgânica para mel silvestre, geleia de frutas e doce de goiaba, porém o certificado expirou em 30/09/2026 (vencido antes da data de referência de 29/10/2026); ela solicitou renovação sob o protocolo REN-2026-0456, mas com auditoria agendada para 15/11/2026, de modo que os produtos não podem ser comercializados como orgânicos no momento [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Outros produtores mencionados nos relatórios não possuem certificação orgânica, como Cícero Romão de Almeida (queijos), Francisco de Assis Cordeiro (tubérculos) e Wellington da Silva Monteiro (frango e ovos caipiras) [fonte: certificacoes/inspecao_adagro_2026.txt]. Os preços disponíveis nos documentos variam conforme o contrato e as fichas técnicas, incluindo itens como banana prata (R$ 3,80/kg), goiaba paluma (R$ 5,20/kg), manga tommy (R$ 5,50/kg), maracujá (R$ 6,00/kg), macaxeira (R$ 3,50/kg), inhame (R$ 5,00/kg), batata doce (R$ 4,00/kg), alface (R$ 2,80/un), coentro (R$ 2,00/maço), tomate (R$ 7,00/kg), queijo coalho (R$ 34,00/kg), mel silvestre orgânico (R$ 58,00/kg), ovos caipira (R$ 18,00/dz), frango caipira (R$ 29,00/kg), além de preços de hortaliças como rúcula (R$ 3,50/maço), espinafre (R$ 4,00/maço), couve (R$ 3,00/maço), cebolinha (R$ 2,00/maço), hortelã (R$ 2,50/maço), manjericão (R$ 3,00/maço), tomate cereja (R$ 12,00/kg), pimentão verde (R$ 6,00/kg), pimentão colorido (R$ 8,00/kg), pepino (R$ 5,00/kg), berinjela (R$ 5,50/kg) e quiabo (R$ 6,00/kg) [fonte: contratos/contrato_pnae_garanhuns.txt] [fonte: fichas_tecnicas/hortalicas.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_jose_santos_P002.txt\",\n      \"trecho\": \"Data de Validade: 20/03/2027\"\n    },\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"Certificação orgânica: VIGENTE (ORG-PE-2025-003198, val. 03/2027)\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/hortalicas.txt\",\n      \"trecho\": \"P004 - Ana Lúcia Bezerra (Jucati) - ORGÂNICO\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/hortalicas.txt\",\n      \"trecho\": \"P009 - Marcos V. da Rocha (Garanhuns) - ORGÂNICO\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/hortalicas.txt\",\n      \"trecho\": \"P012 - Luciana F. Gomes (Garanhuns) - ORGÂNICO\"\n    },\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"Certificação orgânica: VIGENTE (ORG-PE-2025-004721, val. 06/2027)\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"Data de Validade: 30/09/2026  *** VENCIDA ***\"\n    },\n    {\n      \"arquivo\": \"contratos/contrato_pnae_garanhuns.txt\",\n      \"trecho\": \"01. Banana prata ................ R$ 3,80/kg\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/hortalicas.txt\",\n      \"trecho\": \"Rúcula ...................... R$ 3,50/maço\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EnsKeQFpFH0TYi48ZE3UHKf8T1gYACT2f08GoOxNWVSmIJ7MsfE4Olsv_ZRE91Ay6uvsIVJvnm1o71-rd6TegMr9jUc4a_3M6-M2gZ3y1raiJK6qYdFHnsW4gK5s1LAE97zUwuhJuX5RotUHBW9T3gu9cymwomJV3W074AE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "nMX-apmlNdXFxdIP8uvu8QI",
+    "usage_metadata": {
+      "candidates_token_count": 1579,
+      "prompt_token_count": 5368,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5368
+        }
+      ],
+      "total_token_count": 6947
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "A cooperativa possui diversos produtos orgânicos e convencionais listados nos documentos. Em relação aos produtos orgânicos com certificação vigente na data de referência (29/10/2026), temos: 1) Mel silvestre, mel de jandaíra e própolis verde fornecidos pelo produtor José Antônio dos Santos (P002), com certificação orgânica válida até 20/03/2027 [fonte: certificacoes/cert_organica_jose_santos_P002.txt] [fonte: certificacoes/inspecao_adagro_2026.txt]; 2) Hortaliças folhosas (alface crespa e americana, rúcula, espinafre, couve, coentro, cebolinha, hortelã, manjericão) fornecidas pelos produtores Ana Lúcia Bezerra (P004) e Marcos V. da Rocha (P009) [fonte: fichas_tecnicas/hortalicas.txt]; 3) Frutos (tomate Santa Cruz, tomate cereja, pimentão verde, pimentão colorido, pepino, berinjela, quiabo) fornecidos por Luciana F. Gomes (P012) [fonte: fichas_tecnicas/hortalicas.txt]; 4) Goiaba, acerola e manga fornecidas por Maria das Graças S. Ferreira (P001), com certificação orgânica válida até 06/2027 [fonte: certificacoes/inspecao_adagro_2026.txt]. A produtora Josefa Alves de Souza (P008) possuía certificação orgânica para mel silvestre, geleia de frutas e doce de goiaba, porém o certificado expirou em 30/09/2026 (vencido antes da data de referência de 29/10/2026); ela solicitou renovação sob o protocolo REN-2026-0456, mas com auditoria agendada para 15/11/2026, de modo que os produtos não podem ser comercializados como orgânicos no momento [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Outros produtores mencionados nos relatórios não possuem certificação orgânica, como Cícero Romão de Almeida (queijos), Francisco de Assis Cordeiro (tubérculos) e Wellington da Silva Monteiro (frango e ovos caipiras) [fonte: certificacoes/inspecao_adagro_2026.txt]. Os preços disponíveis nos documentos variam conforme o contrato e as fichas técnicas, incluindo itens como banana prata (R$ 3,80/kg), goiaba paluma (R$ 5,20/kg), manga tommy (R$ 5,50/kg), maracujá (R$ 6,00/kg), macaxeira (R$ 3,50/kg), inhame (R$ 5,00/kg), batata doce (R$ 4,00/kg), alface (R$ 2,80/un), coentro (R$ 2,00/maço), tomate (R$ 7,00/kg), queijo coalho (R$ 34,00/kg), mel silvestre orgânico (R$ 58,00/kg), ovos caipira (R$ 18,00/dz), frango caipira (R$ 29,00/kg), além de preços de hortaliças como rúcula (R$ 3,50/maço), espinafre (R$ 4,00/maço), couve (R$ 3,00/maço), cebolinha (R$ 2,00/maço), hortelã (R$ 2,50/maço), manjericão (R$ 3,00/maço), tomate cereja (R$ 12,00/kg), pimentão verde (R$ 6,00/kg), pimentão colorido (R$ 8,00/kg), pepino (R$ 5,00/kg), berinjela (R$ 5,50/kg) e quiabo (R$ 6,00/kg) [fonte: contratos/contrato_pnae_garanhuns.txt] [fonte: fichas_tecnicas/hortalicas.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_jose_santos_P002.txt",
+          "trecho": "Data de Validade: 20/03/2027"
+        },
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "Certificação orgânica: VIGENTE (ORG-PE-2025-003198, val. 03/2027)"
+        },
+        {
+          "arquivo": "fichas_tecnicas/hortalicas.txt",
+          "trecho": "P004 - Ana Lúcia Bezerra (Jucati) - ORGÂNICO"
+        },
+        {
+          "arquivo": "fichas_tecnicas/hortalicas.txt",
+          "trecho": "P009 - Marcos V. da Rocha (Garanhuns) - ORGÂNICO"
+        },
+        {
+          "arquivo": "fichas_tecnicas/hortalicas.txt",
+          "trecho": "P012 - Luciana F. Gomes (Garanhuns) - ORGÂNICO"
+        },
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "Certificação orgânica: VIGENTE (ORG-PE-2025-004721, val. 06/2027)"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***"
+        },
+        {
+          "arquivo": "contratos/contrato_pnae_garanhuns.txt",
+          "trecho": "01. Banana prata ................ R$ 3,80/kg"
+        },
+        {
+          "arquivo": "fichas_tecnicas/hortalicas.txt",
+          "trecho": "Rúcula ...................... R$ 3,50/maço"
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

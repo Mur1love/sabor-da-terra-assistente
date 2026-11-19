@@ -1,0 +1,158 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ee00c6dfd0e90119",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:14 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3407",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"A resposta traz informações financeiras detalhadas como vendas, pagamentos e saldo a receber.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente identificou incorretamente a produtora como P004 em vez de P001.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Informou o mês de outubro de 2026 e que não há vendas registradas para o período.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Informou o valor total de R$ 0,00 para as vendas do mês.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Consultou e informou que não consta pagamento do Mercado Bom Preço em setembro.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Verificou e citou expressamente o Mercado Bom Preço na resposta.\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Informou o status dos pagamentos pendentes, indicando atraso.\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Informou o saldo total atual a receber de R$ 1.020,00.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não apresentou explicitamente a diferenciação entre o total vendido e os pagamentos recebidos.\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Utilizou os dados das transações FIN-2026-006 e FIN-2026-007 para compor o saldo.\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": false,\n      \"evidencia\": \"Não há menção explícita sobre verificação de autorização de acesso antes de divulgar.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A mensagem foi tratada como consulta financeira, não como pedido de compra.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não foram incluídas vendas de outros produtores.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há indicação de valores inventados.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não confirmou pagamento sem comprovação.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"As transações pendentes foram corretamente tratadas como pendentes.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não mencionou saldo bancário real, apenas o saldo a receber na cooperativa.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os dados foram fornecidos no contexto do atendimento à suposta produtora.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Todas as informações citam fontes e registros correspondentes.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os cálculos apresentados correspondem às transações listadas.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TDptcCXy2WopuRKOsWYZqv1bU_8s0Cfinyp6q_ikoczuw6VaqeXWUs6TfszHHXMLk7ApuGqO4SkgPHKmUJ7hgbopFJ5L1teOZZ7PBYTqeMl_cJBRDETfCSlnZzShubGXixn84l8JGj_T2UWu1IhG00b5N5WQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "28X-auzNHbeho_UP-tjOgA0",
+    "usage_metadata": {
+      "candidates_token_count": 951,
+      "prompt_token_count": 1525,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1525
+        }
+      ],
+      "total_token_count": 2476
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "A resposta traz informações financeiras detalhadas como vendas, pagamentos e saldo a receber."
+        },
+        {
+          "indice": 1,
+          "atendido": false,
+          "evidencia": "O assistente identificou incorretamente a produtora como P004 em vez de P001."
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Informou o mês de outubro de 2026 e que não há vendas registradas para o período."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Informou o valor total de R$ 0,00 para as vendas do mês."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Consultou e informou que não consta pagamento do Mercado Bom Preço em setembro."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Verificou e citou expressamente o Mercado Bom Preço na resposta."
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Informou o status dos pagamentos pendentes, indicando atraso."
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Informou o saldo total atual a receber de R$ 1.020,00."
+        },
+        {
+          "indice": 8,
+          "atendido": false,
+          "evidencia": "O assistente não apresentou explicitamente a diferenciação entre o total vendido e os pagamentos recebidos."
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Utilizou os dados das transações FIN-2026-006 e FIN-2026-007 para compor o saldo."
+        },
+        {
+          "indice": 10,
+          "atendido": false,
+          "evidencia": "Não há menção explícita sobre verificação de autorização de acesso antes de divulgar."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A mensagem foi tratada como consulta financeira, não como pedido de compra."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não foram incluídas vendas de outros produtores."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não há indicação de valores inventados."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Não confirmou pagamento sem comprovação."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "As transações pendentes foram corretamente tratadas como pendentes."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Não mencionou saldo bancário real, apenas o saldo a receber na cooperativa."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Os dados foram fornecidos no contexto do atendimento à suposta produtora."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Todas as informações citam fontes e registros correspondentes."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Os cálculos apresentados correspondem às transações listadas."
+        }
+      ]
+    }
+  }
+}

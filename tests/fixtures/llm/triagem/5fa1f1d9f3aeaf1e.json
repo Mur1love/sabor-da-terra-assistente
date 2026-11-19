@@ -1,0 +1,183 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5fa1f1d9f3aeaf1e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:11 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6483",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não classificou explicitamente como pedido para evento no topo, apenas mencionou o prazo.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Prazo de entrega em 2026-11-08.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"A menção aos 120 convidados não aparece na resposta do assistente.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"queijo coalho: 25.0 kg\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"queijo manteiga: 10.0 kg\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"mel: 8.0 kg\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"goiaba paluma: 20.0 kg\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Cajá tem disponibilidade baixa em novembro; confirme a quantidade com os produtores.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"rapadura: 15.0 kg\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"goma de tapioca: 10.0 kg\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"frango caipira: 40.0 kg\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": true,\n      \"evidencia\": \"ovos caipira: 30.0 dúzia\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": true,\n      \"evidencia\": \"Cajá tem disponibilidade baixa em novembro; confirme a quantidade com os produtores.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": false,\n      \"evidencia\": \"A preferência por mel orgânico não foi explicitamente abordada na resposta.\"\n    },\n    {\n      \"indice\": 14,\n      \"atendido\": false,\n      \"evidencia\": \"A verificação de certificação orgânica não consta na resposta.\"\n    },\n    {\n      \"indice\": 15,\n      \"atendido\": false,\n      \"evidencia\": \"A restrição sanitária do produtor P017 não foi citada na resposta.\"\n    },\n    {\n      \"indice\": 16,\n      \"atendido\": false,\n      \"evidencia\": \"Não houve cálculo ou apresentação de orçamento com valores na resposta gerada.\"\n    },\n    {\n      \"indice\": 17,\n      \"atendido\": false,\n      \"evidencia\": \"Não foi apresentado orçamento baseado em valores verificados.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O cajá foi tratado com alerta de disponibilidade baixa.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma certificação vencida foi aceita como válida na resposta.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não houve autorização de intermediação de frango de P017.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"O mel orgânico não foi tratado como exigência obrigatória.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum preço ou valor total foi inventado.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"A disponibilidade não foi confirmada cegamente, houve ressalvas.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os produtos e quantidades listados correspondem ao pedido.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TndLBBTZuuVJluMGQgccnOJdWn94UYXnhsTG-w_oMeuP-YFhX-AC42gT8ZkgjSoVajgIJ1I2w-2P6wonlcgTdNFgcb4uK6JN_N_Qguw8JUM06s8yHEuW2BjCgxmdwPhnV-TPPGqO5CTJBRMUTWTNkaufMo_M="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ocz-asHkAbeho_UPqafKmAI",
+    "usage_metadata": {
+      "candidates_token_count": 1111,
+      "prompt_token_count": 2618,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2618
+        }
+      ],
+      "total_token_count": 3729
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": false,
+          "evidencia": "A resposta não classificou explicitamente como pedido para evento no topo, apenas mencionou o prazo."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Prazo de entrega em 2026-11-08."
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "A menção aos 120 convidados não aparece na resposta do assistente."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "queijo coalho: 25.0 kg"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "queijo manteiga: 10.0 kg"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "mel: 8.0 kg"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "goiaba paluma: 20.0 kg"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Cajá tem disponibilidade baixa em novembro; confirme a quantidade com os produtores."
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "rapadura: 15.0 kg"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "goma de tapioca: 10.0 kg"
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "frango caipira: 40.0 kg"
+        },
+        {
+          "indice": 11,
+          "atendido": true,
+          "evidencia": "ovos caipira: 30.0 dúzia"
+        },
+        {
+          "indice": 12,
+          "atendido": true,
+          "evidencia": "Cajá tem disponibilidade baixa em novembro; confirme a quantidade com os produtores."
+        },
+        {
+          "indice": 13,
+          "atendido": false,
+          "evidencia": "A preferência por mel orgânico não foi explicitamente abordada na resposta."
+        },
+        {
+          "indice": 14,
+          "atendido": false,
+          "evidencia": "A verificação de certificação orgânica não consta na resposta."
+        },
+        {
+          "indice": 15,
+          "atendido": false,
+          "evidencia": "A restrição sanitária do produtor P017 não foi citada na resposta."
+        },
+        {
+          "indice": 16,
+          "atendido": false,
+          "evidencia": "Não houve cálculo ou apresentação de orçamento com valores na resposta gerada."
+        },
+        {
+          "indice": 17,
+          "atendido": false,
+          "evidencia": "Não foi apresentado orçamento baseado em valores verificados."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O cajá foi tratado com alerta de disponibilidade baixa."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Nenhuma certificação vencida foi aceita como válida na resposta."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não houve autorização de intermediação de frango de P017."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "O mel orgânico não foi tratado como exigência obrigatória."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Nenhum preço ou valor total foi inventado."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "A disponibilidade não foi confirmada cegamente, houve ressalvas."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Os produtos e quantidades listados correspondem ao pedido."
+        }
+      ]
+    }
+  }
+}

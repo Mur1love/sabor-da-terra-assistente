@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c8887432036c17fa",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:02 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6904",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Com base na triagem do pedido recebido por e-mail (referente ao Contrato 045/2026-PNAE com a Prefeitura de Garanhuns para o período de 04 a 08 de novembro de 2026) [fonte: contratos/contrato_pnae_garanhuns.txt], foram verificados os primeiros itens solicitados:\n\n1. **Banana prata (200 kg)**\n   - **Produtor elegível:** Severina Maria do Nascimento (P006) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 3,80/kg (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 760,00.\n   - **Alertas:** Nenhum documento comprova DAP ou CAF vigente para P006, exigido pelo contrato [fonte: contratos/contrato_pnae_garanhuns.txt]. Não há capacidade documentada em kg para este item [fonte: fichas_tecnicas/].\n\n2. **Goiaba paluma (100 kg)**\n   - **Produtores elegíveis:** Maria das Graças Silva Ferreira (P001) e Raimunda Nonata de Lima (P010) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 5,20/kg (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 520,00.\n   - **Alertas:** DAP/CAF de P001 sem validade no documento; P0001 e P010 sem DAP/CAF vigente comprovada [fonte: certificacoes/cert_organica_maria_silva_P001.txt, contratos/contrato_pnae_garanhuns.txt]. O pedido cabe na capacidade documentada de 800 kg em 7 dias [fonte: fichas_tecnicas/goiaba_paluma.txt].\n\n3. **Macaxeira (150 kg)**\n   - **Produtor elegível:** Francisco de Assis Cordeiro (P005) [fonte: produtores.csv]. (Geraldo Manoel Barbosa - P015 foi excluído por estar inativo) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 3,50/kg (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 525,00.\n   - **Alertas:** O pedido cabe na capacidade documentada de 400 kg em 7 dias [fonte: fichas_tecnicas/tuberculos_graos.txt].\n\n4. **Inhame (80 kg)**\n   - **Produtor elegível:** Francisco de Assis Cordeiro (P005) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 5,00/kg (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 400,00.\n   - **Alertas:** O pedido cabe na capacidade documentada de 200 kg em 7 dias [fonte: fichas_tecnicas/tuberculos_graos.txt].\n\n5. **Alface (200 unidades)**\n   - **Produtores elegíveis:** Ana Lúcia Bezerra da Costa (P004) e Marcos Vinícius da Rocha (P009) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 2,80/unidade (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 560,00.\n   - **Alertas:** DAP/CAF de P004 e P009 sem validade nos documentos [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt, certificacoes/cert_organica_marcos_rocha_P009.txt]. Não há capacidade documentada em unidades [fonte: fichas_tecnicas/].\n\n6. **Coentro (100 maços)**\n   - **Produtor elegível:** Ana Lúcia Bezerra da Costa (P004) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 2,00/maço (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 200,00.\n   - **Alertas:** DAP/CAF sem validade no documento de P004 [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]. Sem capacidade documentada em maços [fonte: fichas_tecnicas/].\n\n7. **Tomate (50 kg)**\n   - **Produtor elegível:** Luciana Ferreira Gomes (P012) [fonte: produtores.csv].\n   - **Preço unitário:** R$ 7,00/kg (conforme o Contrato 045/2026-PNAE) [fonte: contratos/contrato_pnae_garanhuns.txt]. Total: R$ 350,00.\n   - **Alertas:** DAP/CAF de P012 sem validade [fonte: certificacoes/cert_organica_luciana_gomes_P012.txt]. O pedido cabe na capacidade documentada de 400 kg em 7 dias [fonte: fichas_tecnicas/hortalicas.txt].\n\n*(Nota: A verificação completa dos itens \"mel silvestre orgânico\" e \"ovos caipiras\" não pôde ser concluída neste turno devido ao limite de chamadas de função, mas pode ser processada em seguida se desejar).*",
+              "thought_signature": "EnsKeQFpFH0Tt0ed-het7MrD54Q9IlxFCUDg82qbI0A0tqEjSPfC_pGbQ2uF2tRXHZyRUOSwF7N5_FnyOLVMyoPBast-yam8--w8s4mJiPkj5O8kxC9c9M1zvOiubmxTkSbDd2RlcGofUSregVdcH7SqzyOly0mGTzNE43I="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "GMX-auyQHpGOytMP1p6KkQs",
+    "usage_metadata": {
+      "candidates_token_count": 1452,
+      "prompt_token_count": 10434,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 10434
+        }
+      ],
+      "total_token_count": 11886
+    }
+  }
+}

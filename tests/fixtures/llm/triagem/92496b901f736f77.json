@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "92496b901f736f77",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:16:01 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7248",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi o"
+            },
+            {
+              "text": " pedido de Lúcia enviado para o próximo sábado (2026-10-31), contendo dois itens:\n\n1. **10 kg de queijo coalho**:\n   - **Status**: O pedido pode ser atendido [fonte: fichas_tecnicas/queijo_coalho.txt].\n   - **Produtores elegíveis**: Cícero Romão de Almeida (P003 - Caetés) e Antônio Carlos Pereira Lima (P007 - Lajedo) [fonte: fichas_tecnicas/queijo_coalho.txt].\n   - **Produtor excluído**: Pedro Henrique Albuquerque (P011) foi excluído porque não possui registro SIE para queijo coalho (a venda por meio da cooperativa exige SIE, SIM ou SISBI; a ficha técnica limita a venda dele ao consumidor final) [fonte: fichas_tecnicas/queijo_coalho.txt].\n   - **Preço**: R$ 32,00 o kg, totalizando R$ 320,00 (aplica-se a tabela geral, pois não há contrato registrado com Lúcia) [fonte: tabela_precos_outubro_2026.csv].\n   - **Capacidade**: O pedido cabe na capacidade documentada dos elegíveis (de 300 a 400 kg em 7 dias), mas é recomendável confirmar a disponibilidade direta com os produtores [fonte: fichas_tecnicas/queijo_coalho.txt].\n\n2. **5 kg de manteiga**:\n   - **Ambiguidade**: O termo \"manteiga\" pode se referir a **manteiga de garrafa** ou **queijo manteiga** [fonte: base de dados da cooperativa]. Precisamos confirmar com a Lúcia qual das duas opções ela deseja.",
+              "thought_signature": "EnsKeQFpFH0TfE3b_y-j58PjBYhZ7HEDqTc9YKiEKT4a6UBjliFuVZH8HD_-EJcxXWgaDDp6pacjWanVyykWtk_XsyDsavPu6jsL4Qu4SahpnxFP6z9uEcfclCvpYF8btgp2SDyHgIDgClWGVLrss9O1qRRZ1CpluufaMhg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Wsz-ao-yMta0xdIP1-OGqQo",
+    "usage_metadata": {
+      "candidates_token_count": 407,
+      "prompt_token_count": 3948,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3948
+        }
+      ],
+      "total_token_count": 4355
+    }
+  }
+}

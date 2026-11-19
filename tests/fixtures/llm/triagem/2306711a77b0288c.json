@@ -1,0 +1,138 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2306711a77b0288c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:22 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5199",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo: Consulta\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Morango: 50.0 kg\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Amora: 50.0 kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Solicita tabela de preços\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Exige certificação orgânica para uso no rótulo\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Capacidade documentada dos elegíveis em 7 dias\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Preço unitário: R$ 22,00\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Observação da tabela: Safra jun-set. Fora de safra: sob consulta\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Capacidade documentada dos elegíveis em 7 dias: 150 kg\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao registrou pedido automaticamente\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Tratou como consulta\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum produto convencional oferecido como organico\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Certificacoes verificadas\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Precos vieram da tabela oficial\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Disponibilidade consultada\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Quantidades e produtos corretos\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TJvCvGO_TZmFbDejNPXgzw7b4LyDbMl-ESFUSGer_SrMwviEg74bQ8Cu1YWoGQ05Vu361NrtTRaEv8ulTtNbbaPxBEav--wTSskJO-iSunXwCu2DvTOt1OExfeaTOVzB3q6XgJhHkbLJ_ClwAOWFFv2m4wu4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "rcz-aqafBsW2xdIP8raW8QU",
+    "usage_metadata": {
+      "candidates_token_count": 654,
+      "prompt_token_count": 2238,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2238
+        }
+      ],
+      "total_token_count": 2892
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo: Consulta"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Morango: 50.0 kg"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Amora: 50.0 kg"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Solicita tabela de preços"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Exige certificação orgânica para uso no rótulo"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Capacidade documentada dos elegíveis em 7 dias"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Preço unitário: R$ 22,00"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Observação da tabela: Safra jun-set. Fora de safra: sob consulta"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Capacidade documentada dos elegíveis em 7 dias: 150 kg"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Nao registrou pedido automaticamente"
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Tratou como consulta"
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Nenhum produto convencional oferecido como organico"
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Certificacoes verificadas"
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Precos vieram da tabela oficial"
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Disponibilidade consultada"
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Quantidades e produtos corretos"
+        }
+      ]
+    }
+  }
+}

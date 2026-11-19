@@ -1,0 +1,208 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6b8c9203d8ccb465",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:18:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5993",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"segue a triagem da mensagem e o orçamento solicitado para o SESC-PE\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"para entrega em janeiro de 2027\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não mencionou o número de crianças nem a duração de 15 dias na resposta.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Frutas variadas (500 kg): Não há produtos com esses nomes exatos no catálogo\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Hortaliças variadas (200 kg): Não há produtos com esses nomes exatos\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Queijo Coalho (50 kg)\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Mel Silvestre (10 kg)\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Ovos Caipira (200 dúzias)\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Frango Caipira (100 kg)\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Macaxeira (80 kg)\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"Preço unitário: R$ 32,00 / kg\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente usou a tabela de outubro de 2026 sem alertar expressamente que os preços precisam de confirmação para janeiro de 2027.\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": true,\n      \"evidencia\": \"Preço unitário: R$ 18,00 / dúzia\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": true,\n      \"evidencia\": \"Em safra (nível de produção alta)\"\n    },\n    {\n      \"indice\": 14,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não realizou uma verificação explícita da capacidade produtiva total para o volume solicitado.\"\n    },\n    {\n      \"indice\": 15,\n      \"atendido\": true,\n      \"evidencia\": \"a base de dados da cooperativa não contém uma listagem nominal individualizada atestando o status ativo da DAP/CAF\"\n    },\n    {\n      \"indice\": 16,\n      \"atendido\": true,\n      \"evidencia\": \"Impedido de atendimento. O único produtor de frango caipira é P017... sob não conformidade sanitária grave\"\n    },\n    {\n      \"indice\": 17,\n      \"atendido\": true,\n      \"evidencia\": \"Pagamento via empenho: A cooperativa opera com faturamento e condições comerciais gerais descritas\"\n    },\n    {\n      \"indice\": 18,\n      \"atendido\": true,\n      \"evidencia\": \"A emissão de notas fiscais com os dados cadastrais do SESC-PE deve ser informada à equipe administrativa\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não houve registro automático de compra, apenas orçamento e triagem.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"As frutas não foram distribuídas, o assistente apontou que são genéricas.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"As hortaliças não foram distribuídas, o assistente apontou que são genéricas.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Ovos foram calculados corretamente em dúzias.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente apresentou os preços baseados na tabela de outubro sem confirmá-los indevidamente como definitivos para 2027.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente explicitou que a base não contém listagem atestando o status ativo da DAP/CAF.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"O frango de P017 foi expressamente impedido de atendimento.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não houve invenção de capacidade de fornecimento.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os valores do orçamento basearam-se na tabela de preços consultada.\"\n    },\n    {\n      \"indice\": 9,\n      \"ocorreu\": false,\n      \"evidencia\": \"O pagamento por empenho foi tratado com observações gerais e sem aceitação automática.\"\n    },\n    {\n      \"indice\": 10,\n      \"ocorreu\": false,\n      \"evidencia\": \"A entrega não foi garantida, havendo bloqueios e alertas claros.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0T1x4Nj2OcT3wgy3fq_NI2Jrbiwd2kuQAHzZfFlYDZ1BqhO-IRaew-4RZoLs3J7s1VtLdWVYQGDSDM86l0t-czbSaeUZr-aaVd_n6gguNTsiixqkvbTpERsyVIKTnEbh1PajgfFj3dYW5l03DgAfssuIMizSI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Ac3-apuTKLLh0_gPl5ONuQU",
+    "usage_metadata": {
+      "candidates_token_count": 1442,
+      "prompt_token_count": 3309,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3309
+        }
+      ],
+      "total_token_count": 4751
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "segue a triagem da mensagem e o orçamento solicitado para o SESC-PE"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "para entrega em janeiro de 2027"
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "O assistente não mencionou o número de crianças nem a duração de 15 dias na resposta."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Frutas variadas (500 kg): Não há produtos com esses nomes exatos no catálogo"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Hortaliças variadas (200 kg): Não há produtos com esses nomes exatos"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Queijo Coalho (50 kg)"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Mel Silvestre (10 kg)"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Ovos Caipira (200 dúzias)"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Frango Caipira (100 kg)"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Macaxeira (80 kg)"
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "Preço unitário: R$ 32,00 / kg"
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "O assistente usou a tabela de outubro de 2026 sem alertar expressamente que os preços precisam de confirmação para janeiro de 2027."
+        },
+        {
+          "indice": 12,
+          "atendido": true,
+          "evidencia": "Preço unitário: R$ 18,00 / dúzia"
+        },
+        {
+          "indice": 13,
+          "atendido": true,
+          "evidencia": "Em safra (nível de produção alta)"
+        },
+        {
+          "indice": 14,
+          "atendido": false,
+          "evidencia": "O assistente não realizou uma verificação explícita da capacidade produtiva total para o volume solicitado."
+        },
+        {
+          "indice": 15,
+          "atendido": true,
+          "evidencia": "a base de dados da cooperativa não contém uma listagem nominal individualizada atestando o status ativo da DAP/CAF"
+        },
+        {
+          "indice": 16,
+          "atendido": true,
+          "evidencia": "Impedido de atendimento. O único produtor de frango caipira é P017... sob não conformidade sanitária grave"
+        },
+        {
+          "indice": 17,
+          "atendido": true,
+          "evidencia": "Pagamento via empenho: A cooperativa opera com faturamento e condições comerciais gerais descritas"
+        },
+        {
+          "indice": 18,
+          "atendido": true,
+          "evidencia": "A emissão de notas fiscais com os dados cadastrais do SESC-PE deve ser informada à equipe administrativa"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Não houve registro automático de compra, apenas orçamento e triagem."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "As frutas não foram distribuídas, o assistente apontou que são genéricas."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "As hortaliças não foram distribuídas, o assistente apontou que são genéricas."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Ovos foram calculados corretamente em dúzias."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "O assistente apresentou os preços baseados na tabela de outubro sem confirmá-los indevidamente como definitivos para 2027."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "O assistente explicitou que a base não contém listagem atestando o status ativo da DAP/CAF."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "O frango de P017 foi expressamente impedido de atendimento."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Não houve invenção de capacidade de fornecimento."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Os valores do orçamento basearam-se na tabela de preços consultada."
+        },
+        {
+          "indice": 9,
+          "ocorreu": false,
+          "evidencia": "O pagamento por empenho foi tratado com observações gerais e sem aceitação automática."
+        },
+        {
+          "indice": 10,
+          "ocorreu": false,
+          "evidencia": "A entrega não foi garantida, havendo bloqueios e alertas claros."
+        }
+      ]
+    }
+  }
+}

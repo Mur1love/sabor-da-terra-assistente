@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "dc6db444016dacb7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:55 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1151",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_933633514008037102",
+                "args": {
+                  "pergunta": "Quais produtos orgânicos a cooperativa possui, quais produtores fornecem, as datas de validade das certificações e os preços?",
+                  "data_referencia": "2026-10-29"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EnsKeQFpFH0Tiy_qrpyBtLRdZlzBwBXesFwUhNYxvLRnb1WH_XG9Vcjf10O_6l_KZXSlfdaxAbT_Jya1ywInosEk7KMWKjAg5ii1-Dw9pCpC3k1i7yhc2vo0wtLtsl61qIOllE9ixNqazEMzW4eWFiYP0LyDCmEQy5wt4TM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "jsX-at3AOrKi5NoP0-TcoQ0",
+    "usage_metadata": {
+      "candidates_token_count": 65,
+      "prompt_token_count": 3048,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3048
+        }
+      ],
+      "total_token_count": 3113
+    }
+  }
+}

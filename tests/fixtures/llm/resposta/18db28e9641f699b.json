@@ -1,0 +1,55 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "18db28e9641f699b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:15 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2660",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O tipo da mensagem é cotacao.\n\nIt"
+            },
+            {
+              "text": "ens da solicitação:\n- Produto: goiaba paluma (original: goiaba) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: banana prata (original: banana) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: manga tommy (original: manga) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: maracujá (original: maracujá) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: alface (original: alface) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: couve (original: couve) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: espinafre (original: espinafre) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: tomate (original: tomate) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: cebolinha (original: cebolinha) | Quantidade: None | Unidade: kg | Prazo: None | Alertas de conformidade: \n- Produto: ovos caipira (original: Ovos caipiras) | Quantidade: 50.0 | Unidade: dúzia | Prazo: None | Alertas de conformidade: \n- Produto: mel (original: Mel puro) | Quantidade: 5.0 | Unidade: kg | Prazo: None | Alertas de conformidade: \n\nRecebemos a sua solicitação de cotação e disponibilidade para fornecimento semanal. \n\nIdentificamos algumas ambiguidades na sua mensagem que precisam de esclarecimento para prosseguirmos:\n- As **frutas variadas** somam 100kg no total, mas não há a divisão específica da quantidade por fruta (goiaba, banana, manga e maracujá).\n- As **hortaliças** somam 60kg no total, mas também não trazem a divisão específica por produto (alface, couve, espinafre, tomate e cebolinha).\n- O item **\"mel puro\"** pode se referir ao mel de jandaíra ou ao mel silvestre — por favor, especifique qual deseja.\n- Faltou informar a data ou o prazo exato para a primeira entrega.\n\nSobre a disponibilidade em **outubro** (segundo o calendário de sazonalidade da cooperativa, fonte: `sazonalidade.csv`):\n- **Goiaba Paluma:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Banana Prata:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Manga Tommy:** Disponível, nível de média [fonte: sazonalidade.csv].\n- **Maracujá:** Disponível, nível de média [fonte: sazonalidade.csv].\n- **Alface:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Couve:** Disponível, nível de alta [fonte: sazonalidade.csv].\n- **Espinafre:** Disponível, nível de alta [fonte: sazonalidade.csv].\n\nAssim que nos enviar o detalhamento das quantidades por item, o tipo de mel e a data de entrega, poderemos calcular os preços, verificar a conformidade dos produtores e repassar as informações solicitadas (certificações, laudos, rastreabilidade e fichas técnicas).",
+              "thought_signature": "EnsKeQFpFH0T4NL457kbZ8BYPR6wL9SGEVnuzjf_vOxV94APRzG0mSbFrIs3LuaL6k--cLzz-YJqPZaO_o-KDqXRhVQOHOvHTFzwxMJ0dpyBXWlXg8OowXOb0pXYYlNMtlEMtKIrhg6VmiIzrYeJeW5NaXXdZJcGjUeX_IY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ZMX-avTgPIeI1sgP7dLb4A4",
+    "usage_metadata": {
+      "candidates_token_count": 845,
+      "prompt_token_count": 2644,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2644
+        }
+      ],
+      "total_token_count": 3489
+    },
+    "automatic_function_calling_history": []
+  }
+}

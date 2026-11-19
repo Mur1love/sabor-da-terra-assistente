@@ -1,0 +1,77 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "811a6424ec34d009",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:26 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4035",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Com base nos documentos da cooperativa, identificamos as certificações orgânicas vigentes e a situação dos produtores de mel. Para a produtora Maria das Graças Silva Ferreira (P001), o certificado de conformidade orgânica emitido pela IBD Certificações é válido até 15/06/2027 [fonte: certificacoes/cert_organica_maria_silva_P001.txt]. Em relação aos produtores de mel silvestre, os fornecedores José Antônio dos Santos (P002) e Débora Cristina de Melo (P018) possuem certificações orgânicas válidas até 03/2027 e 02/2027, respectivamente [fonte: fichas_tecnicas/mel_silvestre.txt]. A produtora Josefa Alves de Souza (P008) encontra-se com a certificação orgânica vencida em 30/09/2026 e em processo de renovação, havendo alerta para não comercializar seus produtos como orgânicos até a conclusão da renovação [fonte: fichas_tecnicas/mel_silvestre.txt]. Não encontramos em nossa base documental informações sobre laudos sanitários dos últimos 12 meses, nem contratos com compradores institucionais.\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_maria_silva_P001.txt\",\n      \"trecho\": \"Certificado Nº: ORG-PE-2025-004721\\nData de Emissão: 15/06/2025\\nData de Validade: 15/06/2027\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/mel_silvestre.txt\",\n      \"trecho\": \"Certificação orgânica: SIM (ORG-PE-2025-003198, val. 03/2027)\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/mel_silvestre.txt\",\n      \"trecho\": \"Certificação orgânica: VENCIDA (30/09/2026) - em renovação\\n    ATENÇÃO: Não comercializar como orgânico até renovação\"\n    },\n    {\n      \"arquivo\": \"fichas_tecnicas/mel_silvestre.txt\",\n      \"trecho\": \"Certificação orgânica: SIM (ORG-PE-2025-002345, val. 02/2027)\"\n    }\n  ],\n  \"lacunas\": [\n    \"Laudos sanitários dos últimos 12 meses\",\n    \"Contratos com compradores institucionais\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0Tcp7TVbahx0PiWAjFEAAOAqmEPL9g9SaJ-gMTagxMdmnx2DATzLqLNqfGZaSfs83SBgodB9ANzxWN8vH6a61nM8V3BfvrFN7_gIKjxj_WL7LMNku2kyKIk5dk4yHjXyCW3iMT44b3_79gjW_BGbdb6hgXJlo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "os3-ar26MsOgytMP4dbdgQs",
+    "usage_metadata": {
+      "candidates_token_count": 644,
+      "prompt_token_count": 2474,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2474
+        }
+      ],
+      "total_token_count": 3118
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Com base nos documentos da cooperativa, identificamos as certificações orgânicas vigentes e a situação dos produtores de mel. Para a produtora Maria das Graças Silva Ferreira (P001), o certificado de conformidade orgânica emitido pela IBD Certificações é válido até 15/06/2027 [fonte: certificacoes/cert_organica_maria_silva_P001.txt]. Em relação aos produtores de mel silvestre, os fornecedores José Antônio dos Santos (P002) e Débora Cristina de Melo (P018) possuem certificações orgânicas válidas até 03/2027 e 02/2027, respectivamente [fonte: fichas_tecnicas/mel_silvestre.txt]. A produtora Josefa Alves de Souza (P008) encontra-se com a certificação orgânica vencida em 30/09/2026 e em processo de renovação, havendo alerta para não comercializar seus produtos como orgânicos até a conclusão da renovação [fonte: fichas_tecnicas/mel_silvestre.txt]. Não encontramos em nossa base documental informações sobre laudos sanitários dos últimos 12 meses, nem contratos com compradores institucionais.",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_maria_silva_P001.txt",
+          "trecho": "Certificado Nº: ORG-PE-2025-004721\nData de Emissão: 15/06/2025\nData de Validade: 15/06/2027"
+        },
+        {
+          "arquivo": "fichas_tecnicas/mel_silvestre.txt",
+          "trecho": "Certificação orgânica: SIM (ORG-PE-2025-003198, val. 03/2027)"
+        },
+        {
+          "arquivo": "fichas_tecnicas/mel_silvestre.txt",
+          "trecho": "Certificação orgânica: VENCIDA (30/09/2026) - em renovação\n    ATENÇÃO: Não comercializar como orgânico até renovação"
+        },
+        {
+          "arquivo": "fichas_tecnicas/mel_silvestre.txt",
+          "trecho": "Certificação orgânica: SIM (ORG-PE-2025-002345, val. 02/2027)"
+        }
+      ],
+      "lacunas": [
+        "Laudos sanitários dos últimos 12 meses",
+        "Contratos com compradores institucionais"
+      ]
+    }
+  }
+}

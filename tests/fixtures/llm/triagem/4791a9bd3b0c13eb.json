@@ -1,0 +1,123 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "4791a9bd3b0c13eb",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:36 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1794",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: compra_urgente\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"1. Produto: queijo artesanal (quantidade: 15.0, unidade: kg, prazo: 2026-10-29)\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"2. Produto: mel de jandaíra (quantidade: 3.0, unidade: kg, prazo: 2026-10-29)\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"Não há menção à consulta ao histórico do cliente na resposta.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Alerta de conformidade: Nenhum produto do catálogo corresponde a 'queijo artesanal'.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"prazo: 2026-10-29\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Alerta de conformidade: O pedido de 3 kg cabe na capacidade.\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": false,\n      \"evidencia\": \"Não há solicitação de pagamento via PIX na resposta.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente não inventou o tipo de queijo, apontou que não corresponde ao catálogo.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não garantiu a entrega sem verificação.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não confirmou disponibilidade sem consulta.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma chave PIX foi inventada.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Pagamento não foi confirmado.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TEawRT-sZwgmao08O41B8hDpKoGIJPlQF5_mvDr4zZqZALfvyY0w_SBWzm6cflNZlO-9aiVVtwz0nRwILrCyqDDGKPN_t3igfuMsHqBUkpNphwYY4XSASP1asqJC30459h5vwRMzcSbqFtlQUv-yKpY89y3U="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "A8X-atKADYqu5NoP2aiwsAU",
+    "usage_metadata": {
+      "candidates_token_count": 615,
+      "prompt_token_count": 1297,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1297
+        }
+      ],
+      "total_token_count": 1912
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: compra_urgente"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "1. Produto: queijo artesanal (quantidade: 15.0, unidade: kg, prazo: 2026-10-29)"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "2. Produto: mel de jandaíra (quantidade: 3.0, unidade: kg, prazo: 2026-10-29)"
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "Não há menção à consulta ao histórico do cliente na resposta."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Alerta de conformidade: Nenhum produto do catálogo corresponde a 'queijo artesanal'."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "prazo: 2026-10-29"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Alerta de conformidade: O pedido de 3 kg cabe na capacidade."
+        },
+        {
+          "indice": 7,
+          "atendido": false,
+          "evidencia": "Não há solicitação de pagamento via PIX na resposta."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente não inventou o tipo de queijo, apontou que não corresponde ao catálogo."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Não garantiu a entrega sem verificação."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não confirmou disponibilidade sem consulta."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Nenhuma chave PIX foi inventada."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Pagamento não foi confirmado."
+        }
+      ]
+    }
+  }
+}

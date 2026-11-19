@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1757490dbc75d2dc",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:05 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1269",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_18236313287131872417",
+                "args": {
+                  "mensagem": "Solicitamos cotação e disponibilidade para fornecimento semanal:\nFrutas variadas: goiaba, banana, manga e maracujá, 100kg no total.\nHortaliças: alface, couve, espinafre, tomate e cebolinha, 60kg no total.\nOvos caipiras: 50 dúzias. Mel puro: 5kg.\nÉ obrigatório apresentar certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa.\nSolicitamos cópias das certificações, fichas técnicas e dados cadastrais dos produtores, incluindo registro CAF."
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EnsKeQFpFH0T3cCrFkCuwIzfq1SBLmsGUVDgvXrDGFMLT4WaTcq3p6gzZV2xg85PBlI69jqNA7mo1DeVGR07wuly7UrR3RawUvwFjxE0J8aI5O5khqH1-VVQBgtl_Gl0-5DpCK-g2urBZc45zslf1YNGKA_KXXQ1LJkqlWw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "XMX-aomrEJC0xdIPg4-LsAU",
+    "usage_metadata": {
+      "candidates_token_count": 154,
+      "prompt_token_count": 2758,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2758
+        }
+      ],
+      "total_token_count": 2912
+    }
+  }
+}

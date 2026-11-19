@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6cef6466853548d0",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:41:43 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2096",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "A certificação orgânica de **Josefa Alves de Souza (P008)** para o mel silvestre está **vencida** [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. O certificado expirou em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\n\n"
+            },
+            {
+              "text": "De acordo com os documentos:\n* A produtora solicitou a renovação em 15/09/2026 (protocolo REN-2026-0456) [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\n* A auditoria de renovação está agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\n* Até a conclusão da renovação, os produtos **não** podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+              "thought_signature": "EnsKeQFpFH0TwVXBmvFZBrRRjm6Wh7sLzz5HO-UVUJrsQ12IZ8jJPCc3RFsTnQvTvpOb5_6wFYaVnblLEh0Rhr_ncikY7D5IRBMkLQVxcvhoZVdXkZb5Ah-WuqhcfsYzrogdQRwa1CEPVOpXirylaRIFYgjQ6XycTQFFtRQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "VsT-atvQDqiuytMPpL-quAo",
+    "usage_metadata": {
+      "candidates_token_count": 255,
+      "prompt_token_count": 3871,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3871
+        }
+      ],
+      "total_token_count": 4126
+    }
+  }
+}

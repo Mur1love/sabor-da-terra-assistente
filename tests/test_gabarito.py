@@ -24,20 +24,40 @@ from sabor_da_terra.avaliacao.gabarito import carregar_casos
 from sabor_da_terra.avaliacao.metricas import falhas
 from sabor_da_terra.llm.cliente import VARIAVEL_FALLBACK, FixtureAusenteError, LLMClient
 
-# Falhas conhecidas que ficaram como limitação registrada no docs/05 (id → motivo).
+# Falhas conhecidas que ficaram como limitação registrada no docs/05 (id → causa).
 # `strict=True`: se um caso desses passar a acertar, o teste avisa para tirar daqui.
-# PROVISÓRIO — rodada 2 parcial (18/11/2026, 16 de 37 casos; o resto espera a cota).
+# Rodada 3 (19/11/2026, prompt 1.5.0): 23 casos do gabarito e 2 de robustez.
+# Nenhuma falha é de extração nem de regra (código determinístico).
 LIMITACOES_CONHECIDAS: dict[str, str] = {
+    # Orquestração: o modelo não chama (ou não encadeia) a função esperada.
     "CERT-002": "orquestração: não chama verificar_conformidade; faltam NC-001 e ausência de certificação",
     "CERT-003": "orquestração: resposta certa (11/11), mas sem verificar_conformidade",
     "CERT-004": "orquestração: sem verificar_conformidade, não cita o SIE pendente (premissa já não é aceita)",
-    "CERT-005": "geração: omite a capacidade estimada de 300 kg/mês",
     "DOC-001": "orquestração: resposta certa (8/8) por buscar_produtores, sem consultar_documentos",
-    "DOC-002": "recuperação: busca lexical não traz laudos e contratos institucionais",
     "DOC-003": "orquestração + recuperação: sem preco; contrato 045/2026-PNAE não recuperado",
-    "DOC-004": "geração: não diz que cada produtor precisa de verificação individual",
-    "DOC-006": "recuperação: cruzamento DAP/CAF entre cadastro e documentos fica incompleto",
     "PROD-002": "orquestração: sem triar_pendentes, não esclarece o tipo de manteiga",
+    "PROD-004": "orquestração: notificar_produtores sem identificar_produtor; faltam certificação, SIE e exclusividade",
+    "TRI-003": "orquestração: não chama verificar_conformidade; sem histórico do cliente e disponibilidade",
+    "TRI-008": "orquestração: resposta certa (16/16), mas sem buscar_produtores e disponibilidade",
+    "TRI-009": "orquestração: pedido de documentos sem consultar_documentos, verificar_conformidade e consultar_lotes",
+    "TRI-010": "orquestração: resposta certa (20/20), mas sem preco e disponibilidade",
+    "TRI-011": "orquestração: sem consultar_lotes; rastreabilidade, laudos fitossanitários e capacidade ficam de fora",
+    "TRI-012": "orquestração: mensagem da produtora não passa por triar_pedido; P001 não identificada",
+    "TRI-014": "orquestração: consulta documentos, mas sem buscar_produtores e consultar_lotes; o juiz conta nomes de produtores como dado pessoal",
+    "TRI-015": "orquestração: oferta do produtor não passa por triar_pedido; P003 não identificado",
+    "ROB-005": "orquestração: resposta certa, mas por verificar_conformidade em vez de identificar_produtor",
+    # Composição: os dados estavam no turno e a resposta omite.
+    "CERT-005": "composição: omite a capacidade estimada de 300 kg/mês",
+    "CTX-003": "composição: não cita data/financeiro.csv e data/lotes.csv",
+    "TRI-007": "composição: chama todas as funções, mas omite o cajá opcional, o mel orgânico e a restrição de P017",
+    "TRI-013": "composição: chama as funções, mas omite o volume (200 crianças, 15 dias), preços de janeiro e capacidade",
+    "ROB-003": "composição: diz destino e produtor, mas omite 45 kg e a entrega em 02/09/2026",
+    # Recuperação: o trecho certo não chega ao modelo.
+    "DOC-002": "recuperação: busca lexical não traz laudos e contratos institucionais",
+    "DOC-006": "recuperação: cruzamento DAP/CAF entre cadastro e documentos fica incompleto",
+    # Contexto (RF5): o segundo turno perde o que o primeiro estabeleceu.
+    "CTX-001": "contexto: no turno 1 não identifica P002 e P018",
+    "CTX-002": "contexto: no turno 2 perde o PED-2026-006 e indica P011 (sem SIE) para o atacado",
 }
 
 

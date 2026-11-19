@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d610155ff686a015",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:41:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2250",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Para atender os 200kg de queijo coalho do pedido PED-2026-006 [fonte: pedidos.json], os produtores ativos cadastrados para este produto são [fonte: produtores.csv]:\n\n* **Cícero Romão de Almeida** (P003) – Município: Caetés (não orgânico) [fonte: produtores.csv].\n* **Antônio Carlos Pereira Lima** (P007) – Município: Lajedo (orgânico, com certificação válida até 2027-08-10) [fonte: produtores.csv].\n* **Pedro Henrique Albuquerque** (P011) – Município: Caetés (não orgânico) [fonte: produtores.csv].",
+              "thought_signature": "EnsKeQFpFH0ToVz8IulKjMYDwtLtYiMqG_kOCq2MjJlLOwKc8DXDWymBzbcGCSnQ3tvbUcdpEt5B8P-hTWkFGpUPcg1fpOMkeCVVE7SbjrNBaI5KK-Ke5zA_NgU18n_M84xsxJWvvwkAwDw_jZfIvH3TBdgw0P7P4TbZf_8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "YMT-aridMvepytMP2eOcsQw",
+    "usage_metadata": {
+      "candidates_token_count": 168,
+      "prompt_token_count": 4046,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4046
+        }
+      ],
+      "total_token_count": 4214
+    }
+  }
+}

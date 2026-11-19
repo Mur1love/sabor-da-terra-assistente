@@ -1,0 +1,138 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8e7af33f3d551a1f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:06 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5353",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Recebi o pedido semanal e fiz a triagem e a verificação de conformidade\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Goiaba Paluma (50 kg)\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Banana Prata (40 kg)\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Maracujá (25 kg)\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Macaxeira (60 kg)\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Inhame (30 kg)\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Tomate (20 kg)\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Alface (50 unidades)\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Rúcula (30 maços)\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Local de entrega: Centro de distribuição\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"Emitir nota fiscal para o CNPJ informado\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": true,\n      \"evidencia\": \"Esclarecer o conflito de data (terça-feira vs. 04/11 que cai em quarta)\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Apenas os produtos solicitados foram avaliados\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"As unidades de medida foram mantidas corretamente\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A data incorreta foi devidamente questionada\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"A entrega não foi confirmada, listando pendências\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TPu7L7-_wxHcwXYgRXxStJRzcBSyeBQWl1D_---OFdeaC6L_t92c8All28GyORuKID4cGWlvi-6vijA3CXnotTdrjvu6v6D5UlTdVBM8dhW60Eih303ZWyaq3GkdbmYuNq3IvSy2eLrBjHEC8B7yqSXDGecY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Uc3-atGbHa2CytMP38KTEQ",
+    "usage_metadata": {
+      "candidates_token_count": 666,
+      "prompt_token_count": 3693,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3693
+        }
+      ],
+      "total_token_count": 4359
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Recebi o pedido semanal e fiz a triagem e a verificação de conformidade"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Goiaba Paluma (50 kg)"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Banana Prata (40 kg)"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Maracujá (25 kg)"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Macaxeira (60 kg)"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Inhame (30 kg)"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Tomate (20 kg)"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Alface (50 unidades)"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Rúcula (30 maços)"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Local de entrega: Centro de distribuição"
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "Emitir nota fiscal para o CNPJ informado"
+        },
+        {
+          "indice": 11,
+          "atendido": true,
+          "evidencia": "Esclarecer o conflito de data (terça-feira vs. 04/11 que cai em quarta)"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Apenas os produtos solicitados foram avaliados"
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "As unidades de medida foram mantidas corretamente"
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A data incorreta foi devidamente questionada"
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "A entrega não foi confirmada, listando pendências"
+        }
+      ]
+    }
+  }
+}

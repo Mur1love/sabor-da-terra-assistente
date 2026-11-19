@@ -1,0 +1,158 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "53523ef06d3c6d0f",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:24 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2072",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_8796424561942119446",
+                "args": {
+                  "produto": "goiaba",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TB9VuAZ9kolfdXNrqfM8esViZYOgZEuwTjR7EoMbsY2h14Kq1F35SNndVZRGGpb7EX9-uGko_dh2rGRm9aSxDD6gd9MVnes_ApCn8Z-59lOwQaFWdP215IpoTrXSSQosXLtM0LdPt_meKZXVoiBhsn1oJ7fg="
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942122305",
+                "args": {
+                  "mes": "10",
+                  "produto": "banana"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942121068",
+                "args": {
+                  "produto": "manga",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942119831",
+                "args": {
+                  "produto": "maracujá",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942118594",
+                "args": {
+                  "mes": "10",
+                  "produto": "alface"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942121453",
+                "args": {
+                  "produto": "couve",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942120216",
+                "args": {
+                  "mes": "10",
+                  "produto": "espinafre"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942118979",
+                "args": {
+                  "mes": "10",
+                  "produto": "tomate"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942121838",
+                "args": {
+                  "mes": "10",
+                  "produto": "cebolinha"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942120601",
+                "args": {
+                  "produto": "ovos caipira",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_8796424561942119364",
+                "args": {
+                  "mes": "10",
+                  "produto": "mel"
+                },
+                "name": "disponibilidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "s8z-atWQGKqRytMP5vLkcA",
+    "usage_metadata": {
+      "candidates_token_count": 270,
+      "prompt_token_count": 3591,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3591
+        }
+      ],
+      "total_token_count": 3861
+    }
+  }
+}

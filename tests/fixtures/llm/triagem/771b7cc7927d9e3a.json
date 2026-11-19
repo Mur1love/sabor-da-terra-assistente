@@ -1,0 +1,135 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "771b7cc7927d9e3a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:09 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1929",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"compra\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"nao_informado\",\n  \"canal\": \"nao_informado\",\n  \"itens\": [\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"goiaba paluma\",\n      \"quantidade\": 50,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"banana prata\",\n      \"produto_original\": \"banana prata\",\n      \"quantidade\": 40,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"maracujá\",\n      \"produto_original\": \"maracujá\",\n      \"quantidade\": 25,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"macaxeira\",\n      \"produto_original\": \"macaxeira\",\n      \"quantidade\": 60,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"inhame\",\n      \"produto_original\": \"inhame\",\n      \"quantidade\": 30,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"tomate\",\n      \"produto_original\": \"tomate\",\n      \"quantidade\": 20,\n      \"unidade\": \"kg\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"alface\",\n      \"produto_original\": \"alface\",\n      \"quantidade\": 50,\n      \"unidade\": \"unidade\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"rúcula\",\n      \"produto_original\": \"rúcula\",\n      \"quantidade\": 30,\n      \"unidade\": \"maço\",\n      \"exige_organico\": false,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": \"2026-11-04\",\n  \"prazo_original\": \"terça, 04/11\",\n  \"observacoes\": [\n    \"Pedido semanal\",\n    \"Local de entrega: centro de distribuição\",\n    \"Emitir nota fiscal para o CNPJ informado\"\n  ],\n  \"campos_faltantes\": [\n    \"comprador\"\n  ],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EnsKeQFpFH0TALv46EQObiVtzhdK6TtG2-2cxcnqgR1LoQ0cEMFdcwkpl3nTE7W2FhgQjXhLBNyBuARFYSEMEcibxMqEU_sJ7dtiRNpouTtcenv6HebsfgtClmDBB7hXq4LCK4OtyWSIAbSTlpgnakX2HjbHZf1d5wwz3go="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "58T-avzyPJ2iiLMP5cmosQk",
+    "usage_metadata": {
+      "candidates_token_count": 671,
+      "prompt_token_count": 2484,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2484
+        }
+      ],
+      "total_token_count": 3155
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "compra",
+      "idioma": "pt",
+      "comprador": "nao_informado",
+      "canal": "nao_informado",
+      "itens": [
+        {
+          "produto": "goiaba",
+          "produto_original": "goiaba paluma",
+          "quantidade": 50,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "banana prata",
+          "produto_original": "banana prata",
+          "quantidade": 40,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "maracujá",
+          "produto_original": "maracujá",
+          "quantidade": 25,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "macaxeira",
+          "produto_original": "macaxeira",
+          "quantidade": 60,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "inhame",
+          "produto_original": "inhame",
+          "quantidade": 30,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "tomate",
+          "produto_original": "tomate",
+          "quantidade": 20,
+          "unidade": "kg",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "alface",
+          "quantidade": 50,
+          "unidade": "unidade",
+          "exige_organico": false,
+          "opcional": false
+        },
+        {
+          "produto": "rúcula",
+          "produto_original": "rúcula",
+          "quantidade": 30,
+          "unidade": "maço",
+          "exige_organico": false,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": "2026-11-04",
+      "prazo_original": "terça, 04/11",
+      "observacoes": [
+        "Pedido semanal",
+        "Local de entrega: centro de distribuição",
+        "Emitir nota fiscal para o CNPJ informado"
+      ],
+      "campos_faltantes": [
+        "comprador"
+      ],
+      "ambiguidades": []
+    }
+  }
+}

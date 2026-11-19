@@ -1,0 +1,50 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "46f1c02fefb3fce8",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:52:26 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3234",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Aqui está o resumo da produtora **Josefa Alves de Souza (P008)** para o mês de outubro de 2026, gerado para revisão da equipe:\n\n---\n\nOlá, Josefa Alves de Souza (P008)!\nEste é o seu resumo de outubro de 2026, com dados até 30/10/2026.\n\n**VENDAS DE OUTUBRO DE 2026**\n- 10 kg de mel silvestre para Restaurante Raízes: R$ 580,00 (FIN-2026-021). [fonte: data/financeiro.csv]\n- 8 kg de geleia de frutas para Restaurante Raízes: R$ 280,00 (FIN-2026-022). [fonte: data/financeiro.csv]\nTotal vendido no mês: R$ 860,00. [fonte: data/financeiro.csv]\n\n**PAGAMENTOS QUE VOCÊ RECEBEU NO MÊS**\n- FIN-2026-021: R$ 580,00 de Restaurante Raízes (mel silvestre), pago em 01/10/2026. [fonte: data/financeiro.csv]\n- FIN-2026-022: R$ 280,00 de Restaurante Raízes (geleia de frutas), pago em 01/10/2026. [fonte: data/financeiro.csv]\nTotal recebido no mês: R$ 860,00. [fonte: data/financeiro.csv]\n\n**PAGAMENTOS ATRASADOS**\n- Nenhum pagamento atrasado. [fonte: data/financeiro.csv]\n\n**A RECEBER (PRÓXIMOS VENCIMENTOS)**\n- Nada a receber no prazo. [fonte: data/financeiro.csv]\nSaldo total a receber: R$ 0,00. [fonte: data/financeiro.csv]\n\n**PEDIDOS SUGERIDOS PARA VOCÊ**\n- Nenhum pedido sugerido para você agora. [fonte: data/pedidos.json]\n\n**AVISOS SOBRE SEUS DOCUMENTOS**\n- Certificação orgânica ORG-PE-2024-003876: venceu em 30/09/2026. A renovação foi pedida em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está marcada para 15/11/2026. O pedido de renovação não libera a venda como orgânico. Até sair o novo certificado, estes produtos não podem ser vendidos como orgânicos: mel silvestre, geleia de frutas e doce de goiaba. [fonte: data/certificacoes/cert_organica_josefa_souza_P008.txt]\n- Registro no SIE pendente: compradores que exigem registro sanitário, como o PNAE, não aceitam mel silvestre. [fonte: data/fichas_tecnicas/mel_silvestre.txt]\n\n---\n\n**Sobre o pagamento do Mercado Bom Preço referente a setembro:**\nOs registros financeiros e de documentos consultados não trazem menção de venda ou repasse específico para a produtora Josefa Alves de Souza vinculado ao Mercado Bom Preço no mês de setembro. (Nota: os dados financeiros do resumo mostram transações apenas com o Restaurante Raízes). \n\n*Lembrete:* O protótipo não envia mensagens para produtores ou compradores; este resumo foi gerado internamente para a equipe revisar."
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "18b-as2QFsDR0_gPhOS-yQs",
+    "usage_metadata": {
+      "candidates_token_count": 831,
+      "prompt_token_count": 12184,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 12184
+        }
+      ],
+      "total_token_count": 13015
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3ad4d9b7ef579b05",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:59 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3361",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Rece"
+            },
+            {
+              "text": "bemos a consulta do Mercado Bom Preço via WhatsApp para fornecimento semanal de **morango orgânico** e **amora orgânica** (50 kg de cada por semana). \n\nAqui estão as verificações de conformidade, capacidade e preços com base nos dados da cooperativa:\n\n### 1. Morango Orgânico (50 kg)\n* **Status:** **Pode atender** (produtora elegível: P014 - Mariana de Fátima Cordeiro) [fonte: produtores.csv].\n* **Capacidade:** O pedido de 50 kg cabe na capacidade documentada para 7 dias (máximo de 150 kg) [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt]. (Atenção: confirme a disponibilidade real com a produtora, pois capacidade não é estoque pronto).\n* **Preço (Tabela de Outubro/2026):** \n  * Preço unitário: R$ 22,00 / kg [fonte: tabela_precos_outubro_2026.csv].\n  * Subtotal (50 kg): R$ 1.100,00 [fonte: tabela_precos_outubro_2026.csv].\n  * Desconto de atacado aplicado (5% para pedidos acima de 30 kg): R$ 55,00 [fonte: tabela_precos_outubro_2026.csv].\n  * **Total:** R$ 1.045,00 [fonte: tabela_precos_outubro_2026.csv].\n  * *Observação:* A tabela indica safra de junho a setembro; fora de safra, o fornecimento fica sob consulta [fonte: tabela_precos_outubro_2026.csv].\n\n### 2. Amora Orgânica (50 kg)\n* **Status:** **Não pode atender integralmente no momento** (produtora elegível: P014 - Mariana de Fátima Cordeiro) [fonte: produtores.csv].\n* **Capacidade:** O pedido de 50 kg **passa da capacidade documentada** para 7 dias, que é de no máximo 40 kg para esta produtora [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt].\n* **Preço (Tabela de Outubro/2026):** \n  * Preço unitário: R$ 30,00 / kg [fonte: tabela_precos_outubro_2026.csv].\n  * Subtotal (50 kg): R$ 1.500,00 [fonte: tabela_precos_outubro_2026.csv].\n  * Desconto de atacado aplicado (5% para pedidos acima de 20 kg): R$ 75,00 [fonte: tabela_precos_outubro_2026.csv].\n  * **Total:** R$ 1.425,00 [fonte: tabela_precos_outubro_2026.csv].\n  * *Observação:* A tabela indica disponibilidade limitada [fonte: tabela_precos_outubro_2026.csv].\n\n### 3. Regras do Contrato (Contrato 012/2026 com o Mercado Bom Preço)\n* **Dias de entrega:** O contrato prevê entregas **apenas às terças e sextas-feiras**, das 6h às 10h, no CD do Mercado Bom Preço (Rod. BR-423 km 3) [fonte: contratos/contrato_mercado_bom_preco.txt].\n* **Condições gerais:** Pagamento por boleto com vencimento em 30 dias; multa de 2% ao dia por atraso na entrega; produtos fora do padrão são devolvidos sem custo para o comprador [fonte: contratos/contrato_mercado_bom_preco.txt].",
+              "thought_signature": "EnsKeQFpFH0TQk2KR3xIBNcdvrVzEOSXFknreC3gEsWunTX91F8jzSU1NV7qiOQtBpsuWFPK2onksCcN6QdhqMGrnLoW0G2WU5o9sqkkTHtuSc0oj-f9NQIuQoexkbdF-I7ZcCGi_3cqCvfxRJZIwvVc6p8oR3QWxtQfH0A="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "VMX-auDqNb3kiLMPhNbByAU",
+    "usage_metadata": {
+      "candidates_token_count": 904,
+      "prompt_token_count": 5084,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5084
+        }
+      ],
+      "total_token_count": 5988
+    }
+  }
+}

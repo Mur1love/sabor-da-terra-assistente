@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3f3f152bcf8319f6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:42:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2600",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Pagamentos vencidos e não recebidos até 30/10/2026:\n- FIN-2026-013: P003 (Cícero Romão de Almeida), Rede SuperBom Atacado, R$ 4.500,00, venceu em 18/10/2026 (12 dias de atraso). Anotação: \"ATRASADO - cobrar\".\n- FIN-2026-014: P003 (Cícero Romão de Almeida), Rede SuperBom Atacado, R$ 1.520,00, venceu em 18/10/2026 (12 dias de atraso). Anotação: \"ATRASADO - cobrar\".\n- FIN-2026-005: P002 (José Antônio dos Santos), Prefeitura de Garanhuns - PNAE, R$ 1.650,00, venceu em 23/10/2026 (7 dias de atraso). Anotação: \"Empenho 2026NE00234\".\n- FIN-2026-006: P004 (Ana Lúcia Bezerra da Costa), Prefeitura de Garanhuns - PNAE, R$ 750,00, venceu em 23/10/2026 (7 dias de atraso). Anotação: \"Empenho 2026NE00234\".\n- FIN-2026-007: P004 (Ana Lúcia Bezerra da Costa), Prefeitura de Garanhuns - PNAE, R$ 270,00, venceu em 23/10/2026 (7 dias de atraso). Anotação: \"Empenho 2026NE00234\".\nTotal vencido: R$ 8.690,00.\n\nAinda no prazo (não estão atrasados): \n- FIN-2026-023: P016 (Terezinha de Jesus Oliveira), Mercado Bom Preço, R$ 1.200,00, vence em 05/11/2026 (produto: rapadura).\n- FIN-2026-024: P010 (Raimunda Nonata de Lima), Mercado Bom Preço, R$ 360,00, vence em 10/11/2026 (produto: goiaba paluma).\n- FIN-2026-025: P010 (Raimunda Nonata de Lima), Mercado Bom Preço, R$ 250,00, vence em 10/11/2026 (produto: manga tommy).\n- FIN-2026-027: P013 (Edmilson Pereira da Silva), SESC Garanhuns, R$ 400,00, vence em 30/11/2026 (produto: farinha de mandioca, Empenho 2026NE00312).\n- FIN-2026-030: P007 (Antônio Carlos Pereira Lima), Prefeitura de Garanhuns - PNAE, R$ 2.480,00, vence em 09/12/2026 (produto: queijo coalho, Empenho 2026NE00345).\n\n[fonte: data/financeiro.csv]",
+              "thought_signature": "EnsKeQFpFH0T3Ka9nfmC0O7eKkN6Kste9i_DyVWxtCdaLra3fOYO5xtszauMuzffR_iznrfgqUVb6jt0tX7xVOsukmasgFVNdJXNE4KJohHsPhdurJs3gtg1drTsuJVwWMdscgb6Nef65hYZEELBYzG_8IdNQnRL--_k7xM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "eMT-asyLNPCnxdIP6PDssAk",
+    "usage_metadata": {
+      "candidates_token_count": 830,
+      "prompt_token_count": 4501,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4501
+        }
+      ],
+      "total_token_count": 5331
+    }
+  }
+}

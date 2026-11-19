@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3786f30cd95b5196",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:50:43 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1190",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_4794744298969089950",
+                "args": {
+                  "lote_id": "LOT-2026-0089"
+                },
+                "name": "rastrear_lote"
+              },
+              "thought_signature": "EnsKeQFpFH0TkEqmm9Ua0DpasirV-Oc3XmqgboXACL2drjiNPkXpyKoup6lzuwWTkqc3nvpifxmF5ioCkVM59_uFlbur1xv7FqwcraFWpsVhhhej4UKjUInxvVc2CRgjejJs5ZSr2owWwmsr9fC28JfPxpaj_bT8khHprvs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "csb-atqwCqSLytMPl9yYgQQ",
+    "usage_metadata": {
+      "candidates_token_count": 31,
+      "prompt_token_count": 2644,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2644
+        }
+      ],
+      "total_token_count": 2675
+    }
+  }
+}

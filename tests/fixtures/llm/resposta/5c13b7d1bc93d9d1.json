@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5c13b7d1bc93d9d1",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:11 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1756",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Olá, Dona Lúcia (Ana Lúcia Bezerra da Costa, P004)! Seguem as informações solicitadas com base nos registros da cooperativa [fonte: data/produtores.csv, data/financeiro.csv, data/pedidos.json]:\n\n- **Quanto vendeu este mês (outubro de 2026):** Não há nenhuma venda registrada para a senhora neste mês (R$ 0,00).\n- **Pagamento do Mercado Bom Preço de setembro:** Não consta nenhuma venda ou pagamento registrado em seu nome (`P004`) com o Mercado Bom Preço [fonte: data/financeiro.csv, data/produtores.csv, data/pedidos.json].\n- **Saldo a receber:** O seu saldo total atual a receber é de **R$ 1.020,00**, referentes a pagamentos pendentes da Prefeitura de Garanhuns - PNAE (transações FIN-2026-006 e FIN-2026-007), que venceram em 23/10/2026 e encontram-se com 7 dias de atraso [fonte: data/financeiro.csv].",
+              "thought_signature": "EnsKeQFpFH0TBlBjHW69T1OZQkFlTmVdX5-OeUyQvUH12oRhv3xEkEMYkmQ54EuIgTwwBJhc5y_0VHxWngPrK7xz79MO07IeduKoseOmxE7-0qJljjvhst4ye6DmYwBBWjtQPK17UQlJGjm26z4sSpeXpcZcuLwbBiy6Ew4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "2cX-aoqSKLGOytMP0-yVwQ4",
+    "usage_metadata": {
+      "candidates_token_count": 267,
+      "prompt_token_count": 4068,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4068
+        }
+      ],
+      "total_token_count": 4335
+    },
+    "automatic_function_calling_history": []
+  }
+}

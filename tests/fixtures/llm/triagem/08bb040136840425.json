@@ -1,0 +1,192 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "08bb040136840425",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:15:24 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5877",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_6988073479150851157",
+                "args": {
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "item": {
+                    "produto": "banana prata",
+                    "unidade": "kg",
+                    "organico": false,
+                    "quantidade": 200
+                  }
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TKzIMaeIeEQW0pIF21qNquh9Bwu7LktLSB04V1AhQfTwultyRoQ1lBC9YTtpkFwcoBNH8CeLFn1TzfdROzKgm5QI3EdIk_OxuWIkOR5_56HsK-8XxvwyAJ3PJ2VX3fgBeNDYNCLkzuJOgy3T7MMgSRCu1Ris="
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150853582",
+                "args": {
+                  "item": {
+                    "produto": "goiaba paluma",
+                    "unidade": "kg",
+                    "quantidade": 100,
+                    "organico": false
+                  },
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_entrega": "2026-11-04"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150851911",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "macaxeira",
+                    "organico": false,
+                    "quantidade": 150
+                  },
+                  "data_entrega": "2026-11-04"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150850240",
+                "args": {
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "item": {
+                    "organico": false,
+                    "quantidade": 80,
+                    "unidade": "kg",
+                    "produto": "inhame"
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150852665",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_entrega": "2026-11-04",
+                  "item": {
+                    "organico": false,
+                    "quantidade": 200,
+                    "unidade": "unidade",
+                    "produto": "alface"
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150850994",
+                "args": {
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "item": {
+                    "produto": "coentro",
+                    "unidade": "maço",
+                    "organico": false,
+                    "quantidade": 100
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150853419",
+                "args": {
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "tomate",
+                    "quantidade": 50,
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-04",
+                  "comprador": "Contrato 045/2026-PNAE"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150851748",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "item": {
+                    "produto": "mel silvestre",
+                    "unidade": "kg",
+                    "organico": true,
+                    "quantidade": 20
+                  },
+                  "data_entrega": "2026-11-04"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_6988073479150850077",
+                "args": {
+                  "comprador": "Contrato 045/2026-PNAE",
+                  "data_entrega": "2026-11-04",
+                  "item": {
+                    "unidade": "dúzia",
+                    "produto": "ovos caipira",
+                    "quantidade": 100,
+                    "organico": false
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Nsz-aozkJv6FytMPj9Hq0QM",
+    "usage_metadata": {
+      "candidates_token_count": 720,
+      "prompt_token_count": 3603,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3603
+        }
+      ],
+      "total_token_count": 4323
+    }
+  }
+}

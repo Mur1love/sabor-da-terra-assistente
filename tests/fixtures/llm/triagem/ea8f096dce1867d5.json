@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ea8f096dce1867d5",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=900",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_8234001724033616840",
+                "args": {
+                  "mensagem": "NOTIFICACAO\nA Cooperativa Sabor da Terra sera submetida a inspecao sanitaria da ADAGRO nos dias 11 e 12 de novembro de 2026.\nDevem estar disponiveis:\n- Cadastro atualizado de todos os\n  produtores, incluindo nome, CPF,\n  endereco e produtos.\n- Certificacoes organicas vigentes. - Laudos sanitarios dos ultimos 12 meses. - Registros de rastreabilidade dos\n  ultimos 3 lotes de cada produto.\n- Contratos com compradores institucionais.\nO nao atendimento podera resultar em suspensao do SIE."
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EnsKeQFpFH0TA5pB4t5dYAf8bpf4Zl6QG93EW3psCqNSe4chM6IiO3cZFqAXascBbEwKFEPgnzfpGkygI9Zop_Q53ylFvZzc1AYi0P_DOV03tC6H4XM8Yj560VvA1nQdmFOuix6N3JYhyo9pIB3a_W3GZB3StO9o0kHG7UQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "9MX-apKTKdi-uMYPivHr6Q4",
+    "usage_metadata": {
+      "candidates_token_count": 158,
+      "prompt_token_count": 2762,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2762
+        }
+      ],
+      "total_token_count": 2920
+    }
+  }
+}

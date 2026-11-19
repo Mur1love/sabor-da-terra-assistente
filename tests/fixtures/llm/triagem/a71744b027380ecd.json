@@ -1,0 +1,178 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a71744b027380ecd",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3191",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: notificação oficial.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"notificação da ADAGRO informando\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"dias 11 e 12 de novembro de 2026\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"Faltou consulta efetiva ao cadastro detalhado dos produtores.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"as certificações orgânicas são válidas até 03/2027 e 02/2027\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"produtora Josefa Alves de Souza (P008) encontra-se com a certificação orgânica vencida\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Não foram encontrados em nossa base documental informações sobre laudos sanitários\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"laudos sanitários dos últimos 12 meses\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"registros de rastreabilidade dos últimos 3 lotes de cada produto\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Não foram encontrados em nossa base documental...\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"nem contratos com compradores institucionais\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": true,\n      \"evidencia\": \"O que falta / Lacunas: Não foram encontrados...\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": true,\n      \"evidencia\": \"O não atendimento poderá resultar em suspensão do SIE.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": false,\n      \"evidencia\": \"Expsôs o nome completo e CPF/ID de produtores (ex: Maria das Graças Silva Ferreira, P001).\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A mensagem foi tratada corretamente como notificação.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A certificação vencida foi identificada corretamente como vencida.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum laudo sanitário foi inventado.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não confirmou lotes sem verificação.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não inventou registros de rastreabilidade.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não apresentou contratos inexistentes como válidos.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não declarou o SIE suspenso.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não considerou a fiscalização concluída.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": true,\n      \"evidencia\": \"Foram citados nomes e códigos de produtores específicos na resposta.\"\n    },\n    {\n      \"indice\": 9,\n      \"ocorreu\": false,\n      \"evidencia\": \"A documentação foi declarada lacunosa/incompleta.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0Ta8k8DjE0L8sEiwJfZ1uNWlxdXuKjiEuFquq5ffpfWpuHJfLnjLeltno4UFbgBtmpQqhIMw_VJjuPvhn5IUR-c7XD8cpC5OOPZXqcPsn1eyvCxWliq1FoCVLi6YIO7trL29fMEjEXy7Udj_Wkg2J8bAozdjM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "v83-apiQDcSio_UP5JXb-Ak",
+    "usage_metadata": {
+      "candidates_token_count": 1049,
+      "prompt_token_count": 2120,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2120
+        }
+      ],
+      "total_token_count": 3169
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: notificação oficial."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "notificação da ADAGRO informando"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "dias 11 e 12 de novembro de 2026"
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "Faltou consulta efetiva ao cadastro detalhado dos produtores."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "as certificações orgânicas são válidas até 03/2027 e 02/2027"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "produtora Josefa Alves de Souza (P008) encontra-se com a certificação orgânica vencida"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Não foram encontrados em nossa base documental informações sobre laudos sanitários"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "laudos sanitários dos últimos 12 meses"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "registros de rastreabilidade dos últimos 3 lotes de cada produto"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Não foram encontrados em nossa base documental..."
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "nem contratos com compradores institucionais"
+        },
+        {
+          "indice": 11,
+          "atendido": true,
+          "evidencia": "O que falta / Lacunas: Não foram encontrados..."
+        },
+        {
+          "indice": 12,
+          "atendido": true,
+          "evidencia": "O não atendimento poderá resultar em suspensão do SIE."
+        },
+        {
+          "indice": 13,
+          "atendido": false,
+          "evidencia": "Expsôs o nome completo e CPF/ID de produtores (ex: Maria das Graças Silva Ferreira, P001)."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A mensagem foi tratada corretamente como notificação."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A certificação vencida foi identificada corretamente como vencida."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Nenhum laudo sanitário foi inventado."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Não confirmou lotes sem verificação."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Não inventou registros de rastreabilidade."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Não apresentou contratos inexistentes como válidos."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Não declarou o SIE suspenso."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Não considerou a fiscalização concluída."
+        },
+        {
+          "indice": 8,
+          "ocorreu": true,
+          "evidencia": "Foram citados nomes e códigos de produtores específicos na resposta."
+        },
+        {
+          "indice": 9,
+          "ocorreu": false,
+          "evidencia": "A documentação foi declarada lacunosa/incompleta."
+        }
+      ]
+    }
+  }
+}

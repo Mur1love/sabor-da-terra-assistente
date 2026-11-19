@@ -1,0 +1,65 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2a830b0d4ae97216",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:41 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1897",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_10286826905872360711",
+                "args": {
+                  "pergunta": "Qual a situação da certificação orgânica de Josefa Alves de Souza P008 e do protocolo de renovação?",
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EnsKeQFpFH0TnzxWhNskAUdRUxcBDO7v8Rwl8Hcp1IL-a5n66jv16Osk-EvWhx9bo_RU9M5hF3qruNoeJlFJdCdl8KFHQ7c0J7R81rxRxvVmCciXQeDGDEhD5Om863MHTgp7Iye8vJb_WXizuE0wSA7AV_JXzvfz4eMFbS4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "783-avyxKueguMYPiOL0IA",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6008
+        }
+      ],
+      "cached_content_token_count": 6008,
+      "candidates_token_count": 61,
+      "prompt_token_count": 9567,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 9567
+        }
+      ],
+      "total_token_count": 9628
+    }
+  }
+}

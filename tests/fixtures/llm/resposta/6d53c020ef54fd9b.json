@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6d53c020ef54fd9b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3265",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: compra.\n\nItens:\n- goiaba paluma: 50.0 kg, prazo 2026-11-04\n  - Alertas de conformidade:\n    - O pedido de 50 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 800 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/goiaba_paluma.txt]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n    - 'goiaba paluma' tem mais de um preço na tabela: goiaba paluma extra, goiaba paluma especial. Pergunte qual.\n- banana prata: 40.0 kg, prazo 2026-11-04\n  - Alertas de conformidade:\n    - Não há capacidade documentada em kg para banana prata nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]\n    - Só P006 (Severina Maria do Nascimento) fornece banana prata: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n- maracujá: 25.0 kg, prazo 2026-11-04\n  - Alertas de conformidade:\n    - Não há capacidade documentada em kg para maracujá nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]\n    - Só P006 (Severina Maria do Nascimento) fornece maracujá: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n- macaxeira: 60.0 kg, prazo 2026-11-04\n  - Alertas de conformidade:\n    - P015 (Geraldo Manoel Barbosa) está inativo no cadastro e não recebe alocação. [fonte: produtores.csv]\n    - O pedido de 60 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/tuberculos_graos.txt]\n    - Só P005 (Francisco de Assis Cordeiro) fornece macaxeira: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n- inhame: 30.0 kg, prazo 2026-11-04\n  - Alertas de conformidade:\n    - O pedido de 30 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 200 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/tuberculos_graos.txt]\n    - Só P005 (Francisco de Assis Cordeiro) fornece inhame: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n- tomate: 20.0 kg, prazo 2026-11-04\n  - Alertas de conformidade:\n    - O pedido de 20 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/hortalicas.txt]\n    - Só P012 (Luciana Ferreira Gomes) fornece tomate: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n- alface: 50.0 unidade, prazo 2026-11-04\n  - Alertas de conformidade:\n    - Não há capacidade documentada em unidade para alface nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]\n    - Não há contrato registrado com 'não informado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n- rúcula: 30.0 maço, prazo 2026-11-04\n  - Alertas de conformidade: (nenhum alerta retornado)",
+              "thought_signature": "EnsKeQFpFH0TGgL61AYvDMt4FjNArLh77L8121QbE4ewyFflysXUNPXC2j48GqEyDBby4oql7wDpeBk0izlTGdJ7tR_AYhL9K1Xi-WY47rdRmjNQBIrOI53cleziZr82M0KCbq5VPI2teOJSrtZwn_qKVwKrIWwcp0QisV8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "7cT-apv3Jt2vytMPhdC_MQ",
+    "usage_metadata": {
+      "candidates_token_count": 1186,
+      "prompt_token_count": 6453,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6453
+        }
+      ],
+      "total_token_count": 7639
+    },
+    "automatic_function_calling_history": []
+  }
+}

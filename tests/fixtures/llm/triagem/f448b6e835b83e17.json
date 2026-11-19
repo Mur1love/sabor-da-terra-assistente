@@ -1,0 +1,64 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f448b6e835b83e17",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:52:07 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1365",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_9001191026481003256",
+                "args": {
+                  "termo": "Josefa Alves de Souza"
+                },
+                "name": "identificar_produtor"
+              },
+              "thought_signature": "EnsKeQFpFH0Tiqq344o06Utkp2R0ZARyompWANJkXmSimki-Vf7M7YJ4Ga8UkJkiN3kPIVMQ77Ve0qbnsultdjTYu94IYoTYiWQBs7hD3hCmmQbeG-js-ZGICIIIGdJV2P864nXaQ4kvku9k9xgN_rk9TJhFIk3AzPItuDo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "xsb-au7FIvbgytMPvvDngQc",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5981
+        }
+      ],
+      "cached_content_token_count": 5981,
+      "candidates_token_count": 23,
+      "prompt_token_count": 9648,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 9648
+        }
+      ],
+      "total_token_count": 9671
+    }
+  }
+}

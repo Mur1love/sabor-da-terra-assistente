@@ -1,0 +1,138 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b085cadcdb5267e7",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:18 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2030",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: compra.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"- goiaba paluma: 50.0 kg\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"- banana prata: 40.0 kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"- maracujá: 25.0 kg\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"- macaxeira: 60.0 kg\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"- inhame: 30.0 kg\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"- tomate: 20.0 kg\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"- alface: 50.0 unidade\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"- rúcula: 30.0 maço\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona o centro de distribuição.\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a emissão de nota fiscal.\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não faz ressalva sobre a data de entrega.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Apenas os itens informados foram listados.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"As unidades de medida correspondem às solicitadas.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"A data foi exibida apenas tecnicamente sem confirmação cega de validade.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": true,\n      \"evidencia\": \"O assistente lista prazos e conformidades sem confirmar a entrega de forma definitiva.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0T2jb6RMVnsjp8_dUtOd4ihsmGTso8TWxiVMoplN_KJvnbW6LtFTY2HOiMnpElf95hj16hpBs_tSZbTSE6OodaDZqsqllwWQhxn0oqUAL16v39vMFVy9pGkU7cVVsHESAbhkSwPalfNr67mrzk3GQDmqmnFkY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "8MT-aofyNI6g5NoPn-bhgAw",
+    "usage_metadata": {
+      "candidates_token_count": 676,
+      "prompt_token_count": 2295,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2295
+        }
+      ],
+      "total_token_count": 2971
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: compra."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "- goiaba paluma: 50.0 kg"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "- banana prata: 40.0 kg"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "- maracujá: 25.0 kg"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "- macaxeira: 60.0 kg"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "- inhame: 30.0 kg"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "- tomate: 20.0 kg"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "- alface: 50.0 unidade"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "- rúcula: 30.0 maço"
+        },
+        {
+          "indice": 9,
+          "atendido": false,
+          "evidencia": "A resposta não menciona o centro de distribuição."
+        },
+        {
+          "indice": 10,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a emissão de nota fiscal."
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "A resposta não faz ressalva sobre a data de entrega."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Apenas os itens informados foram listados."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "As unidades de medida correspondem às solicitadas."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "A data foi exibida apenas tecnicamente sem confirmação cega de validade."
+        },
+        {
+          "indice": 3,
+          "ocorreu": true,
+          "evidencia": "O assistente lista prazos e conformidades sem confirmar a entrega de forma definitiva."
+        }
+      ]
+    }
+  }
+}

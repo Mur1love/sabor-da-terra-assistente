@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "283d3e426d11eb97",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:49:25 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2382",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Olá, Lúcia! Identifiquei você no cadastro como Ana Lúcia Bezerra da Costa (P004), com certificação orgânica válida até 01/12/2026 [fonte: produtores.csv].\n\nVerifiquei a fila de triagem de pedidos para esta semana (início em 26/10/2026) e **não há nenhum pedido alocado ou sugerido para você** [fonte: pedidos.json]. Os produtores com pedidos para queijo coalho e manteiga nesta semana são o P003 (Cícero Romão de Almeida) e o P007 (Antônio Carlos Pereira Lima) [fonte: pedidos.json]. Portanto, você está livre para vender sua produção na feira.\n\nSobre o seu vizinho Sebastião, que produz doce de leite e queijo de cabra: **sim, você pode passar o contato dele para a equipe da cooperativa** [fonte: produtores.csv]. Nós faremos a triagem e a verificação cadastral dos novos produtores.\n\n*Nota técnica:* O protótipo não envia mensagens automáticas para produtores ou compradores; nada foi disparado para o seu celular.",
+              "thought_signature": "EnsKeQFpFH0TqQDDChxYLM915cwXf1UZunePteZgeVrfZVDzJEvQ2orrtcOfCsI96pl1odGRsN49w0zOUPvO3YI8nh_P33TOxJMVz9mNbmZarMLo2FlYRKwRhSt7I1DGcECgim4q6r0e3RkmqSMYJNDdJNnfxmbGb1CmqbU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "I8b-auCyHPzExdIP9tO80Qs",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 102284
+        }
+      ],
+      "cached_content_token_count": 102284,
+      "candidates_token_count": 260,
+      "prompt_token_count": 106175,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 106175
+        }
+      ],
+      "total_token_count": 106435
+    }
+  }
+}

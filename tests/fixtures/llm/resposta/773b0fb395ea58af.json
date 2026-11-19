@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "773b0fb395ea58af",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:28 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1029",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: compra.\n\nItens:\n1. Produto: queijo coalho | Quantidade: 10.0 | Unidade: kg | Prazo: 2026-10-31\n   - Alertas de conformidade:\n     - P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final. [fonte: fichas_tecnicas/queijo_coalho.txt]\n     - O pedido de 10 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: de 300 a 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/queijo_coalho.txt]\n     - Não há contrato registrado com 'Lúcia': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n2. Produto: manteiga | Quantidade: 5.0 | Unidade: kg | Prazo: 2026-10-31\n   - Alertas de conformidade: Nenhum alerta registrado.",
+              "thought_signature": "EnsKeQFpFH0TLWMMfoiwPhr6lngujBiPWYKJ_ewmhogUbJlY_yls6H6Y-jfrwx6O4WF9Yeam6eTsDKGJKOMEr2FUhBXvRg8I-LC1QyGhPMJew0TOQltMfa_SoaRr_35rzdlv1vx57LV-znH1CDE-5SO-niltVFgjr9YlHNY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "N8X-atbPL6eNytMPxevD0Q4",
+    "usage_metadata": {
+      "candidates_token_count": 297,
+      "prompt_token_count": 2131,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2131
+        }
+      ],
+      "total_token_count": 2428
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "fbe0e649af65a392",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:50:49 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1337",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_15079726122792913765",
+                "args": {
+                  "mes": "novembro",
+                  "produto": "goiaba"
+                },
+                "name": "disponibilidade"
+              },
+              "thought_signature": "EnsKeQFpFH0T7B9R0wAZgwJ2iwWCCBeBlbxs3eb_N_KPgPGZzXJ8WlaQQzg3X5hS2Js3cOjfclOLtBJAqXwv9iPOpVpjZs7sNSe057iEjsMdvUevcsNABgbrGd5Ms4khZC0-aFtdSL5MrO9WSYo8ceMEl1-Ot1AF0fnwt6Y="
+            },
+            {
+              "function_call": {
+                "id": "call_15079726122792911220",
+                "args": {
+                  "mes": "novembro",
+                  "produto": "umbu"
+                },
+                "name": "disponibilidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ecb-aqCeDPbgytMPvvDngQc",
+    "usage_metadata": {
+      "candidates_token_count": 50,
+      "prompt_token_count": 2636,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2636
+        }
+      ],
+      "total_token_count": 2686
+    }
+  }
+}

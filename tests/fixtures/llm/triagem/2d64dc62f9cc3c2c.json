@@ -1,0 +1,381 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2d64dc62f9cc3c2c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:16:53 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5207",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_2960582203511161086",
+                "args": {
+                  "mes": "11",
+                  "produto": "queijo coalho"
+                },
+                "name": "disponibilidade"
+              },
+              "thought_signature": "EnsKeQFpFH0T2qq2ZVmIwHu8dmqpKho4xPjfWeUpFCvMdgOEtr-G1r1XUaX7kPOQrj1bXhWq9AtfOWWkgBzsfzJqOTtMeS1JR-7ng-DpqZORYKpEgN1YWHN8_j1X1U2eVn-VCekWX0AnpScGnmrhVOHroNJajohG7nL1IYs="
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164527",
+                "args": {
+                  "mes": "11",
+                  "produto": "queijo manteiga"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511163872",
+                "args": {
+                  "mes": "11",
+                  "produto": "mel"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511163217",
+                "args": {
+                  "produto": "goiaba paluma",
+                  "mes": "11"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511162562",
+                "args": {
+                  "produto": "cajá",
+                  "mes": "11"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511161907",
+                "args": {
+                  "mes": "11",
+                  "produto": "rapadura"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511161252",
+                "args": {
+                  "produto": "goma de tapioca",
+                  "mes": "11"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164693",
+                "args": {
+                  "mes": "11",
+                  "produto": "frango caipira"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164038",
+                "args": {
+                  "produto": "ovos caipira",
+                  "mes": "11"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511163383",
+                "args": {
+                  "quantidade": 25,
+                  "organico": false,
+                  "produto": "queijo coalho"
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511162728",
+                "args": {
+                  "quantidade": 10,
+                  "produto": "queijo manteiga",
+                  "organico": false
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511162073",
+                "args": {
+                  "produto": "mel",
+                  "quantidade": 8,
+                  "organico": true
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511161418",
+                "args": {
+                  "produto": "goiaba paluma",
+                  "organico": false,
+                  "quantidade": 20
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164859",
+                "args": {
+                  "produto": "cajá",
+                  "quantidade": 10,
+                  "organico": false
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164204",
+                "args": {
+                  "organico": false,
+                  "produto": "rapadura",
+                  "quantidade": 15
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511163549",
+                "args": {
+                  "produto": "goma de tapioca",
+                  "quantidade": 10,
+                  "organico": false
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511162894",
+                "args": {
+                  "produto": "frango caipira",
+                  "organico": false,
+                  "quantidade": 40
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511162239",
+                "args": {
+                  "organico": false,
+                  "produto": "ovos caipira",
+                  "quantidade": 30
+                },
+                "name": "preco"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511161584",
+                "args": {
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "item": {
+                    "unidade": "kg",
+                    "quantidade": 25,
+                    "produto": "queijo coalho",
+                    "organico": false
+                  },
+                  "data_entrega": "2026-11-08"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511160929",
+                "args": {
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "item": {
+                    "unidade": "kg",
+                    "quantidade": 10,
+                    "organico": false,
+                    "produto": "queijo manteiga"
+                  },
+                  "data_entrega": "2026-11-08"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164370",
+                "args": {
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "produto": "mel",
+                    "organico": true,
+                    "quantidade": 8,
+                    "unidade": "kg"
+                  },
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511163715",
+                "args": {
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "quantidade": 20,
+                    "produto": "goiaba paluma",
+                    "organico": false,
+                    "unidade": "kg"
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511163060",
+                "args": {
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "unidade": "kg",
+                    "organico": false,
+                    "produto": "cajá",
+                    "quantidade": 10
+                  },
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511162405",
+                "args": {
+                  "item": {
+                    "quantidade": 15,
+                    "unidade": "kg",
+                    "organico": false,
+                    "produto": "rapadura"
+                  },
+                  "data_entrega": "2026-11-08",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511161750",
+                "args": {
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "unidade": "kg",
+                    "quantidade": 10,
+                    "produto": "goma de tapioca",
+                    "organico": false
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511161095",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "produto": "frango caipira",
+                    "quantidade": 40,
+                    "unidade": "kg"
+                  },
+                  "data_entrega": "2026-11-08",
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_2960582203511164536",
+                "args": {
+                  "comprador": "evento de 08/nov, jantar regional com 120 convidados",
+                  "data_entrega": "2026-11-08",
+                  "item": {
+                    "produto": "ovos caipira",
+                    "organico": false,
+                    "unidade": "dúzia",
+                    "quantidade": 30
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "kMz-au7wIuuwytMP_dHI0AM",
+    "usage_metadata": {
+      "candidates_token_count": 1209,
+      "prompt_token_count": 3542,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3542
+        }
+      ],
+      "total_token_count": 4751
+    }
+  }
+}

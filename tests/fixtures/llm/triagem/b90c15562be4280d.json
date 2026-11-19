@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b90c15562be4280d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:50:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1330",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O preço do quilo do queijo coalho convencional é R$ 32,00. Para 50 kg, o valor total fica em R$ 1.600,00 [fonte: tabela_precos_outubro_2026.csv]. \n\n*Nota:* O desconto de atacado não foi aplicado, pois o volume mínimo para desconto é de 100 kg [fonte: tabela_precos_outubro_2026.csv].",
+              "thought_signature": "EnsKeQFpFH0TUmR-0FVlIlZiHyHOCNGw2etK3yaj839wuHy7moMxG2DKWeb04wd-OtYXU_lYbEJyx6d-to4EM5xls8_VFz0sQEteOalEuwjcdQuu1J_5hRXM6VZax92iiDJpOEZJm8PHpHLeSUipKJIKLoZxBW-ODHJLJvg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "V8b-aq_oNKvIiLMPgLGQ4Qw",
+    "usage_metadata": {
+      "candidates_token_count": 106,
+      "prompt_token_count": 2794,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2794
+        }
+      ],
+      "total_token_count": 2900
+    }
+  }
+}

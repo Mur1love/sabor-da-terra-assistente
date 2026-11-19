@@ -1,0 +1,66 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "190aa08964d024c8",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:56 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1831",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"A certificação orgânica para o mel silvestre da produtora Josefa Alves de Souza (P008) encontra-se vencida [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. O certificado expirou em 30/09/2026, com data de referência em 30/10/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está agendada para 15/11/2026, portanto, até a conclusão da renovação, os produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"Data de Validade: 30/09/2026  *** VENCIDA ***\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"NOTA: Este certificado EXPIROU em 30/09/2026.\\nA produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456).\\nAuditoria de renovação agendada para 15/11/2026.\\nAté a conclusão da renovação, os produtos NÃO podem ser comercializados\\ncomo orgânicos.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EnsKeQFpFH0TiBUKNhWz1Agd2fkGAlnQnpJNKyxSW_QwQIPz_tB8S9IjwGX5RLOKNXQ4ZqxGdRrZtfNUoL-654yr7IgH71ounVOVUHtTrRBPiLh4jgwjFjojMSlit2HPpqhDw05wuVLxozP7o_5uU82RAdekFwEXNsNuCMQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "u8b-aseSE6Gs5NoPi4bd0Qw",
+    "usage_metadata": {
+      "candidates_token_count": 442,
+      "prompt_token_count": 4681,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4681
+        }
+      ],
+      "total_token_count": 5123
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "A certificação orgânica para o mel silvestre da produtora Josefa Alves de Souza (P008) encontra-se vencida [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. O certificado expirou em 30/09/2026, com data de referência em 30/10/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está agendada para 15/11/2026, portanto, até a conclusão da renovação, os produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "NOTA: Este certificado EXPIROU em 30/09/2026.\nA produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456).\nAuditoria de renovação agendada para 15/11/2026.\nAté a conclusão da renovação, os produtos NÃO podem ser comercializados\ncomo orgânicos."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

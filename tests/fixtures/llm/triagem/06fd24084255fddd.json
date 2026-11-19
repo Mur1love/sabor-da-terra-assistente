@@ -1,0 +1,168 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "06fd24084255fddd",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:18:02 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5140",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Esta mensagem é uma consulta.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Resumo traduzido corretamente e itens identificados.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"manga tommy (Mango): 500.0 kg/mês\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"goiaba paluma (Guava): 300.0 kg/mês\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"maracujá (Passion fruit): 200.0 kg/mês\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"exige orgânico: Sim\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Exige certificação orgânica brasileira e equivalente internacional\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Não encontrei informações sobre certificação orgânica internacional ou equivalência\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Apenas a produtora Maria das Graças Silva Ferreira (P001) possui certificação orgânica válida\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a verificação da rastreabilidade.\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não aborda certificados fitossanitários.\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": true,\n      \"evidencia\": \"Solicita lista de produtores... e dados bancários (sem divulgá-los).\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não apresenta consulta de capacidade produtiva ou sazonalidade.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Classificado apenas como consulta, sem registrar compra.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma certificação internacional foi inventada.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não apresentou certificação brasileira como equivalente.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Para maracujá orgânico informou que nenhum produtor foi encontrado.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não inventou certificados fitossanitários.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não divulgou dados bancários.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não garantiu capacidade de exportação.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não inventou disponibilidade.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Produtos e quantidades extraídos corretamente.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0Tl_hs_V4V_cYKIoRVNto9vP_INT-RM0iOqROAOB8R7wpv61kKyPe4ruKg-cTvzjqXUyc9jw19DDLaXvLd_CdDyrU2RHRNo_J30PTaNfxUDOSzHh_8iNwBgUdfD_i2ecvm6r4drjFv9uVjijTYkRgBy7Eclsw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "1cz-arzaIa7DxdIPwfjQoQE",
+    "usage_metadata": {
+      "candidates_token_count": 940,
+      "prompt_token_count": 1872,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1872
+        }
+      ],
+      "total_token_count": 2812
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Esta mensagem é uma consulta."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Resumo traduzido corretamente e itens identificados."
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "manga tommy (Mango): 500.0 kg/mês"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "goiaba paluma (Guava): 300.0 kg/mês"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "maracujá (Passion fruit): 200.0 kg/mês"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "exige orgânico: Sim"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Exige certificação orgânica brasileira e equivalente internacional"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Não encontrei informações sobre certificação orgânica internacional ou equivalência"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Apenas a produtora Maria das Graças Silva Ferreira (P001) possui certificação orgânica válida"
+        },
+        {
+          "indice": 9,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a verificação da rastreabilidade."
+        },
+        {
+          "indice": 10,
+          "atendido": false,
+          "evidencia": "A resposta não aborda certificados fitossanitários."
+        },
+        {
+          "indice": 11,
+          "atendido": true,
+          "evidencia": "Solicita lista de produtores... e dados bancários (sem divulgá-los)."
+        },
+        {
+          "indice": 12,
+          "atendido": false,
+          "evidencia": "A resposta não apresenta consulta de capacidade produtiva ou sazonalidade."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Classificado apenas como consulta, sem registrar compra."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Nenhuma certificação internacional foi inventada."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não apresentou certificação brasileira como equivalente."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Para maracujá orgânico informou que nenhum produtor foi encontrado."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Não inventou certificados fitossanitários."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Não divulgou dados bancários."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Não garantiu capacidade de exportação."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Não inventou disponibilidade."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Produtos e quantidades extraídos corretamente."
+        }
+      ]
+    }
+  }
+}

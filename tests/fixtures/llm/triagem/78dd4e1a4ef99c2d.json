@@ -1,0 +1,68 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "78dd4e1a4ef99c2d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:49:10 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1257",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"notificacao_oficial\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"ADAGRO\",\n  \"canal\": null,\n  \"itens\": [],\n  \"prazo_entrega\": \"2026-11-11\",\n  \"prazo_original\": \"nos dias 11 e 12 de novembro de 2026\",\n  \"observacoes\": [\n    \"Inspecao sanitaria da ADAGRO na Cooperativa Sabor da Terra nos dias 11 e 12 de novembro de 2026\",\n    \"Manter disponivel cadastro de produtores, certificacoes organicas, laudos sanitarios, registros de rastreabilidade e contratos\",\n    \"O nao atendimento podera resultar em suspensao do SIE\"\n  ],\n  \"campos_faltantes\": [],\n  \"ambiguidades\": []\n}",
+              "thought_signature": "EnsKeQFpFH0TUBG70xLCiP8vsBzDfQQJdwvPP1UXELM1blYEbS02LWM0xZk5Gd_Dhbi__IZ52zvwuoak3q7HWSVUips4MlTezdbKQ0gTz_9a_o1lJqwcfQ0-8dCJc3z9874-lB9aqp3vuXD6cGec754QU3ItFLHQDWgAWMM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Fcb-atu5GrShuMYPov3O-AI",
+    "usage_metadata": {
+      "candidates_token_count": 207,
+      "prompt_token_count": 2529,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2529
+        }
+      ],
+      "total_token_count": 2736
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "notificacao_oficial",
+      "idioma": "pt",
+      "comprador": "ADAGRO",
+      "canal": null,
+      "itens": [],
+      "prazo_entrega": "2026-11-11",
+      "prazo_original": "nos dias 11 e 12 de novembro de 2026",
+      "observacoes": [
+        "Inspecao sanitaria da ADAGRO na Cooperativa Sabor da Terra nos dias 11 e 12 de novembro de 2026",
+        "Manter disponivel cadastro de produtores, certificacoes organicas, laudos sanitarios, registros de rastreabilidade e contratos",
+        "O nao atendimento podera resultar em suspensao do SIE"
+      ],
+      "campos_faltantes": [],
+      "ambiguidades": []
+    }
+  }
+}

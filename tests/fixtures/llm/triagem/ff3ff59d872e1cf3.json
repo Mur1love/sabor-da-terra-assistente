@@ -1,0 +1,158 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ff3ff59d872e1cf3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:47:22 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2506",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Recebemos a sua mensagem solicitando um fornecimento mensal de todos os produtos orgânicos disponíveis\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"solicitando um fornecimento mensal de todos os produtos orgânicos disponíveis\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Mel Silvestre, Mel de Jandaíra e Própolis Verde, Hortaliças Folhosas, Frutos e Legumes\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"José Antônio dos Santos (P002), Ana Lúcia Bezerra (P004), Luciana F. Gomes\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Validade da Certificação: 20/03/2027\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"A certificação orgânica de Josefa Alves de Souza (P008)... está vencida desde 30/09/2026\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Preço (Mel Silvestre Orgânico): R$ 58,00/kg\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não verificou explicitamente a disponibilidade em estoque dos produtos.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente não abordou a capacidade de fornecimento mensal da cooperativa para todos os itens.\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"retirada prevista para toda segunda-feira de manhã\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"Para fecharmos o pedido de fornecimento mensal com retirada às segundas-feiras, por favor, nos informe\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A compra não foi registrada automaticamente.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A certificação vencida foi corretamente identificada como vencida.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum produto convencional foi apresentado como orgânico.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há produtores inventados na resposta.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"As validades citadas correspondem à documentação.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os preços apresentados vieram dos contratos e fichas técnicas.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"A disponibilidade não foi garantida incondicionalmente.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"A retirada não foi confirmada, exigindo fechamento posterior.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"O contrato não foi considerado fechado automaticamente.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TN-fo67hQPz6B5A64AuFYVZBD4KWDEIYF2znKonTb5hU2HmU6l1cIVf_D25xUyLGx2_Z0uwOzHSowL4z7_ZjQJ8hoCB5xbCUZx0LdGrCAC3LYkNUFKAdreD8y3zZtfbJkg6kS3R7aKR8TWPXlkumbZeerST8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "qMX-atWLJe2oxdIP6JHT0A4",
+    "usage_metadata": {
+      "candidates_token_count": 947,
+      "prompt_token_count": 2564,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2564
+        }
+      ],
+      "total_token_count": 3511
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Recebemos a sua mensagem solicitando um fornecimento mensal de todos os produtos orgânicos disponíveis"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "solicitando um fornecimento mensal de todos os produtos orgânicos disponíveis"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Mel Silvestre, Mel de Jandaíra e Própolis Verde, Hortaliças Folhosas, Frutos e Legumes"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "José Antônio dos Santos (P002), Ana Lúcia Bezerra (P004), Luciana F. Gomes"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Validade da Certificação: 20/03/2027"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "A certificação orgânica de Josefa Alves de Souza (P008)... está vencida desde 30/09/2026"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Preço (Mel Silvestre Orgânico): R$ 58,00/kg"
+        },
+        {
+          "indice": 7,
+          "atendido": false,
+          "evidencia": "O assistente não verificou explicitamente a disponibilidade em estoque dos produtos."
+        },
+        {
+          "indice": 8,
+          "atendido": false,
+          "evidencia": "O assistente não abordou a capacidade de fornecimento mensal da cooperativa para todos os itens."
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "retirada prevista para toda segunda-feira de manhã"
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "Para fecharmos o pedido de fornecimento mensal com retirada às segundas-feiras, por favor, nos informe"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A compra não foi registrada automaticamente."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A certificação vencida foi corretamente identificada como vencida."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Nenhum produto convencional foi apresentado como orgânico."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Não há produtores inventados na resposta."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "As validades citadas correspondem à documentação."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Os preços apresentados vieram dos contratos e fichas técnicas."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "A disponibilidade não foi garantida incondicionalmente."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "A retirada não foi confirmada, exigindo fechamento posterior."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "O contrato não foi considerado fechado automaticamente."
+        }
+      ]
+    }
+  }
+}

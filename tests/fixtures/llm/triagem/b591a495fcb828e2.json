@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b591a495fcb828e2",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:18:50 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3310",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi a notificação oficial da ADAGRO informando que a cooperativa passará por inspeção nos dias 11 e 12 de novembro de 2026.\n\nConforme orientação dos próximos passos, devo consultar os documentos necessários (certificações orgânicas, laudos sanitários e contratos) e verificar o cadastro de produtores e a rastreabilidade dos lotes. \n\nComo o protótipo não envia mensagens para órgãos externos, esta notificação foi apenas registrada na triagem da cooperativa. Deseja que eu consulte algum documento específico (como as certificações ou laudos) para preparar a cooperativa para a inspeção?",
+              "thought_signature": "EnsKeQFpFH0T8jnDPV-wLxxZ5IZ9eI8JtH1Ia4wvr9vBsyieVYgTjmYzS4k6wBd-PimtEfvWy4jSxpjBAeLKbmK8EQJLbJex55MGtWS0wfzeofDySl1ykGiaHmUizE4po_JmNgMkM9N54aAs3UwlNTEuaIWMndkVfJldvpk="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "B83-arajM966xdIPgJGnuAQ",
+    "usage_metadata": {
+      "candidates_token_count": 139,
+      "prompt_token_count": 3152,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3152
+        }
+      ],
+      "total_token_count": 3291
+    }
+  }
+}

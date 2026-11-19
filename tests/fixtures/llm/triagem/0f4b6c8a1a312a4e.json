@@ -1,0 +1,208 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "0f4b6c8a1a312a4e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:36 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5160",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: cotação\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Prazo: janeiro de 2027\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona o número de crianças ou a duração de 15 dias.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Produto: frutas (Frutas variadas), Quantidade: 500.0\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Produto: hortaliças (Hortalicas variadas), Quantidade: 200.0\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Queijo coalho (50 kg)\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Mel silvestre (10 kg)\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Ovos caipira (200 dúzias)\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Frango caipira (100 kg)\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Macaxeira (80 kg)\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": true,\n      \"evidencia\": \"Orçamento Detalhado com Preços Unitários listado para os itens.\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não informa que os preços de outubro precisam de confirmação para janeiro de 2027.\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": true,\n      \"evidencia\": \"Ovos caipira (200 dúzias) respeita a unidade original.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona verificação de sazonalidade.\"\n    },\n    {\n      \"indice\": 14,\n      \"atendido\": true,\n      \"evidencia\": \"O pedido de 50 kg cabe na capacidade.\"\n    },\n    {\n      \"indice\": 15,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não faz menção explícita à consulta aos registros DAP/CAF.\"\n    },\n    {\n      \"indice\": 16,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a restrição sanitária do produtor P017.\"\n    },\n    {\n      \"indice\": 17,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a forma de pagamento via empenho.\"\n    },\n    {\n      \"indice\": 18,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta não menciona a emissão de nota fiscal com os dados do SESC-PE.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A resposta tratou apenas como triagem/orçamento.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Frutas mantidas como categoria geral 'Frutas variadas'.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Hortaliças mantidas como categoria geral 'Hortalicas variadas'.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Ovos calculados corretamente em dúzias.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Apresentou tabela de preços de outubro sem confirmar os valores futuros.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há presunção de DAP/CAF explícita na resposta gerada.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"O frango foi orçado sem citação explícita ao produtor P017.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Capacidades baseadas em fichas técnicas consultadas.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Valores extraídos da tabela de preços oficial.\"\n    },\n    {\n      \"indice\": 9,\n      \"ocorreu\": false,\n      \"evidencia\": \"O pagamento por empenho nem chegou a ser citado.\"\n    },\n    {\n      \"indice\": 10,\n      \"ocorreu\": false,\n      \"evidencia\": \"A entrega não foi garantida, apenas orçada.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TqI2R11IgdJJvuJpmmD43b-j69s67eebpgxKLvjTTNPcGoBdSEws3FbBtNQ_3sa1uy6ttdT6JMSZbK4hp1Kx8Xt0K8Fg4lLZY1D1hqOqQj3OWkMVGVCirOsR4yTMiM7_3FezzTwKtUCHpgsNSeMxg0BDcJ2c="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "78X-aoy2D_3gytMPha6E0Ag",
+    "usage_metadata": {
+      "candidates_token_count": 1330,
+      "prompt_token_count": 3112,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3112
+        }
+      ],
+      "total_token_count": 4442
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: cotação"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Prazo: janeiro de 2027"
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "A resposta não menciona o número de crianças ou a duração de 15 dias."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Produto: frutas (Frutas variadas), Quantidade: 500.0"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Produto: hortaliças (Hortalicas variadas), Quantidade: 200.0"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Queijo coalho (50 kg)"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Mel silvestre (10 kg)"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Ovos caipira (200 dúzias)"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Frango caipira (100 kg)"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Macaxeira (80 kg)"
+        },
+        {
+          "indice": 10,
+          "atendido": true,
+          "evidencia": "Orçamento Detalhado com Preços Unitários listado para os itens."
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "A resposta não informa que os preços de outubro precisam de confirmação para janeiro de 2027."
+        },
+        {
+          "indice": 12,
+          "atendido": true,
+          "evidencia": "Ovos caipira (200 dúzias) respeita a unidade original."
+        },
+        {
+          "indice": 13,
+          "atendido": false,
+          "evidencia": "A resposta não menciona verificação de sazonalidade."
+        },
+        {
+          "indice": 14,
+          "atendido": true,
+          "evidencia": "O pedido de 50 kg cabe na capacidade."
+        },
+        {
+          "indice": 15,
+          "atendido": false,
+          "evidencia": "A resposta não faz menção explícita à consulta aos registros DAP/CAF."
+        },
+        {
+          "indice": 16,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a restrição sanitária do produtor P017."
+        },
+        {
+          "indice": 17,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a forma de pagamento via empenho."
+        },
+        {
+          "indice": 18,
+          "atendido": false,
+          "evidencia": "A resposta não menciona a emissão de nota fiscal com os dados do SESC-PE."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A resposta tratou apenas como triagem/orçamento."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Frutas mantidas como categoria geral 'Frutas variadas'."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Hortaliças mantidas como categoria geral 'Hortalicas variadas'."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Ovos calculados corretamente em dúzias."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Apresentou tabela de preços de outubro sem confirmar os valores futuros."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Não há presunção de DAP/CAF explícita na resposta gerada."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "O frango foi orçado sem citação explícita ao produtor P017."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Capacidades baseadas em fichas técnicas consultadas."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Valores extraídos da tabela de preços oficial."
+        },
+        {
+          "indice": 9,
+          "ocorreu": false,
+          "evidencia": "O pagamento por empenho nem chegou a ser citado."
+        },
+        {
+          "indice": 10,
+          "ocorreu": false,
+          "evidencia": "A entrega não foi garantida, apenas orçada."
+        }
+      ]
+    }
+  }
+}

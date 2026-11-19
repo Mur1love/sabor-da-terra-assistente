@@ -1,0 +1,113 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "17e8fd3bef63176b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:05 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1694",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: compra\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Queijo Coalho (30.0 kg)\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Manteiga de Garrafa (10.0 kg)\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Mel Silvestre (5.0 kg)\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Coentro (20.0 maço)\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Cebolinha (10.0 maço)\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"Ricota (5.0 kg) - Status: Pode ser atendido (item opcional)\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"Conflito de data identificado na triagem: A mensagem menciona sexta (01/nov), mas 01/11/2026 cai em um domingo.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente classificou explicitamente a ricota como item opcional e não confirmou o estoque definitivo.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A divergência de data foi apontada com ressalva clara.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os tipos de produtos solicitados foram mantidos corretamente.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TFbNGle30xNAIZzk7uUE8q2inZzTOrSwB-0m4IgHTklYqvUv4-zblLmnj_0Jn2nCsY_EsrBOj1PerZSVPdCE2jND_2DA0o-9jPYJjlY2N5iWfAF1H9GS9c2nBTnEENcybTBj0z7II2W_fJM7Batx1v6sRaBE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "5MT-apnWBLOlytMP0-WNuQU",
+    "usage_metadata": {
+      "candidates_token_count": 515,
+      "prompt_token_count": 2273,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2273
+        }
+      ],
+      "total_token_count": 2788
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: compra"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Queijo Coalho (30.0 kg)"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Manteiga de Garrafa (10.0 kg)"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Mel Silvestre (5.0 kg)"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Coentro (20.0 maço)"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Cebolinha (10.0 maço)"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "Ricota (5.0 kg) - Status: Pode ser atendido (item opcional)"
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "Conflito de data identificado na triagem: A mensagem menciona sexta (01/nov), mas 01/11/2026 cai em um domingo."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente classificou explicitamente a ricota como item opcional e não confirmou o estoque definitivo."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A divergência de data foi apontada com ressalva clara."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Os tipos de produtos solicitados foram mantidos corretamente."
+        }
+      ]
+    }
+  }
+}

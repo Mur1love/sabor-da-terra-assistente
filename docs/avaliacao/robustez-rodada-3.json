@@ -1,0 +1,545 @@
+{
+  "rodada": 3,
+  "conjunto": "robustez",
+  "data": "2026-11-19",
+  "resultados": [
+    {
+      "id": "ROB-001",
+      "desafio": "Triagem de pedidos",
+      "requisito": "Compreender preço pedido em linguagem coloquial",
+      "requisitos_funcionais": [
+        "RF1",
+        "RF2"
+      ],
+      "anti_alucinacao": false,
+      "documental": false,
+      "data_referencia": "2026-10-30",
+      "turnos": [
+        {
+          "mensagem": "qto ta o kg do queijo coalho? quero uns 50kg",
+          "resposta": "O preço do quilo do queijo coalho convencional é R$ 32,00. Para 50 kg, o valor total fica em R$ 1.600,00 [fonte: tabela_precos_outubro_2026.csv]. \n\nO desconto de atacado não foi aplicado, pois o volume mínimo para desconto é de 100 kg [fonte: tabela_precos_outubro_2026.csv].",
+          "funcoes": [
+            "preco"
+          ],
+          "fontes_do_turno": [
+            "tabela_precos_outubro_2026.csv"
+          ],
+          "fontes": [
+            "tabela_precos_outubro_2026.csv"
+          ],
+          "duracao_s": 0.1
+        }
+      ],
+      "funcoes": {
+        "esperadas": [
+          "preco"
+        ],
+        "chamadas": [
+          "preco"
+        ],
+        "faltando": [],
+        "ok": true
+      },
+      "citacoes": {
+        "aplicavel": false,
+        "ok": true,
+        "exibidas": [
+          "tabela_precos_outubro_2026.csv"
+        ],
+        "invalidas": [],
+        "turnos_sem_fonte": [],
+        "fonte_esperada_citada": true
+      },
+      "criterios": {
+        "deve_conter": [
+          {
+            "criterio": "Preço de R$ 32,00 por kg do queijo coalho",
+            "atendido": true,
+            "evidencia": "O preço do quilo do queijo coalho convencional é R$ 32,00."
+          },
+          {
+            "criterio": "Total de R$ 1.600,00 para 50 kg",
+            "atendido": true,
+            "evidencia": "Para 50 kg, o valor total fica em R$ 1.600,00"
+          }
+        ],
+        "nao_deve_conter": [
+          {
+            "criterio": "Desconto de atacado aplicado a 50 kg",
+            "ocorreu": false,
+            "evidencia": "O desconto de atacado não foi aplicado"
+          },
+          {
+            "criterio": "Preço diferente da tabela de outubro de 2026",
+            "ocorreu": false,
+            "evidencia": "O preço citado é R$ 32,00, correspondente à tabela correta."
+          }
+        ]
+      },
+      "status": "ok",
+      "criterios_ok": 4,
+      "criterios_total": 4,
+      "aprovado": true
+    },
+    {
+      "id": "ROB-002",
+      "desafio": "Consulta documental",
+      "requisito": "Consultar certificação orgânica em linguagem coloquial",
+      "requisitos_funcionais": [
+        "RF1",
+        "RF2",
+        "RF3"
+      ],
+      "anti_alucinacao": false,
+      "documental": true,
+      "data_referencia": "2026-10-30",
+      "turnos": [
+        {
+          "mensagem": "oi, qm tem mel organico valendo ainda??",
+          "resposta": "Para **mel silvestre** orgânico, os produtores com certificação vigente em 2026-10-30 são [fonte: produtores.csv]:\n* **José Antônio dos Santos** (P002) - Município: Brejão, validade da certificação: 2027-03-20 [fonte: produtores.csv]\n* **Débora Cristina de Melo** (P018) - Município: Águas Belas, validade da certificação: 2027-02-28 [fonte: produtores.csv]\n\nPara **mel de jandaíra** orgânico, o produtor com certificação vigente em 2026-10-30 é [fonte: produtores.csv]:\n* **José Antônio dos Santos** (P002) - Município: Brejão, validade da certificação: 2027-03-20 [fonte: produtores.csv]\n\nAviso: Em 2026-10-30 a certificação orgânica está vencida para: P008 (Josefa Alves de Souza, venceu em 2026-09-30). Esses produtores não podem vender como orgânico [fonte: produtores.csv].",
+          "funcoes": [
+            "buscar_produtores",
+            "buscar_produtores",
+            "buscar_produtores",
+            "buscar_produtores"
+          ],
+          "fontes_do_turno": [
+            "produtores.csv"
+          ],
+          "fontes": [
+            "produtores.csv"
+          ],
+          "duracao_s": 0.0
+        }
+      ],
+      "funcoes": {
+        "esperadas": [
+          "buscar_produtores"
+        ],
+        "chamadas": [
+          "buscar_produtores"
+        ],
+        "faltando": [],
+        "ok": true
+      },
+      "citacoes": {
+        "aplicavel": true,
+        "ok": true,
+        "exibidas": [
+          "produtores.csv"
+        ],
+        "invalidas": [],
+        "turnos_sem_fonte": [],
+        "fonte_esperada_citada": true
+      },
+      "criterios": {
+        "deve_conter": [
+          {
+            "criterio": "Identificação de P002",
+            "atendido": true,
+            "evidencia": "José Antônio dos Santos (P002) - Município: Brejão"
+          },
+          {
+            "criterio": "Identificação de P018",
+            "atendido": true,
+            "evidencia": "Débora Cristina de Melo (P018) - Município: Águas Belas"
+          },
+          {
+            "criterio": "Certificação de P008 vencida em 30/09/2026",
+            "atendido": true,
+            "evidencia": "P008 (Josefa Alves de Souza, venceu em 2026-09-30)"
+          }
+        ],
+        "nao_deve_conter": [
+          {
+            "criterio": "P008 apresentada como certificada vigente",
+            "ocorreu": false,
+            "evidencia": "A resposta corretamente indica que a certificacao esta vencida para P008."
+          }
+        ]
+      },
+      "status": "ok",
+      "criterios_ok": 4,
+      "criterios_total": 4,
+      "aprovado": true
+    },
+    {
+      "id": "ROB-003",
+      "desafio": "Consulta documental",
+      "requisito": "Rastrear lote a partir de pergunta coloquial",
+      "requisitos_funcionais": [
+        "RF1",
+        "RF2",
+        "RF3"
+      ],
+      "anti_alucinacao": false,
+      "documental": true,
+      "data_referencia": "2026-10-30",
+      "turnos": [
+        {
+          "mensagem": "o lote LOT-2026-0089 foi pra onde msm? de qm era?",
+          "resposta": "O lote LOT-2026-0089 era de Cícero Romão de Almeida (produtor P003) e foi para o Restaurante Raízes [fonte: lotes.csv].",
+          "funcoes": [
+            "rastrear_lote"
+          ],
+          "fontes_do_turno": [
+            "lotes.csv"
+          ],
+          "fontes": [
+            "lotes.csv"
+          ],
+          "duracao_s": 0.0
+        }
+      ],
+      "funcoes": {
+        "esperadas": [
+          "rastrear_lote"
+        ],
+        "chamadas": [
+          "rastrear_lote"
+        ],
+        "faltando": [],
+        "ok": true
+      },
+      "citacoes": {
+        "aplicavel": true,
+        "ok": true,
+        "exibidas": [
+          "lotes.csv"
+        ],
+        "invalidas": [],
+        "turnos_sem_fonte": [],
+        "fonte_esperada_citada": true
+      },
+      "criterios": {
+        "deve_conter": [
+          {
+            "criterio": "Comprador Restaurante Raízes",
+            "atendido": true,
+            "evidencia": "foi para o Restaurante Raízes"
+          },
+          {
+            "criterio": "Produtor P003 (Cícero Romão de Almeida)",
+            "atendido": true,
+            "evidencia": "era de Cícero Romão de Almeida (produtor P003)"
+          },
+          {
+            "criterio": "45 kg de queijo coalho",
+            "atendido": false,
+            "evidencia": "A quantidade de 45 kg de queijo coalho não foi mencionada na resposta."
+          },
+          {
+            "criterio": "Entrega em 02/09/2026",
+            "atendido": false,
+            "evidencia": "A data de entrega 02/09/2026 não foi informada na resposta."
+          }
+        ],
+        "nao_deve_conter": [
+          {
+            "criterio": "Comprador ou produtor inventado para o lote",
+            "ocorreu": false,
+            "evidencia": "Nenhum comprador ou produtor foi inventado."
+          }
+        ]
+      },
+      "status": "ok",
+      "criterios_ok": 3,
+      "criterios_total": 5,
+      "aprovado": false
+    },
+    {
+      "id": "ROB-004",
+      "desafio": "Triagem de pedidos",
+      "requisito": "Consultar sazonalidade em linguagem coloquial",
+      "requisitos_funcionais": [
+        "RF1",
+        "RF2"
+      ],
+      "anti_alucinacao": false,
+      "documental": false,
+      "data_referencia": "2026-10-30",
+      "turnos": [
+        {
+          "mensagem": "tem goiaba e umbu pra novembro? to querendo fecha c um cliente",
+          "resposta": "Segundo o calendário de sazonalidade da cooperativa (`sazonalidade.csv`):\n\n* **Goiaba (goiaba paluma):** Está disponível em novembro, com nível de disponibilidade **alta** (a observação indica que o pico é de dezembro a março e fora de safra de junho a agosto) [fonte: sazonalidade.csv].\n* **Umbu:** **Não** está disponível em novembro, pois a safra ocorre apenas de fevereiro a maio, com nível de disponibilidade **nenhuma** [fonte: sazonalidade.csv].",
+          "funcoes": [
+            "disponibilidade",
+            "disponibilidade"
+          ],
+          "fontes_do_turno": [
+            "sazonalidade.csv"
+          ],
+          "fontes": [
+            "sazonalidade.csv"
+          ],
+          "duracao_s": 0.0
+        }
+      ],
+      "funcoes": {
+        "esperadas": [
+          "disponibilidade"
+        ],
+        "chamadas": [
+          "disponibilidade"
+        ],
+        "faltando": [],
+        "ok": true
+      },
+      "citacoes": {
+        "aplicavel": false,
+        "ok": true,
+        "exibidas": [
+          "sazonalidade.csv"
+        ],
+        "invalidas": [],
+        "turnos_sem_fonte": [],
+        "fonte_esperada_citada": true
+      },
+      "criterios": {
+        "deve_conter": [
+          {
+            "criterio": "Goiaba disponível em novembro",
+            "atendido": true,
+            "evidencia": "Goiaba (goiaba paluma): Está disponível em novembro, com nível de disponibilidade alta"
+          },
+          {
+            "criterio": "Umbu indisponível em novembro",
+            "atendido": true,
+            "evidencia": "Umbu: Não está disponível em novembro, pois a safra ocorre apenas de fevereiro a maio"
+          }
+        ],
+        "nao_deve_conter": [
+          {
+            "criterio": "Umbu oferecido para novembro",
+            "ocorreu": false,
+            "evidencia": "O assistente informou corretamente que o umbu não está disponível em novembro."
+          }
+        ]
+      },
+      "status": "ok",
+      "criterios_ok": 3,
+      "criterios_total": 3,
+      "aprovado": true
+    },
+    {
+      "id": "ROB-005",
+      "desafio": "Triagem de pedidos",
+      "requisito": "Identificar produtor inativo em pergunta coloquial",
+      "requisitos_funcionais": [
+        "RF1",
+        "RF2"
+      ],
+      "anti_alucinacao": false,
+      "documental": false,
+      "data_referencia": "2026-10-30",
+      "turnos": [
+        {
+          "mensagem": "da pra chamar o geraldo (P015) pra mandar macaxeira essa semana??",
+          "resposta": "Não dá para chamar o Geraldo (P015) para mandar macaxeira, pois ele está inativo no cadastro e não recebe alocação [fonte: produtores.csv]. \n\nO único produtor que fornece macaxeira é o Francisco de Assis Cordeiro (P005) [fonte: produtores.csv].",
+          "funcoes": [
+            "verificar_conformidade"
+          ],
+          "fontes_do_turno": [
+            "fichas_tecnicas/tuberculos_graos.txt",
+            "produtores.csv",
+            "tabela_precos_outubro_2026.csv"
+          ],
+          "fontes": [
+            "fichas_tecnicas/tuberculos_graos.txt",
+            "produtores.csv",
+            "tabela_precos_outubro_2026.csv"
+          ],
+          "duracao_s": 0.0
+        }
+      ],
+      "funcoes": {
+        "esperadas": [
+          "identificar_produtor"
+        ],
+        "chamadas": [
+          "verificar_conformidade"
+        ],
+        "faltando": [
+          "identificar_produtor"
+        ],
+        "ok": false
+      },
+      "citacoes": {
+        "aplicavel": false,
+        "ok": true,
+        "exibidas": [
+          "fichas_tecnicas/tuberculos_graos.txt",
+          "produtores.csv",
+          "tabela_precos_outubro_2026.csv"
+        ],
+        "invalidas": [],
+        "turnos_sem_fonte": [],
+        "fonte_esperada_citada": true
+      },
+      "criterios": {
+        "deve_conter": [
+          {
+            "criterio": "P015 inativo",
+            "atendido": true,
+            "evidencia": "pois ele está inativo no cadastro e não recebe alocação"
+          },
+          {
+            "criterio": "Alternativa P005 para macaxeira",
+            "atendido": true,
+            "evidencia": "O único produtor que fornece macaxeira é o Francisco de Assis Cordeiro (P005)"
+          }
+        ],
+        "nao_deve_conter": [
+          {
+            "criterio": "P015 tratado como produtor ativo",
+            "ocorreu": false,
+            "evidencia": "O assistente corretamente apontou que ele está inativo e não pode ser chamado."
+          }
+        ]
+      },
+      "status": "ok",
+      "criterios_ok": 3,
+      "criterios_total": 3,
+      "aprovado": false
+    }
+  ],
+  "execucoes": [
+    {
+      "data": "2026-11-19",
+      "casos": [
+        "ROB-001",
+        "ROB-002",
+        "ROB-003",
+        "ROB-004",
+        "ROB-005"
+      ],
+      "consumo": {
+        "chamadas_reais": {},
+        "replays": 22,
+        "failovers": 0,
+        "demanda_por_papel": {
+          "resposta": 5,
+          "triagem": 17
+        }
+      }
+    }
+  ],
+  "modelos": {
+    "roteamento_e_juiz": "gemini-3.5-flash-lite",
+    "composicao": "gemini-3.5-flash-lite",
+    "fallback_composicao": "gemini-3.5-flash-lite"
+  },
+  "versoes_prompt": {
+    "assistente": "1.5.0",
+    "juiz": "v1.0.0"
+  },
+  "metricas": {
+    "geral": {
+      "casos": 5,
+      "avaliados": 5,
+      "aprovados": 3,
+      "criterios_ok": 17,
+      "criterios_total": 19,
+      "acerto_criterios": 89.5,
+      "taxa_aprovacao": 60.0
+    },
+    "por_desafio": {
+      "Consulta documental": {
+        "casos": 2,
+        "avaliados": 2,
+        "aprovados": 1,
+        "criterios_ok": 7,
+        "criterios_total": 9,
+        "acerto_criterios": 77.8,
+        "taxa_aprovacao": 50.0
+      },
+      "Triagem de pedidos": {
+        "casos": 3,
+        "avaliados": 3,
+        "aprovados": 2,
+        "criterios_ok": 10,
+        "criterios_total": 10,
+        "acerto_criterios": 100.0,
+        "taxa_aprovacao": 66.7
+      }
+    },
+    "por_requisito_funcional": {
+      "RF1": {
+        "casos": 5,
+        "avaliados": 5,
+        "aprovados": 3,
+        "criterios_ok": 17,
+        "criterios_total": 19,
+        "acerto_criterios": 89.5,
+        "taxa_aprovacao": 60.0
+      },
+      "RF2": {
+        "casos": 5,
+        "avaliados": 5,
+        "aprovados": 3,
+        "criterios_ok": 17,
+        "criterios_total": 19,
+        "acerto_criterios": 89.5,
+        "taxa_aprovacao": 60.0
+      },
+      "RF3": {
+        "casos": 2,
+        "avaliados": 2,
+        "aprovados": 1,
+        "criterios_ok": 7,
+        "criterios_total": 9,
+        "acerto_criterios": 77.8,
+        "taxa_aprovacao": 50.0
+      }
+    },
+    "anti_alucinacao": {
+      "casos": 0,
+      "avaliados": 0,
+      "aprovados": 0,
+      "criterios_ok": 0,
+      "criterios_total": 0,
+      "acerto_criterios": null,
+      "taxa_aprovacao": null,
+      "ids": []
+    },
+    "citacoes": {
+      "documentais_avaliados": 2,
+      "com_citacao_valida": 2,
+      "taxa_citacao_valida": 100.0,
+      "fonte_esperada_citada": 100.0
+    },
+    "funcoes": {
+      "casos_com_funcoes_esperadas": 4,
+      "taxa": 80.0
+    },
+    "fora_da_conta": []
+  },
+  "falhas": [
+    {
+      "id": "ROB-003",
+      "nao_atendidos": [
+        "45 kg de queijo coalho",
+        "Entrega em 02/09/2026"
+      ],
+      "ocorreram": [],
+      "funcoes_faltando": [],
+      "citacoes_invalidas": [],
+      "turnos_sem_fonte": []
+    },
+    {
+      "id": "ROB-005",
+      "nao_atendidos": [],
+      "ocorreram": [],
+      "funcoes_faltando": [
+        "identificar_produtor"
+      ],
+      "citacoes_invalidas": [],
+      "turnos_sem_fonte": []
+    }
+  ],
+  "consumo": {
+    "chamadas_reais": {},
+    "replays": 22,
+    "failovers": 0
+  }
+}

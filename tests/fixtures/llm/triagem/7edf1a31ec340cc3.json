@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7edf1a31ec340cc3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:50 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1869",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "A certificação orgânica de **Josefa Alves de Souza (P008)** venceu em **30/09/2026** e encontra-se vencida [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. \n\nEla solicitou a renovação em 15/09/2026 (protocolo `REN-2026-0456`), e a auditoria de renovação está agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Até a conclusão do processo de renovação, os produtos dela **não** podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+              "thought_signature": "EnsKeQFpFH0T06djIRgL1ktMB4kYdSdey_rWDO0-ib23M53P6zcLoW8gmED0XvNPsTYb-HiRTGMRMuEUnYvalLmFjQFLqgsDNxCGJQODXcWVNjS6xNeF4OPAZDdE696V1ZsNJxYSrtNGA87IFTqFXk5avbrlcFiAusuwOFM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "-M3-aoDLNbetxdIPrJ3vyAU",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 8011
+        }
+      ],
+      "cached_content_token_count": 8011,
+      "candidates_token_count": 193,
+      "prompt_token_count": 10059,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 10059
+        }
+      ],
+      "total_token_count": 10252
+    }
+  }
+}
