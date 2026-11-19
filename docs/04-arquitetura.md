@@ -304,136 +304,64 @@ Grounding API** da Vertex AI. O mapeamento mecanismo a mecanismo está na
 ## 9. O que fica de fora deste documento
 
 - **Slides da apresentação** → #18 (usam o diagrama e as decisões daqui).
-- **Artefatos de implantação** (Dockerfile, Terraform, definição do
-  Workflows) → #15 — seguem a tabela da §2 (detalhados na §11).
-- **Implementação** → #3 em diante (o ambiente instala a stack decidida aqui).
+- **Detalhe de implementação além do mapeamento** → o código e os relatórios de
+  exemplo (`sabor_da_terra/`, `exemplos/`) e a avaliação (`docs/05`) documentam
+  o que está registrado aqui em resumo.
 
+## 10. Triagem Inteligente — implementação local (issue #10)
 
-## 10. Triagem Inteligente — Implementação Local (Issue #10)
+> Registro da implementação local do Desafio A (etapa 10), com o mapeamento
+> para o desenho de produção. O detalhe linha a linha está no código
+> (`sabor_da_terra/triagem/`) e no relatório de exemplo (`exemplos/fila_triagem.md`).
 
-### 10.1 Objetivo
+**Objetivo.** Transformar as mensagens estruturadas da etapa 9 em uma fila de
+atendimento priorizada, com avaliações comerciais, sugestões de alocação,
+alertas e referências às fontes — preservando a separação entre interpretação
+de linguagem natural (Gemini Flash-Lite, etapa 9) e regras determinísticas em
+Python (`sabor_da_terra/triagem/`), sem delegar operações numéricas ao modelo.
 
-A Triagem Inteligente transforma mensagens previamente estruturadas em uma fila de atendimento priorizada, acompanhada de avaliações comerciais, sugestões de alocação, alertas e referências às fontes utilizadas.
+**Fluxo de referência:** `triar_pendentes(data_referencia)`, em
+`triagem/fila.py` — carrega os 15 registros estruturados
+(`tests/fixtures/triagem_15_pedidos.json`), prioriza pelas regras de urgência
+(horas até o prazo, contrato e sinais do texto), avalia as condições comerciais
+na data de recebimento de cada pedido (regras da #5), gera sugestões de
+alocação sujeitas à capacidade semanal, cruza ofertas de produtores com
+demandas (só as conhecidas até a data de referência) e consolida alertas com a
+origem documental de cada sinalização. O relatório de exemplo
+(`exemplos/fila_triagem.md`, data 30/10/2026) grava a mesma estrutura em JSON.
 
-A implementação preserva a separação entre interpretação de linguagem natural e regras determinísticas de negócio. As decisões relativas a prazos, quantidades, capacidade produtiva e elegibilidade são calculadas em Python, sem delegar operações numéricas ao modelo de linguagem.
+**Princípios da implementação:**
 
-### 10.2 Fluxo de processamento
+- **Sugestão, não confirmação.** As correspondências e alocações são
+  informativas; nada confirma estoque, entrega ou aceitação comercial
+  (`confirmacoes_realizadas` e `notificacoes_enviadas` permanecem `False`).
+- **Incerteza preservada.** Quando a informação não pode ser comprovada, o
+  sistema registra a fonte da hipótese e exige confirmação antes de tratá-la
+  como demanda plenamente identificada — referências vagas ("o de sempre",
+  "da última vez") exigem evidência histórica, e ficha técnica fundamenta
+  hipótese, não comprova compra anterior.
+- **Temporalidade respeitada.** Uma oferta só influencia a triagem quando
+  conhecida até a data de referência; ofertas posteriores ao prazo original
+  aparecem marcadas para eventual renegociação, nunca como disponibilidade
+  confirmada.
 
-O processamento é iniciado pela função `triar_pendentes(data_referencia)`, implementada em `sabor_da_terra/triagem/fila.py`.
+**Validação.** A execução de referência (`triar_pendentes("2026-10-30")`)
+retorna os 15 registros. A suíte completa cobre a prevenção de uso de ofertas
+futuras, ofertas posteriores ao prazo original e a ausência de confirmação
+automática: **791 testes aprovados** (4 ignorados, 25 xfailed) em
+19/11/2026; a avaliação do assistente está no `docs/05`.
 
-O fluxo compreende:
-
-1. Carregamento dos pedidos estruturados em `tests/fixtures/triagem_15_pedidos.json`.
-2. Recuperação dos metadados originais, incluindo datas de recebimento, a partir de `data/pedidos.json`.
-3. Seleção das mensagens (pedidos e ofertas de produtores) recebidas até a data de referência.
-4. Classificação e ordenação dos registros: prioridade pelas regras de urgência (horas desde `data_recebimento`, contrato e sinais do texto); na mesma prioridade, prazo mais cedo e menos horas até o prazo.
-5. Avaliação das demandas e das condições comerciais. As regras da #5 são avaliadas na data em que o pedido chegou.
-6. Geração de sugestões de alocação sujeitas à capacidade semanal e às restrições aplicáveis. Pedidos que aguardam confirmação também reservam capacidade (marcada como condicionada), e a demanda de todos os pedidos da semana é comparada com a capacidade documentada (`demanda_semanal`). Quando o contrato pede (Restaurante Raízes), produtores com orgânico vigente e do município do comprador vêm primeiro.
-7. Análise de histórico e hipóteses documentais quando necessário.
-8. Cruzamento informativo entre ofertas de produtores e demandas.
-9. Consolidação dos alertas, com identificação das fontes.
-10. Retorno da fila estruturada e geração de relatório em Markdown e JSON.
-
-### 10.3 Componentes principais
-
-| Componente | Responsabilidade |
-|---|---|
-| `triagem/fila.py` | Orquestração da triagem, priorização e consolidação da fila |
-| `triagem/alocar.py` | Avaliação das sugestões de alocação e controle da capacidade semanal |
-| `triagem/ofertas.py` | Identificação e cruzamento temporal de ofertas |
-| `triagem/historico.py` | Consulta ao histórico e tratamento de referências ambíguas |
-| `triagem/consultas.py` | Consultas auxiliares para demandas específicas |
-| `triagem/notificacoes.py` | Preparação de informações e alertas relacionados às notificações |
-| `triagem/exportar.py` | Geração do relatório Markdown |
-
-### 10.4 Regras de negócio e rastreabilidade
-
-A triagem considera informações de produtores, lotes, certificações, contratos, histórico e demais dados disponíveis no repositório.
-
-As sugestões de atendimento não equivalem a reservas ou confirmações comerciais.
-
-Quando uma informação não pode ser comprovada, o sistema deve preservar a incerteza e solicitar confirmação, em vez de apresentar hipóteses como fatos.
-
-Os alertas devem identificar a origem documental ou estruturada que fundamenta a sinalização.
-
-### 10.5 Compatibilidade temporal das ofertas
-
-O cruzamento de ofertas é realizado por `identificar_ofertas()` e `cruzar_ofertas()`, em `triagem/ofertas.py`.
-
-Uma oferta somente pode influenciar a triagem quando sua data de recebimento não é posterior à data de referência.
-
-A compatibilidade com o prazo original da demanda é representada por três estados:
-
-- `True`: oferta recebida até a data-limite da demanda.
-- `False`: oferta recebida depois da data-limite.
-- `None`: informações temporais insuficientes para verificar a compatibilidade.
-
-Ofertas posteriores ao prazo original podem ser apresentadas para eventual renegociação, desde que já sejam conhecidas na data da triagem. Elas não representam disponibilidade confirmada.
-
-**Exemplo:** o PED-015 foi recebido em 30/10/2026, às 16h. Portanto, não entra na fila nem no cruzamento realizado em 29/10/2026. Na triagem de 30/10, sua oferta de queijo coalho pode ser relacionada ao PED-006, mas é identificada como posterior ao prazo original de 29/10.
-
-### 10.6 Histórico e ambiguidades
-
-Referências como "o de sempre" ou "da última vez" exigem consulta a evidências históricas.
-
-Quando não existe histórico suficiente, uma ficha técnica pode fundamentar uma hipótese documental, mas não comprova uma compra anterior.
-
-O sistema deve registrar a fonte da hipótese e exigir confirmação antes de tratá-la como uma demanda plenamente identificada.
-
-### 10.7 Saídas e confirmações
-
-A função `triar_pendentes()` retorna uma estrutura contendo:
-
-- `data_referencia`;
-- `total_registros`;
-- `fila`;
-- `demanda_semanal`;
-- `capacidade_semanal_sugerida`;
-- `confirmacoes_realizadas`;
-- `notificacoes_enviadas`.
-
-As correspondências entre ofertas e demandas são informativas. A identificação de um produtor potencialmente apto não confirma estoque, entrega ou aceitação comercial.
-
-Na implementação validada, os indicadores `confirmacoes_realizadas` e `notificacoes_enviadas` permanecem `False`.
-
-O relatório de exemplo é gerado em `exemplos/fila_triagem.md`, com data de referência 30/10/2026 (primeiro dia em que as 15 mensagens já existem). `salvar_json` grava a mesma estrutura em JSON.
-
-### 10.8 Validação
-
-A execução de referência utiliza:
-
-```python
-from sabor_da_terra.triagem.fila import triar_pendentes
-
-resultado = triar_pendentes("2026-10-30")
-```
-
-O processamento retorna 15 registros.
-
-Na validação realizada em 15/11/2026, a suíte automatizada apresentou:
-
-- **571 testes aprovados**;
-- **3 testes ignorados**;
-- **Nenhuma falha**.
-
-Os testes incluem a prevenção de uso de ofertas futuras, a identificação de ofertas posteriores ao prazo original e a preservação de correspondências sem confirmação automática.
-
-### 10.9 Integração com o ecossistema Google
-
-A arquitetura mantém a separação entre a interpretação das mensagens pelo Gemini Flash-Lite e a execução das regras determinísticas em Python.
-
-A urgência combina as duas partes. O **prompt** é a classificação `compra_urgente` que o Flash-Lite já faz na extração da Etapa 9, a partir do tom e de sinais como "HOJE" e "máxima urgência". As **regras** em `priorizar.py` calculam as horas até o prazo, dão peso ao contrato e conferem sinais textuais. A triagem não faz uma segunda chamada ao modelo por mensagem.
-
-Sequência prevista no desenho de produção:
+**Integração com o ecossistema Google:**
 
 | Passo local | No desenho |
 |---|---|
-| Extração e classificação (Etapa 9) | Vertex AI (Gemini Flash-Lite) |
+| Extração e classificação (etapa 9) | Vertex AI (Gemini Flash-Lite) |
 | `triar_pendentes`: carregar → classificar → avaliar → alocar → cruzar ofertas | Workflows orquestrando a sequência |
 | `validar_item` / `verificar_conformidade` e `classificar_urgencia` | Cloud Run functions (uma por validação) |
 | `AlocadorSemanal` e `resumir_demanda_semanal` | Cloud Run functions + BigQuery (demanda × capacidade da semana) |
 
-Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os serviços gerenciados já estejam implantados.
+Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os
+serviços gerenciados já estejam implantados.
 
 ---
 
