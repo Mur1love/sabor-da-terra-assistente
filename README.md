@@ -34,7 +34,7 @@
 | Sequência do Desafio B — consulta documental | [`docs/img/sequencia-desafio-b.png`](docs/img/sequencia-desafio-b.png) ([`.drawio`](docs/img/sequencia-desafio-b.drawio)) |
 | Sequência do Desafio C — comunicação com produtores | [`docs/img/sequencia-desafio-c.png`](docs/img/sequencia-desafio-c.png) ([`.drawio`](docs/img/sequencia-desafio-c.drawio)) |
 
-## Regras do jogo (requisitos funcionais)
+## Requisitos funcionais
 
 - Interface **conversacional** por texto para a equipe da cooperativa.
 - Entende **português coloquial**: abreviações, erros de digitação, informação implícita.
