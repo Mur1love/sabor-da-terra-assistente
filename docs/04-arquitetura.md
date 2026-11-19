@@ -215,6 +215,7 @@ flowchart TB
     VAI["Vertex AI — Gemini 3.8 Flash<br/>orquestração + function calling"]
     FL["Vertex AI — Gemini 3.5 Flash-Lite<br/>triagem: classificação + extração JSON"]
     FUN["Cloud Run functions / Workflows<br/>regras de urgência e sinalização"]
+    WK["Worker de envio<br/>Cloud Run functions"]
     BQ["BigQuery<br/>dados estruturados (funções → SQL)"]
     AS["Agent Search (antigo Vertex AI Search)<br/>RAG documental com citação"]
     GCS["Cloud Storage<br/>documentos originais"]
@@ -232,13 +233,16 @@ flowchart TB
     VAI -->|"consulta com citação"| AS
     Canais -->|"pedidos brutos"| PS
     PS -->|"Eventarc: dispara o workflow"| FUN
-    PS -->|"dispara notificação/resumo"| VAI
+    PS -->|"notificações / resumos"| WK
+    WK -->|"redige"| VAI
+    WK -->|"consulta dados"| BQ
     GCS -->|"ingestão"| AS
     FUN -->|"consulta sazonalidade/capacidade/preços"| BQ
     SM -.->|"chave/credencial"| VAI
     CR -.-> LOG
     VAI -.-> LOG
     FUN -.-> LOG
+    WK -.-> LOG
 ```
 
 Versão draw.io (ícones oficiais do Google Cloud, editável em `docs/img/arquitetura-google.drawio`):
@@ -588,29 +592,34 @@ pytest tests/test_infra.py                           # esquemas em sincronia e n
 
 ### 12.1 Desafio A — Interpretação e triagem de pedidos
 
-Mensagem coloquial → triagem no Flash-Lite → function calling para as funções
-de dados e de regras → composição da resposta no Flash → resposta com fonte.
+Mensagem coloquial → o orquestrador (Gemini 3.8 Flash) tria no Flash-Lite e
+chama as funções de dados e de regras via function calling → compõe a resposta
+→ resposta com fonte.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor U as Equipe da cooperativa
     participant UI as Cloud Run<br/>Streamlit
+    participant AG as Vertex AI<br/>Gemini 3.8 Flash (orquestrador)
     participant TR as Vertex AI<br/>Gemini 3.5 Flash-Lite (triagem)
     participant FN as Cloud Run functions /<br/>Workflows (regras)
     participant BQ as BigQuery
-    participant GM as Vertex AI<br/>Gemini 3.8 Flash (resposta)
     U->>UI: "preciso de 30kg de queijo coalho e umas caixas de goiaba pra sexta"
-    UI->>TR: triar mensagem (classificação + extração JSON)
-    TR-->>UI: tipo = pedido de compra; itens, prazos, comprador
-    UI->>FN: function calling: validar item / classificar urgência (regras determinísticas)
+    UI->>AG: prompt do turno + ferramentas (function calling nativo)
+    AG->>TR: triar mensagem (classificação + extração JSON)
+    TR-->>AG: tipo = pedido de compra; itens, prazos, comprador
+    AG->>FN: function calling: validar item / classificar urgência (regras determinísticas)
     FN->>BQ: sazonalidade, capacidade da semana, preços
     BQ-->>FN: dados da semana
-    FN-->>UI: urgência, alertas e sugestões de alocação
-    UI->>GM: compor resposta com o que as funções devolveram
-    GM-->>UI: resposta em PT-BR (números e datas sempre das funções)
+    FN-->>AG: urgência, alertas e sugestões de alocação
+    AG-->>UI: resposta composta em PT-BR — números e datas sempre das funções
     UI-->>U: resposta com fila estruturada e fontes citadas
 ```
+
+> O **function calling é do orquestrador** (Gemini 3.8 Flash), em coerência com
+> a §2 e com o §8.1: a UI entrega o turno e o modelo chama as ferramentas — a
+> triagem no Flash-Lite é a primeira ferramenta chamada.
 
 Versão draw.io (editável em `docs/img/sequencia-desafio-a.drawio`):
 
@@ -670,6 +679,11 @@ sequenceDiagram
     GM-->>WK: texto personalizado em PT-BR
     WK-->>P: mensagem enviada (e-mail/WhatsApp do dataset)
 ```
+
+> **O Worker de envio faz parte do desenho de produção e ainda não foi
+> implementado (§11.4):** o tópico `notificacoes-produtores` não tem
+> consumidor no protótipo e o Pub/Sub descarta o que chega ali. Na demo, a
+> saída aparece na interface (§4).
 
 Versão draw.io (editável em `docs/img/sequencia-desafio-c.drawio`):
 
