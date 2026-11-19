@@ -1,16 +1,68 @@
-# 04 — Arquitetura de Referência Google e Decisões Iniciais por Componente
+# 04 — Arquitetura de Referência Google e Decisões por Componente
 
-> **Rascunho da arquitetura** (Etapa 2, issue #2). A versão final, entregável
-> obrigatório de 19/11/2026, parte deste documento e é registrada em #16.
-> Segue a **diretriz permanente** de `docs/03-diretriz-arquitetura.md`:
-> toda decisão é tomada pensando no ecossistema Google, e cada componente do
-> protótipo tem um serviço Google Cloud correspondente, com justificativa e
-> alternativa considerada — dentro **e** fora do Google — mesmo que o
-> protótipo execute local.
+> **Versão final** (etapa 16, issue #16), entregável obrigatório de
+> **19/11/2026** — parte do rascunho da #2 e do que foi de fato implementado
+> nas etapas 3 a 15. A partir de 19/11 o projeto está **congelado**:
+> modificações posteriores são desconsideradas (`docs/01` §7–8). Segue a
+> **diretriz permanente** de `docs/03-diretriz-arquitetura.md`: toda decisão
+> é tomada pensando no ecossistema Google, e cada componente do protótipo tem
+> um serviço Google Cloud correspondente, com justificativa e alternativa
+> considerada — dentro **e** fora do Google — mesmo que o protótipo execute
+> local.
 >
-> **Nomes de serviços conferidos na documentação oficial em 10/11/2026**
-> (ver §7). Onde o nome mudou desde a divulgação do desafio, registramos
-> "nome atual (nome na época)".
+> **Nomes de serviços conferidos na documentação oficial em 10/11/2026 e
+> reavaliados na entrega desta versão, em 19/11/2026** (ver §7). Onde o nome
+> mudou desde a divulgação do desafio, registramos "nome atual (nome na
+> época)".
+
+---
+
+## Visão geral
+
+O problema, os usuários, os desafios e os requisitos vêm do
+`docs/01-documento-base.md` §3–§6; os números de atendimento vêm da avaliação
+da etapa 14 (`docs/05-avaliacao.md`, rodada 3 de 19/11/2026).
+
+**O problema.** A Cooperativa Sabor da Terra reúne 180 pequenos produtores
+rurais (amostra do dataset: 18, `docs/01` §3) e comercializa frutas,
+hortaliças, queijos e mel para restaurantes, mercados e programas de compra
+governamental. Com demanda crescida 40% em dois anos, a operação artesanal
+apresenta três dores simultâneas: pedidos que chegam por canais e formatos
+imprevisíveis (60–100/dia) e hoje consomem o dia inteiro de triagem manual;
+um acervo documental grande (certificações, laudos, contratos, fichas) em que
+cada resposta leva horas para ser encontrada; e produtores "cegos", sem
+visão de vendas, pendências e novos pedidos, hoje informados por telefone, um
+a um.
+
+**Os usuários.** A **equipe da cooperativa** (Dona Lúcia e Seu Antônio no
+protótipo) usa o assistente por texto; **compradores, auditores e órgãos**
+têm suas perguntas documentais respondidas com fonte citada; os
+**produtores** recebem resumos e notificações gerados autonomamente.
+
+**Os 3 desafios** (`docs/01` §5) e como o assistente os atende:
+
+| Desafio | O que pede | Onde está no documento |
+|---|---|---|
+| **A — Interpretação e triagem de pedidos** | Classificar e extrair pedidos em linguagem natural coloquial, sinalizar urgência e problema (fora de safra, acima da capacidade) | §2 (triagem + urgência), §10 (implementação local) |
+| **B — Consulta inteligente à base documental** | Responder sobre certificações, rastreabilidade, sazonalidade e lotes **com citação da fonte** e sem inventar | §2 (RAG documental), §15 (anti-alucinação) |
+| **C — Comunicação com produtores** | Resumos personalizados por produtor e notificações claras de novos pedidos, redigidos pelo modelo com dados vindos de funções | §2 (comunicação), §4 (disparo) |
+
+**Os 6 requisitos funcionais** (`docs/01` §6), com a evidência de atendimento
+da rodada 3 (37 casos, 501 critérios; `docs/05`):
+
+| Requisito | Como o assistente atende | Evidência (rodada 3) |
+|---|---|---|
+| RF1 — interface conversacional por texto | Streamlit (`st.chat_input`, `st.session_state`) | base de todos os 37 casos |
+| RF2 — português coloquial (abreviação, erro, informação implícita) | triagem/extração no Gemini Flash-Lite | 90,3% (270/299); gírias e abreviações entendidas em todos os casos de robustez |
+| RF3 — resposta documental com indicação da fonte | RAG LlamaIndex + `CitationQueryEngine`, citação `[fonte: …]` | 91,2% (166/182); 13/13 citações válidas |
+| RF4 — relatórios e notificações autônomos | resumos e notificações por produtor (etapa 11), dados vindos de funções | 83,7% (36/43) |
+| RF5 — contexto da sessão | histórico do turno no orquestrador + `st.session_state` | 66,7% (14/21) — limitação conhecida (§16) |
+| RF6 — dizer claramente quando não sabe, sem inventar | política de lacuna do RAG + trava de fatos + trava de citação (§15) | 100% (32/32); casos de anti-alucinação 5/5 |
+
+> Metas da #6 atingidas na rodada 3: **89,0%** de acerto geral (meta ≥ 85%),
+> anti-alucinação **5/5** e citação válida em **13/13** respostas documentais.
+> A arquitetura que produz esses números é a descrita nas seções seguintes;
+> as limitações que restam estão na §16, idênticas às do `docs/05`.
 
 ---
 
@@ -140,8 +192,11 @@ produção trocando perfil de configuração — é isso que a apresentação de
 | BigQuery, Cloud Storage, Secret Manager, Firestore, Pub/Sub, Cloud Scheduler, Cloud Logging | nomes inalterados | https://docs.cloud.google.com/docs |
 | LlamaIndex | **LlamaIndex** (`llama-index-core` + `llama-index-embeddings-google-genai`; o pacote `llama-index-embeddings-gemini` foi descontinuado) + `CitationQueryEngine` para citação inline | https://developers.llamaindex.ai / repo `run-llama/llama_index` (v0.14.x) |
 
-> Reavaliar esta tabela na Etapa 16 (documento final) — nomes e versões de
-> modelo mudam rápido; a data da conferência é parte da evidência.
+> Reavaliada na etapa 16 (19/11/2026): os nomes da tabela continuam os
+> vigentes na documentação oficial e o desenho de produção da §2/§4 os usa
+> de forma coerente; a data da conferência é parte da evidência. O projeto
+> congela em 19/11 (`docs/01` §7–8) — nova conferência completa só se o
+> desenho voltar a evoluir depois do congelamento.
 
 ---
 
@@ -176,7 +231,7 @@ flowchart TB
     VAI -->|"chamada de função"| BQ
     VAI -->|"consulta com citação"| AS
     Canais -->|"pedidos brutos"| PS
-    PS -->|"dispara"| FL
+    PS -->|"Eventarc: dispara o workflow"| FUN
     PS -->|"dispara notificação/resumo"| VAI
     GCS -->|"ingestão"| AS
     FUN -->|"consulta sazonalidade/capacidade/preços"| BQ
@@ -185,6 +240,10 @@ flowchart TB
     VAI -.-> LOG
     FUN -.-> LOG
 ```
+
+Versão draw.io (ícones oficiais do Google Cloud, editável em `docs/img/arquitetura-producao-google.drawio`):
+
+![Arquitetura de produção no Google Cloud](img/arquitetura-producao-google.png)
 
 ### 8.2 Execução local (simplificação da fase de demonstração)
 
@@ -213,6 +272,10 @@ flowchart TB
     EMB -->|"índice vetorial"| RAG
 ```
 
+Versão draw.io (editável em `docs/img/arquitetura-local.drawio`):
+
+![Protótipo local](img/arquitetura-prototipo-local.png)
+
 ### 8.3 Referência de arquitetura RAG
 
 Fonte consultada em 10/11/2026:
@@ -234,11 +297,11 @@ Em produção no Google Cloud, a pipeline local de consulta documental (sabor_da
 
 ---
 
-## 9. O que fica de fora desta etapa
+## 9. O que fica de fora deste documento
 
-- **Versão final do documento de arquitetura** → #16 (parte deste rascunho).
+- **Slides da apresentação** → #18 (usam o diagrama e as decisões daqui).
 - **Artefatos de implantação** (Dockerfile, Terraform, definição do
-  Workflows) → #15 — seguem a tabela da §2.
+  Workflows) → #15 — seguem a tabela da §2 (detalhados na §11).
 - **Implementação** → #3 em diante (o ambiente instala a stack decidida aqui).
 
 
@@ -513,3 +576,279 @@ pytest tests/test_infra.py                           # esquemas em sincronia e n
   sem chamada à API. `DadosRepository` sobre BigQuery e `SessionStore` sobre
   Firestore não foram escritos: o protótipo continua com pandas e
   `st.session_state`, e o Terraform só cria os recursos.
+
+---
+
+## 12. Diagramas de sequência dos 3 desafios
+
+> Visão de produção (mundo Google); os equivalentes locais de cada
+> participante são as interfaces da §6 — a mesma sequência roda no protótipo
+> trocando só os serviços. As versões editáveis em draw.io (com os logos
+> das ferramentas) estão em `docs/img/`, referenciadas após cada diagrama.
+
+### 12.1 Desafio A — Interpretação e triagem de pedidos
+
+Mensagem coloquial → triagem no Flash-Lite → function calling para as funções
+de dados e de regras → composição da resposta no Flash → resposta com fonte.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Equipe da cooperativa
+    participant UI as Cloud Run<br/>Streamlit
+    participant TR as Vertex AI<br/>Gemini 3.5 Flash-Lite (triagem)
+    participant FN as Cloud Run functions /<br/>Workflows (regras)
+    participant BQ as BigQuery
+    participant GM as Vertex AI<br/>Gemini 3.8 Flash (resposta)
+    U->>UI: "preciso de 30kg de queijo coalho e umas caixas de goiaba pra sexta"
+    UI->>TR: triar mensagem (classificação + extração JSON)
+    TR-->>UI: tipo = pedido de compra; itens, prazos, comprador
+    UI->>FN: function calling: validar item / classificar urgência (regras determinísticas)
+    FN->>BQ: sazonalidade, capacidade da semana, preços
+    BQ-->>FN: dados da semana
+    FN-->>UI: urgência, alertas e sugestões de alocação
+    UI->>GM: compor resposta com o que as funções devolveram
+    GM-->>UI: resposta em PT-BR (números e datas sempre das funções)
+    UI-->>U: resposta com fila estruturada e fontes citadas
+```
+
+Versão draw.io (editável em `docs/img/sequencia-desafio-a.drawio`):
+
+![Sequência do Desafio A — triagem de pedidos](img/sequencia-desafio-a.png)
+
+### 12.2 Desafio B — Consulta inteligente à base documental
+
+Pergunta → busca com citação no Agent Search → composição no Flash → resposta
+fundamentada com citação do documento de origem; se os documentos não
+respondem, o assistente diz que não encontrou (§15).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Equipe / comprador / auditor
+    participant UI as Cloud Run<br/>Streamlit
+    participant AS as Agent Search<br/>(antigo Vertex AI Search)
+    participant GCS as Cloud Storage<br/>documentos originais
+    participant GM as Vertex AI<br/>Gemini 3.8 Flash (resposta)
+    U->>UI: "quais produtores têm certificação orgânica vigente para mel?"
+    UI->>AS: consultar documentos (busca semântica com citação)
+    AS->>GCS: trechos vêm dos documentos ingeridos
+    GCS-->>AS: certificações, contratos, fichas técnicas
+    AS-->>UI: trechos recuperados + metadados de origem (ou lacuna)
+    alt documentos respondem
+        UI->>GM: compor resposta a partir dos trechos e das fontes
+        GM-->>UI: resposta com citação inline do documento
+        UI-->>U: resposta com "[fonte: arquivo]" para cada informação
+    else documentos não respondem
+        UI-->>U: "não encontrei essa informação nos documentos"
+    end
+```
+
+Versão draw.io (editável em `docs/img/sequencia-desafio-b.drawio`):
+
+![Sequência do Desafio B — consulta documental](img/sequencia-desafio-b.png)
+
+### 12.3 Desafio C — Comunicação com produtores
+
+Gatilho agendado ou por evento → dados vindos das funções → redação no Flash →
+envio; na demo, a saída aparece na interface (§4).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant SC as Cloud Scheduler<br/>(resumo mensal / pendências)
+    participant PS as Pub/Sub<br/>(novo pedido / notificações)
+    participant WK as Worker de envio<br/>(Cloud Run functions)
+    participant BQ as BigQuery
+    participant GM as Vertex AI<br/>Gemini 3.8 Flash (redação)
+    participant P as Produtor
+    SC->>PS: publica gatilho do resumo do mês
+    PS->>WK: evento consumido
+    WK->>BQ: vendas, pendências, alocações e pedidos do produtor
+    BQ-->>WK: números consolidados (nunca calculados pelo modelo)
+    WK->>GM: redigir resumo/notificação com esses dados
+    GM-->>WK: texto personalizado em PT-BR
+    WK-->>P: mensagem enviada (e-mail/WhatsApp do dataset)
+```
+
+Versão draw.io (editável em `docs/img/sequencia-desafio-c.drawio`):
+
+![Sequência do Desafio C — comunicação com produtores](img/sequencia-desafio-c.png)
+
+---
+
+## 13. Google Cloud Well-Architected Framework
+
+> Uma decisão concreta por pilar, ancorada no que está no repositório ou
+> registrado neste documento. Fonte: Google Cloud Well-Architected Framework
+> (perspectiva de IA e ML), consultado em 19/11/2026.
+
+| Pilar | Decisão concreta | Onde está |
+|---|---|---|
+| **Excelência operacional** | Toda a infraestrutura do desenho existe como **Terraform revisável** (`infra/terraform/` — `fmt`/`validate` passando) e o deploy segue pipeline **testes → build → push → deploy** (`infra/cloudbuild.yaml`) com a suíte rodando **offline em `LLM_MODO=fixture`** antes de qualquer publicação; diagnóstico central no **Cloud Logging** | §11.1, §11.2, §4 |
+| **Segurança e privacidade** | O Cloud Run **não tem acesso público**: login Google pelo IAP nativo, liberado só ao grupo `membros_equipe`; a chave da API vive no **Secret Manager** (nunca `.env` em produção nem no repositório); IAM de **menor privilégio** por conta de serviço, sem papel básico (`iam.tf`); produção usa identidade de serviço (ADC/IAM), não chave | §11.2 (run.tf, iam.tf), §4 (Secret Manager) |
+| **Confiabilidade** | Pedidos entram por **Pub/Sub** (Eventarc → Workflows), desacoplando canais do processamento com retry e sem depender da UI estar de pé; a sessão do assistente persiste no **Firestore**, sobrevivendo a reinícios e escala horizontal; as regras de urgência são **determinísticas em código**, reexecutáveis e auditáveis | §4 (Pub/Sub + Scheduler, Firestore), §2 (urgência) |
+| **Otimização de custo** | **Cloud Run escala a zero** (custo ~0 fora do horário de uso); divisão de modelos **Flash-Lite para volume / Flash para resposta** herdada do `docs/03`; dados analíticos em **BigQuery** (SQL barato); no protótipo, free tier com plano B de US$ 5 — a estimativa de produção na escala da narrativa fica abaixo de US$ 30/mês (§14) | §1, §2, §14, `docs/03` |
+| **Desempenho** | **Function calling nativo** com saída JSON estruturada em um turno; modelo por papel (triagem no Flash-Lite, resposta no Flash) em vez de um modelo caro para tudo; agregações (soma, comparação de datas, pendências) em **SQL/código**, nunca no modelo — o contexto da conversa fica enxuto e a resposta sai auditável | §2, §5 (princípios 1 e 3) |
+| **Sustentabilidade** | Sem infraestrutura própria (nada de GPUs ou servidores ociosos): serviços gerenciados que **escalam a zero**, região única (`southamerica-east1`, próxima dos usuários) e corpus pequeno (dezenas de documentos) indexado em serviço gerenciado em vez de cluster vetorial dedicado | §11.2, §14 |
+
+---
+
+## 14. Custo
+
+### 14.1 Estratégia do protótipo — referência (sem duplicar)
+
+A estratégia de custo do protótipo é a do `docs/03` ("Estratégia de custo —
+API do Gemini (free tier)") e não é duplicada aqui: divisão de trabalho entre
+modelos (Flash-Lite para volume, Flash para resposta, Embedding para
+indexação), regras de desenvolvimento (não gastar cota do Flash com
+iteração, fixtures gravadas em teste, chave restrita) e plano B (billing
+com prepay de US$ 5). Os limites vigentes confirmados no projeto estão na
+tabela do `docs/03` e foram reconfirmados na semana de ajuste fino (#14) —
+o teste de cota da demo (`docs/05`) fechou em 16 chamadas Flash-Lite e
+6 Flash por demo.
+
+### 14.2 Estimativa de produção na escala do `docs/01`
+
+> Narrativa do desafio: **180 produtores**, **60–100 pedidos/dia**, 12
+> municípios. Preços de referência públicos, conferidos em **19/11/2026**
+> (páginas de preço do Google Cloud e da Gemini API) — **confirmar no Price
+> Calculator antes de qualquer decisão de billing**: preços mudam, o
+> endpoint regional (`southamerica-east1`, não-global) custa ~10% a mais nos
+> modelos e o promocional do Flash 3.8 vale até 31/12/2026.
+
+Preços usados (endpoint global, USD por 1M de tokens):
+
+| Modelo | Entrada | Saída | Uso no desenho |
+|---|---|---|---|
+| Gemini 3.5 Flash-Lite | $0,30 | $2,50 | triagem, roteamento, juiz de avaliação |
+| Gemini 3.8 Flash | $0,75 | $3,75 (promo até 31/12/2026) | resposta conversacional e redação |
+| Agent Search (Standard) | $1,50 / 1.000 consultas | — | RAG documental com citação |
+
+Hipóteses de volume por dia (fechado no 100 pedidos, teto da narrativa):
+
+| Uso | Chamadas/dia | Tokens/dia (entrada + saída) | Custo/dia |
+|---|---|---|---|
+| Triagem e extração (Flash-Lite) | ~100 mensagens | ~200K + ~80K | ~$0,26 |
+| Respostas conversacionais (Flash) | ~60 turnos | ~240K + ~36K | ~$0,29 |
+| Notificações e resumos (Flash) | ~100 + resumo mensal dos 180 produtores (~6/dia na média) | ~156K + ~43K | ~$0,29 |
+| Consultas documentais (Agent Search Standard) | ~40 consultas | ~2 MB de índice | $0 — dentro de 10.000 consultas e 10 GiB grátis/mês |
+| Embeddings e indexação | incremental | trivial | ~$0 |
+| **Total de tokens e busca** | | | **~$0,84/dia** |
+
+Itens de infraestrutura (todos com free tier ou volume ínfimo): Cloud Run
+escala a zero com poucas sessões simultâneas da equipe (< US$ 10/mês);
+BigQuery dentro do nível gratuito (10 GB de armazenamento, 1 TB de consulta
+mês); Cloud Storage (~2 MB de documentos), Firestore, Pub/Sub, Cloud
+Scheduler, Secret Manager e Cloud Logging em volumes de centavos.
+
+**Ordem de grandeza da produção: < US$ 30/mês** (~US$ 25/mês + 10% do
+endpoint regional), dominado pelos tokens do Gemini. A comparação que
+interessa à apresentação: **a operação completa em produção custa por mês o
+que o plano B do protótipo custa em uma única reserva** (US$ 5 de prepay), e
+atriagem de um dia inteiro de trabalho manual (Dona Lúcia e Seu Antônio) sai
+por menos de um dólar de modelo. O item que pode deslanchar o orçamento é o
+Agent Search **Enterprise** (US$ 4/1.000 consultas, com respostas geradas) —
+para o caso da cooperativa, o Standard, com citações nos trechos, já atende o
+requisito de fonte (§15).
+
+---
+
+## 15. Anti-alucinação: citação validada no protótipo e em produção
+
+> Requisito 6 do `docs/01` ("dizer claramente, sem inventar") e requisito 3
+> ("indicando de qual documento veio a informação"). Evidência de
+> atendimento: RF6 **100%** (32/32), anti-alucinação **5/5** e citação
+> válida em **13/13** (`docs/05`, rodada 3).
+
+### 15.1 Como o protótipo valida hoje
+
+1. **O RAG só responde com trechos recuperados.** O `CitationQueryEngine`
+   (LlamaIndex) compõe a resposta a partir dos documentos recuperados e
+   anota a citação do arquivo de origem; o módulo de resposta
+   (`sabor_da_terra/rag/responder.py`) roda uma pós-validação em Pydantic
+   das fontes da saída estruturada.
+2. **Política de lacuna.** Quando os documentos não cobrem a pergunta, a
+   resposta é **"não encontrei essa informação nos documentos"** — o campo de
+   lacunas do RAG chega à tela (correção da rodada 3, `docs/05`) e a resposta
+   recomenda a verificação caso a caso em vez de apresentar hipótese como
+   fato (princípio de `triagem/` §10.4).
+3. **Trava de fatos** (`sabor_da_terra/assistente/verificacao.py`). Código
+   (P003, PED-…, LOT-…, FIN-…), valor em R$ ou data completa que **não veio
+   das funções do turno** é removido da resposta, que então avisa o usuário.
+   Também remove total calculado pelo modelo (o LLM não faz contas, §5).
+4. **Trava de citação.** Uma citação `[fonte: …]` de arquivo que as funções
+   não devolveram sai do texto (a rodada 1 tinha citado um CSV que não
+   existe; corrigido e avaliado em 13/13 desde a rodada 2).
+5. **Avaliação permanente.** O gabarito da #6 mede anti-alucinação e citação
+   a cada rodada (`tests/test_gabarito.py`), com as falhas anotadas com causa.
+
+### 15.2 O equivalente em produção (Google Cloud)
+
+Em produção, a pipeline local de consulta documental corresponde a dois
+recursos nativos (detalhes técnicos na §8.4):
+
+- **Agent Search (antigo Vertex AI Search) com respostas fundamentadas:**
+  o serviço recupera os trechos mais relevantes dos documentos no Cloud
+  Storage e gera respostas com *extractive segments* e metadados de origem
+  (*citations*), dispensando o pós-processamento manual de índice local.
+- **Check Grounding API da Vertex AI:** valida automaticamente se cada
+  afirmação gerada pelo Gemini tem suporte factual nos trechos recuperados
+  (*grounding chunks*), com pontuações de suporte — afirmações sem lastro
+  são sinalizadas ou bloqueadas.
+
+Mapeamento mecanismo a mecanismo:
+
+| Mecanismo no protótipo (§15.1) | Equivalente gerenciado em produção |
+|---|---|
+| Trechos do RAG + citação do arquivo (`CitationQueryEngine`) | *Extractive segments* + *citations* nativas do Agent Search |
+| Trava de fatos e trava de citação (`assistente/verificacao.py`) | **Check Grounding API** (pontuação de suporte por afirmação) |
+| Política de lacuna — "não encontrei nos documentos" | Resposta sem lastro do serviço de busca (sem *grounding chunks* suficientes) |
+| "O LLM não faz contas" — cálculo em código (§5) | Regras determinísticas em **Cloud Run functions** sobre o BigQuery (§2) |
+
+---
+
+## 16. Limitações e próximos passos
+
+> As limitações são **as mesmas do `docs/05-avaliacao.md` §Limitações
+> conhecidas** (texto idêntico); os próximos passos derivam delas e da
+> §11.4. Nada do que se segue muda o desenho congelado em 19/11 — vale para
+> o que vier depois da apresentação.
+
+### 16.1 Limitações conhecidas (idênticas ao `docs/05`)
+
+- **Encadeamento de funções.** Continua sendo a maior causa de falha (16 de
+  25). Mensagens de produtor (`TRI-012`, `TRI-015`) não passam pela triagem, e
+  pedidos que exigem cadastro, lotes e documentos ao mesmo tempo (`TRI-009`,
+  `TRI-014`) ficam com parte das consultas por fazer.
+- **Detalhes omitidos em pedidos longos.** Em pedidos com muitos itens e
+  exigências (`TRI-007`, `TRI-013`), itens opcionais e dados do evento podem
+  ficar de fora da resposta.
+- **Contexto entre turnos (RF5).** Em 2 de 3 casos o segundo turno perde
+  parte do que o primeiro estabeleceu; não foi corrigido nesta etapa.
+- **Recuperação de contratos.** A busca documental não traz os contratos
+  institucionais (PNAE) em `DOC-003` nem na notificação da ADAGRO (`TRI-014`),
+  que responde que não os encontrou embora existam em `data/contratos/`.
+- **Avaliação só no Flash-Lite.** A composição da demo usa o Flash, que não
+  foi medido no gabarito por causa da cota. O resultado da demo tende a ser
+  igual ou melhor, mas não está medido.
+- **Juiz LLM.** Os vereditos são do Flash-Lite, com regras explícitas e a
+  evidência de cada critério gravada, mas não foram revisados um a um por uma
+  pessoa. No `TRI-014`, por exemplo, o juiz contou nomes e códigos de
+  produtores como "dado pessoal exposto", embora a resposta não traga CPF,
+  endereço nem dado bancário.
+- **Lote inexistente na demo.** Ao não achar o `LOT-2024-089`, o assistente
+  sugere o `LOT-2026-0089` e já mostra os dados dele. Está sinalizado ("não foi
+  encontrado"), mas o roteiro da #18 deve deixar claro que é uma sugestão.
+
+### 16.2 Próximos passos
+
+| Limitação | Próximo passo |
+|---|---|
+| Encadeamento de funções | Revisar o roteamento do orquestrador e, se a orquestração crescer, reavaliar o Google ADK (decisão registrada na §2) |
+| Contexto entre turnos (RF5) | Persistir o resumo da sessão entre turnos — em produção, o `SessionStore` sobre Firestore já está no desenho (§4/§6) |
+| Recuperação de contratos | Ajustar a ingestão/chunking dos contratos institucionais; em produção, o import do bucket para o data store do Agent Search (§11.3) recupera o corpus inteiro |
+| Avaliação só no Flash-Lite | Rodar o gabarito contra o Flash (ou contra o fallback Flash-Lite do turno) quando a cota ou o plano B do `docs/03` permitir |
+| Juiz LLM | Revisão humana amostral dos vereditos, priorizando os casos reprovados com causa "orquestração" |
+| Lote inexistente na demo | Manter no roteiro da #18 que a sugestão do lote parecido é sugestão, não resposta |
+| Adaptadores e functions sem código (§11.4) | Escrever os pontos de entrada HTTP das 4 functions e os adaptadores `DadosRepository` (BigQuery) e `SessionStore` (Firestore) quando houver projeto Google Cloud para implantar |
