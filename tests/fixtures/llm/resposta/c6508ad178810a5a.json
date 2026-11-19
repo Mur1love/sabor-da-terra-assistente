@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c6508ad178810a5a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:32 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3025",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: compra.\n\nItens:\n1. queijo coalho\n   - Quantidade: 10.0\n   - Unidade: kg\n   - Prazo: 2026-10-31\n   - Alertas de conformidade:\n     - P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final. [fonte: fichas_tecnicas/queijo_coalho.txt]\n     - O pedido de 10 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: de 300 a 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/queijo_coalho.txt]\n     - Não há contrato registrado com 'Lúcia': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n2. manteiga\n   - Quantidade: 5.0\n   - Unidade: kg\n   - Prazo: 2026-10-31\n   - Alertas de conformidade: Nenhum alerta retornado para este item.\n\nObservações e ambiguidades extraídas da mensagem:\n- o de sempre ne\n- Referência implícita detectada ('o de sempre'): necessário consultar histórico do comprador.\n- 'manteiga' pode ser: manteiga de garrafa, queijo manteiga. Pergunte qual.",
+              "thought_signature": "EnsKeQFpFH0TV-0-q75Q1RO6LyxQcFGwI9SfY_mBuq4nvNwiFmq5cHQ-zzkkgmkvoqX3Hv6R-JLSSf91g_SeJ1LaWnjHNlcAG0eNxTjJhWmR4H4tZmbBrVW7GIY1q8Uz0LjCo46YcnxsKo7Pyo5yAV3-YzLeAtNhuY44VXo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "bs3-auf3BP-io_UPlfPEsAE",
+    "usage_metadata": {
+      "candidates_token_count": 371,
+      "prompt_token_count": 2486,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2486
+        }
+      ],
+      "total_token_count": 2857
+    },
+    "automatic_function_calling_history": []
+  }
+}

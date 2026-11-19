@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "5ddeb1e4e7a9f004",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:40 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1798",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi a notificação oficial da ADAG"
+            },
+            {
+              "text": "RO referente à inspeção sanitária que será realizada nos dias 11 e 12 de novembro de 2026. O não atendimento poderá resultar em suspensão do SIE.\n\nCom base nos documentos consultados na base da cooperativa, verifiquei a situação dos itens solicitados:\n\n- **Certificações orgânicas vigentes:** \n  - Maria das Graças Silva Ferreira (P001): válida até 15/06/2027 [fonte: certificacoes/cert_organica_maria_silva_P001.txt].\n  - José Antônio dos Santos (P002): válida até 03/2027 [fonte: fichas_tecnicas/mel_silvestre.txt].\n  - Débora Cristina de Melo (P018): válida até 02/2027 [fonte: fichas_tecnicas/mel_silvestre.txt].\n  - Josefa Alves de Souza (P008): certificação vencida em 30/09/2026 e em processo de renovação (com alerta para não comercializar como orgânico até a renovação) [fonte: fichas_tecnicas/mel_silvestre.txt].\n\n- **Cadastro atualizado de produtores, laudos sanitários dos últimos 12 meses e contratos com compradores institucionais:** Não foram encontrados registros detalhados desses documentos específicos na base documental consultada até o momento.",
+              "thought_signature": "EnsKeQFpFH0TOwUWFLU6uI9Je9_EGwkNtihBB_YjK7U3wZEDaToR1qtd62UPj55-2t_sm_NXPa3_vTdvlskWhn8MIqkjmjugNEquZ7ITw2nRAyy8X31RsB7UY02QUSsHdtwIeMcpr712yD7eM8WOgXnh24KWtFA31ir-pSI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ss3-aqa7IsK_xdIPwZjxIA",
+    "usage_metadata": {
+      "candidates_token_count": 331,
+      "prompt_token_count": 3867,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3867
+        }
+      ],
+      "total_token_count": 4198
+    }
+  }
+}

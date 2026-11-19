@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "55c8fdb119fcff52",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:43:38 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2233",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Atenção equipe: o texto abaixo é um rascunho para revisão. **Nada foi enviado nem confirmado ao produtor.**\n\nOlá, José Antônio dos Santos (P002)!\nChegaram pedidos com seus produtos (até 30/10/2026).\nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1) PED-2026-006 - Rede SuperBom Atacado (compra urgente)\n   - 40 kg de mel silvestre orgânico para você.\n   Prazo: 29/10/2026. Esse prazo já passou: a cooperativa vai confirmar com o comprador se o pedido ainda vale.\n   Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.\n   Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n2) PED-2026-003 - Chef Amanda - Bistrô Sertão Gourmet (compra urgente)\n   - 3 kg de mel de jandaíra para você.\n   Prazo: 29/10/2026. Esse prazo já passou: a cooperativa vai confirmar com o comprador se o pedido ainda vale.\n   Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.\n   Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n3) PED-2026-001 - Restaurante Raízes (compra)\n   - 5 kg de mel silvestre para você.\n   Prazo: 01/11/2026.\n   Entrega: entrega no restaurante até as 10h [contratos/contrato_restaurante_raizes.txt].\n   Pagamento: por PIX no ato da entrega [contratos/contrato_restaurante_raizes.txt].\n   Exigências do contrato 008/2026: prioridade para produtos orgânicos e de produtores locais [contratos/contrato_restaurante_raizes.txt].\n   Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\nFontes: data/pedidos.json [pedidos.json]; data/contratos/contrato_restaurante_raizes.txt [contratos/contrato_restaurante_raizes.txt].",
+              "thought_signature": "EnsKeQFpFH0TPee5tlf0Euxgmjdm7O0qkhgPLAx7Im0T9DgC8Q0H8RYcGvGv3CI80-LzPpqaeUps5rsRV9Wza_MZKfF7mTlUBWpOmvmPjVB19anegkkgF0Mu_5S9DKS1Z1iDnvh1NVBydqAoG2SBgl6Wul4QSlrp2Rbn0B4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ycT-apFq9I7K0w-P5rmABg",
+    "usage_metadata": {
+      "candidates_token_count": 543,
+      "prompt_token_count": 3276,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3276
+        }
+      ],
+      "total_token_count": 3819
+    },
+    "automatic_function_calling_history": []
+  }
+}

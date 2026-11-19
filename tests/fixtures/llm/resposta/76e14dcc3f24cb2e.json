@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "76e14dcc3f24cb2e",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:52:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=10971",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Aqui está o resumo da produtora **Josefa Alves de Souza (P008)** para o mês de outubro de 2026, gerado para revisão da equipe:\n\n**Atenção:** Este texto é um rascunho para a equipe revisar; nada foi enviado ao produtor.\n\n---\n\nOlá, Josefa Alves de Souza (P008)!\nEste é o seu resumo de outubro de 2026, com dados até 30/10/2026.\n\n**VENDAS DE OUTUBRO DE 2026**\n- 10 kg de mel silvestre para Restaurante Raízes: R$ 580,00 (FIN-2026-021). [fonte: data/financeiro.csv]\n- 8 kg de geleia de frutas para Restaurante Raízes: R$ 280,00 (FIN-2026-022). [fonte: data/financeiro.csv]\nTotal vendido no mês: R$ 860,00. [fonte: data/financeiro.csv]\n\n**PAGAMENTOS QUE VOCÊ RECEBEU NO MÊS**\n- FIN-2026-021: R$ 580,00 de Restaurante Raízes (mel silvestre), pago em 01/10/2026. [fonte: data/financeiro.csv]\n- FIN-2026-022: R$ 280,00 de Restaurante Raízes (geleia de frutas), pago em 01/10/2026. [fonte: data/financeiro.csv]\nTotal recebido no mês: R$ 860,00. [fonte: data/financeiro.csv]\n\n**PAGAMENTOS ATRASADOS**\n- Nenhum pagamento atrasado. [fonte: data/financeiro.csv]\n\n**A RECEBER (PRÓXIMOS VENCIMENTOS)**\n- Nada a receber no prazo. [fonte: data/financeiro.csv]\nSaldo total a receber: R$ 0,00. [fonte: data/financeiro.csv]\n\n**PEDIDOS SUGERIDOS PARA VOCÊ**\n- Nenhum pedido sugerido para você agora. [fonte: data/pedidos.json]\n\n**AVISOS SOBRE SEUS DOCUMENTOS**\n- Certificação orgânica ORG-PE-2024-003876: venceu em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. A renovação foi pedida em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está marcada para 15/11/2026 [fonte: data/certificacoes/cert_organica_josefa_souza_P008.txt]. O pedido de renovação não libera a venda como orgânico. Até sair o novo certificado, estes produtos não podem ser vendidos como orgânicos: mel silvestre, geleia de frutas e doce de goiaba [fonte: data/certificacoes/cert_organica_josefa_souza_P008.txt].\n- Registro no SIE pendente: compradores que exigem registro sanitário, como o PNAE, não aceitam mel silvestre. [fonte: data/fichas_tecnicas/mel_silvestre.txt]\n\n---\n\n**Sobre o pagamento do Mercado Bom Preço de setembro:**\nNão foram encontradas informações específicas sobre pagamentos do Mercado Bom Preço direcionados ou vinculados à produtora Josefa Alves de Souza no mês de setembro. Consta que a certificação orgânica da produtora venceu em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt], com solicitação de renovação em 15/09/2026 e auditoria agendada para 15/11/2026, de modo que os produtos não podem ser comercializados como orgânicos até a conclusão [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. Adicionalmente, o contrato com o Mercado Bom Preço (Nº 012/2026) estabelece o pagamento via boleto bancário com vencimento em 30 dias após a entrega, depositado na conta da cooperativa no Banco do Brasil [fonte: contratos/contrato_mercado_bom_preco.txt].",
+              "thought_signature": "EnsKeQFpFH0TZcFNRfCuN_Y_nbbGsx_ut-Be9ZPOXxW1AdjmYiARKTXNJg3DqHxb8xB1X4SqE-8TKxNg7zc7Vyi3Z7I9bjv9QKYg29hoLOrssb7LJ3_hiY35jWwAr9JuiJ-7-dupQLRokrMo4s0hzimVmxGfmBGxJwTXd9w="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "2sb-asDoH5G1xdIPx4CduQs",
+    "usage_metadata": {
+      "candidates_token_count": 1044,
+      "prompt_token_count": 4196,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4196
+        }
+      ],
+      "total_token_count": 5240
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f8c08eac93e4a4ea",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:18 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1236",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"pois ele está inativo no cadastro e não recebe alocação\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"O único produtor que fornece macaxeira é o Francisco de Assis Cordeiro (P005)\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente corretamente apontou que ele está inativo e não pode ser chamado.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TZy4zwNjMcRduBefNzq5KK4ne5MMDjS2Qtb3X_oF-UsXHAbZgoX1EIs4kkB7XklR2UP0ix9JWgXiBpehQe1HKygrgh_cDvtEPoZ_FvcS_4iAjXpKt3aMRbHtRIfy9R7iYRHwxp5Qkf7pa_BBUacrmcAsFuBE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "lMb-aqy7Ot64xdIPwpSwmQc",
+    "usage_metadata": {
+      "candidates_token_count": 174,
+      "prompt_token_count": 756,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 756
+        }
+      ],
+      "total_token_count": 930
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "pois ele está inativo no cadastro e não recebe alocação"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "O único produtor que fornece macaxeira é o Francisco de Assis Cordeiro (P005)"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente corretamente apontou que ele está inativo e não pode ser chamado."
+        }
+      ]
+    }
+  }
+}

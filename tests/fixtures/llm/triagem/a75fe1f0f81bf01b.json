@@ -1,0 +1,178 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a75fe1f0f81bf01b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:49:17 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4287",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: notificacao_oficial\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao menciona a ADAGRO.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao menciona as datas de 11 e 12 de novembro de 2026.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao apresenta consulta ao cadastro dos produtores.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao verifica as certificacoes organicas.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao menciona a produtora P008.\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao consulta os laudos sanitarios.\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao menciona o periodo dos ultimos 12 meses.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao aborda os registros de rastreabilidade.\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao identifica registros ausentes.\"\n    },\n    {\n      \"indice\": 10,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao consulta os contratos institucionais.\"\n    },\n    {\n      \"indice\": 11,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao organiza a lista de pendencias.\"\n    },\n    {\n      \"indice\": 12,\n      \"atendido\": false,\n      \"evidencia\": \"A resposta nao menciona o risco de suspensao do SIE.\"\n    },\n    {\n      \"indice\": 13,\n      \"atendido\": true,\n      \"evidencia\": \"Nao expôs dados pessoais de produtores.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"A mensagem foi corretamente tratada como notificacao oficial e nao como pedido.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao apresentou certificacao vencida como valida.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao inventou laudos sanitarios.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao confirmou tres lotes sem verificacao.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao inventou registros de rastreabilidade.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao apresentou contratos inexistentes.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao declarou o SIE suspenso.\"\n    },\n    {\n      \"indice\": 7,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao considerou a fiscalizacao concluida.\"\n    },\n    {\n      \"indice\": 8,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao expos dados pessoais.\"\n    },\n    {\n      \"indice\": 9,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao declarou a documentacao completa.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TPkPhUOG92JERL4tdzUrzD7NJTk5wx5Igk-50fB6lPzoKc9t5E0tpF_k7NURyc4Tk3pxXW361KHZSpIuM3de01CwtHs_VaJ5I2Xi0-t11x8ZkJXS-iGgr4CcsLREjYEVX7VOwB7h7hQ-ltQKLGYZwLS-_Ekk="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Gcb-atSFId2vytMPpM-_MQ",
+    "usage_metadata": {
+      "candidates_token_count": 993,
+      "prompt_token_count": 1499,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1499
+        }
+      ],
+      "total_token_count": 2492
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: notificacao_oficial"
+        },
+        {
+          "indice": 1,
+          "atendido": false,
+          "evidencia": "A resposta nao menciona a ADAGRO."
+        },
+        {
+          "indice": 2,
+          "atendido": false,
+          "evidencia": "A resposta nao menciona as datas de 11 e 12 de novembro de 2026."
+        },
+        {
+          "indice": 3,
+          "atendido": false,
+          "evidencia": "A resposta nao apresenta consulta ao cadastro dos produtores."
+        },
+        {
+          "indice": 4,
+          "atendido": false,
+          "evidencia": "A resposta nao verifica as certificacoes organicas."
+        },
+        {
+          "indice": 5,
+          "atendido": false,
+          "evidencia": "A resposta nao menciona a produtora P008."
+        },
+        {
+          "indice": 6,
+          "atendido": false,
+          "evidencia": "A resposta nao consulta os laudos sanitarios."
+        },
+        {
+          "indice": 7,
+          "atendido": false,
+          "evidencia": "A resposta nao menciona o periodo dos ultimos 12 meses."
+        },
+        {
+          "indice": 8,
+          "atendido": false,
+          "evidencia": "A resposta nao aborda os registros de rastreabilidade."
+        },
+        {
+          "indice": 9,
+          "atendido": false,
+          "evidencia": "A resposta nao identifica registros ausentes."
+        },
+        {
+          "indice": 10,
+          "atendido": false,
+          "evidencia": "A resposta nao consulta os contratos institucionais."
+        },
+        {
+          "indice": 11,
+          "atendido": false,
+          "evidencia": "A resposta nao organiza a lista de pendencias."
+        },
+        {
+          "indice": 12,
+          "atendido": false,
+          "evidencia": "A resposta nao menciona o risco de suspensao do SIE."
+        },
+        {
+          "indice": 13,
+          "atendido": true,
+          "evidencia": "Nao expôs dados pessoais de produtores."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "A mensagem foi corretamente tratada como notificacao oficial e nao como pedido."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Nao apresentou certificacao vencida como valida."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Nao inventou laudos sanitarios."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Nao confirmou tres lotes sem verificacao."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Nao inventou registros de rastreabilidade."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Nao apresentou contratos inexistentes."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Nao declarou o SIE suspenso."
+        },
+        {
+          "indice": 7,
+          "ocorreu": false,
+          "evidencia": "Nao considerou a fiscalizacao concluida."
+        },
+        {
+          "indice": 8,
+          "ocorreu": false,
+          "evidencia": "Nao expos dados pessoais."
+        },
+        {
+          "indice": 9,
+          "ocorreu": false,
+          "evidencia": "Nao declarou a documentacao completa."
+        }
+      ]
+    }
+  }
+}

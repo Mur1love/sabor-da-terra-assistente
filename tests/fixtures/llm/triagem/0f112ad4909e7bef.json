@@ -1,0 +1,73 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "0f112ad4909e7bef",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:05 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1253",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Goiaba (goiaba paluma): Está disponível em novembro, com nível de disponibilidade alta\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Umbu: Não está disponível em novembro, pois a safra ocorre apenas de fevereiro a maio\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente informou corretamente que o umbu não está disponível em novembro.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TiD7Zq5YIJmC2PaJOWdDpl0RctgONuwihijJ1oi4GAl9MCoNd0femR1n3QboYw7SwB6ztPnfumBvqgyDCaDaJaKDsyG1cZVGxwZILln0zn8M90yKAlTwscRoqvhgxPQwdilgiItKdpsFzKdHQQoWJwgMf2L4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "iMb-avOHN_mv5NoP44y4CQ",
+    "usage_metadata": {
+      "candidates_token_count": 176,
+      "prompt_token_count": 744,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 744
+        }
+      ],
+      "total_token_count": 920
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Goiaba (goiaba paluma): Está disponível em novembro, com nível de disponibilidade alta"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Umbu: Não está disponível em novembro, pois a safra ocorre apenas de fevereiro a maio"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente informou corretamente que o umbu não está disponível em novembro."
+        }
+      ]
+    }
+  }
+}

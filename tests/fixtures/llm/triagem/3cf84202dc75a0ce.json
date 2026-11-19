@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3cf84202dc75a0ce",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:42 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5150",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Para o fornecimento de banana ao PNAE, o preço utilizado **não** é o mesmo da tabela geral da cooperativa. O contrato específico do PNAE define o valor de **R$ 3,80/kg** para a banana prata [fonte: contratos/contrato_pnae_garanhuns.txt].",
+              "thought_signature": "EokBCoYBAWkUfRM4MfgvvSs-Ln3653pxSciwyAFkm0paXIMG7wYSJm7VvdXqKmIHzqjdjwbh1PDeBRaGIHP7g2p2a7kEUcjMxll6otW-LBa1xiKlsaKfc2gFI7VsEKSlORyb8_86VMnIrnOsGBtsSFsdqHVhWraVTdSyaHBYLGA3_GhzwORw5wQh_Bs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "QuT9apzlBraiytMPkcq0oA0",
+    "usage_metadata": {
+      "candidates_token_count": 70,
+      "prompt_token_count": 3001,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3001
+        }
+      ],
+      "total_token_count": 3071
+    }
+  }
+}

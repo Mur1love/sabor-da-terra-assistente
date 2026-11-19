@@ -1,0 +1,59 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8306770e4522b54d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:15 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1010",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_716335668820624994",
+                "args": {
+                  "comprador": "SESC-PE",
+                  "mensagem": "Pedido para colonia de ferias em janeiro de 2027, com 200 criancas durante 15 dias.\nFrutas variadas: 500kg no total. Hortalicas variadas: 200kg no total. Queijo coalho: 50kg. Mel: 10kg. Ovos: 200 duzias. Frango caipira: 100kg. Macaxeira: 80kg.\nPrecisamos de orcamento detalhado, com precos unitarios.\nInformar se todos os produtores possuem DAP/CAF ativa.\nPagamento via empenho. Emissao de nota fiscal com os dados cadastrais do SESC-PE.",
+                  "data_recebimento": "2026-10-30"
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EnsKeQFpFH0TDFwV_s5aQ_Bh6MXtEQtn60p9-mZsVRgvQ1sFidjQplnRuhKzXohyCZCam9dfnoBO7P2A7ha1v1pQc9QCs5WBb9HUgqlafQzW1SVQRK2p5KP164tONuPx4qdJ9BmgkbByKlw3bnljcLREGTXEIvyt6Km7rbA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "38X-avnXArnbytMP98CA4AE",
+    "usage_metadata": {
+      "candidates_token_count": 206,
+      "prompt_token_count": 2780,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2780
+        }
+      ],
+      "total_token_count": 2986
+    }
+  }
+}

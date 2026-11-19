@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "72a24d68cac30693",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:04 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=916",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Segundo o calendário de sazonalidade da cooperativa (`sazonalidade.csv`):\n\n* **Goiaba (goiaba paluma):** Está disponível em novembro, com nível de disponibilidade **alta** (a observação indica que o pico é de dezembro a março e fora de safra de junho a agosto) [fonte: sazonalidade.csv].\n* **Umbu:** **Não** está disponível em novembro, pois a safra ocorre apenas de fevereiro a maio, com nível de disponibilidade **nenhuma** [fonte: sazonalidade.csv].",
+              "thought_signature": "EnsKeQFpFH0TFtlsTyx6CplbOnnYy41KFo8PAsb9L5R2U2rC61f-xcAem6Ri0dhxWyzzP5eSR3u2fXCs1-EjrNpGy7CYkhQ35K6TtwJnXkuEbSpgM-HMiooY5C2hZjBwaPBqDLShNspjjfFPUpRtYfQLE5qpLZjoP6Va7hI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "h8b-asrSNM2-uMYPwIbi-AE",
+    "usage_metadata": {
+      "candidates_token_count": 120,
+      "prompt_token_count": 825,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 825
+        }
+      ],
+      "total_token_count": 945
+    },
+    "automatic_function_calling_history": []
+  }
+}

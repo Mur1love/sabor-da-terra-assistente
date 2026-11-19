@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "bbb6257ffcb7f531",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:18:55 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4560",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: notificacao_oficial\n\nO que a mensagem pede e prazos:\nA Cooperativa Sabor da Terra será submetida a inspeção sanitária da ADAGRO nos dias 11 e 12 de novembro de 2026. Devem estar disponíveis:\n- Cadastro atualizado de todos os produtores, incluindo nome, CPF, endereço e produtos.\n- Certificações orgânicas vigentes.\n- Laudos sanitários dos últimos 12 meses.\n- Registros de rastreabilidade dos últimos 3 lotes de cada produto.\n- Contratos com compradores institucionais.\nO não atendimento poderá resultar em suspensão do SIE.\n\nO que a equipe precisa fazer (próximos passos):\nChame consultar_documentos para os documentos que a notificação pede (certificações, laudos, contratos) e, se pedir cadastro ou rastreabilidade, buscar_produtores e consultar_lotes.\n\nObservações:\n- Inspecao sanitaria da ADAGRO na Cooperativa Sabor da Terra nos dias 11 e 12 de novembro de 2026\n- Manter disponivel cadastro de produtores, certificacoes organicas, laudos sanitarios, registros de rastreabilidade e contratos\n- O nao atendimento podera resultar em suspensao do SIE",
+              "thought_signature": "EnsKeQFpFH0TjkrLDATM421xdWQxCYRcyxntAouOpm1RZ03F-BYvk3DPAGEM8I3uz6ZqPnIXGQmorU9M6dN7__jVNC-WPjypsFOctCbQqvTavV95ag9a49FVfSkidVEazAwAevBceqwWLtPGwLvF_KEJEwAp6pmzpRQ8G3o="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "C83-asnhLP3gytMPvbeD0Ag",
+    "usage_metadata": {
+      "candidates_token_count": 287,
+      "prompt_token_count": 1324,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1324
+        }
+      ],
+      "total_token_count": 1611
+    },
+    "automatic_function_calling_history": []
+  }
+}

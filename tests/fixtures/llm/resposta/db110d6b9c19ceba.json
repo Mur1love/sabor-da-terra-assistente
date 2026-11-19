@@ -1,0 +1,83 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "db110d6b9c19ceba",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:39:32 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5905",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Não foram encontradas certificações internacionais (como USDA ou União Europeia) nos documentos da cooperativa [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]. Os documentos contêm apenas certificações de conformidade orgânica de âmbito nacional no padrão Orgânico Brasil / Sisorg [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt, certificacoes/cert_organica_debora_melo_P018.txt, certificacoes/cert_organica_maria_silva_P001.txt, certificacoes/inspecao_adagro_2026.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_ana_bezerra_P004.txt\",\n      \"trecho\": \"CERTIFICADO DE CONFORMIDADE ORGÂNICA ECOCERT BRASIL CERTIFICADORA\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_debora_melo_P018.txt\",\n      \"trecho\": \"IBD Certificações - Selo ORGÂNICO BRASIL / Sisorg nº BR-BIO-134\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_maria_silva_P001.txt\",\n      \"trecho\": \"Selo: ORGÂNICO BRASIL / Sisorg nº BR-BIO-134\"\n    },\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"Certificação orgânica: VIGENTE (ORG-PE-2025-004721, val. 06/2027)\"\n    }\n  ],\n  \"lacunas\": [\n    \"Certificações internacionais para exportação (ex.: USDA, UE)\"\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfRPk-ijOu0DPyw8aYVpKtEIU5RPV0s9D0uaCA55u4GYDmI12IIeUHrM-TB83TGQuJJhoSqMkS9silM9Z48KKaH4Jh05WtfOWCLALSQ12sh8mv_h1D__HRsdNkfxhTLfqXeVYaWmGvga-cxNT6RF7TWfr7J0_AUmvbCqFLvdKGW74vC8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "z-L9aoy2A5PHxdIPnJSiyQQ",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1865
+        }
+      ],
+      "cached_content_token_count": 1865,
+      "candidates_token_count": 461,
+      "prompt_token_count": 4413,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4413
+        }
+      ],
+      "total_token_count": 4874
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Não foram encontradas certificações internacionais (como USDA ou União Europeia) nos documentos da cooperativa [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt]. Os documentos contêm apenas certificações de conformidade orgânica de âmbito nacional no padrão Orgânico Brasil / Sisorg [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt, certificacoes/cert_organica_debora_melo_P018.txt, certificacoes/cert_organica_maria_silva_P001.txt, certificacoes/inspecao_adagro_2026.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_ana_bezerra_P004.txt",
+          "trecho": "CERTIFICADO DE CONFORMIDADE ORGÂNICA ECOCERT BRASIL CERTIFICADORA"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_debora_melo_P018.txt",
+          "trecho": "IBD Certificações - Selo ORGÂNICO BRASIL / Sisorg nº BR-BIO-134"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_maria_silva_P001.txt",
+          "trecho": "Selo: ORGÂNICO BRASIL / Sisorg nº BR-BIO-134"
+        },
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "Certificação orgânica: VIGENTE (ORG-PE-2025-004721, val. 06/2027)"
+        }
+      ],
+      "lacunas": [
+        "Certificações internacionais para exportação (ex.: USDA, UE)"
+      ]
+    }
+  }
+}

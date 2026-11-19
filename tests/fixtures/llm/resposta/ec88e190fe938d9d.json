@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ec88e190fe938d9d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:21:04 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2676",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: cotacao\n\nItens:\n* goiaba paluma — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Pico dez-mar. Fora de safra jun-ago.)\n* banana prata — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Produção contínua o ano todo.)\n* manga tommy — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Média) [fonte: sazonalidade.csv] (Safra out-mar. Indisponível mai-ago.)\n* maracujá — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Média) [fonte: sazonalidade.csv] (Pico mar-mai.)\n* alface — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Produção contínua em Garanhuns (clima ameno).)\n* couve — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Produção contínua.)\n* espinafre — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Produção contínua em Garanhuns.)\n* tomate — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Dois picos: jun-jul e out-jan.)\n* cebolinha — Quantidade: não informado — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Produção contínua.)\n* ovos caipira — Quantidade: 50.0 — Unidade: dúzia — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. Sazonalidade em outubro: Disponível (Alta) [fonte: sazonalidade.csv] (Contínuo, ~120 dúzias/semana.)\n* mel — Quantidade: 5.0 — Unidade: kg — Prazo: não informado — Alertas de conformidade: Exige certificação orgânica para todos os itens possíveis, laudo sanitário atualizado e rastreabilidade completa. (Mel silvestre em outubro: Disponível (Média) [fonte: sazonalidade.csv] — Maior produção abr-jun (florada).)\n\nObservações:\n- Fornecimento semanal\n- Exige certificação orgânica para todos os itens possíveis\n- Exige laudo sanitário atualizado e rastreabilidade completa\n- Solicita cópias das certificações, fichas técnicas e dados cadastrais dos produtores, incluindo registro CAF\n\nCampos faltantes:\n- prazo_entrega\n- quantidade_por_item\n- quantidade\n\nAmbigüidades:\n- Frutas variadas totalizando 100kg sem divisão específica por fruta\n- Hortaliças totalizando 60kg sem divisão específica por hortaliça\n- 'mel puro' pode ser: mel de jandaíra, mel silvestre. Pergunte qual.",
+              "thought_signature": "EnsKeQFpFH0T-6_vmBtoEfg4eu9iQwz8C34rWXIdqnNKFL0k058nVoJk-0xS4HG9PQpjE4cFMm0dbFYZmWgN67iqvkq266VTukFD87nQ2yquoZs5y1-vYA1CfpgbqaLMmRr0mMitByZpjbm_O7vBhvYBwvbnSl96-trw0N4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "jc3-at2hJpq4wbUP--OnsQg",
+    "usage_metadata": {
+      "candidates_token_count": 1111,
+      "prompt_token_count": 3490,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3490
+        }
+      ],
+      "total_token_count": 4601
+    },
+    "automatic_function_calling_history": []
+  }
+}

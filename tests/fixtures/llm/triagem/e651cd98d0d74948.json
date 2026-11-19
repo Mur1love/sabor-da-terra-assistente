@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e651cd98d0d74948",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:24:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1318",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"idioma\": \"pt\",\n  \"topico\": \"certificacao\",\n  \"produto\": \"mel silvestre\",\n  \"produtor\": \"P018\",\n  \"lote_id\": null,\n  \"mes\": null,\n  \"filtro_organico\": true\n}",
+              "thought_signature": "EokBCoYBAWkUfRNORt0LLwMdd-ePfxh-dAPgRhleShlZr9Te0mK72X_Jy-F_kgM7SopPIPpoZh2A96DoO0BGP5faCaN1r2SndK4mZm_OhiCMrtgDO9sdI8osqKF3ta_PnTDH1vP1mzVafHMopcx3A8G7Y0cKL_hhT3s-JFxWPZtu-Caqya3p_bmsFDs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "VN_9avawI4SyytMPldXVqQ0",
+    "usage_metadata": {
+      "candidates_token_count": 72,
+      "prompt_token_count": 276,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 276
+        }
+      ],
+      "total_token_count": 348
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "certificacao",
+      "produto": "mel silvestre",
+      "produtor": "P018",
+      "lote_id": null,
+      "mes": null,
+      "filtro_organico": true
+    }
+  }
+}

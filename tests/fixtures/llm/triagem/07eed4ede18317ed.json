@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "07eed4ede18317ed",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:48 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5667",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_8113596650903057195",
+                "args": {
+                  "data_referencia": "2026-10-30",
+                  "pergunta": "Todos os produtores da cooperativa possuem DAP ou CAF ativa?"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMQuN4KfADvCSqi2mC3SnzlJxXPuUWdgrfYcdA7At5aaXS9Kh3LBIWukGfajHNnanfI9UcOvKG9C6aKXu-z2jU2mUF7sRb2OSbcmpMMhkPkNS9RcQNpPzDC7G8Xk4lrfFVlRK0h1DUjpUwvrZ4Ud-BOJ1ryrzCSwaBDAthcGGDJHWY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "R-T9aqObG4rG0_gP5avw-QU",
+    "usage_metadata": {
+      "candidates_token_count": 49,
+      "prompt_token_count": 2644,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2644
+        }
+      ],
+      "total_token_count": 2693
+    }
+  }
+}

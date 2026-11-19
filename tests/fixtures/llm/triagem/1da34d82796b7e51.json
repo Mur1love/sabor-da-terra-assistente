@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1da34d82796b7e51",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:47:53 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4415",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_15949512080163865421",
+                "args": {
+                  "produto": "goiaba",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMVPz7hlr1lcDBdvga2vYJojfp62JNBGyWtnniw4SkWnluidVNVkzoAe3bRqu8OPm2qvb2czFIrV8FZfzDwGV2egME1OxKnAsylYpPwpj1S4NIW7PFpR1LKTR5Zhgq6WmddNuDnmAIXyNQlh_8LXHOcaqNbXZnyuVY_s2lwr7NFfFQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "xeT9atfxIIK9odAPgOjugAk",
+    "usage_metadata": {
+      "candidates_token_count": 25,
+      "prompt_token_count": 3282,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3282
+        }
+      ],
+      "total_token_count": 3307
+    }
+  }
+}

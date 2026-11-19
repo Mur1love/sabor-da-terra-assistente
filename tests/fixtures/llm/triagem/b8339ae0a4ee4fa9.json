@@ -1,0 +1,116 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b8339ae0a4ee4fa9",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:07 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1222",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_12535987811448994396",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "produto": "queijo coalho",
+                    "quantidade": 200,
+                    "unidade": "kg"
+                  },
+                  "comprador": "Rede SuperBom Atacado",
+                  "data_referencia": "2026-10-30",
+                  "data_entrega": "2026-10-29"
+                },
+                "name": "verificar_conformidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TDGwrFln9JB4H5CXJzeuypTUAQBT96bC5ClQLrS5Mo5oitaZZHeEUD343veXcbtAXatqKX94qaQ9-Fe93rsm2CuO8Z8gSOjFf693MZzVVPTtjD_u2PAzE5Tq4z70Va7x6ZrCYL8iIQ1tN0amanNJvb95d4jg="
+            },
+            {
+              "function_call": {
+                "id": "call_12535987811448995155",
+                "args": {
+                  "data_referencia": "2026-10-30",
+                  "data_entrega": "2026-10-29",
+                  "comprador": "Rede SuperBom Atacado",
+                  "item": {
+                    "quantidade": 50,
+                    "organico": false,
+                    "produto": "queijo manteiga",
+                    "unidade": "kg"
+                  }
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_12535987811448991818",
+                "args": {
+                  "data_entrega": "2026-10-29",
+                  "item": {
+                    "unidade": "kg",
+                    "produto": "mel silvestre",
+                    "quantidade": 40,
+                    "organico": true
+                  },
+                  "data_referencia": "2026-10-30",
+                  "comprador": "Rede SuperBom Atacado"
+                },
+                "name": "verificar_conformidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_12535987811448992577",
+                "args": {
+                  "item": {
+                    "organico": false,
+                    "unidade": "kg",
+                    "quantidade": 300,
+                    "produto": "goiaba paluma"
+                  },
+                  "comprador": "Rede SuperBom Atacado",
+                  "data_entrega": "2026-10-29",
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "verificar_conformidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "zs3-avvhJo29xdIP1qChaQ",
+    "usage_metadata": {
+      "candidates_token_count": 362,
+      "prompt_token_count": 3354,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3354
+        }
+      ],
+      "total_token_count": 3716
+    }
+  }
+}

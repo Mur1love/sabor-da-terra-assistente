@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "63cb3ad79fd93c23",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:18 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=11537",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O lote encontrado foi o `LOT-2026-0089` (o lote `2024-089` não existe) [fonte: lotes.csv]. \n\nAqui estão as informações de origem e rastreabilidade:\n\n- **Produto:** Queijo coalho (45 kg"
+            },
+            {
+              "text": ") [fonte: lotes.csv]\n- **Produtor:** Cícero Romão de Almeida (ID: P003, de Caetés) [fonte: lotes.csv]\n- **Datas:** Colheita em 01/09/2026, entrega em 02/09/2026 e validade até 02/10/2026 [fonte: lotes.csv]\n- **Transporte:** Realizado sem ambiente refrigerado, a 8 °C [fonte: lotes.csv]\n- **Comprador:** Restaurante Raízes [fonte: lotes.csv]\n- **Pedido associado:** `PED-2026-SEP-003` [fonte: lotes.csv]\n- **Transação:** Pago em 05/09/2026 (Transação `FIN-2026-003`, no valor total de R$ 1.440,00) [fonte: lotes.csv]",
+              "thought_signature": "EokBCoYBAWkUfRPVbELTO-kjVZBL-XIZ6WLzHnMQUmlqHAV6dEuG99UtKs7pNiMRka1ezRw2BkF2YZHlEF0rXQFh5DXklEuE4n4tTU3IkNmCKWEyFzdN37igz9IvqKm9-XMuJDNtt5kDbWnS5IVgtghUWGsRyIa1T17Lg1mRc3tswxYOoRKOa3o1S5U="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "XuT9aoO6LMWYwbUP-KuHsQQ",
+    "usage_metadata": {
+      "candidates_token_count": 300,
+      "prompt_token_count": 3130,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3130
+        }
+      ],
+      "total_token_count": 3430
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a42eeb5f11d1689d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:16:43 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7051",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "**Tipo da mensagem:** compra_urgente [fonte: tabela_precos_outubro_2026.csv]\n\n**Itens do pedido e alertas de conformidade:**\n\n1. **Produto:** queijo coalho\n   - **Quantidade:** 200.0 kg [fonte: fichas_tecnicas/queijo_coalho.txt]\n   - **Prazo:** 2026-10-29 [fonte: fichas_tecnicas/"
+            },
+            {
+              "text": "queijo_coalho.txt]\n   - **Alertas de conformidade:**\n     - P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final. [fonte: fichas_tecnicas/queijo_coalho.txt]\n     - O pedido de 200 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: de 300 a 400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/queijo_coalho.txt]\n     - Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n2. **Produto:** queijo manteiga\n   - **Quantidade:** 50.0 kg [fonte: produtores.csv]\n   - **Prazo:** 2026-10-29 [fonte: produtores.csv]\n   - **Alertas de conformidade:**\n     - Não há capacidade documentada em kg para queijo manteiga nos produtores elegíveis; confirme a quantidade com eles. [fonte: fichas_tecnicas/]\n     - Só P003 (Cícero Romão de Almeida) fornece queijo manteiga: não há outro produtor se ele não puder atender. [fonte: produtores.csv]\n     - Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n3. **Produto:** mel silvestre\n   - **Quantidade:** 40.0 kg [fonte: fichas_tecnicas/mel_silvestre.txt]\n   - **Prazo:** 2026-10-29 [fonte: fichas_tecnicas/mel_silvestre.txt]\n   - **Alertas de conformidade:**\n     - P008 (Josefa Alves de Souza): a certificação orgânica ORG-PE-2024-003876 não vale em 29/10/2026; venceu em 30/09/2026. A renovação foi pedida em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está marcada para 15/11/2026. O pedido de renovação não libera a venda como orgânico. Não pode vender mel silvestre como orgânico. [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]\n     - P018 (Débora Cristina de Melo) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se Rede SuperBom Atacado aceita. [fonte: fichas_tecnicas/mel_silvestre.txt]\n     - O pedido de 40 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 116,7 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/mel_silvestre.txt]\n     - Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n\n4. **Produto:** goiaba paluma\n   - **Quantidade:** 300.0 kg [fonte: fichas_tecnicas/goiaba_paluma.txt]\n   - **Prazo:** 2026-10-29 [fonte: fichas_tecnicas/goiaba_paluma.txt]\n   - **Alertas de conformidade:**\n     - O pedido de 50 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 800 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/goiaba_paluma.txt]\n     - Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n     - 'goiaba paluma' tem mais de um preço na tabela: goiaba paluma extra, goiaba paluma especial. Pergunte qual. [fonte: tabela_precos_outubro_2026.csv]\n\n**Observações:**\n- Pagamento por boleto em 30 dias, conforme contrato\n- Entrega no CD SuperBom, BR-423 km 12, Garanhuns\n- Risco de perda da promoção de fim de semana se não entregue hoje\n\n**Campos faltantes:** Nenhum\n\n**Ambiguidades:** Nenhuma\n\n**O que precisa ser confirmado com quem escreveu:**\n- Perguntar qual o tipo de goiaba paluma (goiaba paluma extra ou goiaba paluma especial) [fonte: tabela_precos_outubro_2026.csv].",
+              "thought_signature": "EnsKeQFpFH0TUmRAL5Q6cXpq1ON8Unrnqa_mBt3_OJyt8ezJ51RDmostsykVfhS63xRkPXSx4ih2dFUjwt9dBpmVDyGJyfnGeQEPMXSWnY35lOZrWgQY4G3yXGK8Yze6pJkkDc3TRrhKXvAeYbMRd4xyy2xFL7rLxAa9ndI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "hMz-av7yIfejo_UPv4yukAo",
+    "usage_metadata": {
+      "candidates_token_count": 1320,
+      "prompt_token_count": 5464,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5464
+        }
+      ],
+      "total_token_count": 6784
+    },
+    "automatic_function_calling_history": []
+  }
+}

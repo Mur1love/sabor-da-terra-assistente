@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "265f8901c1decd11",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:41:39 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1169",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"idioma\": \"pt\",\n  \"topico\": \"certificacao\",\n  \"produto\": \"mel silvestre\",\n  \"produtor\": \"P008\",\n  \"lote_id\": null,\n  \"mes\": null,\n  \"filtro_organico\": true\n}",
+              "thought_signature": "EnsKeQFpFH0TPFvJvDU8nQWVCbFib7XzhTiBaEYR03pe0ruHUHmmONr9-PMVvicm1dShFLKMb-58tYxdhmhv0FttoVNUvCiENiYUXD-Ir7oK7FHCZWMQf4kL7idFwHj7AuS5Uu5CDbCtWS21YplOx5p-rcTBoa-SBNoUKCQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "UsT-aqzlDbCM1sgPsPPZiA4",
+    "usage_metadata": {
+      "candidates_token_count": 72,
+      "prompt_token_count": 283,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 283
+        }
+      ],
+      "total_token_count": 355
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "certificacao",
+      "produto": "mel silvestre",
+      "produtor": "P008",
+      "lote_id": null,
+      "mes": null,
+      "filtro_organico": true
+    }
+  }
+}

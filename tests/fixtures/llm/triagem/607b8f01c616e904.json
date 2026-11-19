@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "607b8f01c616e904",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:00 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=6145",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_2058337397604610926",
+                "args": {
+                  "lote_id": "2024-089"
+                },
+                "name": "rastrear_lote"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMIxHaqlIeolhRYuMv2I9G3UIhSF1TtbXuC1At7QS6yiV929zbs5ki5eG92bJTAQhoF3oCtDAzx9wHbe-sm64eI38SDp-WPk77otrTDfuFlEf9qpYLB6BFlyqPC7kRzban5Qt8m4uh1BgfUjp25xrVaZntyKmrqAsYComGZ4N11JGo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "UuT9atCZO5z_ytMPyteU8Aw",
+    "usage_metadata": {
+      "candidates_token_count": 28,
+      "prompt_token_count": 2642,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2642
+        }
+      ],
+      "total_token_count": 2670
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "630da80316914d72",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:47:32 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1943",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"idioma\": \"pt\",\n  \"topico\": \"certificacao\",\n  \"produto\": null,\n  \"produtor\": null,\n  \"lote_id\": null,\n  \"mes\": null,\n  \"filtro_organico\": true\n}",
+              "thought_signature": "EnsKeQFpFH0TuV5xmEoMfkPNwVYzDTFm0w_aOq_SPkvhy1W0cuo_PCWUYNIH9jVAa4iZfg35UxuMQcoYHlbmPT3EWB7O94wp_Vl-tGbC8jZZADbS4n8MnWq8F0iC8BMcj8MpQ-N46tvtjwAZbvUeig35AZp5PxRHBLSv7QE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ssX-au22E_7nytMPrb3PsQg",
+    "usage_metadata": {
+      "candidates_token_count": 65,
+      "prompt_token_count": 273,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 273
+        }
+      ],
+      "total_token_count": 338
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "certificacao",
+      "produto": null,
+      "produtor": null,
+      "lote_id": null,
+      "mes": null,
+      "filtro_organico": true
+    }
+  }
+}

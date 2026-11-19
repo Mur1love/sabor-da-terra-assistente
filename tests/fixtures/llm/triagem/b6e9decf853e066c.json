@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b6e9decf853e066c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:25 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1101",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_12354984216252060559",
+                "args": {
+                  "data_recebimento": "2026-10-30",
+                  "canal": "WhatsApp",
+                  "mensagem": "PEDIDO URGENTE\n\nNecessitamos com máxima urgência para HOJE (29/10):\n- Queijo coalho: 200kg\n- Queijo manteiga: 50kg\n- Mel silvestre orgânico: 40kg\n- Goiaba: 300kg\n\nPagamento: boleto 30 dias conforme contrato.\nEntrega: CD SuperBom, BR-423 km 12, Garanhuns.\n\nSe não atenderem hoje perdemos a promoção de fim de semana.\n\nRoberto Cavalcanti\nGerente de Compras",
+                  "remetente": "Roberto Cavalcanti",
+                  "comprador": "Rede SuperBom Atacado"
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EnsKeQFpFH0T1AHJI5p1uc6nAvU35VbZjIZaEBGK0A5Fx1Qoe6CFBUengaYJ2vkcvOQABQNaDowGzIAUD1ap9j1HxH0VDFWnqI_DGt3qAdyAfVUOCJwa-aJ7k7_dvGXCrMG99yJ67sWjUkshMXTGNNfmicDHDJLgKVutwXU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "nMb-aqPeJbaMytMP9JCzkAM",
+    "usage_metadata": {
+      "candidates_token_count": 195,
+      "prompt_token_count": 2768,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2768
+        }
+      ],
+      "total_token_count": 2963
+    }
+  }
+}

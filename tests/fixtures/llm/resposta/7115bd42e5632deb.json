@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7115bd42e5632deb",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:10 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3832",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O pedido foi triado como **compra urgente**. Abaixo estão os detalhes extraídos da mensagem:\n\n- **Prazo de entrega:** 2026-10-29\n\n**Itens solicitados:**\n1. **queijo artesanal** (termo original: *\"aquele queijo q vcs mandaram da ultima vez, o mais artesanal sabe?\"*): 15.0 kg\n   - Alertas de conformidade: Nenhum produto do catálogo corresponde a \"queijo artesanal\".\n2. **mel de jandaíra**: 3.0 kg\n   - Alertas de conformidade: Nenhum.\n\n**Observações e Prazos:**\n- Local, data e janela de entrega: Prazo de entrega para 2026-10-29.\n- Nota fiscal: Não informada.\n- Forma de pagamento: Pagamento via Pix antecipado.\n- Exigências documentais: Não informadas.\n- O que precisa ser confirmado com quem escreveu: Há uma ambiguidade quanto ao queijo artesanal referido como *\"aquele queijo q vcs mandaram da ultima vez\"*, sendo necessário consultar pedidos/lotes anteriores do comprador para identificar o produto exato.",
+              "thought_signature": "EnsKeQFpFH0TCGJzFlIDmzEHPK2R1kpCvXlR7rRsF2A21IEd0hxojbF8SujjWzlCQ28aQ3cqclHD8eJ13m3cYayIZloaxyxN8RV5VVYngk1ccYMH4UmXaUTrNB902zbyfNgyq8pXrSYRdlxRa-E6_40X_Np2Gpic-2KdSo4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Vs3-aoaoO9KuxdIP5K_XgAk",
+    "usage_metadata": {
+      "candidates_token_count": 266,
+      "prompt_token_count": 1384,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1384
+        }
+      ],
+      "total_token_count": 1650
+    },
+    "automatic_function_calling_history": []
+  }
+}

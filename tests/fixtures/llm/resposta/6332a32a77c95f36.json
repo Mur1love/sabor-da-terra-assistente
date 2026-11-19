@@ -1,0 +1,64 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6332a32a77c95f36",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:18:28 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5149",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Os documentos da cooperativa indicam apenas que todos os produtores devem possuir DAP ou CAF vigente [fonte: contratos/contrato_pnae_garanhuns.txt]. No entanto, não há no contexto listagens nominais de produtores com DAP ou CAF ativa.\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"contratos/contrato_pnae_garanhuns.txt\",\n      \"trecho\": \"1. Todos os produtores devem possuir DAP ou CAF vigente\"\n    }\n  ],\n  \"lacunas\": [\n    \"Lista nominal de produtores com DAP ou CAF ativa não encontrada nos documentos da cooperativa.\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0T5zGuyE70VuiejBhCJZY4CvwxXIML1hCddaRfSYQ2Njhyj84tPbLQPAkQ5u70e2z1-EI9jjle0lp3kmArMw7oAEzl-5gwvdbSdCCsY26Qbcu_M_1C01j0Wr66-zNp1yQC7wkbEOM26wUchiMAzoETKCL8nxc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "8Mz-ap4E1KKj9Q_E--6hDA",
+    "usage_metadata": {
+      "candidates_token_count": 155,
+      "prompt_token_count": 1867,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1867
+        }
+      ],
+      "total_token_count": 2022
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Os documentos da cooperativa indicam apenas que todos os produtores devem possuir DAP ou CAF vigente [fonte: contratos/contrato_pnae_garanhuns.txt]. No entanto, não há no contexto listagens nominais de produtores com DAP ou CAF ativa.",
+      "citacoes": [
+        {
+          "arquivo": "contratos/contrato_pnae_garanhuns.txt",
+          "trecho": "1. Todos os produtores devem possuir DAP ou CAF vigente"
+        }
+      ],
+      "lacunas": [
+        "Lista nominal de produtores com DAP ou CAF ativa não encontrada nos documentos da cooperativa."
+      ]
+    }
+  }
+}

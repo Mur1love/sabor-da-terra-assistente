@@ -1,0 +1,69 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "c5bd2a61892be960",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7174",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"Com base nos documentos disponíveis, os documentos e itens necessários e verificados em uma inspeção da ADAGRO incluem a vistoria dos produtores e seus registros, a inspeção do Depósito Central (CD), o controle de pragas, a rastreabilidade por sistema de lotes e a verificação dos veículos de transporte [fonte: certificacoes/inspecao_adagro_2026.txt]. Especificamente, a inspeção avalia áreas como a câmara fria de laticínios e frutas, a área seca e os veículos, exigindo que equipamentos como o termômetro de transporte estejam devidamente calibrados [fonte: certificacoes/inspecao_adagro_2026.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"INSPEÇÃO DO DEPÓSITO CENTRAL (CD): - Área de recebimento: CONFORME - Câmara fria (laticínios): CONFORME (4°C) - Câmara fria (frutas): CONFORME (10°C) - Área seca (grãos, mel, processados): CONFORME - Controle de pragas: CONFORME - Rastreabilidade: CONFORME (sistema de lotes por produtor) - Veículos de transporte: CONFORME COM OBSERVAÇÃO\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfRN9SXFdjRGcc23XQ36QhUthGt0rlz69AU95mNW0nAY90NuWgbUnctZaKuW1RyV1Bv6lz_D5eGPJJPdxKjhb9TGqKZtmz_NKl_RJ8IRa49EEMKirSLfmQyxV2y5J6hPhq1VHD2Ooyu6yjnE0HuABVtSw0B39MK9lymFj8t0RqFuDGgA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "KOT9av_dEdLe0_gP6rPH8AU",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1892
+        }
+      ],
+      "cached_content_token_count": 1892,
+      "candidates_token_count": 329,
+      "prompt_token_count": 5265,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 5265
+        }
+      ],
+      "total_token_count": 5594
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Com base nos documentos disponíveis, os documentos e itens necessários e verificados em uma inspeção da ADAGRO incluem a vistoria dos produtores e seus registros, a inspeção do Depósito Central (CD), o controle de pragas, a rastreabilidade por sistema de lotes e a verificação dos veículos de transporte [fonte: certificacoes/inspecao_adagro_2026.txt]. Especificamente, a inspeção avalia áreas como a câmara fria de laticínios e frutas, a área seca e os veículos, exigindo que equipamentos como o termômetro de transporte estejam devidamente calibrados [fonte: certificacoes/inspecao_adagro_2026.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "INSPEÇÃO DO DEPÓSITO CENTRAL (CD): - Área de recebimento: CONFORME - Câmara fria (laticínios): CONFORME (4°C) - Câmara fria (frutas): CONFORME (10°C) - Área seca (grãos, mel, processados): CONFORME - Controle de pragas: CONFORME - Rastreabilidade: CONFORME (sistema de lotes por produtor) - Veículos de transporte: CONFORME COM OBSERVAÇÃO"
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

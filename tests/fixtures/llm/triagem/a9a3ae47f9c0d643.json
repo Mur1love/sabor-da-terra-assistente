@@ -1,0 +1,164 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a9a3ae47f9c0d643",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:07 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2468",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"tipo\": \"cotacao\",\n  \"idioma\": \"pt\",\n  \"comprador\": \"nao_informado\",\n  \"canal\": null,\n  \"itens\": [\n    {\n      \"produto\": \"goiaba\",\n      \"produto_original\": \"goiaba\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"banana\",\n      \"produto_original\": \"banana\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"manga\",\n      \"produto_original\": \"manga\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"maracujá\",\n      \"produto_original\": \"maracujá\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"alface\",\n      \"produto_original\": \"alface\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"couve\",\n      \"produto_original\": \"couve\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"espinafre\",\n      \"produto_original\": \"espinafre\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"tomate\",\n      \"produto_original\": \"tomate\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"cebolinha\",\n      \"produto_original\": \"cebolinha\",\n      \"quantidade\": null,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"ovos caipira\",\n      \"produto_original\": \"Ovos caipiras\",\n      \"quantidade\": 50,\n      \"unidade\": \"dúzia\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    },\n    {\n      \"produto\": \"mel puro\",\n      \"produto_original\": \"Mel puro\",\n      \"quantidade\": 5,\n      \"unidade\": \"kg\",\n      \"exige_organico\": true,\n      \"opcional\": false\n    }\n  ],\n  \"prazo_entrega\": null,\n  \"prazo_original\": null,\n  \"observacoes\": [\n    \"Fornecimento semanal\",\n    \"Exige certificação orgânica para todos os itens possíveis\",\n    \"Exige laudo sanitário atualizado e rastreabilidade completa\",\n    \"Solicita cópias das certificações, fichas técnicas e dados cadastrais dos produtores, incluindo registro CAF\"\n  ],\n  \"campos_faltantes\": [\n    \"prazo_entrega\",\n    \"quantidade_por_item\"\n  ],\n  \"ambiguidades\": [\n    \"Frutas variadas totalizando 100kg sem divisão específica por fruta\",\n    \"Hortaliças totalizando 60kg sem divisão específica por hortaliça\"\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TE5mXNfKvAls7N_SfybdPdE3jtbmC0_26DhOc1fwz7JaIldAQH9J-ErAvbepLB2Cct0M8nc5nUQH5IB0VDzKn0VGkCVjgsjWJAFuF01-5Sn3PGcfBX-0vKfIz-ZlIPFPO2-eSz62eVskJ-v3QDnJ0aHou9ak="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "XcX-apSWLd66xdIPnsiSsAU",
+    "usage_metadata": {
+      "candidates_token_count": 909,
+      "prompt_token_count": 2525,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2525
+        }
+      ],
+      "total_token_count": 3434
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "tipo": "cotacao",
+      "idioma": "pt",
+      "comprador": "nao_informado",
+      "canal": null,
+      "itens": [
+        {
+          "produto": "goiaba",
+          "produto_original": "goiaba",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "banana",
+          "produto_original": "banana",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "manga",
+          "produto_original": "manga",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "maracujá",
+          "produto_original": "maracujá",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "alface",
+          "produto_original": "alface",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "couve",
+          "produto_original": "couve",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "espinafre",
+          "produto_original": "espinafre",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "tomate",
+          "produto_original": "tomate",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "cebolinha",
+          "produto_original": "cebolinha",
+          "quantidade": null,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "ovos caipira",
+          "produto_original": "Ovos caipiras",
+          "quantidade": 50,
+          "unidade": "dúzia",
+          "exige_organico": true,
+          "opcional": false
+        },
+        {
+          "produto": "mel puro",
+          "produto_original": "Mel puro",
+          "quantidade": 5,
+          "unidade": "kg",
+          "exige_organico": true,
+          "opcional": false
+        }
+      ],
+      "prazo_entrega": null,
+      "prazo_original": null,
+      "observacoes": [
+        "Fornecimento semanal",
+        "Exige certificação orgânica para todos os itens possíveis",
+        "Exige laudo sanitário atualizado e rastreabilidade completa",
+        "Solicita cópias das certificações, fichas técnicas e dados cadastrais dos produtores, incluindo registro CAF"
+      ],
+      "campos_faltantes": [
+        "prazo_entrega",
+        "quantidade_por_item"
+      ],
+      "ambiguidades": [
+        "Frutas variadas totalizando 100kg sem divisão específica por fruta",
+        "Hortaliças totalizando 60kg sem divisão específica por hortaliça"
+      ]
+    }
+  }
+}

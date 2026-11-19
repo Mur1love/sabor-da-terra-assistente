@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "93ba5190924c806c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:40:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=891",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Consultando a tabela de preços de outubro de 2026, não encontrei produtos correspondentes a **café torrado** nem a **carne bovina** no catálogo da cooperativa [tabela_precos.csv].",
+              "thought_signature": "EokBCoYBAWkUfRNADpVRpvOFvF3O5RPVzkVqd2Le7AKSgIfwC2IGcli7Fx4gIwfdfEr23uunqIBV8nu8ti2W1M0TbToZgj1Yhs4195qADVa8HvEcIFoOZqrG3yFGaas5nmDaCOyMuzPirWquqQsYooNWv1Ep2AX5Ia_1qPNmZwJjc0Z1PMYadL-d3sE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "HOP9avXXIMmho_UPq9XymAU",
+    "usage_metadata": {
+      "candidates_token_count": 50,
+      "prompt_token_count": 3032,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3032
+        }
+      ],
+      "total_token_count": 3082
+    }
+  }
+}

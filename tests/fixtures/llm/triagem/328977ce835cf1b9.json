@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "328977ce835cf1b9",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5610",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não, o contexto documental não confirma se todos os produtores da cooperativa possuem DAP ou CAF ativa. Há apenas dados amostrais: o relatório de inspeção da ADAGRO menciona que o produtor P005 (Francisco de Assis Cordeiro) possui DAP/CAF vigente, mas a base consultada não possui a relação completa para afirmar que *todos* os produtores possuem [fonte: certificacoes/inspecao_adagro_2026.txt].",
+              "thought_signature": "EokBCoYBAWkUfROhrj30KdeHHJkfiBx4m8IHySU_YfPS18IwEXM8AHr5Et8wgyRVRgt4czRt3onJ8SJPmidUh-xS-IvatKvfc3cEe9wI6Bi6y3YmQO4F_eL13q1TsS7f6Hgme_ui6kT0ZKEpeM4uPjdYRQW5fj_y570bUjp4bxzQItBvRh86Hvt_9ZQ="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "TeT9ar-wCq6xuMYPlt-PyQo",
+    "usage_metadata": {
+      "candidates_token_count": 100,
+      "prompt_token_count": 2964,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2964
+        }
+      ],
+      "total_token_count": 3064
+    }
+  }
+}

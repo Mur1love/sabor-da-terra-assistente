@@ -1,0 +1,93 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "0f3ff082ae1a2007",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:41:49 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1514",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": false,\n      \"evidencia\": \"O assistente listou apenas P002, omitindo o produtor P018 que constava no gabarito.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Josefa Alves de Souza (P008) foi corretamente identificada no segundo turno.\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"O certificado expirou em 30/09/2026.\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"A auditoria está agendada para 15/11/2026.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Citou o documento certificacoes/cert_organica_josefa_souza_P008.txt.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente resolveu perfeitamente a referência anafórica sem exigir repetição.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente deixou claro que a certificação está vencida e não pode ser comercializada.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TWMTSx3GhGdYM31mQvzfWd26m0EZx_RzS7YP_BB66GflWLaSuxGfUV3QZBuVn19ariu713o397F1pj167ENP_ip36MnnVWRHrTJAKRiumo32XS7tdTfUMDRL6A8cRfxur3NuJmJsAWJYhCNlW-M7ITkctzPM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "W8T-apbvNe3mytMPqISR6Ao",
+    "usage_metadata": {
+      "candidates_token_count": 381,
+      "prompt_token_count": 1332,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1332
+        }
+      ],
+      "total_token_count": 1713
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": false,
+          "evidencia": "O assistente listou apenas P002, omitindo o produtor P018 que constava no gabarito."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Josefa Alves de Souza (P008) foi corretamente identificada no segundo turno."
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "O certificado expirou em 30/09/2026."
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "A auditoria está agendada para 15/11/2026."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Citou o documento certificacoes/cert_organica_josefa_souza_P008.txt."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente resolveu perfeitamente a referência anafórica sem exigir repetição."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O assistente deixou claro que a certificação está vencida e não pode ser comercializada."
+        }
+      ]
+    }
+  }
+}

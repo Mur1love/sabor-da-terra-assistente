@@ -1,0 +1,143 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "baaaf71c997e6c11",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:45:38 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2699",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Análise do pedido urgente recebido da Rede SuperBom Atacado para 2026-10-29 (Tipo: compra_urgente)\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 200.0 kg [fichas_tecnicas/queijo_coalho.txt]\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 50.0 kg [fichas_tecnicas/, produtores.csv]\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 40.0 kg (exige orgânico) [certificacoes/cert_organica_josefa_souza_P008.txt]\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 300.0 kg [fichas_tecnicas/goiaba_paluma.txt]\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"recebido da Rede SuperBom Atacado para 2026-10-29\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"O pedido de 200 kg cabe na capacidade. Capacidade documentada...\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"P008 (Josefa Alves de Souza): a certificação orgânica ORG-PE-2024-003876 não vale em 29/10/2026; venceu em 30/09/2026.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Capacidade de produção não é estoque: confirme a disponibilidade com os produtores\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao há confusão com manteiga de garrafa.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"A certificação vencida foi explicitamente apontada como inválida.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Capacidade de produção não foi tratada como estoque garantido.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"A entrega não foi garantida sem checagem.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há afirmação de contrato sem comprovação.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"O pagamento não foi confirmado sem verificação contratual.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os produtos e quantidades estão corretos conforme o pedido.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0Tn8Z7p30gloX_cKExSyLxAAyBxEThy4Rc6fkGXCor_AU1AiZ_PiYjvmWKb92VX9JUalhJq0X_gRDKSfm7__zTzchiueW3z0i45p0KiHPq_WXq_TbAF8KsNYxDcJiEfMdWsbP3-J_W1JFji2dCjL_jGaRnNaY="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "P8X-aqOQN9rTiLMPsKrFwQU",
+    "usage_metadata": {
+      "candidates_token_count": 891,
+      "prompt_token_count": 2918,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2918
+        }
+      ],
+      "total_token_count": 3809
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Análise do pedido urgente recebido da Rede SuperBom Atacado para 2026-10-29 (Tipo: compra_urgente)"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Quantidade: 200.0 kg [fichas_tecnicas/queijo_coalho.txt]"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Quantidade: 50.0 kg [fichas_tecnicas/, produtores.csv]"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Quantidade: 40.0 kg (exige orgânico) [certificacoes/cert_organica_josefa_souza_P008.txt]"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Quantidade: 300.0 kg [fichas_tecnicas/goiaba_paluma.txt]"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "recebido da Rede SuperBom Atacado para 2026-10-29"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "O pedido de 200 kg cabe na capacidade. Capacidade documentada..."
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "P008 (Josefa Alves de Souza): a certificação orgânica ORG-PE-2024-003876 não vale em 29/10/2026; venceu em 30/09/2026."
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Capacidade de produção não é estoque: confirme a disponibilidade com os produtores"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Nao há confusão com manteiga de garrafa."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "A certificação vencida foi explicitamente apontada como inválida."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Capacidade de produção não foi tratada como estoque garantido."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "A entrega não foi garantida sem checagem."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Não há afirmação de contrato sem comprovação."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "O pagamento não foi confirmado sem verificação contratual."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Os produtos e quantidades estão corretos conforme o pedido."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "3d7a063776072fee",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:42:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2936",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Aqui está o resumo financeiro completo para a produtora P001 (Maria das Graças Silva Ferreira)\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Nenhuma venda registrada no mês (R$ 0,00)\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"FIN-2026-001: R$ 540,00 (goiaba paluma)\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"FIN-2026-002: R$ 400,00 (manga tommy)\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Ela recebeu dois valores referentes a transações de setembro pagos em 01/10/2026... Total recebido: R$ 940,00.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Saldo pendente a receber: R$ 0,00\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"[fonte: data/financeiro.csv; data/produtores.csv; data/pedidos.json]\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não há atribuição de vendas de outros produtores à P001.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os pagamentos foram informados como já pagos (não pendentes).\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os valores informados coincidem com os dados oficiais (R$ 540,00, R$ 400,00, R$ 940,00).\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TFOgGRKSzwLi05INbdbssVNotKYYtc7obgCCJl_cUPyrhk5pTEWVNSCUnhUlYX7ev1aQO5_meOqSVNwPrlCEQ4QxTuiMXmeqdJGatTrnY0Kih7nZxBRbdksIuVUH3tZSTXRvJPZZjnLpHjYgPypD-6uSq9J8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "dcT-apz9JcK0xdIPkfml6Qw",
+    "usage_metadata": {
+      "candidates_token_count": 560,
+      "prompt_token_count": 1464,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1464
+        }
+      ],
+      "total_token_count": 2024
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Aqui está o resumo financeiro completo para a produtora P001 (Maria das Graças Silva Ferreira)"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Nenhuma venda registrada no mês (R$ 0,00)"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "FIN-2026-001: R$ 540,00 (goiaba paluma)"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "FIN-2026-002: R$ 400,00 (manga tommy)"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Ela recebeu dois valores referentes a transações de setembro pagos em 01/10/2026... Total recebido: R$ 940,00."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Saldo pendente a receber: R$ 0,00"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "[fonte: data/financeiro.csv; data/produtores.csv; data/pedidos.json]"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Não há atribuição de vendas de outros produtores à P001."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Os pagamentos foram informados como já pagos (não pendentes)."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Os valores informados coincidem com os dados oficiais (R$ 540,00, R$ 400,00, R$ 940,00)."
+        }
+      ]
+    }
+  }
+}

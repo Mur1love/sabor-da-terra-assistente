@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "6f7e80ac96ec53c2",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:52 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1273",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_8690876735764962895",
+                "args": {
+                  "data_recebimento": "2026-10-29",
+                  "mensagem": "Boa tarde! Quero fechar um fornecimento mensal de tudo que vocês tiverem COM certificação orgânica. Me passem a lista completa dos produtos orgânicos, quais produtores fornecem, as datas de validade das certificações e os preços. Posso buscar aí toda segunda-feira de manhã.",
+                  "canal": "WhatsApp",
+                  "remetente": "Mercado Alvorada",
+                  "comprador": "Mercado Alvorada"
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EnsKeQFpFH0T6ACo4IDmNBQUIoo7s8H639mQjlQAH6fSC5J5WHRjMDnexOeuNScGKSI8brkJpqS4juWzYV7RCn-whDOA0WN02Lq0ZBjrUcFf0JPNM1hnuDQweg4vwV3bfo2L2PjY_1VXH-WDiNelEjK6t00EUADi1-xxpG4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "i8X-ap3bBbCswbUPrLz56As",
+    "usage_metadata": {
+      "candidates_token_count": 129,
+      "prompt_token_count": 2686,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2686
+        }
+      ],
+      "total_token_count": 2815
+    }
+  }
+}

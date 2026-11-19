@@ -1,0 +1,60 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1a9004e709428249",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:28:04 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7470",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_1356474068449866809",
+                "args": {
+                  "data_recebimento": "2026-10-29",
+                  "comprador": "Rede SuperBom Atacado",
+                  "canal": "WhatsApp",
+                  "mensagem": "PEDIDO URGENTE!\nNecessitamos com máxima urgência para HOJE (29/10):\nQueijo coalho: 200kg Queijo manteiga: 50kg Mel silvestre orgânico: 40kg Goiaba: 300kg\nPagamento por boleto em 30 dias, conforme contrato.\nEntrega no CD SuperBom, BR-423 km 12, Garanhuns.\nSe não atenderem hoje, perderemos a promoção de fim de semana."
+                },
+                "name": "triar_pedido"
+              },
+              "thought_signature": "EokBCoYBAWkUfROn6KraqH7crbI_zTQZHflQV-Qjs8oIE55L4J6VBBjwTAj0bEx85q70YM54y-9CRDaz29FWW1FS4T78JbKXG9YymJg_oKg_FvpY0Z8TfeL23o3d8FIV_JcfIFndT8d-h_KSGoCHQ3_BDQ6DWuhTXXXDSzLXzZaAShkjtFvV03Hbqcg="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "HeD9aq7FLsm7wbUP96-EgQw",
+    "usage_metadata": {
+      "candidates_token_count": 170,
+      "prompt_token_count": 2740,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2740
+        }
+      ],
+      "total_token_count": 2910
+    }
+  }
+}

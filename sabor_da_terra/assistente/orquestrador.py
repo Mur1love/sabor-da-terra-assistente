@@ -26,6 +26,7 @@ from __future__ import annotations
 import inspect
 import json
 import logging
+import re
 import time
 from typing import Any
 
@@ -34,13 +35,22 @@ from google.genai import types
 from sabor_da_terra.assistente.estado import EstadoSessao, data_referencia_padrao
 from sabor_da_terra.assistente.ferramentas import FERRAMENTAS_COM_LLM, NOME_PARA_FUNCAO, declarar_ferramentas
 from sabor_da_terra.assistente.mascaramento import mascarar_dados_sensiveis
-from sabor_da_terra.assistente.prompt import PROMPT_RESPOSTA_FINAL, PROMPT_SISTEMA
+from sabor_da_terra.assistente.prompt import (
+    PROMPT_RESPOSTA_FINAL,
+    PROMPT_RESPOSTA_TRIAGEM,
+    PROMPT_SISTEMA,
+    proximos_passos_da_triagem,
+)
+from sabor_da_terra.assistente.verificacao import Universo, so_fatos_com_respaldo
 from sabor_da_terra.llm.cliente import FixtureAusenteError, LLMClient, Papel
 
 logger = logging.getLogger("sabor_da_terra.assistente")
 
 # Limites do turno: o laço nunca fica preso no function calling.
-MAX_CHAMADAS_POR_TURNO = 8
+# Um pedido de 9 itens pede 9 verificações de conformidade, mais preço e
+# disponibilidade; com 8, a triagem parava no meio (rodada 2 da #14). As funções
+# depois da triagem são locais, sem LLM: o teto protege o turno, não a cota.
+MAX_CHAMADAS_POR_TURNO = 24
 MAX_ITERACOES_POR_TURNO = 4
 JANELA_HISTORICO = 6  # turnos completos que ficam no histórico
 
@@ -109,6 +119,9 @@ class Assistente:
         # (determinístico): a interface monta o rodapé de fontes a partir daqui,
         # sem depender de o modelo escrever o marcador [fonte: ...].
         self.fontes_do_turno: list[str] = []
+        # Funções executadas no último turno, na ordem (inclui as que voltaram
+        # com erro): a avaliação confere `funcoes_esperadas` do gabarito aqui.
+        self.funcoes_do_turno: list[str] = []
 
     @property
     def cliente(self) -> LLMClient:
@@ -124,8 +137,10 @@ class Assistente:
         inicio = time.perf_counter()
         self._turno += 1
         self.fontes_do_turno = []
+        self.funcoes_do_turno = []
         mensagem = mascarar_dados_sensiveis(mensagem)
         self.estado.focar_pedido_do_texto(mensagem)  # "PED-2026-006" entra em foco venha ele de qual função vier
+        self.estado.focar_comprador_do_texto(mensagem)  # "do SuperBom" entra em foco para o turno seguinte
 
         self._blocos.append(
             [
@@ -211,6 +226,7 @@ class Assistente:
                 erros.append(nome)
             else:
                 saida = self._despachar(nome, dict(chamada.args or {}))
+                self.funcoes_do_turno.append(nome)
                 if saida.get("erro"):
                     erros.append(nome)
                 else:
@@ -234,6 +250,10 @@ class Assistente:
         except Exception as exc:  # noqa: BLE001 — o erro vai ao modelo com honestidade
             saida = {"erro": str(exc)}
         saida = mascarar_dados_sensiveis(saida)
+        if nome == "triar_pedido" and isinstance(saida, dict) and not saida.get("erro"):
+            passos = proximos_passos_da_triagem(saida)
+            if passos:
+                saida = {**saida, "proximos_passos": passos}
         self.estado.atualizar(nome, args, saida)
         return saida
 
@@ -246,13 +266,18 @@ class Assistente:
     ) -> tuple[str, str]:
         """Fecha o turno e diz como fechou: `sem_funcao`, `pass_through` ou `composto`."""
         if not executadas:
-            return (rascunho or SEM_RESPOSTA), "sem_funcao"
+            # Sem função, o texto é do roteamento: só pode afirmar o que a equipe
+            # escreveu ou o que o estado da sessão já sabe (nada "de cabeça").
+            universo = Universo.de(mensagem, self.estado.to_dict())
+            return so_fatos_com_respaldo(rascunho or SEM_RESPOSTA, universo), "sem_funcao"
         if len(executadas) == 1 and not erros:
             nome, _, saida = executadas[0]
             pronta = next((saida[k] for k in CHAVES_TEXTO_PRONTO if isinstance(saida.get(k), str)), None)
             if pronta:
                 if nome in RASCUNHOS_SEM_ENVIO:
                     pronta = f"{pronta}\n\n{AVISO_RASCUNHO}"
+                if nome == "consultar_documentos":
+                    pronta = _com_lacunas(pronta, saida)
                 return pronta, "pass_through"  # texto validado na fonte, sem segunda composição
         return self._compor(mensagem, executadas, rascunho), "composto"
 
@@ -267,15 +292,20 @@ class Assistente:
             "data_referencia": self.estado.data_referencia,
             "estado_da_sessao": self.estado.to_dict(),
             "pergunta": mensagem,
+            # `proximos_passos` orienta o roteamento; não é dado para a resposta.
             "resultados_das_funcoes": [
-                {"funcao": nome, "args": args, "saida": saida} for nome, args, saida in executadas
+                {"funcao": nome, "args": args, "saida": {k: v for k, v in saida.items() if k != "proximos_passos"}}
+                for nome, args, saida in executadas
             ],
             "rascunho_do_roteamento": rascunho,
             "fontes_permitidas": sorted(_fontes_unicas(executadas)),
         }
         payload = mascarar_dados_sensiveis(payload)
+        regras = PROMPT_RESPOSTA_FINAL
+        if any(nome == "triar_pedido" for nome, _, _ in executadas):
+            regras = f"{regras}\n{PROMPT_RESPOSTA_TRIAGEM}"
         prompt_final = (
-            f"{PROMPT_RESPOSTA_FINAL}\n\n"
+            f"{regras}\n\n"
             f"CONTEXTO DO TURNO (JSON):\n{json.dumps(payload, ensure_ascii=False, default=str)}"
         )
         try:
@@ -287,7 +317,61 @@ class Assistente:
         except Exception as exc:  # noqa: BLE001 — 504/503 do Flash não derrubam o turno
             logger.warning("composicao_final falhou (%s: %s); turno fecha com resposta honesta", type(exc).__name__, exc)
             return SEM_COMPOSICAO
-        return resposta.text or SEM_COMPOSICAO
+        texto = resposta.text or SEM_COMPOSICAO
+        texto = _so_citacoes_permitidas(texto, payload["fontes_permitidas"])
+        # O rascunho do roteamento fica de fora do universo: é texto de LLM, não dado.
+        universo = Universo.de(
+            payload["resultados_das_funcoes"],
+            payload["pergunta"],
+            payload["estado_da_sessao"],
+            payload["data_referencia"],
+        )
+        return so_fatos_com_respaldo(texto, universo)
+
+
+_MARCADOR_FONTE_RE = re.compile(r"\s*\[fonte:\s*([^\]]+)\]")
+_SEPARADOR_FONTES_RE = re.compile(r"\s*[;,]\s*")
+
+
+def _com_lacunas(texto: str, saida: dict[str, Any]) -> str:
+    """Resposta documental + o que os documentos não cobrem (campo `lacunas` do RAG).
+
+    Quando o RAG achou resposta mas só parcial ("o documento não traz isso para
+    todos os produtores"), a lacuna vira um aviso explícito para a equipe
+    conferir caso a caso. Lacuna sozinha (nada encontrado) já é a resposta.
+    """
+    lacunas = [str(item).strip().rstrip(".") for item in saida.get("lacunas") or [] if str(item).strip()]
+    if not saida.get("encontrado") or not lacunas:
+        return texto
+    return (
+        f"{texto}\n\n**O que os documentos não cobrem:** {'; '.join(lacunas)}. "
+        "Antes de usar essa informação, confirme caso a caso, com o produtor ou com o documento original."
+    )
+
+
+def _sem_prefixo_data(fonte: str) -> str:
+    fonte = fonte.strip()
+    return fonte[len("data/"):] if fonte.startswith("data/") else fonte
+
+
+def _so_citacoes_permitidas(texto: str, permitidas: list[str]) -> str:
+    """Guarda determinística de citação: só fica `[fonte: …]` que as funções devolveram.
+
+    O prompt já manda citar só `fontes_permitidas`, mas o modelo erra o nome
+    (visto na rodada 1 da #14: `tabelas_precos_...`, arquivo que não existe).
+    Arquivo fora da lista sai do marcador; marcador vazio sai do texto. O
+    rodapé de fontes da interface continua vindo das saídas das funções.
+    """
+    validas = {_sem_prefixo_data(f) for f in permitidas}
+
+    def filtrar(achado: re.Match) -> str:
+        arquivos = [a for a in _SEPARADOR_FONTES_RE.split(achado.group(1)) if a.strip()]
+        mantidos = [a.strip() for a in arquivos if _sem_prefixo_data(a) in validas]
+        if len(mantidos) < len(arquivos):
+            logger.info("citacao_removida=%s", [a for a in arquivos if a.strip() not in mantidos])
+        return f" [fonte: {'; '.join(mantidos)}]" if mantidos else ""
+
+    return _MARCADOR_FONTE_RE.sub(filtrar, texto)
 
 
 def _fontes_unicas(executadas: list[tuple[str, dict[str, Any], dict[str, Any]]]) -> list[str]:
@@ -301,7 +385,11 @@ def _fontes_unicas(executadas: list[tuple[str, dict[str, Any], dict[str, Any]]])
 
 
 def _fontes_da_saida(saida: dict[str, Any]) -> list[str]:
-    """Arquivos citados numa saída: `fontes`, `fonte` e citações do RAG."""
+    """Arquivos citados numa saída: `fontes`, `fonte` e citações do RAG.
+
+    Pasta ("fichas_tecnicas/", fonte de alerta de AUSÊNCIA de dado) não é
+    documento citável: fica de fora — o alerta já diz onde se procurou.
+    """
     fontes: list[str] = []
     fontes.extend(str(f) for f in saida.get("fontes") or [])
     if saida.get("fonte"):
@@ -309,4 +397,4 @@ def _fontes_da_saida(saida: dict[str, Any]) -> list[str]:
     fontes.extend(
         str(citacao.get("arquivo")) for citacao in saida.get("citacoes") or [] if citacao.get("arquivo")
     )
-    return fontes
+    return [fonte for fonte in fontes if not fonte.rstrip().endswith("/")]

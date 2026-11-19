@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7ee104c174cc0652",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:41 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5212",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Nos documentos da cooperativa, apenas o produtor P005 (Francisco de Assis Cordeiro) possui comprovação explícita de DAP ou CAF vigente [fonte: certificacoes/inspecao_adagro_2026.txt]. Além disso, a ficha técnica de tubérculos e raízes menciona que todos os produtores dessa linha possuem DAP ou CAF vigente [fonte: fichas_tecnicas/tuberculos_graos.txt]. \n\nSobre o cadastro geral, a informação completa com a situação de DAP ou CAF de todos os produtores da cooperativa não está presente nos documentos fornecidos [fonte: fichas_tecnicas/tuberculos_graos.txt; certificacoes/inspecao_adagro_2026.txt].",
+              "thought_signature": "EokBCoYBAWkUfRMAy_kmPwjizDvjnDssax6HxfGKMMKgr-e7tUYBoz5yQPOEKocFxli4a0-unEfN4mYhoju1nAbpUpPBSMGgM1v2PmnfdFdCoce_s7ECtcDAOxDk2rI3sANkwQagPSgLGjqaysJtKZcmcXyK2OpxxYQCWzm0w3avXa5mT4iT3z7esH4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "fOT9aqKVFO2sytMP2u7e6Q0",
+    "usage_metadata": {
+      "candidates_token_count": 167,
+      "prompt_token_count": 3004,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3004
+        }
+      ],
+      "total_token_count": 3171
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "280bbd991a4c67ce",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:47:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2236",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi a mensagem de consulta para exportação de frutas tropicais orgânicas (Manga, Goiaba e Maracujá). \n\nCom base na base de dados da cooperativa para a data de referência (2026-10-30), informo o seguinte:\n\n1. **Lista de Produtores Orgânicos para os produtos solicitados:**\n   - **Manga Tommy** e **Goiaba Paluma** (Orgânicas): Apenas a produtora **Maria das Graças Silva Ferreira (P001)** em Garanhuns possui certificação orgânica válida até 15/06/2027 [fonte: produtores.csv].\n   - **Maracujá (Orgânico):** Não há produtores ativos com certificação orgânica cadastrados para este produto no momento [fonte: produtores.csv].\n\n2. **Certificação Orgânica Internacional e Equivalência:**\n   - Não encontrei informações sobre certificação orgânica internacional ou equivalência para exportação para a União Europeia nos documentos da cooperativa [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt].\n\n3. **Documentação de Rastreabilidade e Certificados Fitossanitários:**\n   - A cooperativa dispõe de fichas de rastreabilidade interna por lotes, mas a emissão de certificados fitossanitários para exportação e documentação específica internacional não consta nas bases consultadas.\n\n4. **Dados Bancários:**\n   - *Nota de política interna:* Por questões de segurança, dados bancários, chaves PIX, números de conta ou agência não são fornecidos nas respostas.\n\n*Aviso:* O protótipo não envia mensagens automáticas para compradores externos.",
+              "thought_signature": "EnsKeQFpFH0T8gPlb7IoeNJRsA1lkWVHB9UtiiX_CQDjtRrdkZCt0XO5qlCHiyM-RDJ2mxhCQCKXUjp0qMCjra1QAeejhwHHLS_kqWWP-KrYFsPgDwWFcV3tRQq55ZMtggiM8lUrE0a0wqaHTOcpBhFemwH_ReQw6Aog_F4="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "v8X-aricOdKnxdIPnMzEsQU",
+    "usage_metadata": {
+      "candidates_token_count": 382,
+      "prompt_token_count": 3774,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3774
+        }
+      ],
+      "total_token_count": 4156
+    }
+  }
+}

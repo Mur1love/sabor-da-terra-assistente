@@ -1,0 +1,55 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "342b9f5c5be6e21d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:30 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2640",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: cotação\n\nItens solicitados:\n- Goiaba paluma:"
+            },
+            {
+              "text": " quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Banana prata: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Manga tommy: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Maracujá: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Alface: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Couve: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Espinafre: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Tomate: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Cebolinha: quantidade não informada, unidade kg [fonte: sazonalidade.csv]\n- Ovos caipira: quantidade 50.0, unidade dúzia [fonte: sazonalidade.csv]\n- Mel: quantidade 5.0, unidade kg [fonte: sazonalidade.csv]\n\nObservações:\n- Fornecimento semanal\n- Exige certificação orgânica para todos os itens possíveis\n- Exige laudo sanitário atualizado e rastreabilidade completa\n- Solicita cópias das certificações, fichas técnicas e dados cadastrais dos produtores, incluindo registro CAF\n\nCampos faltantes:\n- prazo_entrega\n- quantidade_por_item\n- quantidade\n\nAmbigüidades:\n- Frutas variadas totalizando 100kg sem divisão específica por fruta\n- Hortaliças totalizando 60kg sem divisão específica por hortaliça\n- 'mel puro' pode ser: mel de jandaíra, mel silvestre. Pergunte qual.\n\nSazonalidade e disponibilidade dos produtos em outubro:\n- Goiaba paluma: Disponível (Alta) [fonte: sazonalidade.csv] — Pico dez-mar. Fora de safra jun-ago.\n- Banana prata: Disponível (Alta) [fonte: sazonalidade.csv] — Produção contínua o ano todo.\n- Manga tommy: Disponível (Média) [fonte: sazonalidade.csv] — Safra out-mar. Indisponível mai-ago.\n- Maracujá: Disponível (Média) [fonte: sazonalidade.csv] — Pico mar-mai.\n- Alface: Disponível (Alta) [fonte: sazonalidade.csv] — Produção contínua em Garanhuns (clima ameno).\n- Couve: Disponível (Alta) [fonte: sazonalidade.csv] — Produção contínua.\n- Espinafre: Disponível (Alta) [fonte: sazonalidade.csv] — Produção contínua em Garanhuns.\n- Tomate: Disponível (Alta) [fonte: sazonalidade.csv] — Dois picos: jun-jul e out-jan.\n- Cebolinha: Disponível (Alta) [fonte: sazonalidade.csv] — Produção contínua.\n- Ovos caipira: Disponível (Alta) [fonte: sazonalidade.csv] — Contínuo, ~120 dúzias/semana.\n- Mel silvestre: Disponível (Média) [fonte: sazonalidade.csv] — Maior produção abr-jun (florada).",
+              "thought_signature": "EnsKeQFpFH0TRF7XJI-Y8ivl0ZmAYxtbmyomxn-0tLOHjrVgNlJ8GQ-uH3ZBbJ2-Z2kMN2GkqrtMNRouhq5X5KIctbiC4mJ7eH9yMADhba1wZxUkTJ70Lvl1ZyMGbBwOP6WFxq4RYWDqFY6YSaetQ5Ghd01yMymOe6Ajo5g="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "uMz-avb9BYejo_UP6aCiuAc",
+    "usage_metadata": {
+      "candidates_token_count": 769,
+      "prompt_token_count": 3547,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3547
+        }
+      ],
+      "total_token_count": 4316
+    },
+    "automatic_function_calling_history": []
+  }
+}

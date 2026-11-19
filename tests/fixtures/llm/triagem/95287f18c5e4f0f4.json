@@ -1,0 +1,143 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "95287f18c5e4f0f4",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:52 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8781",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: compra_urgente\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Queijo coalho: 200.0 kg\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Queijo manteiga: 50.0 kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Mel silvestre: 40.0 kg\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Goiaba paluma: 300.0 kg\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Prazo: 2026-10-29\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"O pedido de 200 kg cabe na capacidade. Capacidade documentada...\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"P008 (Josefa Alves de Souza): a certificação orgânica ... venceu em 30/09/2026.\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Risco de perda da promoção de fim de semana se não entregue hoje.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao houve confusoes entre queijo manteiga e manteiga de garrafa.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente apontou corretamente que a certificacao venceu e nao vale.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao inventou disponibilidade, alertando sobre capacidade produtiva.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente nao garantiu a entrega, solicitando confirmacoes.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Afirmou que nao ha contrato registrado.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nao confirmou o pagamento sem verificacao, apontando a falta de contrato.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Produtos e quantidades foram listados corretamente.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TqNSR9L9aZmqxOHE15noIzQ-b8feYKmlCQlpwNfRXaL5-SFycCEF-iadwM85XR38wivnnG8ld_mbuGHZ7zxoKwO5OEm_izaaX6-BDksMYyHEIKxOVACEtHEeHCS0opOJ2R3uoez_tTkAiR1GgZlZvSkDcYc8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "e83-ar7uJ5GmxdIP0cOJ4Qs",
+    "usage_metadata": {
+      "candidates_token_count": 778,
+      "prompt_token_count": 2648,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2648
+        }
+      ],
+      "total_token_count": 3426
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: compra_urgente"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Queijo coalho: 200.0 kg"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Queijo manteiga: 50.0 kg"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Mel silvestre: 40.0 kg"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Goiaba paluma: 300.0 kg"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Prazo: 2026-10-29"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "O pedido de 200 kg cabe na capacidade. Capacidade documentada..."
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "P008 (Josefa Alves de Souza): a certificação orgânica ... venceu em 30/09/2026."
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral"
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Risco de perda da promoção de fim de semana se não entregue hoje."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "Nao houve confusoes entre queijo manteiga e manteiga de garrafa."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O assistente apontou corretamente que a certificacao venceu e nao vale."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Nao inventou disponibilidade, alertando sobre capacidade produtiva."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "O assistente nao garantiu a entrega, solicitando confirmacoes."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Afirmou que nao ha contrato registrado."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Nao confirmou o pagamento sem verificacao, apontando a falta de contrato."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Produtos e quantidades foram listados corretamente."
+        }
+      ]
+    }
+  }
+}

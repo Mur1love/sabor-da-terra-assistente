@@ -1,0 +1,83 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "261bfe287f0e612d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:40:52 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1578",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Não encontrei produtos correspondentes a café torrado nem a carne bovina no catálogo\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Não encontrei produtos correspondentes a café torrado nem a carne bovina\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Nenhum produto do catálogo corresponde a esses termos.\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente informou corretamente que não encontrou os produtos.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhum produtor foi associado aos produtos inexistentes.\"\n    }\n  ]\n}",
+              "thought_signature": "EokBCoYBAWkUfROUDzp6liZ_htFH3buL5LFwcI94ai-VewMBlT1MiRjpU92EGmX4dZ2SZdSjRj4HNh2DdEBMCQcs1UPhq0380b8nazI-ZoLyjV3tvU4QqHl3Urs4x1AQ3J6SjOs65FagQES8vP4HZLNWZ-ZjTyPE97pqM2ZnhLUGiNVrnqTsmVVp0DA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "I-P9apnaGJPHxdIPwveS-Q0",
+    "usage_metadata": {
+      "candidates_token_count": 248,
+      "prompt_token_count": 732,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 732
+        }
+      ],
+      "total_token_count": 980
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Não encontrei produtos correspondentes a café torrado nem a carne bovina no catálogo"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Não encontrei produtos correspondentes a café torrado nem a carne bovina"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Nenhum produto do catálogo corresponde a esses termos."
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente informou corretamente que não encontrou os produtos."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Nenhum produtor foi associado aos produtos inexistentes."
+        }
+      ]
+    }
+  }
+}

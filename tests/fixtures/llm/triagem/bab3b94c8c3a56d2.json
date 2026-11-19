@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "bab3b94c8c3a56d2",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:35 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5610",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_9100972226126189351",
+                "args": {
+                  "pergunta": "Quais produtores possuem comprovação de DAP ou CAF vigente nos documentos da cooperativa? O cadastro geral lista essa informação para todos?"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMZauZwmsrNea0AggoGTEdX84DBZp2CEryYopg3LVHRZftklbdfDhsiKcHvo3o80tUH9NerarljxG0-Tw6d-ei--sA7qFa3XgHMBfGjU5D-ssj86-CxwgHyrvULz9FuaCwLmefBrdzjfs2EhuBzXrgY9KJCGy1uj7WRgQTz89zOyjE="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "duT9atGyJrW-xdIP4c-W2A8",
+    "usage_metadata": {
+      "candidates_token_count": 45,
+      "prompt_token_count": 2647,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2647
+        }
+      ],
+      "total_token_count": 2692
+    }
+  }
+}

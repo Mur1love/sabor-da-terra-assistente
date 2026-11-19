@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a1346dbd275472ce",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:23:02 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1841",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "O lote `LOT-2024-089` não foi encontrado (o número correto mais próximo é `LOT-2026-0089`) [fonte: lotes.csv]. \n\nAbaixo estão os dados do lote **LOT-2026-0089**:\n* **Produto:** Queijo coalho (45 kg) [fonte: lotes.csv]\n* **Produtor:** Cícero Romão de Almeida (P003), de Caetés [fonte: lotes.csv]\n* **Comprador:** Restaurante Raízes [fonte: lotes.csv]\n* **Pedido associado:** PED-2026-SEP-003 [fonte: lotes.csv]\n* **Data de colheita:** 01/09/2026 [fonte: lotes.csv]\n* **Data de entrega:** 02/09/2026 [fonte: lotes.csv]\n* **Validade:** 02/10/2026 [fonte: lotes.csv]\n* **Temperatura de transporte:** 8°C (ambiente climatizado) [fonte: lotes.csv]\n* **Inspeção visual:** Aprovado [fonte: lotes.csv]\n* **Status do pagamento:** Pago (Transação FIN-2026-003, no valor de R$ 1.440,00, liquidada em 05/09/2026) [fonte: lotes.csv].",
+              "thought_signature": "EnsKeQFpFH0T4MRLxLnb7TFsPFw_3RLrmB6EBESATV0SMhdcyOVwOTczdeugg4toNTMB8x3qOlKDHyLeffEkizvzoltKq_sJ4a5MnJ5wcYrkxmzvLBIyq5PJmGbkoWwfFtTWVTq0DEXExqF2Y0_mTtPf9LxrRMaHqU-K_Hs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "BM7-auuKNv3gytMPvbeD0Ag",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 8005
+        }
+      ],
+      "cached_content_token_count": 8005,
+      "candidates_token_count": 348,
+      "prompt_token_count": 10883,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 10883
+        }
+      ],
+      "total_token_count": 11231
+    }
+  }
+}

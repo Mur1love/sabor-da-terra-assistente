@@ -1,0 +1,67 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "75d10087cc61ff5d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:49:19 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1374",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_7914990052831231343",
+                "args": {
+                  "data_referencia": "2026-10-30",
+                  "termo": "Lucia"
+                },
+                "name": "identificar_produtor"
+              },
+              "thought_signature": "EnsKeQFpFH0TzkKDQSL8JWDC4OgAQiXj-7is-891tJurB-t1ObhNJrsQKuxcgYGlP2zGtBNOcKGW3YdbvWnHrqh7-tmP7A26sUrut-Da8SjOn-4G_6ZOwhRPcsjJMnljjSDlZqS715LOyh1mp7rZrgT6sUH5tgQn2xS11dI="
+            },
+            {
+              "function_call": {
+                "id": "call_7914990052831230548",
+                "args": {
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "triar_pendentes"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Hsb-auzqIvepytMP2eOcsQw",
+    "usage_metadata": {
+      "candidates_token_count": 68,
+      "prompt_token_count": 2705,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2705
+        }
+      ],
+      "total_token_count": 2773
+    }
+  }
+}

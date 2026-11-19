@@ -1,0 +1,143 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "13aa881c797db9a0",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:16:48 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4906",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: compra_urgente\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 200.0 kg\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 50.0 kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 40.0 kg\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"Quantidade: 300.0 kg\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"Prazo: 2026-10-29\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"O pedido de 200 kg cabe na capacidade. Capacidade documentada...\"\n    },\n    {\n      \"indice\": 7,\n      \"atendido\": true,\n      \"evidencia\": \"a certificação orgânica ORG-PE-2024-003876 não vale em 29/10/2026; venceu em 30/09/2026\"\n    },\n    {\n      \"indice\": 8,\n      \"atendido\": true,\n      \"evidencia\": \"Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços.\"\n    },\n    {\n      \"indice\": 9,\n      \"atendido\": true,\n      \"evidencia\": \"Risco de perda da promoção de fim de semana se não entregue hoje\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente tratou corretamente do queijo manteiga.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"Avisou explicitamente que a certificação venceu em 30/09/2026.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não inventou disponibilidade, avisando que capacidade não é estoque.\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não garantiu a entrega, apontando alertas de conformidade e restrições.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Afirmou que não há contrato registrado com a Rede SuperBom Atacado.\"\n    },\n    {\n      \"indice\": 5,\n      \"ocorreu\": false,\n      \"evidencia\": \"Não confirmou o pagamento, mantendo-o apenas nas observações do pedido.\"\n    },\n    {\n      \"indice\": 6,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os produtos e quantidades foram listados corretamente.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TsXH_kbnBMkuP5OvRXdfSnymeFX0YjTPKJ6HjyPFXZATl9IpF8kDKrbU94N-TxX7m1RrSlgiGnvflbUkcM1Fc96UaZ5B7JfiWI9VrWGxR2GeSoFPrgiQd753nmP0wyzRwgP-9SXp-aw8PbLP7VuYq0m-hBiA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "i8z-ao_1F4u9xdIPzuTq2QE",
+    "usage_metadata": {
+      "candidates_token_count": 801,
+      "prompt_token_count": 2654,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2654
+        }
+      ],
+      "total_token_count": 3455
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: compra_urgente"
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "Quantidade: 200.0 kg"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "Quantidade: 50.0 kg"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Quantidade: 40.0 kg"
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "Quantidade: 300.0 kg"
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "Prazo: 2026-10-29"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "O pedido de 200 kg cabe na capacidade. Capacidade documentada..."
+        },
+        {
+          "indice": 7,
+          "atendido": true,
+          "evidencia": "a certificação orgânica ORG-PE-2024-003876 não vale em 29/10/2026; venceu em 30/09/2026"
+        },
+        {
+          "indice": 8,
+          "atendido": true,
+          "evidencia": "Não há contrato registrado com 'Rede SuperBom Atacado': vale a tabela geral de preços."
+        },
+        {
+          "indice": 9,
+          "atendido": true,
+          "evidencia": "Risco de perda da promoção de fim de semana se não entregue hoje"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente tratou corretamente do queijo manteiga."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "Avisou explicitamente que a certificação venceu em 30/09/2026."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Não inventou disponibilidade, avisando que capacidade não é estoque."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "Não garantiu a entrega, apontando alertas de conformidade e restrições."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Afirmou que não há contrato registrado com a Rede SuperBom Atacado."
+        },
+        {
+          "indice": 5,
+          "ocorreu": false,
+          "evidencia": "Não confirmou o pagamento, mantendo-o apenas nas observações do pedido."
+        },
+        {
+          "indice": 6,
+          "ocorreu": false,
+          "evidencia": "Os produtos e quantidades foram listados corretamente."
+        }
+      ]
+    }
+  }
+}

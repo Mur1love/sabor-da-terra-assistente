@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a288625536fcf4c3",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:17:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=5140",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebemos uma consulta do Mercado Bom Preço via WhatsApp. Abaixo estão os detalhes da mensagem e as verificações de conformidade com base nos dados da cooperativa:\n\n### Tipo da Mensagem\n* **Tipo:** Consulta\n\n### Itens Solicitados\n* **Morango**: 50.0 kg (Exige orgânico: Sim)\n* **Amora**: 50.0 kg (Exige orgânico: Sim)\n\n### Observações e Detalhes da Triagem\n* Frequência semanal: 50kg de cada por semana\n* Solicita tabela de preços\n* Exige certificação orgânica para uso no rótulo\n\n### Campos Faltantes\n* prazo_entrega\n\n---\n\n### Verificação de Conformidade e Preços (Simulação para entrega em 2026-11-05)\n\n#### 1. Morango\n* **Status:** Pode atender [fonte: produtores.csv]. Produtora elegível: P014 (Mariana de Fátima Cordeiro) [fonte: produtores.csv].\n* **Capacidade:** O pedido de 50 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 150 kg [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt]. (Aviso: A capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt]).\n* **Preço:** \n  * Preço unitário: R$ 22,00 [fonte: tabela_precos_outubro_2026.csv]\n  * Subtotal: R$ 1100,00 [fonte: tabela_precos_outubro_2026.csv]\n  * Desconto de atacado aplicado (5.0%): R$ 55,00 [fonte: tabela_precos_outubro_2026.csv]\n  * **Total:** R$ 1045,00 [fonte: tabela_precos_outubro_2026.csv]\n  * Observação da tabela: Safra jun-set. Fora de safra: sob consulta [fonte: tabela_precos_outubro_2026.csv].\n\n#### 2. Amora\n* **Status:** Não pode atender [fonte: produtores.csv]. Produtora elegível: P014 (Mariana de Fátima Cordeiro) [fonte: produtores.csv].\n* **Capacidade:** O pedido de 50 kg passa da capacidade. Capacidade documentada dos elegíveis em 7 dias: 40 kg [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt].\n* **Preço:** \n  * Preço unitário: R$ 30,00 [fonte: tabela_precos_outubro_2026.csv]\n  * Subtotal: R$ 1500,00 [fonte: tabela_precos_outubro_2026.csv]\n  * Desconto de atacado aplicado (5.0%): R$ 75,00 [fonte: tabela_precos_outubro_2026.csv]\n  * **Total:** R$ 1425,00 [fonte: tabela_precos_outubro_2026.csv]\n  * Observação da tabela: Disponibilidade limitada [fonte: tabela_precos_outubro_2026.csv].\n\n#### Alertas e Exigências do Contrato 012/2026\n* **Entrega fora do dia:** O contrato 012/2026 prevê entrega só às terças e sextas; 05/11/2026 é quinta [fonte: contratos/contrato_mercado_bom_preco.txt].\n* **Produtor exclusivo:** Só P014 (Mariana de Fátima Cordeiro) fornece morango [fonte: produtores.csv] / amora [fonte: produtores.csv]: não há outro produtor se ele não puder atender.\n* **Exigências do Contrato:** Contrato 012/2026 com Mercado Bom Preço: entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3); pagamento por boleto com vencimento em 30 dias; multa de 2% ao dia por atraso na entrega; produto fora do padrão é devolvido sem custo para o comprador [fonte: contratos/contrato_mercado_bom_preco.txt].",
+              "thought_signature": "EnsKeQFpFH0Tyg69HM4zUldGoAu2q6xD77gciZ1-b1dHDtdffTBbR4uSiEg0pK7df50s_1LconcAlIf75fzX9SYIO0R7v3Wqy7z2fQxWOIk9IVEubVnChnNMl1aTZFGzwvDjih0EMK9-5BwL6sbBKkIyBFLT2RdlmHmiJfM="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "p8z-au3qOcOp5NoP96KU2Qs",
+    "usage_metadata": {
+      "candidates_token_count": 1063,
+      "prompt_token_count": 4362,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4362
+        }
+      ],
+      "total_token_count": 5425
+    },
+    "automatic_function_calling_history": []
+  }
+}

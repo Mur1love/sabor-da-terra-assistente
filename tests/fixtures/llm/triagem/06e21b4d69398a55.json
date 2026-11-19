@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "06e21b4d69398a55",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:44:33 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1822",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi a mensagem e realizei a triagem do pedido. Seguem os detalhes e a verificação dos itens:\n\n- **Tipo:** Compra urgente para o dia **2029-10-29** (amanhã).\n- **Canal / Remetente:** Não identificado na mensagem (comprador consta como \"Desconhecido\").\n\n### Itens solicitados:\n1. **Queijo artesanal (15 kg):**\n   - **Status:** Nenhum produto do catálogo corresponde exatamente a \"queijo artesanal\". Será preciso identificar qual queijo foi enviado na última vez para prosseguir.\n\n2. **Mel de jandaíra (3 kg):**\n   - **Elegibilidade:** Encontrado 1 produtor elegível (**José Antônio dos Santos - P002**, de Brejão) [fonte: produtores.csv].\n   - **Capacidade:** O pedido de 3 kg cabe na capacidade documentada dos produtores elegíveis na janela de 7 dias (3,5 kg) [fonte: certificacoes/cert_organica_jose_santos_P002.txt]. *Nota:* Capacidade de produção não é estoque; é necessário confirmar a disponibilidade com o produtor.\n   - **Preço:** Não há oferta convencional de \"mel de jandaíra\" cadastrada na tabela de preços (n/d) [fonte: tabela_precos_outubro_2026.csv]. Apenas o produtor P002 produz, com produção limitada [fonte: tabela_precos_outubro_2026.csv].\n   - **Contrato:** Como não há contrato registrado com o comprador, valeria a tabela geral de preços [fonte: tabela_precos_outubro_2026.csv].\n\n*Aviso sobre o Pix:* O protótipo não realiza envios de mensagens, cobranças ou transações financeiras (como envio de Pix), portanto nada foi enviado ao cliente. A equipe precisa revisar as informações, identificar o comprador e esclarecer o tipo exato de queijo antes de confirmar o pedido.",
+              "thought_signature": "EnsKeQFpFH0T6c7R0ZxnwoFJK1UDve9wxcXeE_vTZtgVXmPj4y_3K_y4pdgFaKbYqhdrZPDGBZci5xlzkP9eA49fA8XOap-c1jOKXJiI50yXIlLRZ702hM4GPclf1ZtVCqTD5C0PXAuVwl32jj3eRWoGcLcBc_29tHtJkMw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "AMX-arObDbW2uMYP2N-egQE",
+    "usage_metadata": {
+      "candidates_token_count": 457,
+      "prompt_token_count": 3831,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3831
+        }
+      ],
+      "total_token_count": 4288
+    }
+  }
+}

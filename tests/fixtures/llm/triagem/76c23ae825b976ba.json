@@ -1,0 +1,68 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "76c23ae825b976ba",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:48:02 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=965",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_12493331290682842935",
+                "args": {
+                  "produtor_id": "P001",
+                  "data_referencia": "2026-10-30",
+                  "mes": "2026-10"
+                },
+                "name": "resumo_produtor"
+              },
+              "thought_signature": "EokBCoYBAWkUfRMlx4VXFr65X9QfyZP9KdgpCnDMrEfjZ30c_osY0p2VqpARTD6mX4L5_foTZ9RALSJJrv-T_WqBbZXmfC1g2vmCz3Izv7qAYHBXuBORfE2uze2Zk92WD01MmKaiD2VYAD6_RiLSuOL0hLkQLOMjB9_yCkGJ3qix_PieEYcMV9YmvjE="
+            },
+            {
+              "function_call": {
+                "id": "call_12493331290682840724",
+                "args": {
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "relatorio_pendencias_vencidas"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "0eT9avaVEb2gytMPlrrtmAI",
+    "usage_metadata": {
+      "candidates_token_count": 88,
+      "prompt_token_count": 2683,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2683
+        }
+      ],
+      "total_token_count": 2771
+    }
+  }
+}

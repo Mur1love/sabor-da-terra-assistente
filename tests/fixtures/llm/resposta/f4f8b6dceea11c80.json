@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f4f8b6dceea11c80",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:52:00 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=950",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "A certificação orgânica para o mel silvestre da produtora Josefa Alves de Souza (P008) encontra-se vencida [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. O certificado expirou em 30/09/2026, com data de referência em 30/10/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt]. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456) e a auditoria está agendada para 15/11/2026, portanto, até a conclusão da renovação, os produtos não podem ser comercializados como orgânicos [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+              "thought_signature": "EnsKeQFpFH0T7UZHFrqIusQeCu2MaJHd-9UKB6QDGwwXIHfAaab-3uLvdl-iwpZ_JfeYn0de0-p0XiEFbF1VLB_mZ4Cx-80gxZtoonjX4T2C95P-wIQAT9MJFmR1jKN3SBolRZSDUCaZblKYOqrnRCEyCseKmFYjlqHHW8k="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "v8b-arPBE_3gytMPyfmD0Ag",
+    "usage_metadata": {
+      "candidates_token_count": 209,
+      "prompt_token_count": 1406,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1406
+        }
+      ],
+      "total_token_count": 1615
+    },
+    "automatic_function_calling_history": []
+  }
+}

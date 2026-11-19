@@ -1,0 +1,118 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "4da2cfcc9aff2ccd",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:20:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4931",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"deve_conter\": [\n    {\n      \"indice\": 0,\n      \"atendido\": true,\n      \"evidencia\": \"Tipo da mensagem: compra.\"\n    },\n    {\n      \"indice\": 1,\n      \"atendido\": true,\n      \"evidencia\": \"- queijo coalho\\n   - Quantidade: 10.0\\n   - Unidade: kg\"\n    },\n    {\n      \"indice\": 2,\n      \"atendido\": true,\n      \"evidencia\": \"- manteiga\\n   - Quantidade: 5.0\\n   - Unidade: kg\"\n    },\n    {\n      \"indice\": 3,\n      \"atendido\": true,\n      \"evidencia\": \"Referência implícita detectada ('o de sempre'): necessário consultar histórico do comprador.\"\n    },\n    {\n      \"indice\": 4,\n      \"atendido\": true,\n      \"evidencia\": \"'manteiga' pode ser: manteiga de garrafa, queijo manteiga. Pergunte qual.\"\n    },\n    {\n      \"indice\": 5,\n      \"atendido\": true,\n      \"evidencia\": \"- Prazo: 2026-10-31\"\n    },\n    {\n      \"indice\": 6,\n      \"atendido\": true,\n      \"evidencia\": \"O pedido de 10 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias\"\n    }\n  ],\n  \"nao_deve_conter\": [\n    {\n      \"indice\": 0,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente não inventou o tipo, apenas apontou a ambiguidade e sugeriu perguntar.\"\n    },\n    {\n      \"indice\": 1,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente apenas indicou a necessidade de consultar o histórico, sem inventar dados.\"\n    },\n    {\n      \"indice\": 2,\n      \"ocorreu\": false,\n      \"evidencia\": \"Os produtos e quantidades foram extraídos corretamente (10kg e 5kg).\"\n    },\n    {\n      \"indice\": 3,\n      \"ocorreu\": false,\n      \"evidencia\": \"O assistente não garantiu a entrega, apenas informou sobre a capacidade e ressalvou.\"\n    },\n    {\n      \"indice\": 4,\n      \"ocorreu\": false,\n      \"evidencia\": \"Nenhuma preferência anterior foi afirmada sem evidência.\"\n    }\n  ]\n}",
+              "thought_signature": "EnsKeQFpFH0TvL696hY-snMlfhZxkxwg1aYc9EGSdGCdNhHd2H3swiMm6XkhCnZuWL2-_do4iEIO33ysmE3iFAbMnBrFO9LsHxVP3rdgLp9qVw6PGq7RZnwfAm1STL7zWi2R1YqX4UqJzL-2CkSZ7lBCua-xLAYd9Cqd0ZI="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "cc3-asCkCqifuMYPtv6W8Qs",
+    "usage_metadata": {
+      "candidates_token_count": 600,
+      "prompt_token_count": 1330,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1330
+        }
+      ],
+      "total_token_count": 1930
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "deve_conter": [
+        {
+          "indice": 0,
+          "atendido": true,
+          "evidencia": "Tipo da mensagem: compra."
+        },
+        {
+          "indice": 1,
+          "atendido": true,
+          "evidencia": "- queijo coalho\n   - Quantidade: 10.0\n   - Unidade: kg"
+        },
+        {
+          "indice": 2,
+          "atendido": true,
+          "evidencia": "- manteiga\n   - Quantidade: 5.0\n   - Unidade: kg"
+        },
+        {
+          "indice": 3,
+          "atendido": true,
+          "evidencia": "Referência implícita detectada ('o de sempre'): necessário consultar histórico do comprador."
+        },
+        {
+          "indice": 4,
+          "atendido": true,
+          "evidencia": "'manteiga' pode ser: manteiga de garrafa, queijo manteiga. Pergunte qual."
+        },
+        {
+          "indice": 5,
+          "atendido": true,
+          "evidencia": "- Prazo: 2026-10-31"
+        },
+        {
+          "indice": 6,
+          "atendido": true,
+          "evidencia": "O pedido de 10 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias"
+        }
+      ],
+      "nao_deve_conter": [
+        {
+          "indice": 0,
+          "ocorreu": false,
+          "evidencia": "O assistente não inventou o tipo, apenas apontou a ambiguidade e sugeriu perguntar."
+        },
+        {
+          "indice": 1,
+          "ocorreu": false,
+          "evidencia": "O assistente apenas indicou a necessidade de consultar o histórico, sem inventar dados."
+        },
+        {
+          "indice": 2,
+          "ocorreu": false,
+          "evidencia": "Os produtos e quantidades foram extraídos corretamente (10kg e 5kg)."
+        },
+        {
+          "indice": 3,
+          "ocorreu": false,
+          "evidencia": "O assistente não garantiu a entrega, apenas informou sobre a capacidade e ressalvou."
+        },
+        {
+          "indice": 4,
+          "ocorreu": false,
+          "evidencia": "Nenhuma preferência anterior foi afirmada sem evidência."
+        }
+      ]
+    }
+  }
+}

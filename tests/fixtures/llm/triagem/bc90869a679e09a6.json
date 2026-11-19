@@ -1,0 +1,88 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "bc90869a679e09a6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:46:42 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1032",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_17629414468158465438",
+                "args": {
+                  "produto": "umbu",
+                  "mes": "novembro"
+                },
+                "name": "disponibilidade"
+              },
+              "thought_signature": "EokBCoYBAWkUfRPsGt5sw_pruuKuA6aNZEBAakFWX89-QpI9ZLjAGIQQapfRrMEz5hbYg_iX66YwwMp-oISMa3k0xFD4jQd9HfYSrLqX2lwwrgaxSU58Knu3B1NXQz1zVdVqAz6JOCkW8oX8cxCLQTqwwtptL0zxnOJ1cusq7zSLZ_78_IsTtJtyWjo="
+            },
+            {
+              "function_call": {
+                "id": "call_17629414468158464297",
+                "args": {
+                  "mes": "novembro",
+                  "produto": "mirtilo"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_17629414468158467252",
+                "args": {
+                  "produto": "framboesa",
+                  "mes": "novembro"
+                },
+                "name": "disponibilidade"
+              }
+            },
+            {
+              "function_call": {
+                "id": "call_17629414468158466111",
+                "args": {
+                  "mes": "novembro",
+                  "produto": "cajá"
+                },
+                "name": "disponibilidade"
+              }
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "geT9apbjMI3GxdIPjfTmwQg",
+    "usage_metadata": {
+      "candidates_token_count": 102,
+      "prompt_token_count": 2649,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2649
+        }
+      ],
+      "total_token_count": 2751
+    }
+  }
+}

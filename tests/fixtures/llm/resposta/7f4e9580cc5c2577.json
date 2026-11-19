@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "7f4e9580cc5c2577",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:23:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=3216",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não encontrei nenhum produtor associado ao telefone `***` no cadastro [fonte: produtores.csv]. Poderia fornecer o nome ou o código correto do produtor para que eu possa gerar o resumo solicitado?",
+              "thought_signature": "EnsKeQFpFH0T_SPoVaFmhJq3BehOZSccRY5taI_HJYctO79HR1zw4ZSemTdpUUj2MMhC4WSIp8mmBnDvI5aVFn1ehKEti39Ifd_s5T34SEGxK-YADm-M5AI-wgUBaNJTO02DuG8_yvwA8oE8518W4WqGNKVVvfCnPXdzb98="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "MM7-at6TI_uBiLMPm6ChoAU",
+    "usage_metadata": {
+      "candidates_token_count": 44,
+      "prompt_token_count": 686,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "total_token_count": 730
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "9d2e13360319e9fe",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:46:01 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1694",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Tipo da mensagem: consulta\n\nItens:\n- Produto: morango | Quantidade: 50.0 | Unidade: kg | Prazo: não informado\n  - Alertas de conformidade: O contrato 012/2026 prevê entrega só às terças e sextas; 05/11/2026 é quinta [fonte: contratos/contrato_mercado_bom_preco.txt]; O pedido de 50 kg cabe na capacidade. Capacidade documentada dos elegíveis em 7 dias: 150 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt]; Só P014 (Mariana de Fátima Cordeiro) fornece morango: não há outro produtor se ele não puder atender [fonte: produtores.csv]; Contrato 012/2026 com Mercado Bom Preço: entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3); pagamento por boleto com vencimento em 30 dias; multa de 2% ao dia por atraso na entrega; produto fora do padrão é devolvido sem custo para o comprador [fonte: contratos/contrato_mercado_bom_preco.txt].\n\n- Produto: amora | Quantidade: 50.0 | Unidade: kg | Prazo: não informado\n  - Alertas de conformidade: O pedido de 50 kg passa da capacidade. Capacidade documentada dos elegíveis em 7 dias: 40 kg [fonte: certificacoes/cert_organica_mariana_cordeiro_P014.txt]; O contrato 012/2026 prevê entrega só às terças e sextas; 05/11/2026 é quinta [fonte: contratos/contrato_mercado_bom_preco.txt]; Só P014 (Mariana de Fátima Cordeiro) fornece amora: não há outro produtor se ele não puder atender [fonte: produtores.csv]; Contrato 012/2026 com Mercado Bom Preço: entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3); pagamento por boleto com vencimento em 30 dias; multa de 2% ao dia por atraso na entrega; produto fora do padrão é devolvido sem custo para o comprador [fonte: contratos/contrato_mercado_bom_preco.txt].",
+              "thought_signature": "EnsKeQFpFH0T7jLnQv6EDDtuAalmZlVE-wauK8Vnm3SVPqlKCu0gA6fEiy48e2QBkhMojMk7bR6MGrEh2MI3V2Bsa4L0RbeoqcCmpHZzH-f1sNbZV0F1M0FPpAzrtLOyObT2olrDlXJe0QW2DWEZReeouvApiFSAhw9Lrdw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "WMX-asa6D_3FxdIPyc7WmQM",
+    "usage_metadata": {
+      "candidates_token_count": 584,
+      "prompt_token_count": 4222,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4222
+        }
+      ],
+      "total_token_count": 4806
+    },
+    "automatic_function_calling_history": []
+  }
+}

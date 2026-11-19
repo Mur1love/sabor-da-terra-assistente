@@ -1,0 +1,65 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "fbeb4c235817471c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:22:25 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1281",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_15160768639122357910",
+                "args": {
+                  "produto": "goiaba paluma",
+                  "mes": "10"
+                },
+                "name": "disponibilidade"
+              },
+              "thought_signature": "EnsKeQFpFH0TT7Rchgw8MUQUGMVBFDutlXvfnHTSeL-4QylxcYIA7vPriY16mx3rF99tyikwNsxY-ItSQm9NlnsE-ClEcj93dxiKNSs5aqPezL0zkGy0RHrVKxW0hf3PGcoWGR_s9tB132UxR3gRyYk6v0DEfq0lWv3T9Ok="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "4M3-avLAB_3gytMPvbeD0Ag",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4000
+        }
+      ],
+      "cached_content_token_count": 4000,
+      "candidates_token_count": 27,
+      "prompt_token_count": 7092,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 7092
+        }
+      ],
+      "total_token_count": 7119
+    }
+  }
+}

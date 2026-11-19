@@ -1,0 +1,54 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "4ba8b900dd4290d8",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:47:22 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2510",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Os produtores com certificação orgânica vigente para mel silvestre em 30/10/2026 são:\n\n* **José Antônio dos Santos** (P002) - Brejão | Validade da certificação: 20/03/2027\n* **Débora Cristina de Melo** (P018) - Águas Belas | Validade"
+            },
+            {
+              "text": " da certificação: 28/02/2028\n\n*Aviso:* A produtora Josefa Alves de Souza (P008) possui cadastro para o produto, mas sua certificação orgânica venceu em 30/09/2026, não podendo vender como orgânica nesta data [fonte: produtores.csv].",
+              "thought_signature": "EokBCoYBAWkUfRNvKuBtvlT5ZGQd5R6xJRHgZKIs7-t3e8cvcrHxEbQ_ePBAf1ut-vp0DFZ8TKXX1s31i7IFLKFquTnEvtMuJJozB-ZKZ96y6yTIsL0aDHv126JreoDijYk0hHs_Dx6_5GqbAb96N7gAjaEg8Z_HJj2e80RU6TrMjKRoQZ2pQ0aUU3c="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "qOT9atyPHvjX0_gP8pq_OQ",
+    "usage_metadata": {
+      "candidates_token_count": 163,
+      "prompt_token_count": 2997,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 2997
+        }
+      ],
+      "total_token_count": 3160
+    }
+  }
+}

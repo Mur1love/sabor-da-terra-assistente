@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "2f952a292d4aa79a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:45:20 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1410",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Para a inspeção da ADAGRO, os seguintes documentos e itens de infraestrutura e controle precisam ser disponibilizados e mantidos conforme [fonte: certificacoes/inspecao_adagro_2026.txt]:\n\n* **Depósito Central (CD):**\n  * Área de recebimento [fonte: certificacoes/inspecao_adagro_2026.txt].\n  * Câmaras frias (com as temperaturas de operação adequadas, como 4°C para laticínios e 10°C para frutas) [fonte: certificacoes/inspecao_adagro_2026.txt].\n  * Área seca para grãos, mel e produtos processados [fonte: certificacoes/inspecao_adagro_2026.txt].\n* **Controle e Rastreabilidade:**\n  * Registros e comprovação do controle de pragas [fonte: certificacoes/inspecao_adagro_2026.txt].\n  * Sistema de rastreabilidade de lotes por produtor [fonte: certificacoes/inspecao_adagro_2026.txt].\n  * Vistorias e registros dos veículos de transporte (com atenção especial aos termômetros de transporte) [fonte: certificacoes/inspecao_adagro_2026.txt].",
+              "thought_signature": "EokBCoYBAWkUfROJLMtJguBjoqFlXrDZyHzDJTVGRjJS_YJOHZVyCw_-BecdBGGeCMxpQDNalTsZWHlmL91n1s2gb34M_cTuapvkaWgwPg2YaL6yBd2BpXxylJ1qt6eZBhTmC-tP0v054eeha9vaOqoVmPuB8oJT2ce115z9_jT_nQXqv_XcWfUeIs8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "L-T9avXhJqKoytMPxM6a8AQ",
+    "usage_metadata": {
+      "candidates_token_count": 294,
+      "prompt_token_count": 3040,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3040
+        }
+      ],
+      "total_token_count": 3334
+    }
+  }
+}

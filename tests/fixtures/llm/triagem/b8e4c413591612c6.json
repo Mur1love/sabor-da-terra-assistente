@@ -1,0 +1,64 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b8e4c413591612c6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:52:10 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1345",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_977970686761517215",
+                "args": {
+                  "pergunta": "pagamento Mercado Bom Preço de setembro Josefa Alves de Souza P008"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EnsKeQFpFH0TUysvkQuuUh6cJQ0agS3bHtWQDJWrSbUfBxJ5MKhxyR3DoTAYx2JXb75yfGsaEETBJ1I_eyVU1nWeSv_IqWmUIuoLtCtZMhnC1K7foi4AjKuaVwegjmzUPPZPzh-7KzlBo_hwCWwGuev2uwvqdgUkdm1MGyk="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "ycb-ap7LN-uwytMP_dHI0AM",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 7997
+        }
+      ],
+      "cached_content_token_count": 7997,
+      "candidates_token_count": 35,
+      "prompt_token_count": 11593,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 11593
+        }
+      ],
+      "total_token_count": 11628
+    }
+  }
+}

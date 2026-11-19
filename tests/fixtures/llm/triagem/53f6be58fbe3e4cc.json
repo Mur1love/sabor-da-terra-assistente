@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "53f6be58fbe3e4cc",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:49:12 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1986",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Recebi e processei a notificação oficial da ADAGRO sobre a inspeção sanitária agendada para os dias 11 e 12 de novembro de 2026. \n\nA triagem classificou o documento como uma **notificação oficial** [fonte: triar_pedido]. Os itens solicitados para a inspeção são:\n- Cadastro atualizado de todos os produtores (nome, CPF, endereço e produtos).\n- Certificações orgânicas vigentes.\n- Laudos sanitários dos últimos 12 meses.\n- Registros de rastreabilidade dos últimos 3 lotes de cada produto.\n- Contratos com compradores institucionais.\n\n*Aviso:* O não atendimento poderá resultar em suspensão do SIE [fonte: triar_pedido]. Como este protótipo não realiza envios automáticos, nenhuma mensagem externa foi disparada. A equipe deve reunir os documentos listados acima para apresentação na data da inspeção.",
+              "thought_signature": "EnsKeQFpFH0Td9PmbxAqKvqi78X4pmFBSSDUBdHxQXsFpbhixgB_wg2AX7mpbGlcE00WdcoBmS8Wg84bYl8DMEJeTvBeQfdR7E6yLPgk03tQ2b5nMSQZ9m0FQdyQNf2lUoPAf4hSsSZXjFiPag2aCKf1ZrcwlnQ0YjAnls0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "Fsb-ao-ONa2pxdIP2I2Q6Qk",
+    "usage_metadata": {
+      "candidates_token_count": 205,
+      "prompt_token_count": 3097,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3097
+        }
+      ],
+      "total_token_count": 3302
+    }
+  }
+}

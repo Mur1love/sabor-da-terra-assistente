@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "fc4849288382a0b0",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:26:10 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7292",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_7562634646907002368",
+                "args": {
+                  "produtor_id": "P003",
+                  "comprador": "Rede SuperBom Atacado"
+                },
+                "name": "consultar_lotes"
+              },
+              "thought_signature": "EokBCoYBAWkUfRNGGilTOrA0e2Xz9izFcSHE-LuSxbGLYXMMtKxbtYqEMB0YarKuRcB4r5YCd3IA9Jlmkcjjrm4ikoZ8DCDk1kgvRQgHNS9PKMlRgwVf8HU9g3npTneb_ZGNrB0stkX9IjOMIG8eB2H-vp2uljXCGK0q0xqqlLxa78aAhCBzqf3nfx8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "q9_9atG1AePgytMP7dqmmAQ",
+    "usage_metadata": {
+      "candidates_token_count": 38,
+      "prompt_token_count": 4335,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4335
+        }
+      ],
+      "total_token_count": 4373
+    }
+  }
+}

@@ -1,0 +1,96 @@
+# Robustez (etapa 14): 5 variações coloquiais NOVAS, fora do gabarito da #6.
+# Gírias, abreviações, sem acento e erros de digitação — o RF2 do docs/01 §6 —
+# sobre fatos conferidos nas funções reais (data de referência 30/10/2026).
+# Mesmo esquema do tests/gabarito/README.md; avaliadas pelo mesmo juiz.
+
+- id: ROB-001
+  desafio: "Triagem de pedidos"
+  requisito: "Compreender preço pedido em linguagem coloquial"
+  entrada: >
+    qto ta o kg do queijo coalho? quero uns 50kg
+  esperado: >
+    Informar o preço do queijo coalho convencional da tabela de outubro de 2026
+    (R$ 32,00/kg) e o total para 50 kg (R$ 1.600,00), sem desconto de atacado,
+    que só vale a partir de 100 kg.
+  funcoes_esperadas: [ preco ]
+  deve_conter:
+    - "Preço de R$ 32,00 por kg do queijo coalho"
+    - "Total de R$ 1.600,00 para 50 kg"
+  nao_deve_conter:
+    - "Desconto de atacado aplicado a 50 kg"
+    - "Preço diferente da tabela de outubro de 2026"
+  fonte:
+    - "data/tabela_precos_outubro_2026.csv"
+
+- id: ROB-002
+  desafio: "Consulta documental"
+  requisito: "Consultar certificação orgânica em linguagem coloquial"
+  entrada: >
+    oi, qm tem mel organico valendo ainda??
+  esperado: >
+    Identificar P002 e P018 com certificação orgânica vigente para mel e avisar
+    que a certificação de P008 (Josefa) venceu em 30/09/2026.
+  funcoes_esperadas: [ buscar_produtores ]
+  deve_conter:
+    - "Identificação de P002"
+    - "Identificação de P018"
+    - "Certificação de P008 vencida em 30/09/2026"
+  nao_deve_conter:
+    - "P008 apresentada como certificada vigente"
+  fonte:
+    - "data/produtores.csv"
+
+- id: ROB-003
+  desafio: "Consulta documental"
+  requisito: "Rastrear lote a partir de pergunta coloquial"
+  entrada: >
+    o lote LOT-2026-0089 foi pra onde msm? de qm era?
+  esperado: >
+    Informar que o lote LOT-2026-0089 tem 45 kg de queijo coalho do produtor
+    P003 (Cícero Romão de Almeida), entregue em 02/09/2026 ao Restaurante Raízes
+    (pedido PED-2026-SEP-003).
+  funcoes_esperadas: [ rastrear_lote ]
+  deve_conter:
+    - "Comprador Restaurante Raízes"
+    - "Produtor P003 (Cícero Romão de Almeida)"
+    - "45 kg de queijo coalho"
+    - "Entrega em 02/09/2026"
+  nao_deve_conter:
+    - "Comprador ou produtor inventado para o lote"
+  fonte:
+    - "data/lotes.csv"
+
+- id: ROB-004
+  desafio: "Triagem de pedidos"
+  requisito: "Consultar sazonalidade em linguagem coloquial"
+  entrada: >
+    tem goiaba e umbu pra novembro? to querendo fecha c um cliente
+  esperado: >
+    Informar que a goiaba paluma tem safra alta em novembro e que o umbu não
+    está disponível em novembro (safra só de fevereiro a maio).
+  funcoes_esperadas: [ disponibilidade ]
+  deve_conter:
+    - "Goiaba disponível em novembro"
+    - "Umbu indisponível em novembro"
+  nao_deve_conter:
+    - "Umbu oferecido para novembro"
+  fonte:
+    - "data/sazonalidade.csv"
+
+- id: ROB-005
+  desafio: "Triagem de pedidos"
+  requisito: "Identificar produtor inativo em pergunta coloquial"
+  entrada: >
+    da pra chamar o geraldo (P015) pra mandar macaxeira essa semana??
+  esperado: >
+    Informar que o produtor P015 (Geraldo Manoel Barbosa) está inativo e não deve
+    ser acionado, e indicar P005 (Francisco de Assis Cordeiro) como produtor ativo
+    de macaxeira.
+  funcoes_esperadas: [ identificar_produtor ]
+  deve_conter:
+    - "P015 inativo"
+    - "Alternativa P005 para macaxeira"
+  nao_deve_conter:
+    - "P015 tratado como produtor ativo"
+  fonte:
+    - "data/produtores.csv"

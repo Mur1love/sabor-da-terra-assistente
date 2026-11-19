@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "fc01521e7d9d17f6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:51:16 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7858",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não dá para chamar o Geraldo (P015) para mandar macaxeira, pois ele está inativo no cadastro e não recebe alocação [fonte: produtores.csv]. \n\nO único produtor que fornece macaxeira é o Francisco de Assis Cordeiro (P005) [fonte: produtores.csv].",
+              "thought_signature": "EnsKeQFpFH0TKPWOkRi86CNghbtbaZOwFzv8XBghuYjlDSi8DJzFH0wzyG00Uk6GbIpNtoNzdNMP6lkPNB4FBTfD6qjwP6ew1am6BfPjb6jqIOvRYlCc32iILX8XX2G9wzc3Kxp8IYMAwL0A5riBsn1YY3PdKrsn8mS8XQk="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "jcb-aoCCBOfHxdIPtr6KkQk",
+    "usage_metadata": {
+      "candidates_token_count": 74,
+      "prompt_token_count": 1538,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1538
+        }
+      ],
+      "total_token_count": 1612
+    },
+    "automatic_function_calling_history": []
+  }
+}

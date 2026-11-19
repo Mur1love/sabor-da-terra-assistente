@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "8825e4aef3fab19b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 09:48:30 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4781",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "**Triagem do Pedido**\n- **Tipo da mensagem:** cotação\n- **Itens:**\n  - Produto: frutas (Frutas variadas), Quantidade: 500.0, Unidade: kg, Prazo: janeiro de 2027\n  - Produto: hortaliças (Hortalicas variadas), Quantidade: 200.0, Unidade: kg, Prazo: janeiro de 2027\n  - Produto: queijo coalho (Queijo coalho), Quantidade: 50.0, Unidade: kg, Prazo: janeiro de 2027\n    - Alertas de conformidade:\n      - [fichas_tecnicas/queijo_coalho.txt] P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho, e a venda por meio da cooperativa (revenda) exige SIE, SIM ou SISBI; para ele só fica a venda direta ao consumidor. A ficha técnica limita a venda dele ao consumidor final. (Severidade: grave) [fonte: fichas_tecnicas/queijo_coalho.txt]\n      - [fichas_tecnicas/queijo_coalho.txt] O pedido de 50 kg cabe na capacidade. Capacidade documentada dos elegíveis em 77 dias: de 3300 a 4400 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. (Severidade: info) [fonte: fichas_tecnicas/queijo_coalho.txt]\n      - [tabela_precos_outubro_2026.csv] Não há contrato registrado com 'SESC-PE': vale a tabela geral de preços. (Severidade: info) [fonte: tabela_precos_outubro_2026.csv]\n  - Produto: mel (Mel), Quantidade: 10.0, Unidade: kg, Prazo: janeiro de 2027\n    - Alertas de conformidade:\n      - [fichas_tecnicas/mel_silvestre.txt] P008 (Josefa Alves de Souza) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se SESC-PE aceita. (Severidade: atencao) [fonte: fichas_tecnicas/mel_silvestre.txt]\n      - [fichas_tecnicas/mel_silvestre.txt] P018 (Débora Cristina de Melo) tem o SIE pendente para mel silvestre. Compradores que exigem registro sanitário, como o PNAE, não aceitam; confirme se SESC-PE aceita. (Severidade: atencao) [fonte: fichas_tecnicas/mel_silvestre.txt]\n      - [fichas_tecnicas/mel_silvestre.txt] O pedido de 10 kg cabe na capacidade. Capacidade documentada dos elegíveis em 77 dias: 1668,3 kg. Capacidade de produção não é estoque: confirme a disponibilidade com os produtores. [fonte: fichas_tecnicas/mel_silvestre.txt]\n      - [tabela_precos_outubro_2026.csv] Não há contrato registrado com 'SESC-PE': vale a tabela geral de preços. [fonte: tabela_precos_outubro_2026.csv]\n  - Produto: ovos caipira (Ovos), Quantidade: 200.0, Unidade: dúzia, Prazo: janeiro de 2027\n  - Produto: frango caipira (Frango caipira), Quantidade: 100.0, Unidade: kg, Prazo: janeiro de 2027\n  - Produto: macaxeira (Macaxeira), Quantidade: 80.0, Unidade: kg, Prazo: janeiro de 2027\n\n**Orçamento Detalhado com Preços Unitários**\n- **Queijo coalho** (50 kg): Preço unitário: R$ 32,00 | Subtotal: R$ 1600,00 | Desconto: R$ 0,00 | Total: R$ 1600,00 [fonte: tabela_precos_outubro_2026.csv]\n- **Mel silvestre** (10 kg): Preço unitário: R$ 48,00 | Subtotal: R$ 480,00 | Desconto: R$ 0,00 | Total: R$ 480,00 [fonte: tabela_precos_outubro_2026.csv]\n- **Ovos caipira** (200 dúzias): Preço unitário: R$ 18,00 | Subtotal: R$ 3600,00 | Desconto: R$ 180,00 (desconto de atacado aplicado: 5.0%) | Total: R$ 3420,00 [fonte: tabela_precos_outubro_2026.csv]\n- **Frango caipira** (100 kg): Preço unitário: R$ 28,00 | Subtotal: R$ 2800,00 | Desconto: R$ 140,00 (desconto de atacado aplicado: 5.0%) | Total: R$ 2660,00 [fonte: tabela_precos_outubro_2026.csv]\n- **Macaxeira** (80 kg): Preço unitário: R$ 3,20 | Subtotal: R$ 256,00 | Desconto: R$ 0,00 | Total: R$ 256,00 [fonte: tabela_precos_outubro_2026.csv]",
+              "thought_signature": "EnsKeQFpFH0TWJtlQXxN6I0EJfjG0WgrpaV8tlt5acG7npsDPvENBUSbxov-nciN-lAQzZgWD5TWu6ALZgroPRtpbnGyUT5xct2KizvRHZL58WiaPgavusqHI-pPR4jvuSQZ24z5yyhpBDvvGeu4u-VJvqU6e-mu91boox8="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "6sX-asjgG_qt5NoPqLXDiAk",
+    "usage_metadata": {
+      "candidates_token_count": 1354,
+      "prompt_token_count": 4516,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4516
+        }
+      ],
+      "total_token_count": 5870
+    },
+    "automatic_function_calling_history": []
+  }
+}

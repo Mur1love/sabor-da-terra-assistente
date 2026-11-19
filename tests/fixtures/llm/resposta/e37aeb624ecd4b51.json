@@ -1,0 +1,66 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "e37aeb624ecd4b51",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:42:44 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=7200",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"O produtor Wellington da Silva Monteiro (P017) não possui registro no Serviço de Inspeção (SIE) para frango caipira [fonte: certificacoes/inspecao_adagro_2026.txt]. A situação sanitária aponta que ele é classificado como irregular por ser produtor de frango caipira sem o referido registro, com a comercialização limitada à venda direta ao consumidor final até a regularização [fonte: certificacoes/inspecao_adagro_2026.txt]. Em relação aos ovos caipiras, o relatório de inspeção da ADAGRO estabelece explicitamente que os ovos não exigem SIE para venda direta ao consumidor [fonte: certificacoes/inspecao_adagro_2026.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"5. P017 - Wellington da Silva Monteiro (Garanhuns) Produtos: Frango caipira, ovos caipira Certificação orgânica: NÃO POSSUI Registro SIE: NÃO POSSUI Situação: IRREGULAR - Produtor de frango caipira sem registro no Serviço de Inspeção. Comercialização limitada a venda direta ao consumidor final até regularização.\"\n    },\n    {\n      \"arquivo\": \"certificacoes/inspecao_adagro_2026.txt\",\n      \"trecho\": \"NC-001 (GRAVE): Produtor P017 (frango caipira) sem registro SIE. Ação: Cooperativa deve suspender a intermediação de frango caipira até que o produtor obtenha o registro junto ao SIE municipal. Prazo: Imediato. NOTA: Ovos não exigem SIE para venda direta ao consumidor.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EokBCoYBAWkUfRNF9SMo0ClMFPOskfatiSJWM2mooyWga3jLi4xC7Hnuuek24HsxjaKwIKUP6MoGxngSkrD81toLDZTDurZPk6D5FP5-_J3Sb448DeeUjt4eEMvoI64Pol12SvXPwk2rmlR_zhjF6eIWJYWeIvR_tpu_7YCESW3eJDVlBNJ3iSnM1D0="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "jeP9as2pKpbx0_gP1pSkwQU",
+    "usage_metadata": {
+      "candidates_token_count": 430,
+      "prompt_token_count": 6414,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6414
+        }
+      ],
+      "total_token_count": 6844
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "O produtor Wellington da Silva Monteiro (P017) não possui registro no Serviço de Inspeção (SIE) para frango caipira [fonte: certificacoes/inspecao_adagro_2026.txt]. A situação sanitária aponta que ele é classificado como irregular por ser produtor de frango caipira sem o referido registro, com a comercialização limitada à venda direta ao consumidor final até a regularização [fonte: certificacoes/inspecao_adagro_2026.txt]. Em relação aos ovos caipiras, o relatório de inspeção da ADAGRO estabelece explicitamente que os ovos não exigem SIE para venda direta ao consumidor [fonte: certificacoes/inspecao_adagro_2026.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "5. P017 - Wellington da Silva Monteiro (Garanhuns) Produtos: Frango caipira, ovos caipira Certificação orgânica: NÃO POSSUI Registro SIE: NÃO POSSUI Situação: IRREGULAR - Produtor de frango caipira sem registro no Serviço de Inspeção. Comercialização limitada a venda direta ao consumidor final até regularização."
+        },
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "NC-001 (GRAVE): Produtor P017 (frango caipira) sem registro SIE. Ação: Cooperativa deve suspender a intermediação de frango caipira até que o produtor obtenha o registro junto ao SIE municipal. Prazo: Imediato. NOTA: Ovos não exigem SIE para venda direta ao consumidor."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "73c497b45e586081",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Wed, 18 Nov 2026 17:40:38 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2375",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"idioma\": \"pt\", \"topico\": \"geral\", \"produto\": \"café torrado\", \"produtor\": null, \"lote_id\": null, \"mes\": null, \"filtro_organico\": null}",
+              "thought_signature": "EokBCoYBAWkUfROhmmn_Gt99bOOo3zxmW3p9xOmCl9iCZyJJx5dfw4pMMh9YlVT013nJWWupDGweH_zrwTARwXSDnnRy-NCmNM7ok7w1i7KYUMZnzFFXghy-nvdTztjQWvBXJ3-Vmr2YZKsQbI8jaRtkETjhH7cjR7ZT2suJ4CZN6Jz06oLyy53enpU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "E-P9aunRNYaZkPIPg5_oyA4",
+    "usage_metadata": {
+      "candidates_token_count": 52,
+      "prompt_token_count": 263,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 263
+        }
+      ],
+      "total_token_count": 315
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "idioma": "pt",
+      "topico": "geral",
+      "produto": "café torrado",
+      "produtor": null,
+      "lote_id": null,
+      "mes": null,
+      "filtro_organico": null
+    }
+  }
+}

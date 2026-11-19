@@ -1,8 +1,10 @@
 """Fila consolidada de triagem de pedidos da cooperativa."""
 
 from __future__ import annotations
+
 import json
 import math
+import re
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -534,6 +536,26 @@ def resumir_demanda_semanal(
     return resumo
 
 
+_ARQUIVO_DE_DADOS_RE = re.compile(r"\.(csv|json|txt)$")
+
+
+def fontes_da_fila(fila: list[dict[str, Any]]) -> list[str]:
+    """Arquivos de `data/` que sustentam a fila: os pedidos, o cadastro e as fontes dos alertas.
+
+    Alertas citam arquivos ("data/fichas_tecnicas/queijo_coalho.txt", às vezes
+    vários com "; ") ou regras internas ("regras.conformidade") — só os
+    arquivos entram. É o que o rodapé de fontes da interface mostra (#13/#14).
+    """
+    fontes = ["pedidos.json", "produtores.csv"]
+    for registro in fila:
+        for alerta in registro.get("alertas") or []:
+            for fonte in re.split(r"\s*[;,]\s*", str(alerta.get("fonte") or "")):
+                fonte = fonte.strip().removeprefix("data/")
+                if _ARQUIVO_DE_DADOS_RE.search(fonte) and fonte not in fontes:
+                    fontes.append(fonte)
+    return fontes
+
+
 def triar_pendentes(
     data_referencia: str,
     caminho_pedidos: Path = CAMINHO_PEDIDOS,
@@ -647,6 +669,7 @@ def triar_pendentes(
         "data_referencia": referencia.isoformat(),
         "total_registros": len(fila),
         "fila": fila,
+        "fontes": fontes_da_fila(fila),
         "demanda_semanal": demanda_semanal,
         "capacidade_semanal_sugerida": [
             {

@@ -1,0 +1,51 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "d513ac6d894313c2",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Thu, 19 Nov 2026 10:16:58 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4893",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Com base no pedido para o evento de 08/novembro e nas verificações realizadas na base da cooperativa (`sazonalidade.csv`, `tabela_precos_outubro_2026.csv` e fichas técnicas), temos os seguintes dados sobre disponibilidade e valores:\n\n### 1. Queijo Coalho (25 kg)\n* **Disponibilidade em novembro:** Alta (produção contínua) [fonte: `sazonalidade.csv`].\n* **Preço unitário:** R$ 32,00 / kg (convencional) [fonte: `tabela_precos_outubro_2026.csv`].\n* **Subtotal:** R$ 800,00.\n* **Observação de conformidade:** Produtor P011 (Pedro Henrique Albuquerque) foi excluído para venda por revenda por não possuir SIE; os produtores elegíveis são P003 (Cícero Romão de Almeida) e P007 (Antônio Carlos Pereira Lima) [fonte: `fichas_tecnicas/queijo_coalho.txt`].\n\n### 2. Queijo Manteiga (10 kg)\n* **Disponibilidade em novembro:** Alta (produção contínua) [fonte: `sazonalidade.csv`].\n* **Preço unitário:** R$ 38,00 / kg (convencional, fornecido apenas por P003) [fonte: `tabela_precos_outubro_2026.csv`].\n* **Subtotal:** R$ 380,00.\n\n### 3. Mel Variado (8 kg, preferencialmente orgânico)\n* **Ambiguidade:** A ferramenta indicou que o termo \"mel\" pode se referir a **mel de jandaíra** ou **mel silvestre**. É preciso esclarecer qual tipo o cliente deseja para verificar o preço e a conformidade orgânica [fonte: `triar_pedido` / `disponibilidade`].\n\n### 4. Goiaba (20 kg)\n* **Disponibilidade em novembro:** Alta (pico de dezembro a março) [fonte: `sazonalidade.csv`].\n* **Preço:** A tabela de preços apresenta mais de um tipo: **goiaba paluma extra** ou **goiaba paluma especial**. É necessário confirmar qual variedade o cliente prefere [fonte: `tabela_precos_outubro_2026.csv`].\n\n### 5. Cajá (10 kg)\n* **Disponibilidade em novembro:** Baixa (safra muito curta de novembro a janeiro; quantidade limitada) [fonte: `sazonalidade.csv`].\n* **Preço unitário:** R$ 8,00 / kg [fonte: `tabela_precos_outubro_2026.csv`].\n* **Subtotal:** R$ 80,00.\n\n### 6. Rapadura (15 kg)\n* **Disponibilidade em novembro:** Alta (produto processado) [fonte: `sazonalidade.csv`].\n* **Preço unitário:** R$ 12,00 / kg (fornecido por P016) [fonte: `tabela_precos_outubro_2026.csv`].\n* **Subtotal:** R$ 180,00.\n\n---\n\n*Nota sobre os demais itens (goma de tapioca, frango caipira e ovos caipiras):* Devido ao limite de verificações simultâneas por turno, não foi possível concluir a checagem completa de conformidade e preço para esses três últimos itens nesta resposta. Além disso, o termo \"tapioca/goma\" não possui correspondência exata no catálogo (`sazonalidade.csv`).\n\nPara fecharmos o valor total do evento e validarmos a entrega de todos os itens em 08/novembro, por favor, esclareça:\n1. Qual o tipo de mel desejado (**mel de jandaíra** ou **mel silvestre**)?\n2. Qual a variedade de goiaba (**goiaba paluma extra** ou **goiaba paluma especial**)?",
+              "thought_signature": "EnsKeQFpFH0TEMXgVwzNjKlgYDRnjujpc8KFfYTop3v_rr0PyEjVFSiYlK3vGAwcdEKcjHdckBw-4rHWMtQsbU3tK0AFU2J9-orselieylh7GSWL9pPvIwLzsnzNhAdRyLyKEHTD628HfY6CqIdgvCHwMFrJg8WFDmgW1Dc="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "lcz-aoepOva3xdIP2J_ggQk",
+    "usage_metadata": {
+      "candidates_token_count": 943,
+      "prompt_token_count": 9073,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 9073
+        }
+      ],
+      "total_token_count": 10016
+    }
+  }
+}
