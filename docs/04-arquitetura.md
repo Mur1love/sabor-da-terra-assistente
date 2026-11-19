@@ -367,3 +367,149 @@ Sequência prevista no desenho de produção:
 | `AlocadorSemanal` e `resumir_demanda_semanal` | Cloud Run functions + BigQuery (demanda × capacidade da semana) |
 
 Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os serviços gerenciados já estejam implantados.
+
+---
+
+## 11. Caminho para produção (Etapa 15, issue #15)
+
+> **Não executado no protótipo.** Os artefatos abaixo existem e foram
+> validados localmente em 18/11/2026 (`docker build`, `terraform fmt`,
+> `terraform validate` sem credenciais e `tests/test_infra.py`), mas nenhum foi
+> aplicado num projeto Google Cloud: o protótipo roda local, sem conta nem
+> billing (princípio 2 do `docs/03`). Os comandos `gcloud` desta seção são o
+> roteiro de quem for implantar, não registro do que foi feito.
+
+### 11.1 Artefatos
+
+| Artefato | O que é | Validação local |
+|---|---|---|
+| `Dockerfile` (+ `.dockerignore`) | Imagem do Streamlit escutando em `$PORT` (8080 no Cloud Run), usuário sem privilégio, sem `.env` dentro | `docker build` e `docker run` com `/_stcore/health` respondendo `ok` |
+| `infra/terraform/` | Os serviços do desenho, contas de serviço e IAM de menor privilégio; `project_id` e `region` sem valor | `terraform fmt -check` e `terraform validate` (Terraform 1.17.2, provider `google` 8.12.0) |
+| `infra/workflows/triagem.yaml` | Fluxo de um pedido: extração → validações (regras da #5, por item, em paralelo) → urgência → alocação, espelhando `triagem/fila.py` (#10) | Leitura como YAML; as URLs das functions chegam pelas variáveis que o Terraform define |
+| `infra/bigquery/*.json` | Esquema das 7 tabelas, gerado de `sabor_da_terra/dados/esquema.py` (#4) por `scripts/gerar_esquemas_bigquery.py` | `tests/test_infra.py` falha se o JSON sair de sincronia com o `esquema.py` |
+| `infra/cloudbuild.yaml` | Pipeline testes (`LLM_MODO=fixture`) → build → push → deploy no Cloud Run | Leitura como YAML; o passo de testes é a suíte que já roda offline |
+
+**Nomes das tabelas.** O esquema segue o modelo de dados da #4, que deu nome
+às tabelas pelo conteúdo e não pelo arquivo de origem: `financeiro.csv` virou
+`transacoes`, `tabela_precos_outubro_2026.csv` virou `produtos`, e
+`produtor_produtos` liga cada produtor aos produtos do catálogo. As demais
+(`produtores`, `pedidos`, `sazonalidade`, `lotes`) mantêm o nome.
+
+### 11.2 Cobertura do desenho
+
+Todo serviço da §2 e da §4 tem recurso Terraform ou o motivo de não ter:
+
+| Serviço | Recurso Terraform | Observação |
+|---|---|---|
+| **Cloud Run** | `google_cloud_run_v2_service.app` (`run.tf`) | Afinidade de sessão e timeout de 3600 s para o websocket do Streamlit. Sem acesso público: login Google pelo IAP nativo do Cloud Run, liberado só para `membros_equipe` (só `run.invoker` não serviria, porque o navegador não manda token de identidade) |
+| **Artifact Registry** | `google_artifact_registry_repository.app` (`run.tf`) | Repositório Docker das imagens do app |
+| **Cloud Storage** | `google_storage_bucket.documentos` e `.codigo_funcoes` (`dados.tf`) | Acesso uniforme, sem acesso público, versionamento nos documentos |
+| **BigQuery** | `google_bigquery_dataset.cooperativa` + uma `google_bigquery_table` por JSON de `infra/bigquery/` | App e functions só leem |
+| **Agent Search (antigo Vertex AI Search)** | `google_discovery_engine_data_store.documentos` (`dados.tf`) | Só o data store; o app de busca com geração de resposta (nível pago) fica para quem implantar. A importação dos documentos do bucket para o data store é uma operação da API, sem recurso Terraform (comando na §11.3) |
+| **Cloud Run functions** | `google_cloudfunctions2_function.triagem` (4: `extrair-pedido`, `validar-item`, `classificar-urgencia`, `alocar-semana`) | Só tráfego interno; só a conta do Workflows invoca. As regras da #5 ficam juntas em `validar-item`, porque a primeira fase delas é encadeada (cada regra só olha quem as anteriores não excluíram). O pacote com os pontos de entrada HTTP não foi escrito no protótipo |
+| **Workflows** | `google_workflows_workflow.triagem` (`triagem.tf`) | Lê `infra/workflows/triagem.yaml`; o resultado fica na execução do workflow |
+| **Secret Manager** | `google_secret_manager_secret.gemini_api_key` | Chave do AI Studio como plano B do Vertex AI, que usa a identidade da conta de serviço (sem chave). O valor entra fora do Terraform para não ficar no estado, e o segredo não vai montado no Cloud Run |
+| **Firestore** | `google_firestore_database.sessoes` | Sessão do assistente (§4) |
+| **Pub/Sub** | `google_pubsub_topic.pedidos` e `.notificacoes` | `google_eventarc_trigger.pedido_recebido` inicia o Workflows a cada pedido publicado. O tópico de notificações ainda não tem consumidor (§11.4) |
+| **Cloud Scheduler** | `google_cloud_scheduler_job.produtores` (resumo mensal, pendências vencidas) | Publica no tópico de notificações |
+| **Contas de serviço e IAM** | `iam.tf`: `sdt-app`, `sdt-funcoes`, `sdt-workflows`, `sdt-eventarc`, `sdt-deploy` | Sem papel básico; papel no recurso quando o recurso aceita IAM |
+| **Vertex AI (Gemini)** | sem recurso | Modelo gerenciado não se cria: basta a API `aiplatform` ativa e `roles/aiplatform.user` nas contas que chamam o Gemini |
+| **Cloud Logging** | sem recurso | Cloud Run, functions e Workflows já escrevem nele; as contas recebem `roles/logging.logWriter` |
+| **Cloud Build** | sem recurso | O gatilho depende de conectar o repositório GitHub ao projeto (passo manual); a conta `sdt-deploy` e o `infra/cloudbuild.yaml` já estão prontos |
+
+### 11.3 Comandos de implantação
+
+> **Não executado no protótipo.** `<PROJETO>` e `<REGIAO>` são marcadores:
+> nenhum ID de projeto real está versionado.
+
+```bash
+# 0. Projeto e credenciais (fora do repositório)
+gcloud config set project <PROJETO>
+gcloud auth application-default login
+cd infra/terraform
+cp terraform.tfvars.example terraform.tfvars   # preencher; o arquivo é ignorado pelo git
+terraform init
+
+# 1. Primeiro o que precisa existir antes do resto: o repositório de imagens e
+#    o bucket do código das functions (o Cloud Run e as functions são criados
+#    apontando para conteúdo que já tem de estar lá)
+terraform apply \
+  -target=google_artifact_registry_repository.app \
+  -target=google_storage_bucket.codigo_funcoes
+cd ../..
+gcloud builds submit --tag <REGIAO>-docker.pkg.dev/<PROJETO>/sabor-da-terra/app:latest .
+gcloud storage cp <PACOTE_DAS_FUNCTIONS>.zip gs://<PROJETO>-codigo-funcoes/funcoes/sabor_da_terra.zip   # pacote fora do escopo (§11.4)
+
+# 2. Todo o resto da infraestrutura
+cd infra/terraform
+terraform plan -out=plano.tfplan
+terraform apply plano.tfplan
+cd ../..
+
+# 3. Dados estruturados: um CSV por tabela, já limpo pela camada de dados (#4)
+python -c "from sabor_da_terra.dados.carregamento import obter_base; from sabor_da_terra.dados.esquema import TABELAS; base = obter_base(); [getattr(base, t).to_csv(f'{t}.csv', index=False) for t in TABELAS]"
+bq load --source_format=CSV --skip_leading_rows=1 \
+  sabor_da_terra.produtores produtores.csv infra/bigquery/produtores.json
+#    (repetir para produtor_produtos, produtos, sazonalidade, pedidos, transacoes e lotes)
+
+# 4. Documentos do RAG: bucket → data store do Agent Search
+gcloud storage cp -r data/certificacoes data/contratos data/fichas_tecnicas gs://<PROJETO>-documentos/
+curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+  -H "Content-Type: application/json" \
+  "https://discoveryengine.googleapis.com/v1/projects/<PROJETO>/locations/global/collections/default_collection/dataStores/sabor-da-terra-documentos/branches/default_branch/documents:import" \
+  -d '{"gcsSource": {"dataSchema": "content", "inputUris": [
+        "gs://<PROJETO>-documentos/certificacoes/*",
+        "gs://<PROJETO>-documentos/contratos/*",
+        "gs://<PROJETO>-documentos/fichas_tecnicas/*"]}}'
+
+# 5. Plano B do Gemini (opcional): guardar a chave do AI Studio no segredo
+printf '%s' "$GEMINI_API_KEY" | gcloud secrets versions add gemini-api-key --data-file=-
+
+# 6. Deploys seguintes: testes → build → push → deploy (infra/cloudbuild.yaml),
+#    de preferência por um gatilho do Cloud Build na branch main
+gcloud builds submit --config infra/cloudbuild.yaml --substitutions=_REGIAO=<REGIAO> .
+
+# 7. Workflows: execução manual de um pedido (o normal é chegar pelo Pub/Sub)
+gcloud workflows run triagem-pedidos --location=<REGIAO> \
+  --data='{"pedido_id": "PED-2026-001", "mensagem": "...", "data_recebimento": "2026-10-28T09:15:00"}'
+gcloud pubsub topics publish pedidos-entrada --message='{"pedido_id": "...", "mensagem": "..."}'
+```
+
+Validação local, que é o que o protótipo de fato executa:
+
+```bash
+docker build -t sabor-da-terra .
+docker run --rm -p 8080:8080 -e LLM_MODO=fixture sabor-da-terra   # http://localhost:8080
+
+cd infra/terraform
+terraform fmt -check -recursive ..
+terraform init -backend=false
+terraform validate                                   # sem credenciais e sem plan
+
+python -m scripts.gerar_esquemas_bigquery            # após mudar dados/esquema.py
+pytest tests/test_infra.py                           # esquemas em sincronia e nenhum segredo
+```
+
+### 11.4 Limitações desta etapa
+
+- **Nada foi aplicado.** `terraform validate` confere a sintaxe e os
+  esquemas dos recursos, não as cotas, as permissões do projeto nem a
+  disponibilidade do Agent Search na região escolhida — isso só um `plan`
+  contra a nuvem mostra.
+- **As functions não têm código de entrada.** O Terraform e o Workflows
+  definem as 4 functions e o contrato de cada chamada; os pontos de entrada
+  HTTP que embrulham `extrair_pedido`, `verificar_conformidade`,
+  `classificar_urgencia` e o `AlocadorSemanal` ficaram de fora. A alocação
+  em especial precisa guardar a capacidade da semana fora da memória
+  (BigQuery ou Firestore), porque cada execução do Workflows é independente.
+- **Notificações sem consumidor.** O Scheduler e a UI publicam no tópico
+  `notificacoes-produtores`, mas o worker que redige e envia as mensagens
+  não existe: sem assinatura, o Pub/Sub descarta o que chega ali.
+- **Cloud Build manual.** No `gcloud builds submit` com a conta `sdt-deploy`,
+  ela também precisa ler o bucket onde o gcloud sobe o código
+  (`<PROJETO>_cloudbuild`). O gatilho do GitHub não usa esse bucket.
+- **Adaptadores Google fora do escopo.** Das versões de produção da §6, só
+  existe o esboço do `VertexSearchAdapter` (`sabor_da_terra/adaptadores/google/`),
+  sem chamada à API. `DadosRepository` sobre BigQuery e `SessionStore` sobre
+  Firestore não foram escritos: o protótipo continua com pandas e
+  `st.session_state`, e o Terraform só cria os recursos.

@@ -38,6 +38,7 @@ sabor-da-terra-assistente/
 ├── INTEGRANTES.md           ← equipe do projeto
 ├── CONTRIBUTING.md          ← convenções de branch, commit e PR
 ├── app.py                   ← interface conversacional em Streamlit (etapa 13)
+├── Dockerfile               ← container do app para o Cloud Run, porta 8080 (etapa 15)
 ├── requirements.txt         ← dependências com versões fixadas
 ├── .env.example             ← modelo de configuração (copie para .env)
 ├── docs/
@@ -45,9 +46,15 @@ sabor-da-terra-assistente/
 │   ├── 02-dataset.md        ← inventário detalhado dos dados + armadilhas
 │   ├── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
 │   └── 04-arquitetura.md    ← arquitetura de referência Google e decisões por componente
+├── infra/                   ← artefatos de implantação no Google Cloud, validados e NÃO aplicados (etapa 15)
+│   ├── terraform/           ← serviços do docs/04, contas de serviço e IAM
+│   ├── workflows/triagem.yaml ← fluxo da triagem: extração → validações → urgência → alocação
+│   ├── bigquery/            ← esquema das tabelas (gerado de dados/esquema.py)
+│   └── cloudbuild.yaml      ← pipeline testes → build → deploy no Cloud Run
 ├── scripts/
 │   ├── smoke_llm.py         ← teste de fumaça real (Flash-Lite, Flash e embedding)
-│   └── exemplos_produtores.py ← gera os resumos e notificações de exemplo (etapa 11)
+│   ├── exemplos_produtores.py ← gera os resumos e notificações de exemplo (etapa 11)
+│   └── gerar_esquemas_bigquery.py ← regenera infra/bigquery/ a partir do esquema (etapa 15)
 ├── exemplos/
 │   ├── fila_triagem.md      ← fila de triagem do dia 30/10/2026 (etapa 10)
 │   └── produtores/          ← resumos, notificações e respostas a produtores (etapa 11)
@@ -114,7 +121,7 @@ Capturas de tela em `docs/img/`.
 - **`docs/01-documento-base.md`** — tudo que o documento oficial define: cenário, problema, desafios, requisitos, entregáveis e datas.
 - **`docs/02-dataset.md`** — descrição campo a campo dos 8 grupos de dados e das **armadilhas propositalmente escondidas** neles (certificação vencida, produtor sem registro sanitário, pedidos que não são pedidos de compra, pagamentos atrasados…).
 - **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
-- **`docs/04-arquitetura.md`** — **arquitetura de referência** (rascunho da etapa 2): stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google e diagramas Mermaid.
+- **`docs/04-arquitetura.md`** — **arquitetura de referência** (rascunho da etapa 2): stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google e diagramas Mermaid. A §11 traz o **caminho para produção** (etapa 15): os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo.
 
 ## Como rodar
 
