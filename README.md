@@ -66,6 +66,7 @@
 | **A interface conversacional** | [`app.py`](app.py) |
 | **Os testes** — suíte completa offline em modo fixture | [`tests/`](tests/) |
 | **Capturas de tela da interface** | [`docs/img/`](docs/img/) |
+| **A apresentação final** — slides, roteiro da demo, divisão das falas e checklist | [`docs/06-apresentacao.md`](docs/06-apresentacao.md) e [`docs/slides/`](docs/slides/) |
 
 ## Estrutura do repositório
 
@@ -84,6 +85,8 @@ sabor-da-terra-assistente/
 │   ├── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
 │   ├── 04-arquitetura.md    ← arquitetura final: decisões, diagramas, Well-Architected, custo
 │   ├── 05-avaliacao.md      ← avaliação ponta a ponta (37 casos, rodada 3)
+│   ├── 06-apresentacao.md    ← roteiro, divisão das falas e checklist (etapa 18)
+│   ├── slides/              ← apresentação final em PowerPoint
 │   ├── avaliacao/           ← detalhes de cada rodada da avaliação (JSON)
 │   └── img/                 ← diagramas draw.io (+PNG) e capturas de tela da interface
 ├── infra/                   ← artefatos de implantação no Google Cloud, validados e NÃO aplicados (etapa 15)
@@ -174,6 +177,7 @@ Demais capturas em `docs/img/`.
 - **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
 - **`docs/04-arquitetura.md`** — **arquitetura de referência final** (etapa 16): visão geral (problema, usuários, os 3 desafios e os 6 requisitos com a evidência da avaliação), stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google, diagramas de arquitetura (local e produção) e de sequência dos 3 desafios — em Mermaid e em versões draw.io com ícones oficiais em `docs/img/` —, **Google Cloud Well-Architected Framework** (uma decisão concreta por pilar), **custo** (estratégia do protótipo e estimativa de produção na escala da narrativa), **anti-alucinação** (validação no protótipo e equivalentes gerenciados em produção), o **caminho para produção** (§11, etapa 15: os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo) e as **limitações e próximos passos** (iguais às do `docs/05`).
 - **`docs/05-avaliacao.md`** — **avaliação ponta a ponta** (etapa 14): o gabarito de 37 casos rodado contra o assistente integrado, com acerto por desafio e por requisito funcional, citações válidas, anti-alucinação, a comparação entre as rodadas, o teste de cota da demo e as limitações conhecidas. Comando único: `pytest tests/test_gabarito.py`.
+- **`docs/06-apresentacao.md`** — **apresentação e demonstração final** (etapa 18): roteiro de 10 minutos, divisão das falas, decisões técnicas, alternativas consideradas, demonstração dos três desafios, casos anti-alucinação, checklist do dia, plano de contingência e registro dos ensaios. Slides disponíveis em [`docs/slides/`](docs/slides/).
 
 ## Custos — Price Calculator do Google Cloud
 
