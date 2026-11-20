@@ -2,6 +2,9 @@
 
 > Projeto intermediário da disciplina de **IA Generativa e Agentes**
 > Universidade de Pernambuco (Campus Garanhuns) × **Sauter Tecnologia** — Novembro de 2026
+>
+> **Versão congelada: release [`v1.0-entrega`](https://github.com/Mur1love/sabor-da-terra-assistente/releases/tag/v1.0-entrega) — 19/11/2026**
+> (`docs/01` §8: modificações a partir da data são desconsideradas; nos dias 20–21/11, só demonstração).
 
 **O que é:** um assistente de IA conversacional (texto, em português) que atua como apoio à operação da **Cooperativa dos Produtores Rurais Sabor da Terra**, cooperativa fictícia do Agreste Meridional de Pernambuco, resolvendo três gargalos:
 
@@ -91,6 +94,7 @@ sabor-da-terra-assistente/
 ├── scripts/
 │   ├── smoke_llm.py         ← teste de fumaça real (Flash-Lite, Flash e embedding)
 │   ├── exemplos_produtores.py ← gera os resumos e notificações de exemplo (etapa 11)
+│   ├── gravar_roteiro_demo.py ← roteiro da demo: grava o replay em fixture e roda sem API (etapa 17)
 │   └── gerar_esquemas_bigquery.py ← regenera infra/bigquery/ a partir do esquema (etapa 15)
 ├── exemplos/
 │   ├── fila_triagem.md      ← fila de triagem do dia 30/10/2026 (etapa 10)
@@ -147,9 +151,11 @@ sabor-da-terra-assistente/
   oficial: painel "Uso da API Gemini" do AI Studio.
 - **Erros:** erro 429 (cota), chave ausente e falhas de rede viram mensagem
   amigável na tela — nunca stack trace — e ficam no histórico do chat.
-- **Sem `GEMINI_API_KEY`:** os atalhos da barra lateral funcionam (não usam o
-  LLM), mas o chat não responde — o modo `fixture` só reproduz conversas já
-  gravadas, e ainda não há um diálogo completo gravado para a demo.
+- **Sem `GEMINI_API_KEY` (demo sem internet):** os atalhos da barra lateral
+  funcionam (não usam o LLM) e o chat reproduz o **roteiro da demo** gravado
+  em `tests/fixtures/llm` — após **Nova sessão**, siga a ordem das mensagens
+  de `scripts/gravar_roteiro_demo.py`. Pergunta fora do roteiro não tem
+  gravação: o assistente responde com a mensagem amigável de fixture ausente.
 
 A conversa documental com fonte citada — tema **escuro** e **claro** (modo
 `fixture` reproduzindo a resposta gravada do caso DOC-001 do gabarito, sem
@@ -263,6 +269,21 @@ Requisitos: **Python 3.11 ou mais novo** e Git. Nenhuma conta Google Cloud é ne
   `LLM_MODO=gravar python -m scripts.smoke_llm`.
 - `fixture` — reproduz as respostas gravadas em `tests/fixtures/llm/` e não
   faz **nenhuma** chamada à API (é o modo em que os testes rodam).
+
+**Demo sem internet (plano B da apresentação)** — dois planos, do real ao
+sem rede:
+
+1. **`real` + billing de US$ 5 (Tier 1)** — decisão da etapa #17 registrada
+   no `docs/03`: limites maiores para o dia da apresentação; se a cota do
+   principal esgotar, o failover da composição já retoma no Flash-Lite
+   (`GEMINI_MODELO_RESPOSTA_FALLBACK`).
+2. **`fixture` (sem rede e sem chave)** — no `.env`, `LLM_MODO=fixture` e
+   `DATA_REFERENCIA=2026-10-30`; abra o app, clique **Nova sessão** e siga a
+   ordem das 7 mensagens de `scripts/gravar_roteiro_demo.py` (os 3 desafios,
+   o contexto "e o da Josefa?", o relatório de pendências e a recusa
+   honesta). A ordem importa: o histórico da sessão entra no prompt, então o
+   replay exige a mesma sequência — os atalhos da barra lateral funcionam em
+   qualquer ordem.
 
 **Vertex AI:** para trocar AI Studio por Vertex AI basta configurar no `.env`:
 `GOOGLE_GENAI_USE_VERTEXAI=TRUE`, `GOOGLE_CLOUD_PROJECT` e `GOOGLE_CLOUD_LOCATION`,
