@@ -1,0 +1,73 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.8-flash",
+  "prompt_sha256": "2cdb036313e177ed",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:38:08 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=35329",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"resposta\":\"Não foram encontradas informações sobre certificação internacional para exportação nos documentos da Cooperativa Agroecológica Sabor da Terra. Os registros disponíveis tratam apenas de certificações orgânicas de âmbito nacional brasileiro vinculadas ao Selo Orgânico Brasil / Sisorg por meio da Ecocert [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt] e do IBD Certificações [fonte: certificacoes/cert_organica_maria_silva_P001.txt], além de inspeções estaduais sanitárias e registros no SIE da ADAGRO [fonte: certificacoes/inspecao_adagro_2026.txt].\",\"citacoes\":[{\"arquivo\":\"certificacoes/cert_organica_ana_bezerra_P004.txt\",\"trecho\":\"Selo: ORGÂNICO BRASIL / Sisorg nº BR-BIO-001\"},{\"arquivo\":\"certificacoes/cert_organica_maria_silva_P001.txt\",\"trecho\":\"NORMA APLICÁVEL: Lei nº 10.831/2003 e Decreto nº 6.323/2007 Instrução Normativa MAPA nº 46/2011\"},{\"arquivo\":\"certificacoes/inspecao_adagro_2026.txt\",\"trecho\":\"RELATÓRIO DE INSPEÇÃO - ADAGRO Agência de Defesa Agropecuária de Pernambuco\"}],\"lacunas\":[\"Ausência de informações ou documentos sobre certificações internacionais para exportação (como USDA Organic, União Europeia/EU ou outros selos/protocolos internacionais de comércio exterior).\"]}",
+              "thought_signature": "EsIgCr8gAWkUfRM5Amos01GFzhOChO6XYR7nNzzKS5eEGxEmgZBRpmHUuNI6S0eO4jt6dCBwJGoikq4P9Rg7YK_hGPX8LlhxvLI2ZssxeqE4tBjawhOS4-hqegx0Edl56TS-M6fYjxL_E1TdsxOGKhXPxW5fgsIqG9Qi1CDdUgnM0TPwC9zbx0ACDyeNthFnXycckAa69PglgufqFn9h93p1u5XrTWLIIDb5zpft7zzmjWDK8gTBYTXoCigXB50sTI66gXQ_QR3Fo9Ke4Bcq4DXTwwkPyGoNvmTBQ40qXokm_n71yOwTdKfh6dKclaWHiyWMmFGqAydY35Dvm_aLNR3UrFB5R1GVF8f9o0R1Gms9Ebhz1xoL5Mz-58vNRzEQrFjWAHpfpDnda853AvWzBKXGPs3j_fye6iTWw0hZzyR9Tuqe-v9B_Mnk6OmkFj_S-RPjYUfWw8tY5KZq_P4oxlK2Z1A0IhGJOsAueHNhA1_esGhFR2kBnhQonMj1BMT_cAVPEUVOu2PpGjGTEa4qAyfx8hSLH78e794mG2ShBUm98gyVJJjYNqL0aIuCX4mgoJhchGtpKsieLwV2ZBZRIm1gNU29xwPKSCRPJWAxjlaokXcnkqvS_zEk0j0QyPHZLG8J64aa0XuEq9WYz1Ob3ieJ9pWGz3NqF11VWKmx8XiQsz0PUCdSqRj4C0AEfSXJ4gOFdJ-TRM0OeupJqmNq06vD6QbuBSxXAAGUiUaU2k0AK0VLCvJNA2DQoTucsmtBUfJ6uczU4Ai-B8KR7oo1Xl07AJ9AWCHsehTi0IdL9lYTjtHkKWEZNnRMX5667iGmkq02bwf26EQ-Q4_T52yT9sZLqv7XHICV8fixtDSI-V9oJYyS-PdTpNbHpqbQP7Ud-0a9VrhSc9VWDxUxDpRVp229e9Lz-6zq9rSuongwEY1xmGGgsdhLQSa8lkEfsEKQX_iTze-pS8g1gkZENjS9GL5pp0Ha65a5vqJvN9tQgazgNhbenuTQse7cqqTndDktBYoGyOg8z92qOJGmBlHl9i2pZGpw82A0zBDN_F07-yNQJVz6i3NJ3Wk04L0lHajAnUveNr6mpPEBRcTmspNJejKHyvEAkyMzdaqs5xISpbS5-7R_BXitfibYmraSj_SvAzH4AViWdmyKgBL1Fb5cvTNlh4jEO3HZ_We2vt4anbi-Vh9Jftok6N_Vx2k7Ec5XH3s7joN330DzihDuBkKTa4qSjwsBomA6SqW-Amx95-gJRxyV3vdo04xaP8h0ljgX1XFYq-opzDfdu1a_PQuNqRQ6Dzt76AD6c8uiM4cF1aHAh0MIPh6T93r-gK6hYmBg_kuydmITH_O4RABtpu--QYEf5kVJcoWyL0MjC65rJTQdbK8Ta9D-btJNXhN9-IAVWsaP42BD-arViCS6P1Fy0LggvsDFATY50ZP3SMORS608jjl_JvbqJZyzKc41GqoQ3S0gn6usKuecFuphYCiOUIZPD72eDvYPbDVdU3L4IUSg3wJMxjsvWBip4SAloxYb0TdzYFBNMUbLBHqHTUmjnuOS4BYV7_hJxapPL_fYSQ_8FTH9P6C-8_kJPYZLGvdVbM1zSe5zwAaa3-vny5ef-Go7ZSAbHe2A1LiWSaXQw1vHffmqjiMHvJ8zFakCL36ta_kSvyjN1Yne7nQLLQFmAxfPH1Ktdm59bU1eP9zSUy-ByOltNFvoVc3WEeHWigo-p4hw9y-l4Y5uCBLPKQA272qvJx4KUbT8fI22AtXgmA7Y3YXWoUUbeSvGV5D7EVPF6XeaFz-bppRJtg0tVoziGeoj9Nsuipc7NYnWb28pAYfsCIQjwMGzTNXCxmq_6J4Ofihi_-DeqaB97hw_jDeOFMk2z_2AIN78eyyLrEvY9ia_obR2TOx5ExdV7sXiwja5JkAhdipOZIzod6rhEsceaVElX6Vzy6n_ld1cXjJIZIKMXIpT8NA1RPAowJGfadDOAOr18iEmru36KBtbL_Hao1qZLbwLGY2Qx1iHp7GGrjssA6Lc1cgr9U0TZeBzwjln6pcQ9E1aCklY_6AFQm8yU2DxsxKZxBRXpNpCOpknBhLaKapVoIsizMTKvv-W_215__clI6ba0aq8OMVuB9Fl0tokDU-o_7pbzy8k82Y-DZHUK7Id9MdTx3AOidSxvBVo2ZOF2_eKKUkaAV6GsR7n-OsKdLa0on4TuLShfu3ZdZpu6voIX_MITH2ras2yHtV3DjI0LRfTUGb1MEzSKL-pSwlOSjSO2ZGg-_wYWmT802TxyhG21cgYaAHSKzopLvzn-d6un2dGwyhV-LvdtGPuBetN614CRXp_PJtp1xKze-3aif1ZTaYnoVrjD8lXE6DUXY6mVwcCDkFey8wfQY-XtGc_SMy0vRcblCu_K3pUw6dcdGCDwq2kVJSycyW0rOWVfSyr7-IC9FRmDR9tkcOg0cgFP0_8txiBRcq62zh8J88ZQ__qIN1l6M92JjWAqjdYCaqOehQunNkhlYARB7AULUbmEzKtXxVM6Fi8sPyL3JtvwTk2TQK20iyet-PE7gjWM2nwtTZpNNF4ckFxpmi5B2l3N56ynWx7UKwHPs5WgKq08egxduie5-aa1JnqQCRigMda3ud4xQ2vjw2p5zqW5gm22ENWXWILbOIZpVJ-jz-l-QObB1KSMDzoNyG2UUzPkQ-ycf68e7mfusphEAndns8gXBGgrm4LjPwcgl7lcQIdcvTTCDX9d0ObUVHwdBO-KBqkiHKlebrpIsUausRu7T-wS8kDZQmCY_QUH1duUhybCZYJn0TWaeJ2qhI8j7DSl_IkFHV-CMqEDgYD19e0CBINtY1bq6kgPG82FmY6iCoQoxL5I2-EQMSHs7MTsBbI2p1RIOD6CCj2aqkROfo1hA1uKchxcUhrEvKB7UlD3Vv6yKBkkMvk8VGXn2RtHSdWvBRRe8p0vbtlwv2nsUZxbUCljjx6qhhzarkXQNVjxrVI6UH_70aKCWBYwZirSG2UzEFX-v5P-Px-poCWfo4CKEf2zPNV01d2KWQcYcxfMB79Y97nJI6pfmy5Z7XtaehMyturAZsWOTzxVZ1KPI1HPHWDatndz2RBxmsyumAiJo-gwh9jvw-WBFzS2uWxRoZEQFyQU3VsFMi6mccqNLias1XySgKmeTdTKpvMgFGpJl63lvsKzLDNATYDPKHL13Z3HmFcahx-bqNl3Q4DG1rh1q9NbuV3k8jyxCTNgkkhkJ3gFV7OYrSQVH-_YpkR6LGm2qfLmD3dqZmy682o9Q4iltGsfXr2RJgUCa1CuP2rY62mqlX3moM-YPRVqmauCU23ob0LTHHgegLjM0YpuwpBf0T2vvdnS5X_CNiq4VNCrkOsz5Mh4i13SpZa8HNIq8OmHwCSrpcbKUwH8UDyIG2sfh2KioiC2aZzcwHYP9tIkgy5cfTiGTX4Zvh1xBk_Yf-j7ymeN-1sNvFOygHh_Q2Ovvm3_yfAUbG5BNigqwtoMPt7bSGFBDh0iASRQTJJPDwELm0Mfqwwyt6tOkmwWMmxYcUnTSFznvnU-GG7QzPTioCId1YclOxkQ7aqG5IKAsBLAFd-EDgHL54ipRcldswZMXVjrCYKLnRnB74McDro503gVNtpNvR0gMCqsF4O1q6S1in9Gncb8weE5jJN0VHaFouOdI7FI50klSemSIB07XWcFLiNXC04NEoMGd5fiRQeVEcjVOUg-38IAgvW0fDKT2kmpHdcdz-t5duic7vIFNlptjhmoO1EM1Ouj1CgONqZ2aQfrzO54gHIS67Tenggrjn91pg0egogaeYqQsL9etxR-oAZIgqonhT7MOV7XKaoxAL7WPdY2gqEoIU2M_WP5LbUusbs17irDX2LGZ8YPuBgeqXI07mhtkRzAo3QWLD8YTYQaYz2Q5zL8muExnIBLQ5_qR02VhyqVquLvHzHePPOqD3hA8n5QHkYievFLRZxe-ntH1qvIGR5eNtGnV8PM4zSL1svsTxwocjC_f9Bx8LDcZLEOayZJIuB3EiVKuKSuwC0Onq9AeWu8Qi2BQ37UTEnHc9J6ewZQ1z2L8QGAAWOZNThfxEvTr6qvNAwwdzxp9p_pvD3w-TMYQ_3XI1f-VsJF2KA4FN7KMOB2PepfWNCPxPbJykksWr_GYRMwuJJplwp2uKDa1_Pr1IOWFOma51OQlb4_Qlud7MZjeEGJUKv5FntXMYxaLlW85Pw189tymkfUMHF_HKpRaW8VhehPNqxdm-SsWysZBDHxQH8ze9AojlHtTacKlTFWbWtULQTyJ3urKL0a0blvj2N_O2fUqPStNlXyZCL17X6_Ye0x_4SV2iAigLyDS8Yl4NVX6IKZ46Ry80KVkj5gdQn-XSBn0tZnqWYfTzebE2VyY4wWvpdLumSVEKwjDKEVxhJXrof0ZoqZ803ID8xCRBFqILoIvg3w17sI5MKvLxX5aq6_fGptl5-xyR-1eLrimf1hTB8NSC2gkLUInFDZQMDRFNDvZH_ptVNq_UkVRlbWm0Jb17Jzd-ASaEonoArei0j4tjaL7Unf2TNJdj4bdRUkHSbQNWjDM8MV7mf3MFPLTzzmMMlvQDcVaYyM8BC6l-IrROP3qQzDkYxDIZlXn3fckV6XruqpfHJxwARhJTwfT0dTXfRTTQYhRc6hge4FeToyxsxHE0AqDfjwtanJWvYRxMiGc_cbVWQTnAUEa44CvHNDDgzhlJBGVwcNjliAROq8fT0YfV_Dr1H2fy4iM8d8vtFiPSaEGYCGoYVfFh_H52EHcLNA4HCSyt8Tx_GV72f-5AD-DSm235X0r-BL8SHgERiV_uQr3BVs40BUF9sNmK0fDJyxDOV0M0WG9OjFrB9MkO7eCBoTqARjbgKWNJ80JQaiQp7Zc394w4YfdewG7NYWw6-oaTz6Yzbeg8tZ3Jlyq1fLKWNRIhyZxUTV3h7Z90qAsHehwLv2ptXTi5Jyyb8IJ5IXzo3EJPuVSD8OR_VxX7JX_neJgVAnHEvuXYe0mqmsmm8xdqBaNq0XQyadMJV0QOFkPKF017jRiUPzQrupzPZZVA45hrHMpgmQeNC3wkMW-vv2l50FHaf-KsKXpL5k4vbO0j315fYmksH_Zb_duIdFiHix6lt7HoD8fEcbmCwtbVnY96qwYGlKXymAz7za6LlNxleZrVgk_FDPCvoHeVtRORRtlg4WThKgMWO24UC5Rp5qRHak0ax8s3w7lXu4AON8K1ogYRPw54ECSZq7PwKXocccd9O7L-v-URO6utQgeFQVXZRhNm8xQyZMTQyJ3nZHVP0x6voYFt8lF3qF4xcTzqeuiuNhfyjOJhM1lKVth7Cnrf5bg_8nHZJeiMD_Uh-7j6JWCEUb-iQf5ocmUxn4XLsKPPhrE4u71e0OOznTAc-RuJx1ceNFjtswEOHhnfrHObJHU8-HL7xWqw9XQZmkHLyep5Sp7mXQTU0ggEGcggkaVQlns5aiNwsLnyPMKm_PlsjrP0Ptq-v-AQdqQ669hdP6lqptu7AKBD-RIRT4_4zVSW1Jhdj_oDPCUGUPqDOaXYUww=="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.8-flash",
+    "response_id": "TZb_avzJC4-s5NoPhdPcwA4",
+    "usage_metadata": {
+      "candidates_token_count": 368,
+      "prompt_token_count": 4413,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4413
+        }
+      ],
+      "thoughts_token_count": 1201,
+      "total_token_count": 5982
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "Não foram encontradas informações sobre certificação internacional para exportação nos documentos da Cooperativa Agroecológica Sabor da Terra. Os registros disponíveis tratam apenas de certificações orgânicas de âmbito nacional brasileiro vinculadas ao Selo Orgânico Brasil / Sisorg por meio da Ecocert [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt] e do IBD Certificações [fonte: certificacoes/cert_organica_maria_silva_P001.txt], além de inspeções estaduais sanitárias e registros no SIE da ADAGRO [fonte: certificacoes/inspecao_adagro_2026.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_ana_bezerra_P004.txt",
+          "trecho": "Selo: ORGÂNICO BRASIL / Sisorg nº BR-BIO-001"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_maria_silva_P001.txt",
+          "trecho": "NORMA APLICÁVEL: Lei nº 10.831/2003 e Decreto nº 6.323/2007 Instrução Normativa MAPA nº 46/2011"
+        },
+        {
+          "arquivo": "certificacoes/inspecao_adagro_2026.txt",
+          "trecho": "RELATÓRIO DE INSPEÇÃO - ADAGRO Agência de Defesa Agropecuária de Pernambuco"
+        }
+      ],
+      "lacunas": [
+        "Ausência de informações ou documentos sobre certificações internacionais para exportação (como USDA Organic, União Europeia/EU ou outros selos/protocolos internacionais de comércio exterior)."
+      ]
+    }
+  }
+}

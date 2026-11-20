@@ -1,0 +1,52 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "b397549538b21a3b",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:31:37 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1325",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "A certificação de conformidade orgânica da produtora Josefa Alves de Souza (código P008), emitida pelo IBD Certificações (Certificado Nº ORG-PE-2024-003876) que contemplava mel silvestre, está vencida considerando a data de referência (30/10/2026), tendo expirado em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt] [fonte: produtores.csv]. Por esse motivo, ela não consta como certificada vigente e seus produtos não podem ser comercializados como orgânicos até a conclusão do processo [fonte: certificacoes/cert_organica_josefa_souza_P008.txt] [fonte: produtores.csv]. Quanto ao status de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, estando a auditoria agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+              "thought_signature": "EnsKeQFpFH0T8Sg6dOdbOUM5AZu0v6fP7_tD4i2D6an2jZo35uou06Zs-F5_lQEQp4-e_Ya-v9X07ZqK-lW2wncVEAXNijtmIflvIX9Cio7QLbp-_XotMzpKN_wXWoLahMmp59XXoGQuNlEWIBY8PuiWrnupg3FCRZrqkBA="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "6JT_apuRFv2e5NoPwIKjyA8",
+    "usage_metadata": {
+      "candidates_token_count": 271,
+      "prompt_token_count": 1630,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1630
+        }
+      ],
+      "total_token_count": 1901
+    },
+    "automatic_function_calling_history": []
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.8-flash",
+  "prompt_sha256": "65b59fb8ac1868af",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:30:25 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=31177",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"resposta\": \"A certificação de conformidade orgânica da produtora Josefa Alves de Souza (código P008), emitida pelo IBD Certificações (Certificado Nº ORG-PE-2024-003876) que contemplava mel silvestre, está vencida considerando a data de referência (30/10/2026), tendo expirado em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt] [fonte: produtores.csv]. Por esse motivo, ela não consta como certificada vigente e seus produtos não podem ser comercializados como orgânicos até a conclusão do processo [fonte: certificacoes/cert_organica_josefa_souza_P008.txt] [fonte: produtores.csv]. Quanto ao status de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, estando a auditoria agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\",\n  \"citacoes\": [\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"Data de Validade: 30/09/2026  *** VENCIDA ***\"\n    },\n    {\n      \"arquivo\": \"certificacoes/cert_organica_josefa_souza_P008.txt\",\n      \"trecho\": \"NOTA: Este certificado EXPIROU em 30/09/2026. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456). Auditoria de renovação agendada para 15/11/2026. Até a conclusão da renovação, os produtos NÃO podem ser comercializados como orgânicos.\"\n    },\n    {\n      \"arquivo\": \"produtores.csv\",\n      \"trecho\": \"Em 2026-10-30 a certificação orgânica está vencida para: P008 (Josefa Alves de Souza, venceu em 2026-09-30). Esses produtores não podem vender como orgânico.\"\n    }\n  ],\n  \"lacunas\": []\n}",
+              "thought_signature": "EsQYCsEYAWkUfROVVdzopUb180ORwyAb5SbCwTZPv_Q5OPahRgNI4aZB5la_KeiIwIsZJuV-WZJgCEXGObJ2VfKBWvyF7kDaKVAcsOLLcrfNTjRfVe6J97QuZFqIA7CArir3v2kWjC2UsDOMho1IVGnHCutklfesGk1kDFdTaTTqA52HP8_3-4Fzrp9ZrHomtqTn0H3F2Wg2LMuQADSjvqwClEbpYjGYve0pkVrOX2yGGhfBguYVMM7F-htNZoDi_vIMHEZBhvwETquUgfv6dOBHAkBfLvwYQK351g1pQL5H3xospbPkVK3h1nlqX1VoUEN6qmTFucHu9zyyT2oe9REc0GdzauK4Xd3FC5ZOLjZia2z2KQ50lDZjO2L8vOWfMv4dK7c-GNSfxwxq2-Ps6wSc20JOhWMXEfU5nxQ9U8q837mOOci3rhpATZmg9zHOwL_p4GPaGPmrqUpDDfiJRVi4clv8UXKRSg_Xecisd_gnKL4d5zauHM5JxVjxj4i4jq9mvdYLJdObEF2F_qAntdG2vlrJVOh2F8lV2WgZmNOwkE38skmZd45nHL43xGHGAPPA2UBA5edWTbrviHtON-Q5tFPGUttm6l9ufFNwvYXxCnXf44Xx1TkKot0FiEelOes74Zf3vmtU7aPwuKuCsKMqwSVySQlMwOq0pJAxPaUKHAx3Eg9vMfd20GuqSLFardqgw2jEuVX-JgTo8ICaJ_JblkesdSRYnN-LBk9vXUjHiQYXlV_j3sl5cRahPEI1JViepGNqpTmnXEt5SKwxpcw0lrEeFYmT0-d2Ketf7J49v6zSUd5607zf662Eo6Wch8sKflcRtAvVOQeJpoSLH9XGJczXCORZu3dCCcKi6NjV20wnU6JzZm8ZWIJd053uqib7HSlnMDe__02vqLSlBEmLhJULpJVG6sbpFi-kplwIVAZbYe-DDtsK5i5YO8jcDfU66Z00HCFE2fHGqOROdH0tQZp1nCIUdSW_IK3d1x_RSPeM3NbO2TNB90lyqh2pBP5--OFgFEoK0j6mhF17QcEtFLwjzQVma5K-ymGtVUrMMtGjTeuvpQbQPiSwNidtaP-2qdxakn2rg4BKwrQ_bqXA2RSE0bZFsxtnq0XwCErKQdE_cc0ZqizfDif3-sfz7sqXN3FJQjLYyU_rKVOuMcU5wLbEbDkACyuNDMgBVjiLiuO56VJ_AMV5vHRa4x9JuvptujN49XXnbdAmwjuOjVr9jC5wkYAsjCKJ1sIyWWY3a2U9bB52YWot2czstIXgLq3yCdXqjCAztKI9VZQs6hkNgC-lNwQur5sUMf4Qi3xjPr_b1XNdHlYDk5h_Ab0gfItnM_gBIGqoSKM1miOT0_XU31XGqq7gjgabKBm6qYxsr5_MQvU_OSc17__vOlogn8oJoiWWskQYq7wKLJBKaLg9W8WE27F3ZN0p2osH9BJbdchfUVt-r_7_XkxX4LrG8NRbRnRr_zuNG04EVsdBxxxvR4lDB6E7oV4_oFG-1MjganKBYd-MqFEdnHMrgqTL5EzugqfnBBcu1kTjTKU2GGH81YbnwjcqcaYZVNkl8gAeI-QlaCSDluNfHlyn1pVY7VqZzaJjNXda7EP84Gfy9usMwscDlmwAClvdMuktzqrLm3kbgxWcZ3ROxjC03UbEg7gTYuahO8J-HPvpVULcick_SsXLIbsw_OYDmYHEYZ2gqgzBXR_HRMHs8nRu6DeYqP-Rpj4pA6vYu9ztXv7BMi7bB8jKDo3OKPrvhTsdbw22D-7OnKYxG06vxgGRFzAZKllkhJjT7Ie3MJk5TAU0E3mKF7rw3pv6VohV4bMQo7E27TPL9CQy9X__-7SItQWqgEbgFwPiCBUCyKWoDRnK52zhp4RxLmqkhpjOY0--pq47eS2yw6njPMjElMJmsZGndFhhk4magaSQpEKS7uzfe9Ir2iqdMBrV5se-q2s7L4acYahDQHMUGTJzeLNoM4jhEXLZDzRqWa2A4hekjBTIBxOy8RTlAZsSLFBmUtCJ34qWU0KShYH1MUzbth-bQRGid4DTe4_EeTI2frAA6JXbjMrIXhMppSI1lEK7AFquubocNyPbG6_g3fd0Isy-Dm2Ky8UEMPCDYiKmWcebgnVrl74chVq7krTnA7WEq6wVfOIqIEMJ_7gIjyjjT5JDeoUehRjOzprAzdJjom5qkVGwVPbwthoq2IyXK4oloN0cG1b_yR7ZefwW-TCdWalZyn9y1Q5j86gsjhVVZi5xgeK9ylMfTWwIPbbMKkw8QiNd3pUaZCKucydNyQ88ZmDqb3-jlZ6tUS2AR64abs65HGigWemNPZLlEv7uq_9r8zhxDpafzirzEk6KCG-14wanuvr47Dp91rvuCjMEtNGw4NtI-uF1ba4mKBkeLoHLPzASmgKQ0QYPOrUK-HB6myICBtf-ZiUYQnimTPizbridFiUfEINQJZcpZiPgRZTxc63VA15COFqPQujNEtG45NowLNWYkgnGmPZiDzb02g3g7N35GYoWEQAX3w7YLmX_rkltMmc0zgnLAnIh9SCg0cDFr56dX_GcNmggfSQMGWJyAd8oFlvFJTX2sXfCo_O-w2_jTKA5rHlIgXloUU_HEg9ezHXa7evHF8d-1lYTWTUJmPJWsaZ6nv7uSFaMVMMAUtYiRCGQVDD92r-dk3dXuvkTro6jUSwrLINw9UmJMOet4oHbtMnD6yeHt1cvPFbvgTzqJe1W_eFcfQh0tcgSFxol_QFNXGjIAqlcYEw3SSCrui46U4gkeMlqcWFZfYBqTxrJN9X-femVxwwaLKcYFdz9_JnmgxiRFsZHZE1gWJV9IeHyJYf-kG5w3DrYlDkxATxrirXkinezyYjEry2BsBOz7vFQKBkS9zYtVYJKI8SkWj_Or7bH3xOSrmU_pVdXVq-p1HsLYXXDHVlC9_PYM5aZVTJhS-Qkvk1G0AVdW8czi--uCb1LRPd5gSqjpxz5YU8i4A3f1XcHTVGOGcdxeFrGycVL9qWqHO6B7Mc9fUNJ604m25zyXPIJ0GgCml08cL_3bZ_tEaCghMcPOInsQ1ObbyaIcrtYSITrX8vZtOQY8U7YCrORfDqDDS9sGGIWxvDdc5QYeCONYRWZIB44A2VRqkvQZhzRyioXBOT6T1RS2qpjnVz01SQXjE3c80QEoGdm9hbueGlZenA-BPRKWZjQWMEST7zktKhWhSWOxAdepl3wGKL-5WbOCQwxryYEGxYk08E38gBkNvIK3ElMeJ6dwiQutyq8Ftr7tyjUZqn2IqDKeYs4nfHgFIxAnaKNFw4hdZkuo8P8hDe3EHvzWWtKflL4_HvH0Onv5mYf2qPx1w_7w29pAJnq2CPEwX1q8b-ibeFYPerJ8aetA3_SlLoiDi3WBxKAhpw8fYXPXyXjoErANK4LkaGZFwuQXOuIUEskOE_uNk3ZN3SCT9pjJ0Y7fDUs4sdbMVBPw6hVzJL4OT7cSo8yb0AkLiKMMTHCnq1K5_USAzPXm0At47ifmtDm6RwdXE_-PvzgFM5JCT9t5gkakMViO5gQq5znRiiB5v6UOxXSMToXVSrqAT-DQ_SVk31j0OxFayEFE8Zecm9NHWXjU9gosOcPq7cramb6XmsE59HjttCFK3_VC8JE10R3pPxHrpxFiXNnQstHg4u2gnlzr3RjkNx_syHzTlo5sb56oZO2cc2IrkYCFF95Krrdsf9HQDwxMBQBfrjcshAexcdsbX5P3_GfAQPnmYEPn4t0I6LovvQFUiIygr00eAHuzXGJynRzUXkIBcxDybyHdRmkG21tI9AHcfixHVFd_BQ3tSU-yd_CXZYTU8TcGcB2JnjP-4qnarD36aINHTHBMGwJ9FfetlibYSBr0g6gmJ-JC-qGd4lVH1WxETRMPbuEXaZ0og1ncHjMnJKh-dD8YmYawmPC7Vgctn74mTqFDndk5kbSLCBIhg2VosHqTdclQT37FiU_GGquZMCpBFGFAn3-X1s_8GeGkrCyZHh4YbKlxt3oNxSyMxMqDFsWfW1WKL04V5saHU6rEMpdfnqz2vm_Jp09FYf76-tvY8XVm6t12Tc6DLNzvMVlG_gNcxCxoO4IhQsZ2aQ_41XDQhqoBzzSoBZqmaHU67SwYYjjGEBFmUDV3zxiyQLarnjIpdrbMAenkiuSFTDnnYjbjkfXVrK_KGUej4jxXoU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.8-flash",
+    "response_id": "gpT_asn1F9WA1sgPvtf2qQI",
+    "usage_metadata": {
+      "candidates_token_count": 581,
+      "prompt_token_count": 4680,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4680
+        }
+      ],
+      "thoughts_token_count": 1048,
+      "total_token_count": 6309
+    },
+    "automatic_function_calling_history": [],
+    "parsed": {
+      "resposta": "A certificação de conformidade orgânica da produtora Josefa Alves de Souza (código P008), emitida pelo IBD Certificações (Certificado Nº ORG-PE-2024-003876) que contemplava mel silvestre, está vencida considerando a data de referência (30/10/2026), tendo expirado em 30/09/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt] [fonte: produtores.csv]. Por esse motivo, ela não consta como certificada vigente e seus produtos não podem ser comercializados como orgânicos até a conclusão do processo [fonte: certificacoes/cert_organica_josefa_souza_P008.txt] [fonte: produtores.csv]. Quanto ao status de renovação, a produtora solicitou a renovação em 15/09/2026 sob o protocolo REN-2026-0456, estando a auditoria agendada para 15/11/2026 [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].",
+      "citacoes": [
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "Data de Validade: 30/09/2026  *** VENCIDA ***"
+        },
+        {
+          "arquivo": "certificacoes/cert_organica_josefa_souza_P008.txt",
+          "trecho": "NOTA: Este certificado EXPIROU em 30/09/2026. A produtora solicitou renovação em 15/09/2026 (protocolo REN-2026-0456). Auditoria de renovação agendada para 15/11/2026. Até a conclusão da renovação, os produtos NÃO podem ser comercializados como orgânicos."
+        },
+        {
+          "arquivo": "produtores.csv",
+          "trecho": "Em 2026-10-30 a certificação orgânica está vencida para: P008 (Josefa Alves de Souza, venceu em 2026-09-30). Esses produtores não podem vender como orgânico."
+        }
+      ],
+      "lacunas": []
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a06e0f98518ea9db",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:38:10 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1993",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Não foram encontradas informações sobre certificação internacional para exportação nos documentos da Cooperativa Agroecológica Sabor da Terra. Os registros disponíveis tratam apenas de certificações orgânicas de âmbito nacional brasileiro vinculadas ao Selo Orgânico Brasil / Sisorg por meio da Ecocert [fonte: certificacoes/cert_organica_ana_bezerra_P004.txt] e do IBD Certificações [fonte: certificacoes/cert_organica_maria_silva_P001.txt], além de inspeções estaduais sanitárias e registros no SIE da ADAGRO [fonte: certificacoes/inspecao_adagro_2026.txt]."
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "cZb_ar3gG5Kio_UPqLPB6Qw",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 118588
+        }
+      ],
+      "cached_content_token_count": 118588,
+      "candidates_token_count": 149,
+      "prompt_token_count": 122490,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 122490
+        }
+      ],
+      "total_token_count": 122639
+    }
+  }
+}

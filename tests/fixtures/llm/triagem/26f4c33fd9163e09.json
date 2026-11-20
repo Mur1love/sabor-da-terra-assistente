@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "26f4c33fd9163e09",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:37:31 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2988",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_17323209302376722875",
+                "args": {
+                  "pergunta": "certificacao internacional exportacao",
+                  "data_referencia": "2026-10-30"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EnsKeQFpFH0TPGSgku_aYIvqFN1N4sLlzRx-iifw2QylNzYcPuHo1o-uIkzVL1pXLQlm2RNFrqJYJx96I-b3Ym7D58trYpNtK6JF2urmnTPcOzhdEXfb38hQm8ngPRkjRK29BPjSXJ9S3ItA5j1-HvyJIwnilZYYZVhXxrs="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "SZb_aqvRF8bLytMPyK6tmAM",
+    "usage_metadata": {
+      "candidates_token_count": 42,
+      "prompt_token_count": 121979,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 121979
+        }
+      ],
+      "total_token_count": 122021
+    }
+  }
+}

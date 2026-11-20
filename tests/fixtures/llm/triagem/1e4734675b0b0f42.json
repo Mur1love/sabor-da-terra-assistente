@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "1e4734675b0b0f42",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:31:47 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=8225",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Aqui está a fila consolidada de pedidos pendentes para a data de referência (2026-10-30) [fonte: pedidos.json, produtores.csv, fichas_tecnicas/queijo_coalho.txt, tabela_precos_outubro_2026.csv, certificacoes/cert_organica_josefa_souza_P008.txt, fichas_tecnicas/mel_silvestre.txt, fichas_tecnicas/goiaba_paluma.txt, financeiro.csv, lotes.csv, certificacoes/cert_organica_jose_santos_P002.txt, contratos/contrato_restaurante_raizes.txt, certificacoes/cert_organica_antonio_lima_P007.txt, certificacoes/cert_organica_ana_bezerra_P004.txt, certificacoes/cert_organica_debora_melo_P018.txt, certificacoes/cert_organica_luciana_gomes_P012.txt, certificacoes/cert_organica_marcos_rocha_P009.txt, certificacoes/cert_organica_maria_silva_P001.txt, certificacoes/cert_organica_mariana_cordeiro_P014.txt, certificacoes/laudo_sanitario_apiario_jose_P002.txt, certificacoes/laudo_sanitario_queijaria_cicero_P003.txt, contratos/contrato_mercado_bom_preco.txt, contratos/contrato_pnae_garanhuns.txt, fichas_tecnicas/tuberculos_graos.txt, fichas_tecnicas/hortalicas.txt, certificacoes/inspecao_adagro_2026.txt, sazonalidade.csv]:\n\n### Fila de Pedidos Pendentes\n\n1. **PED-2026-006** (Rede SuperBom Atacado) — **Urgência: Alta** (Prazo de entrega: 2026-10-29 — *Vencido*) [fonte: pedidos.json]\n   * **Itens:** Queijo coalho (200 kg), Queijo manteiga (50 kg), Mel silvestre (40 kg — *Orgânico*), Goiaba paluma (300 kg) [fonte: pedidos.json].\n   * **Status:** `aguardando_confirmacao` [fonte: pedidos.json].\n   * **Alertas e Pendências:** \n     * P008 (Josefa Alves de Souza) está com a **certificação orgânica vencida** desde 30/09/2026; o pedido de renovação feito em 15/09/2026 (protocolo REN-2026-0456) e com auditoria marcada para 15/11/2026 não libera a venda como orgânico, portanto não pode vender mel silvestre como orgânico [fonte: certificacoes/cert_organica_josefa_souza_P008.txt].\n     * P018 (Débora Cristina de Melo) tem o SIE pendente para mel silvestre [fonte: fichas_tecnicas/mel_silvestre.txt].\n     * P011 (Pedro Henrique Albuquerque) não tem registro SIE para queijo coalho (revenda exige SIE/SIM/SISBI; restrito a venda direta) [fonte: fichas_tecnicas/queijo_coalho.txt].\n     * Há uma oferta posterior ao prazo original (PED-2026-015 de P003) correspondente a queijo coalho que exige confirmação se o comprador aceita renegociar [fonte: pedidos.json].\n\n2. **PED-2026-003** (Chef Amanda - Bistrô Sertão Gourmet) — **Urgência: Alta** (Prazo de entrega: 2026-10-29 — *Vencido*) [fonte: pedidos.json]\n   * **Itens:** Queijo artesanal (não catalogado/ambíguo), Mel de jandaíra (3 kg) [fonte: pedidos.json].\n   * **Status:** `aguardando_confirmacao` [fonte: pedidos.json].\n   * **Alertas e Pendências:** Ambiguidade no termo \"queijo artesanal\" (hipótese de queijo coalho conforme ficha técnica) e ausência de histórico anterior [fonte: pedidos.json].\n\n3. **PED-2026-001** (Restaurante Raízes) — **Urgência: Alta** (Prazo de entrega: 2026-11-01 — *Próximo*) [fonte: pedidos.json]\n   * **Itens:** Queijo coalho (30 kg), Manteiga de garrafa (10 kg), Mel silvestre (5 kg), Coentro (20 maços), Cebolinha (10 maços), Ricota (5 kg) [fonte: pedidos.json].\n   * **Status:** `aguardando_confirmacao` (Contrato 008/2026) [fonte: pedidos.json, contratos/contrato_restaurante_raizes.txt].\n   * **Alertas e Pendências:** Exigências de contrato (pagamento por PIX no ato, entrega até as 10h, prioridade para orgânicos e locais). P008 e P018 com SIE pendente para mel silvestre [fonte: contratos/contrato_restaurante_raizes.txt, fichas_tecnicas/mel_silvestre.txt].\n\n4. **PED-2026-005** (Dona Cremilda - Lanchonete da Feira) — **Urgência: Média** (Prazo de entrega: 2026-10-31 — *Próximo*) [fonte: pedidos.json]\n   * **Itens:** Queijo coalho (10 kg), Manteiga (ambíguo entre manteiga de garrafa e queijo manteiga) [fonte: pedidos.json].\n   * **Status:** `aguardando_confirmacao` [fonte: pedidos.json].\n\n5. **PED-2026-004** (Prefeitura de Garanhuns - PNAE) — **Urgência: Média** (Prazo de entrega: 2026-11-04 — *Futuro*) [fonte: pedidos.json]\n   * **Itens:** Banana prata (200 kg), Goiaba paluma (100 kg), Macaxeira (150 kg), Inhame (80 kg), Alface (200 unidades), Coentro (100 maços), Tomate (50 kg), Mel silvestre (20 kg — *Orgânico*), Ovos caipira (100 dúzias) [fonte: pedidos.json].\n   * **Status:** `sugestao_nao_confirmada` (Contrato 045/2026-PNAE) [fonte: pedidos.json, contratos/contrato_pnae_garanhuns.txt].\n   * **Alertas e Pendências:** Vários produtores sem DAP/CAF vigente comprovada (exigido pelo contrato PNAE); P017 sem SIE para ovos caipira (não alocável); P008 com certificação orgânica vencida para mel silvestre [fonte: contratos/contrato_pnae_garanhuns.txt, certificacoes/cert_organica_josefa_souza_P008.txt, certificacoes/inspecao_adagro_2026.txt].\n\n6. **PED-2026-002** (Mercado Bom Preço) — **Urgência: Média** (Prazo de entrega: 2026-11-04 — *Futuro*) [fonte: pedidos.json]\n   * **Itens:** Goiaba paluma (50 kg), Banana prata (40 kg), Maracujá (25 kg), Macaxeira (60 kg), Inhame (30 kg), Tomate (20 kg), Alface (50 unidades), Rúcula (30 maços) [fonte: pedidos.json].\n   * **Status:** `aguardando_confirmacao` (Contrato 012/2026) [fonte: pedidos.json, contratos/contrato_mercado_bom_preco.txt].\n   * **Alertas e Pendências:** Alerta de entrega fora do dia previsto no contrato (contrato prevê terças e sextas; 04/11/2026 é quarta-feira) [fonte: contratos/contrato_mercado_bom_preco.txt].\n\n7. **PED-2026-007** (Hotel Fazenda Serra Negra) — **Urgência: Média** (Prazo de entrega: 2026-11-08 — *Futuro*) [fonte: pedidos.json]\n   * **Itens:** Queijo coalho (25 kg), Queijo manteiga (10 kg), Mel (8 kg — *ambíguo*), Goiaba paluma (20 kg), Cajá (10 kg), Rapadura (15 kg), Goma de tapioca (40 kg — *não catalogado*), Frango caipira (40 kg), Ovos caipira (30 dúzias) [fonte: pedidos.json].\n   * **Status:** `analise_sem_alocacao` / Cotação [fonte: pedidos.json].\n   * **Alertas e Pendências:** Frango caipira não alocável devido à suspensão sanitária (NC-001 da ADAGRO para P017); cajá em safra baixa em novembro [fonte: certificacoes/inspecao_adagro_2026.txt, sazonalidade.csv].\n\n8. **PED-2026-009** (Hospital São Francisco) — **Urgência: Média** (Prazo de entrega: *Não informado*) [fonte: pedidos.json]\n   * **Itens:** Frutas (100 kg), Hortaliças (60 kg), Ovos caipira (50 dúzias), Mel (5 kg) [fonte: pedidos.json].\n   * **Status:** `analise_sem_alocacao` / Cotação com prazo ausente e exigências documentais pendentes [fonte: pedidos.json].\n\n9. **PED-2026-013** (SESC - Unidade Garanhuns) — **Urgência: Média** (Prazo de entrega: `jan/2027` — *Não resolvido*) [fonte: pedidos.json]\n   * **Itens:** Frutas (500 kg), Hortaliças (200 kg), Queijo coalho (50 kg), Mel (10 kg), Ovos caipira (200 dúzias), Frango caipira (100 kg), Macaxeira (80 kg) [fonte: pedidos.json].\n   * **Status:** `analise_sem_alocacao` / Cotação [fonte: pedidos.json].\n\n10. **PED-2026-010**, **PED-2026-011** (Consultas de João Pedro e Tropical Fruits Exportadora) e **PED-2026-008** (Marcos - Sorveteria Tropical) — **Urgência: Baixa** [fonte: pedidos.json].\n11. **PED-2026-012**, **PED-2026-015** e **PED-2026-014** (Notificações de produtores/órgãos, incluindo notificação oficial da ADAGRO — PED-2026-014) — **Prioridade: Análise** [fonte: pedidos.json, certificacoes/inspecao_adagro_2026.txt].",
+              "thought_signature": "EnsKeQFpFH0TEOGZmoyxTlJ7rrXvLVNGe_035P2KO_c8Lmj9hKq6L8DhPfHg-cvXXeFuwKqZS8FvzWsOfF5soAmBvFmodiANaiMuj_GJA5sxaBFSRPH-qqjI-PvErd1UBjPx2emTa4vRI_bc6fJOYx5ur37mQFuC18r-e04="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "65T_aoj3LOXhytMPkfzFoQI",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 4090
+        }
+      ],
+      "cached_content_token_count": 4090,
+      "candidates_token_count": 2768,
+      "prompt_token_count": 106728,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 106728
+        }
+      ],
+      "total_token_count": 109496
+    }
+  }
+}
