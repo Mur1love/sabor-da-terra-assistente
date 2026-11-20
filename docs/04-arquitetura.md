@@ -1,16 +1,68 @@
-# 04 — Arquitetura de Referência Google e Decisões Iniciais por Componente
+# 04 — Arquitetura de Referência Google e Decisões por Componente
 
-> **Rascunho da arquitetura** (Etapa 2, issue #2). A versão final, entregável
-> obrigatório de 19/11/2026, parte deste documento e é registrada em #16.
-> Segue a **diretriz permanente** de `docs/03-diretriz-arquitetura.md`:
-> toda decisão é tomada pensando no ecossistema Google, e cada componente do
-> protótipo tem um serviço Google Cloud correspondente, com justificativa e
-> alternativa considerada — dentro **e** fora do Google — mesmo que o
-> protótipo execute local.
+> **Versão final** (etapa 16, issue #16), entregável obrigatório de
+> **19/11/2026** — parte do rascunho da #2 e do que foi de fato implementado
+> nas etapas 3 a 15. A partir de 19/11 o projeto está **congelado**:
+> modificações posteriores são desconsideradas (`docs/01` §7–8). Segue a
+> **diretriz permanente** de `docs/03-diretriz-arquitetura.md`: toda decisão
+> é tomada pensando no ecossistema Google, e cada componente do protótipo tem
+> um serviço Google Cloud correspondente, com justificativa e alternativa
+> considerada — dentro **e** fora do Google — mesmo que o protótipo execute
+> local.
 >
-> **Nomes de serviços conferidos na documentação oficial em 10/11/2026**
-> (ver §7). Onde o nome mudou desde a divulgação do desafio, registramos
-> "nome atual (nome na época)".
+> **Nomes de serviços conferidos na documentação oficial em 10/11/2026 e
+> reavaliados na entrega desta versão, em 19/11/2026** (ver §7). Onde o nome
+> mudou desde a divulgação do desafio, registramos "nome atual (nome na
+> época)".
+
+---
+
+## Visão geral
+
+O problema, os usuários, os desafios e os requisitos vêm do
+`docs/01-documento-base.md` §3–§6; os números de atendimento vêm da avaliação
+da etapa 14 (`docs/05-avaliacao.md`, rodada 3 de 19/11/2026).
+
+**O problema.** A Cooperativa Sabor da Terra reúne 180 pequenos produtores
+rurais (amostra do dataset: 18, `docs/01` §3) e comercializa frutas,
+hortaliças, queijos e mel para restaurantes, mercados e programas de compra
+governamental. Com demanda crescida 40% em dois anos, a operação artesanal
+apresenta três dores simultâneas: pedidos que chegam por canais e formatos
+imprevisíveis (60–100/dia) e hoje consomem o dia inteiro de triagem manual;
+um acervo documental grande (certificações, laudos, contratos, fichas) em que
+cada resposta leva horas para ser encontrada; e produtores "cegos", sem
+visão de vendas, pendências e novos pedidos, hoje informados por telefone, um
+a um.
+
+**Os usuários.** A **equipe da cooperativa** (Dona Lúcia e Seu Antônio no
+protótipo) usa o assistente por texto; **compradores, auditores e órgãos**
+têm suas perguntas documentais respondidas com fonte citada; os
+**produtores** recebem resumos e notificações gerados autonomamente.
+
+**Os 3 desafios** (`docs/01` §5) e como o assistente os atende:
+
+| Desafio | O que pede | Onde está no documento |
+|---|---|---|
+| **A — Interpretação e triagem de pedidos** | Classificar e extrair pedidos em linguagem natural coloquial, sinalizar urgência e problema (fora de safra, acima da capacidade) | §2 (triagem + urgência), §10 (implementação local) |
+| **B — Consulta inteligente à base documental** | Responder sobre certificações, rastreabilidade, sazonalidade e lotes **com citação da fonte** e sem inventar | §2 (RAG documental), §15 (anti-alucinação) |
+| **C — Comunicação com produtores** | Resumos personalizados por produtor e notificações claras de novos pedidos, redigidos pelo modelo com dados vindos de funções | §2 (comunicação), §4 (disparo) |
+
+**Os 6 requisitos funcionais** (`docs/01` §6), com a evidência de atendimento
+da rodada 3 (37 casos, 501 critérios; `docs/05`):
+
+| Requisito | Como o assistente atende | Evidência (rodada 3) |
+|---|---|---|
+| RF1 — interface conversacional por texto | Streamlit (`st.chat_input`, `st.session_state`) | base de todos os 37 casos |
+| RF2 — português coloquial (abreviação, erro, informação implícita) | triagem/extração no Gemini Flash-Lite | 90,3% (270/299); gírias e abreviações entendidas em todos os casos de robustez |
+| RF3 — resposta documental com indicação da fonte | RAG LlamaIndex + `CitationQueryEngine`, citação `[fonte: …]` | 91,2% (166/182); 13/13 citações válidas |
+| RF4 — relatórios e notificações autônomos | resumos e notificações por produtor (etapa 11), dados vindos de funções | 83,7% (36/43) |
+| RF5 — contexto da sessão | histórico do turno no orquestrador + `st.session_state` | 66,7% (14/21) — limitação conhecida (§16) |
+| RF6 — dizer claramente quando não sabe, sem inventar | política de lacuna do RAG + trava de fatos + trava de citação (§15) | 100% (32/32); casos de anti-alucinação 5/5 |
+
+> Metas da #6 atingidas na rodada 3: **89,0%** de acerto geral (meta ≥ 85%),
+> anti-alucinação **5/5** e citação válida em **13/13** respostas documentais.
+> A arquitetura que produz esses números é a descrita nas seções seguintes;
+> as limitações que restam estão na §16, idênticas às do `docs/05`.
 
 ---
 
@@ -38,7 +90,7 @@ A tabela da equipe — base de todas as decisões abaixo:
 | Componente no protótipo (local) | Serviço Google Cloud (produção) | Justificativa | Alternativa considerada |
 |---|---|---|---|
 | **[área] Interface conversacional** — Streamlit (`st.chat_input`, `st.session_state`), chat textual em PT-BR para a equipe da cooperativa | **Cloud Run** (container com a UI) | Servidor de container gerenciado, escala a zero (custo ~0 fora do horário de uso) e publicação da UI sem gerenciar servidor — coerente com o papel do Cloud Run como "UI + entrada do assistente" | **Fora:** Gradio — mesma facilidade, mas menos controle de sessão/estado que o Streamlit e equipe já domina Streamlit. **Dentro:** Gemini Enterprise — dá chat pronto, mas o desafio exige construir o assistente (triagem, RAG, função) e não só consumir um produto fechado |
-| **[área] Orquestração do assistente** — loop conversacional, **function calling nativo** via `google-genai`, contexto de sessão em `st.session_state` | **Vertex AI (Gemini)** — agente servido no Gemini | Function calling nativo evita parsing manual de JSON/regex e mantém o contexto da conversa no próprio modelo; Vertex AI dá IAM, identidade de serviço e régua de custos em produção | **Fora:** LangChain — camada de abstração a mais do que o protótipo precisa; o function calling nativo já resolve. Ollama (exemplo do `docs/03`) — exigiria infra de GPU fora do escopo. **Dentro:** Google ADK — dá mais estrutura (runners, sessões gerenciadas) do que o protótipo precisa; reavaliar na versão final (#16) se a orquestração crescer |
+| **[área] Orquestração do assistente** — loop conversacional, **function calling nativo** via `google-genai`, contexto de sessão em `st.session_state` | **Vertex AI (Gemini)** — agente servido no Gemini | Function calling nativo evita parsing manual de JSON/regex e mantém o contexto da conversa no próprio modelo; Vertex AI dá IAM, identidade de serviço e régua de custos em produção | **Fora:** LangChain — camada de abstração a mais do que o protótipo precisa; o function calling nativo já resolve. Ollama (exemplo do `docs/03`) — exigiria infra de GPU fora do escopo. **Dentro:** Google ADK — dá mais estrutura (runners, sessões gerenciadas) do que o protótipo precisa; reavaliado nesta versão final e mantido fora — só entra se a orquestração crescer (§16.2) |
 | **[área] Triagem de pedidos (Desafio A, parte 1)** — classificação do tipo de mensagem (compra × cotação × consulta × produtor × órgão) e extração estruturada (produtos, quantidades, prazos, comprador) com **Gemini Flash-Lite** + saída JSON | **Vertex AI (Gemini Flash-Lite)** | Volume alto de mensagens coloquiais por dia (60–100 na narrativa) pede modelo barato e rápido; Flash-Lite aguenta o volume no free tier e o PT-BR coloquial é ponto forte do Gemini | **Fora:** regex/spaCy — quebram com abreviação, erro de digitação e informação implícita, exatamente o requisito central. Ollama — infra de GPU fora do escopo. **Dentro:** Gemini Flash para tudo — gasta a quota restrita do Flash com volume que o Flash-Lite resolve (princípio de custo do `docs/03`) |
 | **Classificação de urgência e sinalização (Desafio A, parte 2)** — regras determinísticas (prazo ≤ X dias, volume acima da capacidade, produto fora de safra, certificação vencida) + prompt para casos ambíguos | **Cloud Run functions / Workflows** | A urgência precisa ser **determinística e auditável** (regras de negócio em código), com o LLM só cobrindo a cauda ambígua — separar isso em função serverless mantém o custo baixo e a decisão rastreável | **Fora:** script cron no próprio servidor da UI — sem escalonamento e mistura responsabilidade de UI com regra de negócio. **Dentro:** só prompt, sem regras — não determinístico, dificulta avaliação (#6) e gasta quota do modelo com algo que uma regra resolve |
 | **[área] RAG documental (Desafio B)** — ingestão/indexação de `data/certificacoes/`, `contratos/` e `fichas_tecnicas/`, busca semântica e resposta **com citação do documento de origem** (LlamaIndex `CitationQueryEngine` + embeddings do Gemini) | **Agent Search (antigo Vertex AI Search)** | Busca gerenciada do Google com ranking, snippets/answers e grounding — substitui o índice vetorial local sem operar infra de busca; nome vigente conferido em 10/11/2026 (o produto "Vertex AI Search" foi renomeado para "Agent Search") | **Fora:** implementação própria sem framework — reinventa chunking/reranking/citação que o LlamaIndex já entrega. ChromaDB + sentence-transformers — armazenamento vetorial local sem caminho direto para o mundo Google. **Dentro:** Vertex AI RAG Engine — gerenciado, mas menos controle sobre chunking/citação do que o LlamaIndex dá hoje; File Search da Gemini API — ótimo para protótipo rápido, porém amarra a troca ao ecossistema Gemini API. **Decisão registrada:** usar **LlamaIndex** no protótipo — corpus pequeno (20 documentos: 12 certificações, 3 contratos e 5 fichas), a citação do documento de origem é requisito central e o `CitationQueryEngine` entrega citação inline de graça, sem custo de serviço gerenciado |
@@ -140,8 +192,11 @@ produção trocando perfil de configuração — é isso que a apresentação de
 | BigQuery, Cloud Storage, Secret Manager, Firestore, Pub/Sub, Cloud Scheduler, Cloud Logging | nomes inalterados | https://docs.cloud.google.com/docs |
 | LlamaIndex | **LlamaIndex** (`llama-index-core` + `llama-index-embeddings-google-genai`; o pacote `llama-index-embeddings-gemini` foi descontinuado) + `CitationQueryEngine` para citação inline | https://developers.llamaindex.ai / repo `run-llama/llama_index` (v0.14.x) |
 
-> Reavaliar esta tabela na Etapa 16 (documento final) — nomes e versões de
-> modelo mudam rápido; a data da conferência é parte da evidência.
+> Reavaliada na etapa 16 (19/11/2026): os nomes da tabela continuam os
+> vigentes na documentação oficial e o desenho de produção da §2/§4 os usa
+> de forma coerente; a data da conferência é parte da evidência. O projeto
+> congela em 19/11 (`docs/01` §7–8) — nova conferência completa só se o
+> desenho voltar a evoluir depois do congelamento.
 
 ---
 
@@ -160,6 +215,7 @@ flowchart TB
     VAI["Vertex AI — Gemini 3.8 Flash<br/>orquestração + function calling"]
     FL["Vertex AI — Gemini 3.5 Flash-Lite<br/>triagem: classificação + extração JSON"]
     FUN["Cloud Run functions / Workflows<br/>regras de urgência e sinalização"]
+    WK["Worker de envio<br/>Cloud Run functions"]
     BQ["BigQuery<br/>dados estruturados (funções → SQL)"]
     AS["Agent Search (antigo Vertex AI Search)<br/>RAG documental com citação"]
     GCS["Cloud Storage<br/>documentos originais"]
@@ -176,15 +232,22 @@ flowchart TB
     VAI -->|"chamada de função"| BQ
     VAI -->|"consulta com citação"| AS
     Canais -->|"pedidos brutos"| PS
-    PS -->|"dispara"| FL
-    PS -->|"dispara notificação/resumo"| VAI
+    PS -->|"Eventarc: dispara o workflow"| FUN
+    PS -->|"notificações / resumos"| WK
+    WK -->|"redige"| VAI
+    WK -->|"consulta dados"| BQ
     GCS -->|"ingestão"| AS
     FUN -->|"consulta sazonalidade/capacidade/preços"| BQ
     SM -.->|"chave/credencial"| VAI
     CR -.-> LOG
     VAI -.-> LOG
     FUN -.-> LOG
+    WK -.-> LOG
 ```
+
+Versão draw.io (ícones oficiais do Google Cloud, editável em `docs/img/arquitetura-google.drawio`):
+
+![Arquitetura de produção no Google Cloud](img/arquitetura-producao-google.png)
 
 ### 8.2 Execução local (simplificação da fase de demonstração)
 
@@ -213,6 +276,10 @@ flowchart TB
     EMB -->|"índice vetorial"| RAG
 ```
 
+Versão draw.io (editável em `docs/img/arquitetura-local.drawio`):
+
+![Protótipo local](img/arquitetura-prototipo-local.png)
+
 ### 8.3 Referência de arquitetura RAG
 
 Fonte consultada em 10/11/2026:
@@ -225,148 +292,76 @@ dados operacionais.
 
 ---
 
-### 8.4 Grounding e verificação de citações em produção (Etapa 8)
+### 8.4 Grounding e verificação de citações em produção
 
-Em produção no Google Cloud, a pipeline local de consulta documental (sabor_da_terra/rag/responder.py + saída estruturada Pydantic com pós-validação de fontes) corresponde a dois recursos nativos da Vertex AI:
-
-- **Respostas fundamentadas com citação via Agent Search (antigo Vertex AI Search):** o serviço recupera os trechos mais relevantes dos documentos armazenados no Cloud Storage e gera respostas com *extractive segments* e metadados de origem (*citations*), dispensando pós-processamento manual de índice local.
-- **Check Grounding API da Vertex AI (groundingConfig / CheckGrounding):** valida automaticamente se cada afirmação gerada pelo Gemini possui suporte factual nos trechos recuperados (*grounding chunks*), atribuindo pontuações de suporte e bloqueando ou sinalizando afirmações sem lastro documental — equivalente gerenciado à nossa validação pós-geração de citações e política de lacuna (*"não encontrei essa informação nos documentos"*).
+O equivalente de produção da validação de citações do protótipo é o **Agent
+Search (antigo Vertex AI Search)** com respostas fundamentadas e a **Check
+Grounding API** da Vertex AI. O mapeamento mecanismo a mecanismo está na
+§15.2.
 
 ---
 
-## 9. O que fica de fora desta etapa
+## 9. O que fica de fora deste documento
 
-- **Versão final do documento de arquitetura** → #16 (parte deste rascunho).
-- **Artefatos de implantação** (Dockerfile, Terraform, definição do
-  Workflows) → #15 — seguem a tabela da §2.
-- **Implementação** → #3 em diante (o ambiente instala a stack decidida aqui).
+- **Slides da apresentação** → #18 (usam o diagrama e as decisões daqui).
+- **Detalhe de implementação além do mapeamento** → o código e os relatórios de
+  exemplo (`sabor_da_terra/`, `exemplos/`) e a avaliação (`docs/05`) documentam
+  o que está registrado aqui em resumo.
 
+## 10. Triagem Inteligente — implementação local (issue #10)
 
-## 10. Triagem Inteligente — Implementação Local (Issue #10)
+> Registro da implementação local do Desafio A (etapa 10), com o mapeamento
+> para o desenho de produção. O detalhe linha a linha está no código
+> (`sabor_da_terra/triagem/`) e no relatório de exemplo (`exemplos/fila_triagem.md`).
 
-### 10.1 Objetivo
+**Objetivo.** Transformar as mensagens estruturadas da etapa 9 em uma fila de
+atendimento priorizada, com avaliações comerciais, sugestões de alocação,
+alertas e referências às fontes — preservando a separação entre interpretação
+de linguagem natural (Gemini Flash-Lite, etapa 9) e regras determinísticas em
+Python (`sabor_da_terra/triagem/`), sem delegar operações numéricas ao modelo.
 
-A Triagem Inteligente transforma mensagens previamente estruturadas em uma fila de atendimento priorizada, acompanhada de avaliações comerciais, sugestões de alocação, alertas e referências às fontes utilizadas.
+**Fluxo de referência:** `triar_pendentes(data_referencia)`, em
+`triagem/fila.py` — carrega os 15 registros estruturados
+(`tests/fixtures/triagem_15_pedidos.json`), prioriza pelas regras de urgência
+(horas até o prazo, contrato e sinais do texto), avalia as condições comerciais
+na data de recebimento de cada pedido (regras da #5), gera sugestões de
+alocação sujeitas à capacidade semanal, cruza ofertas de produtores com
+demandas (só as conhecidas até a data de referência) e consolida alertas com a
+origem documental de cada sinalização. O relatório de exemplo
+(`exemplos/fila_triagem.md`, data 30/10/2026) grava a mesma estrutura em JSON.
 
-A implementação preserva a separação entre interpretação de linguagem natural e regras determinísticas de negócio. As decisões relativas a prazos, quantidades, capacidade produtiva e elegibilidade são calculadas em Python, sem delegar operações numéricas ao modelo de linguagem.
+**Princípios da implementação:**
 
-### 10.2 Fluxo de processamento
+- **Sugestão, não confirmação.** As correspondências e alocações são
+  informativas; nada confirma estoque, entrega ou aceitação comercial
+  (`confirmacoes_realizadas` e `notificacoes_enviadas` permanecem `False`).
+- **Incerteza preservada.** Quando a informação não pode ser comprovada, o
+  sistema registra a fonte da hipótese e exige confirmação antes de tratá-la
+  como demanda plenamente identificada — referências vagas ("o de sempre",
+  "da última vez") exigem evidência histórica, e ficha técnica fundamenta
+  hipótese, não comprova compra anterior.
+- **Temporalidade respeitada.** Uma oferta só influencia a triagem quando
+  conhecida até a data de referência; ofertas posteriores ao prazo original
+  aparecem marcadas para eventual renegociação, nunca como disponibilidade
+  confirmada.
 
-O processamento é iniciado pela função `triar_pendentes(data_referencia)`, implementada em `sabor_da_terra/triagem/fila.py`.
+**Validação.** A execução de referência (`triar_pendentes("2026-10-30")`)
+retorna os 15 registros. A suíte completa cobre a prevenção de uso de ofertas
+futuras, ofertas posteriores ao prazo original e a ausência de confirmação
+automática: **791 testes aprovados** (4 ignorados, 25 xfailed) em
+19/11/2026; a avaliação do assistente está no `docs/05`.
 
-O fluxo compreende:
-
-1. Carregamento dos pedidos estruturados em `tests/fixtures/triagem_15_pedidos.json`.
-2. Recuperação dos metadados originais, incluindo datas de recebimento, a partir de `data/pedidos.json`.
-3. Seleção das mensagens (pedidos e ofertas de produtores) recebidas até a data de referência.
-4. Classificação e ordenação dos registros: prioridade pelas regras de urgência (horas desde `data_recebimento`, contrato e sinais do texto); na mesma prioridade, prazo mais cedo e menos horas até o prazo.
-5. Avaliação das demandas e das condições comerciais. As regras da #5 são avaliadas na data em que o pedido chegou.
-6. Geração de sugestões de alocação sujeitas à capacidade semanal e às restrições aplicáveis. Pedidos que aguardam confirmação também reservam capacidade (marcada como condicionada), e a demanda de todos os pedidos da semana é comparada com a capacidade documentada (`demanda_semanal`). Quando o contrato pede (Restaurante Raízes), produtores com orgânico vigente e do município do comprador vêm primeiro.
-7. Análise de histórico e hipóteses documentais quando necessário.
-8. Cruzamento informativo entre ofertas de produtores e demandas.
-9. Consolidação dos alertas, com identificação das fontes.
-10. Retorno da fila estruturada e geração de relatório em Markdown e JSON.
-
-### 10.3 Componentes principais
-
-| Componente | Responsabilidade |
-|---|---|
-| `triagem/fila.py` | Orquestração da triagem, priorização e consolidação da fila |
-| `triagem/alocar.py` | Avaliação das sugestões de alocação e controle da capacidade semanal |
-| `triagem/ofertas.py` | Identificação e cruzamento temporal de ofertas |
-| `triagem/historico.py` | Consulta ao histórico e tratamento de referências ambíguas |
-| `triagem/consultas.py` | Consultas auxiliares para demandas específicas |
-| `triagem/notificacoes.py` | Preparação de informações e alertas relacionados às notificações |
-| `triagem/exportar.py` | Geração do relatório Markdown |
-
-### 10.4 Regras de negócio e rastreabilidade
-
-A triagem considera informações de produtores, lotes, certificações, contratos, histórico e demais dados disponíveis no repositório.
-
-As sugestões de atendimento não equivalem a reservas ou confirmações comerciais.
-
-Quando uma informação não pode ser comprovada, o sistema deve preservar a incerteza e solicitar confirmação, em vez de apresentar hipóteses como fatos.
-
-Os alertas devem identificar a origem documental ou estruturada que fundamenta a sinalização.
-
-### 10.5 Compatibilidade temporal das ofertas
-
-O cruzamento de ofertas é realizado por `identificar_ofertas()` e `cruzar_ofertas()`, em `triagem/ofertas.py`.
-
-Uma oferta somente pode influenciar a triagem quando sua data de recebimento não é posterior à data de referência.
-
-A compatibilidade com o prazo original da demanda é representada por três estados:
-
-- `True`: oferta recebida até a data-limite da demanda.
-- `False`: oferta recebida depois da data-limite.
-- `None`: informações temporais insuficientes para verificar a compatibilidade.
-
-Ofertas posteriores ao prazo original podem ser apresentadas para eventual renegociação, desde que já sejam conhecidas na data da triagem. Elas não representam disponibilidade confirmada.
-
-**Exemplo:** o PED-015 foi recebido em 30/10/2026, às 16h. Portanto, não entra na fila nem no cruzamento realizado em 29/10/2026. Na triagem de 30/10, sua oferta de queijo coalho pode ser relacionada ao PED-006, mas é identificada como posterior ao prazo original de 29/10.
-
-### 10.6 Histórico e ambiguidades
-
-Referências como "o de sempre" ou "da última vez" exigem consulta a evidências históricas.
-
-Quando não existe histórico suficiente, uma ficha técnica pode fundamentar uma hipótese documental, mas não comprova uma compra anterior.
-
-O sistema deve registrar a fonte da hipótese e exigir confirmação antes de tratá-la como uma demanda plenamente identificada.
-
-### 10.7 Saídas e confirmações
-
-A função `triar_pendentes()` retorna uma estrutura contendo:
-
-- `data_referencia`;
-- `total_registros`;
-- `fila`;
-- `demanda_semanal`;
-- `capacidade_semanal_sugerida`;
-- `confirmacoes_realizadas`;
-- `notificacoes_enviadas`.
-
-As correspondências entre ofertas e demandas são informativas. A identificação de um produtor potencialmente apto não confirma estoque, entrega ou aceitação comercial.
-
-Na implementação validada, os indicadores `confirmacoes_realizadas` e `notificacoes_enviadas` permanecem `False`.
-
-O relatório de exemplo é gerado em `exemplos/fila_triagem.md`, com data de referência 30/10/2026 (primeiro dia em que as 15 mensagens já existem). `salvar_json` grava a mesma estrutura em JSON.
-
-### 10.8 Validação
-
-A execução de referência utiliza:
-
-```python
-from sabor_da_terra.triagem.fila import triar_pendentes
-
-resultado = triar_pendentes("2026-10-30")
-```
-
-O processamento retorna 15 registros.
-
-Na validação realizada em 15/11/2026, a suíte automatizada apresentou:
-
-- **571 testes aprovados**;
-- **3 testes ignorados**;
-- **Nenhuma falha**.
-
-Os testes incluem a prevenção de uso de ofertas futuras, a identificação de ofertas posteriores ao prazo original e a preservação de correspondências sem confirmação automática.
-
-### 10.9 Integração com o ecossistema Google
-
-A arquitetura mantém a separação entre a interpretação das mensagens pelo Gemini Flash-Lite e a execução das regras determinísticas em Python.
-
-A urgência combina as duas partes. O **prompt** é a classificação `compra_urgente` que o Flash-Lite já faz na extração da Etapa 9, a partir do tom e de sinais como "HOJE" e "máxima urgência". As **regras** em `priorizar.py` calculam as horas até o prazo, dão peso ao contrato e conferem sinais textuais. A triagem não faz uma segunda chamada ao modelo por mensagem.
-
-Sequência prevista no desenho de produção:
+**Integração com o ecossistema Google:**
 
 | Passo local | No desenho |
 |---|---|
-| Extração e classificação (Etapa 9) | Vertex AI (Gemini Flash-Lite) |
+| Extração e classificação (etapa 9) | Vertex AI (Gemini Flash-Lite) |
 | `triar_pendentes`: carregar → classificar → avaliar → alocar → cruzar ofertas | Workflows orquestrando a sequência |
 | `validar_item` / `verificar_conformidade` e `classificar_urgencia` | Cloud Run functions (uma por validação) |
 | `AlocadorSemanal` e `resumir_demanda_semanal` | Cloud Run functions + BigQuery (demanda × capacidade da semana) |
 
-Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os serviços gerenciados já estejam implantados.
+Esse mapeamento representa a arquitetura prevista, não uma afirmação de que os
+serviços gerenciados já estejam implantados.
 
 ---
 
@@ -513,3 +508,328 @@ pytest tests/test_infra.py                           # esquemas em sincronia e n
   sem chamada à API. `DadosRepository` sobre BigQuery e `SessionStore` sobre
   Firestore não foram escritos: o protótipo continua com pandas e
   `st.session_state`, e o Terraform só cria os recursos.
+
+---
+
+## 12. Diagramas de sequência dos 3 desafios
+
+> Visão de produção (mundo Google); os equivalentes locais de cada
+> participante são as interfaces da §6 — a mesma sequência roda no protótipo
+> trocando só os serviços. As versões editáveis em draw.io (com os logos
+> das ferramentas) estão em `docs/img/`, referenciadas após cada diagrama.
+
+### 12.1 Desafio A — Interpretação e triagem de pedidos
+
+Mensagem coloquial → o orquestrador (Gemini 3.8 Flash) tria no Flash-Lite e
+chama as funções de dados e de regras via function calling → compõe a resposta
+→ resposta com fonte.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Equipe da cooperativa
+    participant UI as Cloud Run<br/>Streamlit
+    participant AG as Vertex AI<br/>Gemini 3.8 Flash (orquestrador)
+    participant TR as Vertex AI<br/>Gemini 3.5 Flash-Lite (triagem)
+    participant FN as Cloud Run functions /<br/>Workflows (regras)
+    participant BQ as BigQuery
+    U->>UI: "preciso de 30kg de queijo coalho e umas caixas de goiaba pra sexta"
+    UI->>AG: prompt do turno + ferramentas (function calling nativo)
+    AG->>TR: triar mensagem (classificação + extração JSON)
+    TR-->>AG: tipo = pedido de compra; itens, prazos, comprador
+    AG->>FN: function calling: validar item / classificar urgência (regras determinísticas)
+    FN->>BQ: sazonalidade, capacidade da semana, preços
+    BQ-->>FN: dados da semana
+    FN-->>AG: urgência, alertas e sugestões de alocação
+    AG-->>UI: resposta composta em PT-BR — números e datas sempre das funções
+    UI-->>U: resposta com fila estruturada e fontes citadas
+```
+
+> O **function calling é do orquestrador** (Gemini 3.8 Flash), em coerência com
+> a §2 e com o §8.1: a UI entrega o turno e o modelo chama as ferramentas — a
+> triagem no Flash-Lite é a primeira ferramenta chamada.
+
+Versão draw.io (editável em `docs/img/sequencia-desafio-a.drawio`):
+
+![Sequência do Desafio A — triagem de pedidos](img/sequencia-desafio-a.png)
+
+### 12.2 Desafio B — Consulta inteligente à base documental
+
+Pergunta → busca com citação no Agent Search → composição no Flash → resposta
+fundamentada com citação do documento de origem; se os documentos não
+respondem, o assistente diz que não encontrou (§15).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Equipe / comprador / auditor
+    participant UI as Cloud Run<br/>Streamlit
+    participant AS as Agent Search<br/>(antigo Vertex AI Search)
+    participant GCS as Cloud Storage<br/>documentos originais
+    participant GM as Vertex AI<br/>Gemini 3.8 Flash (resposta)
+    U->>UI: "quais produtores têm certificação orgânica vigente para mel?"
+    UI->>AS: consultar documentos (busca semântica com citação)
+    AS->>GCS: trechos vêm dos documentos ingeridos
+    GCS-->>AS: certificações, contratos, fichas técnicas
+    AS-->>UI: trechos recuperados + metadados de origem (ou lacuna)
+    alt documentos respondem
+        UI->>GM: compor resposta a partir dos trechos e das fontes
+        GM-->>UI: resposta com citação inline do documento
+        UI-->>U: resposta com "[fonte: arquivo]" para cada informação
+    else documentos não respondem
+        UI-->>U: "não encontrei essa informação nos documentos"
+    end
+```
+
+Versão draw.io (editável em `docs/img/sequencia-desafio-b.drawio`):
+
+![Sequência do Desafio B — consulta documental](img/sequencia-desafio-b.png)
+
+### 12.3 Desafio C — Comunicação com produtores
+
+Gatilho agendado ou por evento → dados vindos das funções → redação no Flash →
+envio; na demo, a saída aparece na interface (§4).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant SC as Cloud Scheduler<br/>(resumo mensal / pendências)
+    participant PS as Pub/Sub<br/>(novo pedido / notificações)
+    participant WK as Worker de envio<br/>(Cloud Run functions)
+    participant BQ as BigQuery
+    participant GM as Vertex AI<br/>Gemini 3.8 Flash (redação)
+    participant P as Produtor
+    SC->>PS: publica gatilho do resumo do mês
+    PS->>WK: evento consumido
+    WK->>BQ: vendas, pendências, alocações e pedidos do produtor
+    BQ-->>WK: números consolidados (nunca calculados pelo modelo)
+    WK->>GM: redigir resumo/notificação com esses dados
+    GM-->>WK: texto personalizado em PT-BR
+    WK-->>P: mensagem enviada (e-mail/WhatsApp do dataset)
+```
+
+> **O Worker de envio faz parte do desenho de produção e ainda não foi
+> implementado (§11.4):** o tópico `notificacoes-produtores` não tem
+> consumidor no protótipo e o Pub/Sub descarta o que chega ali. Na demo, a
+> saída aparece na interface (§4).
+
+Versão draw.io (editável em `docs/img/sequencia-desafio-c.drawio`):
+
+![Sequência do Desafio C — comunicação com produtores](img/sequencia-desafio-c.png)
+
+---
+
+## 13. Google Cloud Well-Architected Framework
+
+> Uma decisão concreta por pilar, ancorada no que está no repositório ou
+> registrado neste documento. Fonte: Google Cloud Well-Architected Framework
+> (perspectiva de IA e ML), consultado em 19/11/2026.
+
+| Pilar | Decisão concreta | Onde está |
+|---|---|---|
+| **Excelência operacional** | Toda a infraestrutura do desenho existe como **Terraform revisável** (`infra/terraform/` — `fmt`/`validate` passando) e o deploy segue pipeline **testes → build → push → deploy** (`infra/cloudbuild.yaml`) com a suíte rodando **offline em `LLM_MODO=fixture`** antes de qualquer publicação; diagnóstico central no **Cloud Logging** | §11.1, §11.2, §4 |
+| **Segurança e privacidade** | O Cloud Run **não tem acesso público**: login Google pelo IAP nativo, liberado só ao grupo `membros_equipe`; a chave da API vive no **Secret Manager** (nunca `.env` em produção nem no repositório); IAM de **menor privilégio** por conta de serviço, sem papel básico (`iam.tf`); produção usa identidade de serviço (ADC/IAM), não chave | §11.2 (run.tf, iam.tf), §4 (Secret Manager) |
+| **Confiabilidade** | Pedidos entram por **Pub/Sub** (Eventarc → Workflows), desacoplando canais do processamento com retry e sem depender da UI estar de pé; a sessão do assistente persiste no **Firestore**, sobrevivendo a reinícios e escala horizontal; as regras de urgência são **determinísticas em código**, reexecutáveis e auditáveis | §4 (Pub/Sub + Scheduler, Firestore), §2 (urgência) |
+| **Otimização de custo** | **Cloud Run escala a zero** fora do expediente (a instância só cobra enquanto a equipe usa); divisão de modelos **Flash-Lite para volume / Flash para resposta** herdada do `docs/03`; dados analíticos em **BigQuery** (SQL barato); no protótipo, free tier com plano B de US$ 5 — a infraestrutura estimada na calculadora oficial fica em **US$ 31,59/mês** (§14) | §1, §2, §14, `docs/03` |
+| **Desempenho** | **Function calling nativo** com saída JSON estruturada em um turno; modelo por papel (triagem no Flash-Lite, resposta no Flash) em vez de um modelo caro para tudo; agregações (soma, comparação de datas, pendências) em **SQL/código**, nunca no modelo — o contexto da conversa fica enxuto e a resposta sai auditável | §2, §5 (princípios 1 e 3) |
+| **Sustentabilidade** | Sem infraestrutura própria (nada de GPUs ou servidores ociosos): serviços gerenciados que **escalam a zero**, região única (`southamerica-east1`, próxima dos usuários) e corpus pequeno (dezenas de documentos) indexado em serviço gerenciado em vez de cluster vetorial dedicado | §11.2, §14 |
+
+---
+
+## 14. Custo
+
+### 14.1 Estratégia do protótipo — referência (sem duplicar)
+
+A estratégia de custo do protótipo é a do `docs/03` ("Estratégia de custo —
+API do Gemini (free tier)") e não é duplicada aqui: divisão de trabalho entre
+modelos (Flash-Lite para volume, Flash para resposta, Embedding para
+indexação), regras de desenvolvimento (não gastar cota do Flash com
+iteração, fixtures gravadas em teste, chave restrita) e plano B (billing
+com prepay de US$ 5). Os limites vigentes confirmados no projeto estão na
+tabela do `docs/03` e foram reconfirmados na semana de ajuste fino (#14) —
+o teste de cota da demo (`docs/05`) fechou em 16 chamadas Flash-Lite e
+6 Flash por demo.
+
+### 14.2 Estimativa de infraestrutura no Google Cloud Pricing Calculator (19/11/2026)
+
+A infraestrutura de produção foi estimada no [Google Cloud Pricing
+Calculator](https://cloud.google.com/products/calculator), em **USD por mês**,
+na região **São Paulo (`southamerica-east1`)**, com **preços de tabela**
+(conta de billing não vinculada). Cada campo foi **reduzido ao porte da
+cooperativa** (os perfis pré-preenchidos da calculadora são de grande porte:
+milhões de requisições, terabytes de dados) e o modo de cobrança seguiu o
+desenho real: no Cloud Run, **por ciclo de vida da instância**; no BigQuery,
+sob demanda, em vez de slots reservados.
+
+**Resultado: US$ 31,59/mês.** [Estimativa compartilhável na
+calculadora](https://cloud.google.com/products/calculator?hl=pt-BR&dl=CjhDaVJoT1dFNU9XUTBOUzAzTnpjNUxUUTNNell0WVdFMFppMWxNR0ZqTldKa05EQTRObUVRQVE9PRAWGiRCQzI0MkY4QS1DNjYzLTQyMTQtOEI1QS03NzY4QzY2MDM0NTI)
+e exportação completa em
+[`docs/custos/resultado-calculadora-google.csv`](custos/resultado-calculadora-google.csv).
+**Reconfirmar com a conta de billing vinculada antes de qualquer decisão de
+orçamento** — o preço negociado pode diferir do de tabela.
+
+Cada serviço abaixo existe no Terraform (`infra/terraform/`). A coluna
+"Origem" separa o que vem do projeto do que é estimativa.
+
+| Serviço | Papel no desenho | Configuração na calculadora | Justificativa técnica | Origem |
+|---|---|---|---|---|
+| **Cloud Run** | UI Streamlit da equipe (`run.tf`) | Service, 1 vCPU / 1 GiB, cobrança por ciclo de vida da instância, mínimo 0 instâncias, 10 mil req/mês, forma de tráfego "daily peak and trough" (365 h/mês) | Ver §14.2.1 | Dimensionamento: projeto. Requisições: estimativa |
+| **Agent Search** (Standard) | RAG documental com citação | Standard 1.200 consultas/mês, ~2 MB indexados; Enterprise e Generative Answers em 0 | Standard já entrega a citação do trecho de origem (requisito, §15); Enterprise/Generative Answers pagam por geração que o LlamaIndex já faz no protótipo | Índice: medido. Consultas: estimativa |
+| **BigQuery** | Dados analíticos da cooperativa | **Sob demanda**, ~0,1 TiB consultado e 1 GiB armazenado por mês | Editions (slots reservados) é capacidade dimensionada para cargas grandes e custaria milhares de dólares para dados desse porte; sob demanda cabe no nível gratuito (1 TiB de consulta, 10 GiB) | Estimativa |
+| **Cloud Storage** | Documentos para indexação e código das funções | Standard, ~1 GiB | Corpus de ~2 MB; 1 GiB é folga. O padrão da calculadora (5.000 GiB) custaria dezenas de dólares | Corpus: medido |
+| **Firestore** | Sessão do assistente entre turnos (`SessionStore`, §4) | 2.000 leituras/dia, 500 escritas/dia, 1 GiB | `st.session_state` é volátil e por processo; com escala horizontal a sessão precisa persistir. Cada turno lê e grava a sessão (~60 turnos/dia), então os valores têm folga e ficam sob o nível gratuito diário | Estimativa. **Não implementado no protótipo** (§11.4) |
+| **Pub/Sub** | Entrada de pedidos (Eventarc → Workflows) e notificações | 0,1 GiB publicado/dia (~3 GiB/mês), sem retenção extra nem snapshots | Desacopla canais de entrada do processamento, com retry. ~100 mensagens pequenas/dia ocupam ~1 MiB; 0,1 GiB é margem, dentro dos 10 GiB gratuitos/mês | Estimativa |
+| **Secret Manager** | `gemini_api_key` | 3 versões ativas, ~10 mil acessos/mês | Segredo fora do código e da imagem. O Terraform cria 1 segredo (`gemini_api_key`); as 3 versões são margem para rotação (versão atual e anteriores). Custo US$ 0 na calculadora | Segredo: projeto. Versões e acessos: estimativa |
+| **Cloud Logging** | Logs do Cloud Run e das funções | 2 GiB armazenados/mês e 2 GiB de retenção | Ingestão sob os 50 GiB gratuitos por projeto (custo US$ 0); a retenção é o que gera os US$ 0,02 do item | Estimativa |
+
+**Valores padrão da calculadora trocados:** a calculadora vem preenchida com
+perfis de grande porte (10 milhões de requisições, 20 TiB no BigQuery, 5.000
+GiB no Storage, 2 milhões de leituras/dia no Firestore, 50 GiB, 1 GiB/dia no
+Pub/Sub, 100 GiB de logs). Mantê-los inflaria o custo em centenas de dólares
+sem relação com a carga da cooperativa; cada campo foi reduzido ao porte do
+projeto. No detalhamento exportado da calculadora (CSV), os serviços fora do
+Cloud Run ficam em **US$ 0**, exceto Cloud Storage (US$ 0,035) e a retenção
+de logs do Cloud Logging (US$ 0,02). Soma conferida:
+28,3824 + 3,1536 + 0,035 + 0,02 = **31,591**.
+
+#### 14.2.1 Cloud Run: por que as escolhas e por que é a maior parcela
+
+- **Cobrança por ciclo de vida da instância (CPU sempre alocada).** O
+  Streamlit mantém um websocket aberto por sessão (`session_affinity` em
+  `run.tf`); com a cobrança "só durante a requisição" a CPU seria estrangulada
+  fora delas, o que **subestimaria** o custo e degradaria a sessão. É a opção
+  coerente com a arquitetura.
+- **Mínimo de 0 instâncias.** Escala a zero fora do expediente; é o que
+  mantém o custo proporcional ao uso. O custo é a troca com a latência da
+  primeira requisição (cold start) após ociosidade.
+- **1 vCPU / 1 GiB.** Valor do Terraform; a UI é leve (a inferência roda no
+  Vertex AI/Gemini, não na instância).
+- **Região São Paulo (Tier 2).** Mesma região dos demais serviços regionais
+  (`variables.tf`); o preço é maior que o de regiões dos EUA.
+- **Forma de tráfego "daily peak and trough".** A calculadora modela a
+  instância ativa **365 h/mês** (~12 h/dia, todos os dias); a equipe deve usar
+  ~176 h (8 h × 22 dias úteis). **Por isso o valor é conservador (teto), não
+  central.**
+- **Composição do valor (exportação em CSV).** CPU: US$ 28,38; memória:
+  US$ 3,15; total do Cloud Run: **US$ 31,54**. A soma dos itens exportados
+  fecha com o total da calculadora (US$ 31,591).
+- **Compromisso (CUD):** não usado; não faz sentido comprometer capacidade
+  num protótipo com uso variável.
+
+**Leitura:** a infraestrutura é quase fixa e conservadora — o Cloud Run é
+**99,8% do total** (31,54 de 31,59), e a calculadora modela a instância ativa
+por 365 h/mês (~12 h/dia), acima das ~176 h (8 h × 22 dias úteis) previstas;
+o valor é **teto, não central**.
+
+**Fora da calculadora:** os **tokens do Gemini** (a calculadora não modela o
+consumo de inferência do desenho) e Cloud Scheduler, Workflows, Eventarc e
+Artifact Registry. A estratégia de modelos por custo — Flash-Lite para o
+volume, Flash para redação — é a do `docs/03` e se aplica igualmente em
+produção.
+
+**Riscos de custo:**
+| Risco | Efeito | Mitigação |
+|---|---|---|
+| Agent Search **Enterprise** (US$ 4/1.000 consultas, com respostas geradas) | Pode deslanchar o orçamento | O Standard já atende o requisito de citação; só migrar com necessidade comprovada |
+| Aumento do tempo de uso da UI | Escala o Cloud Run | Mantém mínimo 0; revisar o horário real de uso |
+
+---
+
+## 15. Anti-alucinação: citação validada no protótipo e em produção
+
+> Requisito 6 do `docs/01` ("dizer claramente, sem inventar") e requisito 3
+> ("indicando de qual documento veio a informação"). Evidência de
+> atendimento: RF6 **100%** (32/32), anti-alucinação **5/5** e citação
+> válida em **13/13** (`docs/05`, rodada 3).
+
+### 15.1 Como o protótipo valida hoje
+
+1. **O RAG só responde com trechos recuperados.** O `CitationQueryEngine`
+   (LlamaIndex) compõe a resposta a partir dos documentos recuperados e
+   anota a citação do arquivo de origem; o módulo de resposta
+   (`sabor_da_terra/rag/responder.py`) roda uma pós-validação em Pydantic
+   das fontes da saída estruturada.
+2. **Política de lacuna.** Quando os documentos não cobrem a pergunta, a
+   resposta é **"não encontrei essa informação nos documentos"** — o campo de
+   lacunas do RAG chega à tela (correção da rodada 3, `docs/05`) e a resposta
+   recomenda a verificação caso a caso em vez de apresentar hipótese como
+   fato (princípio de `triagem/` §10.4).
+3. **Trava de fatos** (`sabor_da_terra/assistente/verificacao.py`). Código
+   (P003, PED-…, LOT-…, FIN-…), valor em R$ ou data completa que **não veio
+   das funções do turno** é removido da resposta, que então avisa o usuário.
+   Também remove total calculado pelo modelo (o LLM não faz contas, §5).
+4. **Trava de citação.** Uma citação `[fonte: …]` de arquivo que as funções
+   não devolveram sai do texto (a rodada 1 tinha citado um CSV que não
+   existe; corrigido e avaliado em 13/13 desde a rodada 2).
+5. **Avaliação permanente.** O gabarito da #6 mede anti-alucinação e citação
+   a cada rodada (`tests/test_gabarito.py`), com as falhas anotadas com causa.
+
+### 15.2 O equivalente em produção (Google Cloud)
+
+Em produção, a pipeline local de consulta documental corresponde a dois
+recursos nativos:
+
+- **Agent Search (antigo Vertex AI Search) com respostas fundamentadas:**
+  o serviço recupera os trechos mais relevantes dos documentos no Cloud
+  Storage e gera respostas com *extractive segments* e metadados de origem
+  (*citations*), dispensando o pós-processamento manual de índice local.
+- **Check Grounding API da Vertex AI:** valida automaticamente se cada
+  afirmação gerada pelo Gemini tem suporte factual nos trechos recuperados
+  (*grounding chunks*), com pontuações de suporte — afirmações sem lastro
+  são sinalizadas ou bloqueadas.
+
+Mapeamento mecanismo a mecanismo:
+
+| Mecanismo no protótipo (§15.1) | Equivalente gerenciado em produção |
+|---|---|
+| Trechos do RAG + citação do arquivo (`CitationQueryEngine`) | *Extractive segments* + *citations* nativas do Agent Search |
+| Trava de fatos e trava de citação (`assistente/verificacao.py`) | **Check Grounding API** (pontuação de suporte por afirmação) |
+| Política de lacuna — "não encontrei nos documentos" | Resposta sem lastro do serviço de busca (sem *grounding chunks* suficientes) |
+| "O LLM não faz contas" — cálculo em código (§5) | Regras determinísticas em **Cloud Run functions** sobre o BigQuery (§2) |
+
+---
+
+## 16. Limitações e próximos passos
+
+> As limitações são **as mesmas do `docs/05-avaliacao.md` §Limitações
+> conhecidas** (texto idêntico); os próximos passos derivam delas e da
+> §11.4. Nada do que se segue muda o desenho congelado em 19/11 — vale para
+> o que vier depois da apresentação.
+
+### 16.1 Limitações conhecidas (idênticas ao `docs/05`)
+
+- **Encadeamento de funções.** Continua sendo a maior causa de falha (16 de
+  25). Mensagens de produtor (`TRI-012`, `TRI-015`) não passam pela triagem, e
+  pedidos que exigem cadastro, lotes e documentos ao mesmo tempo (`TRI-009`,
+  `TRI-014`) ficam com parte das consultas por fazer.
+- **Detalhes omitidos em pedidos longos.** Em pedidos com muitos itens e
+  exigências (`TRI-007`, `TRI-013`), itens opcionais e dados do evento podem
+  ficar de fora da resposta.
+- **Contexto entre turnos (RF5).** Em 2 de 3 casos o segundo turno perde
+  parte do que o primeiro estabeleceu; não foi corrigido nesta etapa.
+- **Recuperação de contratos.** A busca documental não traz os contratos
+  institucionais (PNAE) em `DOC-003` nem na notificação da ADAGRO (`TRI-014`),
+  que responde que não os encontrou embora existam em `data/contratos/`.
+- **Avaliação só no Flash-Lite.** A composição da demo usa o Flash, que não
+  foi medido no gabarito por causa da cota. O resultado da demo tende a ser
+  igual ou melhor, mas não está medido.
+- **Juiz LLM.** Os vereditos são do Flash-Lite, com regras explícitas e a
+  evidência de cada critério gravada, mas não foram revisados um a um por uma
+  pessoa. No `TRI-014`, por exemplo, o juiz contou nomes e códigos de
+  produtores como "dado pessoal exposto", embora a resposta não traga CPF,
+  endereço nem dado bancário.
+- **Lote inexistente na demo.** Ao não achar o `LOT-2024-089`, o assistente
+  sugere o `LOT-2026-0089` e já mostra os dados dele. Está sinalizado ("não foi
+  encontrado"), mas o roteiro da #18 deve deixar claro que é uma sugestão.
+
+### 16.2 Próximos passos
+
+| Limitação | Próximo passo |
+|---|---|
+| Encadeamento de funções | Revisar o roteamento do orquestrador e, se a orquestração crescer, reavaliar o Google ADK (decisão registrada na §2) |
+| Contexto entre turnos (RF5) | Persistir o resumo da sessão entre turnos — em produção, o `SessionStore` sobre Firestore já está no desenho (§4/§6) |
+| Recuperação de contratos | Ajustar a ingestão/chunking dos contratos institucionais; em produção, o import do bucket para o data store do Agent Search (§11.3) recupera o corpus inteiro |
+| Avaliação só no Flash-Lite | Rodar o gabarito contra o Flash (ou contra o fallback Flash-Lite do turno) quando a cota ou o plano B do `docs/03` permitir |
+| Juiz LLM | Revisão humana amostral dos vereditos, priorizando os casos reprovados com causa "orquestração" |
+| Lote inexistente na demo | Manter no roteiro da #18 que a sugestão do lote parecido é sugestão, não resposta |
+| Adaptadores e functions sem código (§11.4) | Escrever os pontos de entrada HTTP das 4 functions e os adaptadores `DadosRepository` (BigQuery) e `SessionStore` (Firestore) quando houver projeto Google Cloud para implantar |

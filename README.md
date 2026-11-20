@@ -11,7 +11,30 @@
 | 2 | **Consulta documental** | Responde perguntas sobre certificações, rastreabilidade, sazonalidade e contratos **citando o documento de origem** — nada de resposta sem fundamento |
 | 3 | **Comunicação com produtores** | Gera resumos personalizados (vendas, pendências, alocações) e notificações de novos pedidos por produtor |
 
-## Regras do jogo (requisitos funcionais)
+## Arquitetura em uma página
+
+> Detalhes, decisões por componente, diagramas e tabelas: [`docs/04-arquitetura.md`](docs/04-arquitetura.md). Fontes editáveis dos diagramas: [`docs/img/`](docs/img/) (`.drawio` + PNG).
+
+**Produção (mundo Google)** — as 4 camadas e os fluxos principais:
+
+![Arquitetura de produção no Google Cloud](docs/img/arquitetura-producao-google.png)
+
+1. **Entrada e interface** — a equipe conversa no **Cloud Run** (Streamlit); pedidos chegam por e-mail/formulário/WhatsApp e entram pelo **Pub/Sub + Cloud Scheduler**; a sessão persiste no **Firestore**.
+2. **Modelos e orquestração** — o **Gemini 3.8 Flash** (Vertex AI) orquestra por function calling: tria no **Gemini 3.5 Flash-Lite**, chama as **Cloud Run functions / Workflows** (regras de urgência determinísticas) e consulta o **Agent Search** com citação; o **Worker de envio** redige notificações e resumos com dados do BigQuery.
+3. **Dados e busca** — **BigQuery** (dados estruturados consultados por funções, nunca colados no prompt), **Agent Search** (RAG documental com citação) alimentado pelo **Cloud Storage**.
+4. **Operação e suporte** — **Secret Manager** (chave da API, nunca em variável de ambiente) e **Cloud Logging** (auditoria de respostas e ferramentas).
+
+**Protótipo local (demonstração 20–21/11)** — mesmos papéis, serviços trocáveis por configuração (§6 do `docs/04`): sem conta Google Cloud, custo zero, demo reproduzível.
+
+![Protótipo local](docs/img/arquitetura-prototipo-local.png)
+
+| Diagrama | Arquivo |
+|---|---|
+| Sequência do Desafio A — triagem de pedidos | [`docs/img/sequencia-desafio-a.png`](docs/img/sequencia-desafio-a.png) ([`.drawio`](docs/img/sequencia-desafio-a.drawio)) |
+| Sequência do Desafio B — consulta documental | [`docs/img/sequencia-desafio-b.png`](docs/img/sequencia-desafio-b.png) ([`.drawio`](docs/img/sequencia-desafio-b.drawio)) |
+| Sequência do Desafio C — comunicação com produtores | [`docs/img/sequencia-desafio-c.png`](docs/img/sequencia-desafio-c.png) ([`.drawio`](docs/img/sequencia-desafio-c.drawio)) |
+
+## Requisitos funcionais
 
 - Interface **conversacional** por texto para a equipe da cooperativa.
 - Entende **português coloquial**: abreviações, erros de digitação, informação implícita.
@@ -20,15 +43,26 @@
 - Mantém o **contexto da conversa** durante a sessão.
 - Quando **não souber a resposta**, diz claramente — **sem inventar**.
 
-## Entregáveis e datas
+## Guia de navegação
 
-| Data | Evento |
-|------|--------|
-| 05/11/2026 | Divulgação da formação dos grupos |
-| **19/11/2026** | **Entrega obrigatória da arquitetura** — modificações após esta data são desconsideradas |
-| 20–21/11/2026 | Apresentação e demonstração do protótipo funcional |
-
-Entregas finais: **(1)** protótipo funcional com **demonstração ao vivo**; **(2)** apresentação de **10 minutos** explicando decisões técnicas, alternativas consideradas e limitações.
+| Você quer ver… | Vá direto em |
+|---|---|
+| **A arquitetura final** | [`docs/04-arquitetura.md`](docs/04-arquitetura.md) |
+| **As decisões por componente** — local ↔ Google Cloud, com justificativa e alternativa considerada (dentro e fora do Google) | [§2](docs/04-arquitetura.md#2-tabela-de-mapeamento-por-componente) e [§4](docs/04-arquitetura.md#4-componentes-de-apoio-só-no-desenho) |
+| **Os diagramas** — produção, protótipo local e as sequências dos 3 desafios | [§8](docs/04-arquitetura.md#8-diagrama), [§12](docs/04-arquitetura.md#12-diagramas-de-sequência-dos-3-desafios) e [`docs/img/`](docs/img/) |
+| **O custo** — estratégia do protótipo, estimativa de produção na escala da narrativa e a estimativa da calculadora | [§14](docs/04-arquitetura.md#14-custo) e [Custos — Price Calculator](#custos--price-calculator-do-google-cloud) |
+| **O Well-Architected Framework** — uma decisão concreta por pilar | [§13](docs/04-arquitetura.md#13-google-cloud-well-architected-framework) |
+| **O anti-alucinação** — como a citação é validada no protótipo e em produção | [§15](docs/04-arquitetura.md#15-anti-alucinação-citação-validada-no-protótipo-e-em-produção) |
+| **O caminho para produção** — Terraform, Workflows, Dockerfile e comandos `gcloud` | [`infra/`](infra/) e [§11](docs/04-arquitetura.md#11-caminho-para-produção-etapa-15-issue-15) |
+| **Os resultados da avaliação** — 37 casos, acerto por desafio e por requisito | [`docs/05-avaliacao.md`](docs/05-avaliacao.md) |
+| **As limitações e próximos passos** | [§16](docs/04-arquitetura.md#16-limitações-e-próximos-passos) |
+| **O escopo do desafio** (cenário, problemas, requisitos, datas) | [`docs/01-documento-base.md`](docs/01-documento-base.md) |
+| **As armadilhas escondidas no dataset** | [`docs/02-dataset.md`](docs/02-dataset.md) |
+| **A diretriz de arquitetura** (regras do projeto para toda decisão) | [`docs/03-diretriz-arquitetura.md`](docs/03-diretriz-arquitetura.md) |
+| **O código de cada desafio** — triagem (A), RAG (B) e produtores (C) | [`sabor_da_terra/`](sabor_da_terra/) |
+| **A interface conversacional** | [`app.py`](app.py) |
+| **Os testes** — suíte completa offline em modo fixture | [`tests/`](tests/) |
+| **Capturas de tela da interface** | [`docs/img/`](docs/img/) |
 
 ## Estrutura do repositório
 
@@ -45,7 +79,10 @@ sabor-da-terra-assistente/
 │   ├── 01-documento-base.md ← interpretação completa do documento do projeto
 │   ├── 02-dataset.md        ← inventário detalhado dos dados + armadilhas
 │   ├── 03-diretriz-arquitetura.md ← diretriz: arquitetura no ecossistema Google
-│   └── 04-arquitetura.md    ← arquitetura de referência Google e decisões por componente
+│   ├── 04-arquitetura.md    ← arquitetura final: decisões, diagramas, Well-Architected, custo
+│   ├── 05-avaliacao.md      ← avaliação ponta a ponta (37 casos, rodada 3)
+│   ├── avaliacao/           ← detalhes de cada rodada da avaliação (JSON)
+│   └── img/                 ← diagramas draw.io (+PNG) e capturas de tela da interface
 ├── infra/                   ← artefatos de implantação no Google Cloud, validados e NÃO aplicados (etapa 15)
 │   ├── terraform/           ← serviços do docs/04, contas de serviço e IAM
 │   ├── workflows/triagem.yaml ← fluxo da triagem: extração → validações → urgência → alocação
@@ -114,15 +151,68 @@ sabor-da-terra-assistente/
   LLM), mas o chat não responde — o modo `fixture` só reproduz conversas já
   gravadas, e ainda não há um diálogo completo gravado para a demo.
 
-Capturas de tela em `docs/img/`.
+A conversa documental com fonte citada — tema **escuro** e **claro** (modo
+`fixture` reproduzindo a resposta gravada do caso DOC-001 do gabarito, sem
+custo de API):
+
+![Conversa documental com fonte citada — tema escuro](docs/img/08-chat-conversa.png)
+
+![Conversa documental com fonte citada — tema claro](docs/img/09-chat-conversa-claro.png)
+
+Demais capturas em `docs/img/`.
 
 ## Documentação
 
 - **`docs/01-documento-base.md`** — tudo que o documento oficial define: cenário, problema, desafios, requisitos, entregáveis e datas.
 - **`docs/02-dataset.md`** — descrição campo a campo dos 8 grupos de dados e das **armadilhas propositalmente escondidas** neles (certificação vencida, produtor sem registro sanitário, pedidos que não são pedidos de compra, pagamentos atrasados…).
 - **`docs/03-diretriz-arquitetura.md`** — **diretriz permanente**: a arquitetura é desenhada no **ecossistema Google** — todo componente do protótipo é mapeado a um serviço Google Cloud com **justificativa e alternativa considerada**, mesmo que o protótipo execute local, sem GCP.
-- **`docs/04-arquitetura.md`** — **arquitetura de referência** (rascunho da etapa 2): stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google e diagramas Mermaid. A §11 traz o **caminho para produção** (etapa 15): os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo.
+- **`docs/04-arquitetura.md`** — **arquitetura de referência final** (etapa 16): visão geral (problema, usuários, os 3 desafios e os 6 requisitos com a evidência da avaliação), stack do protótipo por camada, tabela componente-a-componente (serviço Google Cloud, justificativa, alternativa considerada), divisão de modelos Gemini, princípios (dado estruturado por função, texto livre no RAG, o LLM não faz contas), padrão de troca local → Google, diagramas de arquitetura (local e produção) e de sequência dos 3 desafios — em Mermaid e em versões draw.io com ícones oficiais em `docs/img/` —, **Google Cloud Well-Architected Framework** (uma decisão concreta por pilar), **custo** (estratégia do protótipo e estimativa de produção na escala da narrativa), **anti-alucinação** (validação no protótipo e equivalentes gerenciados em produção), o **caminho para produção** (§11, etapa 15: os artefatos de `infra/` e do `Dockerfile`, a cobertura de cada serviço no Terraform e os comandos `gcloud` — marcados como não executados no protótipo) e as **limitações e próximos passos** (iguais às do `docs/05`).
 - **`docs/05-avaliacao.md`** — **avaliação ponta a ponta** (etapa 14): o gabarito de 37 casos rodado contra o assistente integrado, com acerto por desafio e por requisito funcional, citações válidas, anti-alucinação, a comparação entre as rodadas, o teste de cota da demo e as limitações conhecidas. Comando único: `pytest tests/test_gabarito.py`.
+
+## Custos — Price Calculator do Google Cloud
+
+> **O cálculo dos tokens do Gemini (~US$ 26/mês) está no [`docs/04-arquitetura.md` §14](docs/04-arquitetura.md#14-custo).**
+> Esta seção é a estimativa da **infraestrutura** feita na calculadora oficial.
+
+### Metodologia da estimativa de infraestrutura
+
+A infraestrutura de produção foi estimada no [Google Cloud Pricing Calculator](https://cloud.google.com/products/calculator), em **USD por mês**, na região **São Paulo (`southamerica-east1`)**, com **preços de tabela** (conta de billing não vinculada). Conferida em 19/11/2026.
+
+**Resultado: US$ 31,59/mês** (sem os tokens do Gemini). [Ver estimativa na calculadora](https://cloud.google.com/products/calculator?hl=pt-BR&dl=CjhDaVJoT1dFNU9XUTBOUzAzTnpjNUxUUTNNell0WVdFMFppMWxNR0ZqTldKa05EQTRObUVRQVE9PRAWGiRCQzI0MkY4QS1DNjYzLTQyMTQtOEI1QS03NzY4QzY2MDM0NTI)
+
+### Como foi montada
+
+1. **Quais serviços:** os que existem no Terraform do projeto ([`infra/terraform/`](infra/terraform/)): Cloud Run, Agent Search, BigQuery, Cloud Storage, Firestore, Pub/Sub, Secret Manager e Cloud Logging.
+2. **Quanto de cada um:** a calculadora vem preenchida com perfis de grande porte (milhões de requisições, terabytes de dados). Cada campo foi **reduzido ao porte da cooperativa** (180 produtores, 60–100 pedidos por dia). Manter os padrões inflaria o custo em centenas de dólares sem relação com o projeto.
+3. **Qual modo de cobrança:** o que reflete o desenho real. No Cloud Run, cobrança por ciclo de vida da instância (a interface Streamlit mantém uma conexão aberta por usuário). No BigQuery, modo sob demanda, em vez de slots reservados.
+
+### Configuração por serviço (exportação da calculadora)
+
+| Serviço | Configuração | US$/mês |
+|---|---|---|
+| Cloud Run | 1 vCPU, 1 GiB, cobrança por ciclo de vida, mínimo 0 instâncias, ~12 h/dia ativas (365 h/mês): CPU $28,38 + memória $3,15 | **31,54** |
+| Cloud Storage | Standard, 1 GiB | 0,04 |
+| Cloud Logging | 2 GiB armazenados + retenção de 1 mês | 0,02 |
+| Agent Search | 1.200 consultas/mês e 0,01 GiB indexados — dentro das 10 mil consultas gratuitas | 0 |
+| BigQuery | Sob demanda: 0,1 TiB consultados, 1 GiB armazenados | 0 |
+| Firestore | ~61 mil leituras + ~15 mil escritas e 1 GiB por mês | 0 |
+| Pub/Sub | ~3 GiB publicados/mês, sem retenção extra | 0 |
+| Secret Manager | 1 segredo, 3 versões, ~10 mil acessos/mês | 0 |
+| **Total** | | **31,59** |
+
+Exportação completa da calculadora: [`docs/custos/resultado-calculadora-google.csv`](docs/custos/resultado-calculadora-google.csv).
+
+### Limites
+
+- O **Cloud Run é a maior parcela**. A calculadora modela ~12 h por dia de instância ativa, mais que as ~8 h em dias úteis esperadas, então o valor é um **teto**. Os demais serviços ficam dentro dos níveis gratuitos ou em centavos.
+- **Fora desta estimativa:** os tokens do Gemini (calculados à parte no [`docs/04` §14](docs/04-arquitetura.md#14-custo)), Cloud Scheduler, Workflows, Eventarc e Artifact Registry.
+- Os volumes são **estimativas**, não medições: o protótipo não mede esse uso.
+- **Reconfirmar com a conta de billing vinculada** antes de qualquer decisão de orçamento, pois o preço negociado pode diferir do de tabela.
+
+**Os tokens do Gemini ficam fora da estimativa da calculadora** — a estratégia
+de modelos por custo (Flash-Lite para o volume, Flash para redação) e o plano B
+do protótipo estão no [`docs/03`](docs/03-diretriz-arquitetura.md), e o
+detalhamento completo do custo está no [`docs/04` §14](docs/04-arquitetura.md#14-custo).
 
 ## Como rodar
 
