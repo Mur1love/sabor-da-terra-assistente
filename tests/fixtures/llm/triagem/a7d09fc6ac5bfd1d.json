@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "a7d09fc6ac5bfd1d",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:36:54 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=4422",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Pagamentos vencidos e não recebidos até 30/10/2026:\n\n* **FIN-2026-013**: Cícero Romão de Almeida (P003) — Rede SuperBom Atacado | R$ 4.500,00 (queijo coalho) | Venceu em 18/10/2026 (**12 dias de atraso**) [Obs: ATRASADO - cobrar] [fonte: data/financeiro.csv]\n* **FIN-2026-014**: Cícero Romão de Almeida (P003) — Rede SuperBom Atacado | R$ 1.520,00 (queijo manteiga) | Venceu em 18/10/2026 (**12 dias de atraso**) [Obs: ATRASADO - cobrar] [fonte: data/financeiro.csv]\n* **FIN-2026-005**: José Antônio dos Santos (P002) — Prefeitura de Garanhuns - PNAE | R$ 1.650,00 (mel silvestre) | Venceu em 23/10/2026 (**7 dias de atraso**) [Obs: Empenho 2026NE00234] [fonte: data/financeiro.csv]\n* **FIN-2026-006**: Ana Lúcia Bezerra da Costa (P004) — Prefeitura de Garanhuns - PNAE | R$ 750,00 (alface) | Venceu em 23/10/2026 (**7 dias de atraso**) [Obs: Empenho 2026NE00234] [fonte: data/financeiro.csv]\n* **FIN-2026-007**: Ana Lúcia Bezerra da Costa (P004) — Prefeitura de Garanhuns - PNAE | R$ 270,00 (coentro) | Venceu em 23/10/2026 (**7 dias de atraso**) [Obs: Empenho 2026NE00234] [fonte: data/financeiro.csv]\n\n**Total vencido:** R$ 8.690,00 [fonte: data/financeiro.csv]\n\n---\n\n**Ainda no prazo (não estão atrasados):**\n* **FIN-2026-023**: Terezinha de Jesus Oliveira (P016) — Mercado Bom Preço | R$ 1.200,00 (rapadura) | Vence em 05/11/2026 [fonte: data/financeiro.csv]\n* **FIN-2026-024**: Raimunda Nonata de Lima (P010) — Mercado Bom Preço | R$ 360,00 (goiaba paluma) | Vence em 10/11/2026 [fonte: data/financeiro.csv]\n* **FIN-2026-025**: Raimunda Nonata de Lima (P010) — Mercado Bom Preço | R$ 250,00 (manga tommy) | Vence em 10/11/2026 [fonte: data/financeiro.csv]\n* **FIN-2026-027**: Edmilson Pereira da Silva (P013) — SESC Garanhuns | R$ 400,00 (farinha de mandioca) | Vence em 30/11/2026 [Obs: Empenho 2026NE00312] [fonte: data/financeiro.csv]\n* **FIN-2026-030**: Antônio Carlos Pereira Lima (P007) — Prefeitura de Garanhuns - PNAE | R$ 2.480,00 (queijo coalho) | Vence em 09/12/2026 [Obs: Empenho 2026NE00345] [fonte: data/financeiro.csv]\n\n[fonte: data/financeiro.csv]"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "I5b_auKSItquur8P5K6bkA0",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 118587
+        }
+      ],
+      "cached_content_token_count": 118587,
+      "candidates_token_count": 982,
+      "prompt_token_count": 121923,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 121923
+        }
+      ],
+      "total_token_count": 122905
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "081f0927ce1b507c",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:33:20 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=2648",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Aqui está o resumo da produtora **Maria das Graças Silva Ferreira (P001)** para o mês de outubro de 2026 [fonte: data/financeiro.csv; data/produtores.csv; data/pedidos.json]:\n\n* **Vendas em outubro de 2026:** Nenhuma venda registrada no mês (R$ 0,00) [fonte: data/financeiro.csv].\n* **Pagamentos recebidos no mês:** R$ 940,00 no total (referentes a vendas anteriores quitadas pelo Mercado Bom Preço, sendo R$ 540,00 por goiaba paluma e R$ 400,00 por manga tommy) [fonte: data/financeiro.csv].\n* **Pagamentos atrasados:** Nenhum [fonte: data/financeiro.csv].\n* **Valores a receber:** R$ 0,00 [fonte: data/financeiro.csv].\n* **Pedidos sugeridos na fila de triagem:**\n  * **PED-2026-006:** 300 kg de goiaba paluma para *Rede SuperBom Atacado* (prazo até 29/10/2026) [fonte: pedidos.json].\n  * **PED-2026-002:** 50 kg de goiaba paluma para *Mercado Bom Preço* (prazo até 04/11/2026) [fonte: pedidos.json].\n  *(Nota: Os pedidos estão aguardando confirmação e a cooperativa deve verificar a disponibilidade com a produtora antes de fechá-los) [fonte: pedidos.json].*\n\n*Nenhum aviso de documento pendente consta para a produtora neste período [fonte: data/produtores.csv].*",
+              "thought_signature": "EnsKeQFpFH0TuZmH_vJxkM8HRw0EdLTnHMW2tvigAQCGkDTp9uhQmeyPpUv4_R6tif6zbV48nGq3Ag66xWUQeF2el3BA39k_Y8Rg01nRKu9ORGUEDbezVIWeoR7EsGU7e4w1MKGJZUxDyhMxff2Y3ENvy_y4ArjC2hkik5A="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "TpX_auXkJ4jviLMPjZXogA0",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 108381
+        }
+      ],
+      "cached_content_token_count": 108381,
+      "candidates_token_count": 409,
+      "prompt_token_count": 110825,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 110825
+        }
+      ],
+      "total_token_count": 111234
+    }
+  }
+}

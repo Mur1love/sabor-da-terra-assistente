@@ -1,0 +1,53 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.8-flash",
+  "prompt_sha256": "085327729367e6d6",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:27:21 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=55744",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Os produtores com certificação orgânica vigente para fornecer mel silvestre em 2026-10-30 são:\n\n* **José Antônio dos Santos** (P002) – Município: Brejão | Validade da certificação: 2027-03-20 [fonte: produtores.csv]\n* **Débora Cristina de Melo** (P018) – Município: Águas Belas | Validade da certificação: 2027-02-28 [fonte: produtores.csv]\n\n**Aviso:** Em 2026-10-30, a certificação orgânica está vencida para **Josefa Alves de Souza** (P008), tendo vencido em 2026-09-30. Ela não pode fornecer o produto como orgânico [fonte: produtores.csv].",
+              "thought_signature": "Et0JCtoJAWkUfRO_qrL7_yyiOBbwD93Raj6dBGj3eBMeTuadi3NKBlO2SYRBzd_N2hgv0aHNYR6KS4YBYmOyZ0fFaAGkdo_g7agU8p8MhS9UYdjxJH-Y5NJ18AG7QI68xCFb54HNJmnVd7JanMVfaPeuPN3I5okwGXjyDmK5wG9GAgdPLeqUoXcRYmTkEWdRYDRcDQWL3LLdNHIixWgEleXm76jumdUFdU3WSkqZiOb10JzfMBq_zTTP-7gD3pGiyXGb1hetBSPT7dY8Ifd9LFk2RRVpU3cwIYh8J1AfJH5cxSWI9BvdeFf3c_xCM9OcYdg2hKaFOSoleH_4pYgB-iqjlytM-laDdrzOmjtWSAASX1_x6XAhmbhuRKRwDE228MizSr3OH-LhF-OtqyGsWyLsHwWIKTO03YLNX7Gq1Ymp4lPl6EQBmVxQhk3bCMA_I3yWFQiU54ii0ftfQbO_vlFI_K3xzFeY6hanCuY_PppyPN4xOMuTdM2M9wculw4r3M_QjSdgOdRmaspOLfJnGK2VOEpYwThfqMWyUblUvKeGVM3kPj_fSVpeINBelhG7HLaBjme_ODbO6FWJz4I0JaoAEzigR49MkM_ItLJ8xDgjn3cqPcSkpf0spHvBI4_i7n7LdcVulxgL6j4UCw-_c9k-nCAOYS3pd_UbHzl8FnLganFqm_R8lW2iSqpWGDY2zGfxwUXpwSp8Mcc9IUMHOQlHHY-JgCQaJQqDoRr-QU13inHhJcEh51FMcFxX0wCrjlZ_L2vxFrr5z9I-oLzxCQUpGjcQMYR0Fj7cHq-LIP5AK36eHCsnIxbnpGVzMj80TXvk80qOu8hmZ2gxr32t24XgHZFG2mXuaSEkS5prSOgsucSb0dW55ULpromnToL4R2IZ_Jq628PgKcy1KnWMVmPq0dqrFHHzo7zwLTa0cRLOSrVq_DJPj1nzmC-rAtyKHoSwQkUlafPV---Rf5qrEDXI3lj1QaZDccOWfcFHVsQ5dRdGgdkX9M7iV9z8_Gh6TwaSjwgV0LTkEYdGz-57M6n0p8bi8MHUAie0Ow3oBpGcKbCLYN0NGziKtcPo8o2jyxN3v38o3Azn0Rozt6Q6Vh42knnRg2_PmqY3wHEcbcEEnUNSc2mnH11P-djBbI-Rfg9BLYLPVqP4HJIdy0AEjFuW6oNCfL05-3WXOrKL5tvgLy97sMBUAs_KEwxH9C5s6i0jXIwhAqgwPLAU31z-Mt0no4E8_8d6QjsnJCh7KaeYjohMJVaKCQ53FXWkOcnjmOGxFm0zifrWAysBMdq849N2_7xEFvffgrcTmQiARkZUq_23JyRjLd7JHm0Y22JIvXNUgiL11nJoMF13WmcWGyI5EDoWq_QK229oR8Z2GWVx-WM-5KZxtn8ocrMzMqjlKZC6GSByOjlYYgX-NW4a0rPxlqKmRLLFL6kLRiier4oKxwscikZYy2DCjybv67FqMkI7L2knNYWvEnXqEVNnKvWNzfrtBcf8FEsMVkYnHeXKWi6XefAvNY9rEXbbA49NigHGSIpUSHuUuAryOcsVgAMYN3AMq1GhG80UrGkvtaaUPp4mMQVat64gv9ZcIVImQzO-N9BdDIsLjTsNW6uo7dBXzBDswM0gNn5B46xkHamvj7hcgYymV4qe-wqeaJl-"
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.8-flash",
+    "response_id": "spP_apy1FaDxkPIPwNvQ6QQ",
+    "usage_metadata": {
+      "candidates_token_count": 196,
+      "prompt_token_count": 1086,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1086
+        }
+      ],
+      "thoughts_token_count": 386,
+      "total_token_count": 1668
+    },
+    "automatic_function_calling_history": []
+  }
+}

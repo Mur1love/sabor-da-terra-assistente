@@ -78,6 +78,5 @@ O princípio é: **volume barato no Flash-Lite, qualidade no Flash, e nada de qu
 
 ### Plano B e vias que NÃO contar no plano
 
-- **Plano B de contingência:** ativar billing com prepay mínimo **(US$ 5)** → Tier 1 pago: limites maiores, sem uso para treinar. Uma demo inteira de respostas em Flash a preço pago custa centavos — o $5 é seguro de apresentação, não custo esperado.
+- **Plano B de contingência (decisão registrada na etapa #17, 19/11/2026):** ativar billing com prepay mínimo **(US$ 5)** → Tier 1 pago: limites maiores, sem uso para treinar. Uma demo inteira de respostas em Flash a preço pago custa centavos — o $5 é seguro de apresentação, não custo esperado. A chave reserva em outro projeto **não** foi adotada: um projeto só, com o fallback da composição já configurado (`GEMINI_MODELO_RESPOSTA_FALLBACK` → Flash-Lite) e, por baixo de tudo, o modo `fixture` do roteiro da demo (`scripts/gravar_roteiro_demo.py`), que reproduz a apresentação sem **nenhuma** chamada de API.
 - **Não contar com créditos de estudante:** o free trial de US$ 300 do Google Cloud **não paga Gemini API** (desde mar/2026); o plano de estudante do Google AI dá limites no app/UI, **não cota de API**; créditos educacionais vêm pelo professor e são bônus, não baseline.
-- **Vale 1 e-mail de cortesia:** perguntar a Sauter (parceira Google Cloud, organizadora do desafio) por créditos de parceiro para as equipes — se vierem, tornam o plano B gratuito; se não vierem, nada acima muda.

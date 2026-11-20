@@ -1,0 +1,60 @@
+{
+  "papel": "resposta",
+  "modelo": "gemini-3.8-flash",
+  "prompt_sha256": "42532631e6376411",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:36:45 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=55943",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Estes textos são rascunhos gerados para revisão da equipe: **nada foi enviado aos produtores e nada foi confirmado**.\n\nAbaixo estão as notificações redigidas para os 6 produtores da fila (referência em 30/10/2026):\n\n---\n\n### 1) Maria das Graças Silva Ferreira (P001)\n\nOlá, Maria das Graças Silva Ferreira (P001)!  \nChegaram pedidos com seus produtos (até 30/10/2026).  \nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1. **PED-2026-006 - Rede SuperBom Atacado (compra urgente)**  \n   - 300 kg de goiaba paluma para você.  \n   - Prazo: 29/10/2026. Esse prazo já passou: a cooperativa vai confirmar com o comprador se o pedido ainda vale.  \n   - Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n2. **PED-2026-002 - Mercado Bom Preço (compra)**  \n   - 50 kg de goiaba paluma para você.  \n   - Prazo: 04/11/2026.  \n   - Entrega: entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3); entregas só às terças e sextas.  \n   - Pagamento: por boleto com vencimento em 30 dias.  \n   - Exigências do contrato 012/2026: multa de 2% ao dia por atraso na entrega; produto fora do padrão é devolvido sem custo para o comprador. [fonte: contratos/contrato_mercado_bom_preco.txt]  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n---\n\n### 2) José Antônio dos Santos (P002)\n\nOlá, José Antônio dos Santos (P002)!  \nChegaram pedidos com seus produtos (até 30/10/2026).  \nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1. **PED-2026-006 - Rede SuperBom Atacado (compra urgente)**  \n   - 40 kg de mel silvestre orgânico para você.  \n   - Prazo: 29/10/2026. Esse prazo já passou: a cooperativa vai confirmar com o comprador se o pedido ainda vale.  \n   - Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n2. **PED-2026-003 - Chef Amanda - Bistrô Sertão Gourmet (compra urgente)**  \n   - 3 kg de mel de jandaíra para você.  \n   - Prazo: 29/10/2026. Esse prazo já passou: a cooperativa vai confirmar com o comprador se o pedido ainda vale.  \n   - Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n3. **PED-2026-001 - Restaurante Raízes (compra)**  \n   - 5 kg de mel silvestre para você.  \n   - Prazo: 01/11/2026.  \n   - Entrega: entrega no restaurante até as 10h.  \n   - Pagamento: por PIX no ato da entrega.  \n   - Exigências do contrato 008/2026: prioridade para produtos orgânicos e de produtores locais. [fonte: contratos/contrato_restaurante_raizes.txt]  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n---\n\n### 3) Cícero Romão de Almeida (P003)\n\nOlá, Cícero Romão de Almeida (P003)!  \nChegaram pedidos com seus produtos (até 30/10/2026).  \nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1. **PED-2026-006 - Rede SuperBom Atacado (compra urgente)**  \n   - 200 kg de queijo coalho para você. Passa do mínimo da sua produção da semana: confirme se consegue.  \n   - Prazo: 29/10/2026. Esse prazo já passou: a cooperativa vai confirmar com o comprador se o pedido ainda vale.  \n   - Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n---\n\n### 4) Francisco de Assis Cordeiro (P005)\n\nOlá, Francisco de Assis Cordeiro (P005)!  \nChegaram pedidos com seus produtos (até 30/10/2026).  \nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1. **PED-2026-004 - Prefeitura de Garanhuns - PNAE (compra)**  \n   - 150 kg de macaxeira para você (preço do contrato R$ 3,50 por kg).  \n   - 80 kg de inhame para você (preço do contrato R$ 5,00 por kg).  \n   - Prazo: 04/11/2026.  \n   - Entrega: entrega semanal conforme o cardápio da nutricionista.  \n   - Pagamento: por empenho em até 45 dias após o atesto.  \n   - Exigências do contrato 045/2026-PNAE: produto orgânico só com certificação válida; nota fiscal individual por produtor; DAP ou CAF vigente. [fonte: contratos/contrato_pnae_garanhuns.txt]  \n   - Situação: sugestão da cooperativa. Não é venda fechada.\n\n2. **PED-2026-002 - Mercado Bom Preço (compra)**  \n   - 60 kg de macaxeira para você.  \n   - 30 kg de inhame para você.  \n   - Prazo: 04/11/2026.  \n   - Entrega: entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3); entregas só às terças e sextas.  \n   - Pagamento: por boleto com vencimento em 30 dias.  \n   - Exigências do contrato 012/2026: multa de 2% ao dia por atraso na entrega; produto fora do padrão é devolvido sem custo para o comprador. [fonte: contratos/contrato_mercado_bom_preco.txt]  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n---\n\n### 5) Antônio Carlos Pereira Lima (P007)\n\nOlá, Antônio Carlos Pereira Lima (P007)!  \nChegaram pedidos com seus produtos (até 30/10/2026).  \nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1. **PED-2026-001 - Restaurante Raízes (compra)**  \n   - 30 kg de queijo coalho para você.  \n   - 10 kg de manteiga de garrafa para você.  \n   - Prazo: 01/11/2026.  \n   - Entrega: entrega no restaurante até as 10h.  \n   - Pagamento: por PIX no ato da entrega.  \n   - Exigências do contrato 008/2026: prioridade para produtos orgânicos e de produtores locais. [fonte: contratos/contrato_restaurante_raizes.txt]  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n2. **PED-2026-005 - Dona Cremilda - Lanchonete da Feira (compra)**  \n   - 10 kg de queijo coalho para você.  \n   - Prazo: 31/10/2026.  \n   - Entrega: sem contrato registrado com o comprador; local e horário a combinar com a cooperativa.  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.\n\n---\n\n### 6) Luciana Ferreira Gomes (P012)\n\nOlá, Luciana Ferreira Gomes (P012)!  \nChegaram pedidos com seus produtos (até 30/10/2026).  \nNada está fechado ainda. Responda dizendo quanto você consegue entregar.\n\n1. **PED-2026-002 - Mercado Bom Preço (compra)**  \n   - 20 kg de tomate para você.  \n   - Prazo: 04/11/2026.  \n   - Entrega: entrega das 6h às 10h no CD do Mercado Bom Preço (Rod. BR-423 km 3); entregas só às terças e sextas.  \n   - Pagamento: por boleto com vencimento em 30 dias.  \n   - Exigências do contrato 012/2026: multa de 2% ao dia por atraso na entrega; produto fora do padrão é devolvido sem custo para o comprador. [fonte: contratos/contrato_mercado_bom_preco.txt]  \n   - Situação: reserva aguardando confirmação do pedido. Não é venda fechada.",
+              "thought_signature": "Eo4MCosMAWkUfRPoF_qxgwbSl_SUYdzfiHLNtLE-XyoO_gQclPg01MEC22QPYKw-Jh6jFoqUCXBxMd15GQenJAmujdZigfFlgsVxrYhO3743TrqsfeLDaeuxQFDiuqDDZ_2gjub5edtaFSVTpamL3KiRrxc1R-ipD1_k5Sh3bh-TwQyZvbRfPV_bj2zV_ZSVdi42du4AtKMsqTDY8fmET-7siUiqOxSnMxIdWNVHyzq_bVCOfyyIR7jCC_MKDMtUBZ8xGbS1TqVHMtEHinULkoIaZhzfjmsidduRxeoGbZbv0nVc2V9oBOARnoe-mtE7ATBC8KCdH8OwUw92u-SRAOh46x4xD8UT8365fyiTD0SfnfDPJecNHVtfUJPaM0McZf-0oltM3q75crShTw0uSsZriVzRXgFKGqRlA1o5weOjF6kQLbpEJW_oILCxR3FLiXFvC1xvTrzcte_9QyMK13D_MD15wa2761YEyNZwLu-aEYSpraQzkgvkZCk7YagaPmy7T9FoGRWJgviYXFlImDDfR_TjbtWU8pkC7_wA_bK-r76BNPBIigyvehleek5oklMw6QZ7cXSSB_W1MTKKaXIV6Ns0QtPhxbmxMsfdr9y5u0JYsoZqPfvPPgeaNoHgE5FaBhnECAl779751jNVje6kIQ_-HSh9JV5bnFfeDXeIiRwIXEVSD-5jKXwBEafl9W5YROpj7pmpU1rq_OliUaHerkqwx_xP2-7C0QM7ovuh2Clsha2MR4ryFkl6aIlQEJxuGECR0Bh1N3349cgbe8DGjO4w4mbmGFkFBeUovEDopao8TZw4cH71aLaUjDkkWyj9ZsQ08gbpSUJS-crF_trlMbnyixB74m0nOctqB6bevm9kGnoK5wGauX9HICI1GA8xwLxZrd_KCe6OM1LyGQeGI9IAp-Vo2kbe2513FDvrbbOs4o8bIhaH6TaKQpifnmeYSGuLzj-R2WHctl0CWSNhCKPynmUQO9y-BEkBn57vHDlyp2lgLcGP2HJGdVUFDWXoAccEvdeTVwH7KIc22Z5sO_asmEVrwGj23vj0yk61Yx2e8LHrEzMpIurXgbTcqnLyyi5gPPrAbT9qbU8INS36Ue0Ik7AGPXeYNOtF-tQnsKp0I3iq5z0VE6Ov7YvV7gquQwPvG8MqB9y1hBXiAh1GhChS_wIo8XcmaMuqzZ3cOZvPDsX7VXaLSrcBPqS05EqnOfXEwtCccvgmG1_ZCDDJ-6MbRfWYjJxYF0pj5ZOxEOYkbM7o9zm9dfNSH3fu5v_ZReGkq4Gm9TtbJ2anWEUwsSwksVIiyKtKplheOGaZ6Zcn-V3YKuXc7FH7D2KM8fGK5j3FWfRuWeaWGTlrj0FsCXv-tZydi5JeoWacAhuSNIjUGdMTpLn6mJr_4eAIEp7HTSOHPLRuJ7krFMHnsKrFx5w1aCarXynm4trUo9AmndTeU1h5akAgpBmfK51PjoKC8FAuNqox994WZtdp-uK_tryOgxA9KuvMf9stkw1hi0hVLYzayCbePvn9kquKsELbLFAXOtKyAwQ1ApjUCdhFEcxt-vWch9yeaseH3P9nGe7erShZrAbsQ2XzhoeioJP3mGio3q8qB7SfhrphH8lQxNWsf7W4W0z807h6h6I81z6oEUdTwA2palnCN8BhX1Jfg-qGTrppA8b0wnaCPdhelebkkxUy5yOGePJrUBpw34Hf62Ihb9a0VOrPW67wkCGQvRytOKk791ni6N-iMSf7N2zyie6pICjrER4MEY_wc2_sQi9sdM9tXMAvnSemoOzD80mKcFmDKajSrbvpkwZJFqCd2CcQZUjneKaEDS0-nFAbzukOP8pwWHlfIcIm__bVgJmBd8wRIVMgPAe7DDrseffYOPsfNERRoZgCxK3T4dKHnQOQaXxdTTtELclMnZI58rrZD0xfcUFB5iRbX_Qfb6KeE5Wyd27-pL5rKEL0V-r0WdBaucZsum1-FqeCKf3Sm1J6pL8Oc2HioXL29qZWrCksw8BxscV5Y8hQ3KezJp7ZDCakB3tjpW3Ku3SvbMqXeG3dHJTTMo4244kDYcU="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.8-flash",
+    "response_id": "5ZX_arTNKvyLzLEPjr2G4AI",
+    "usage_metadata": {
+      "cache_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 6499
+        }
+      ],
+      "cached_content_token_count": 6499,
+      "candidates_token_count": 2331,
+      "prompt_token_count": 8547,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 8547
+        }
+      ],
+      "thoughts_token_count": 382,
+      "total_token_count": 11260
+    },
+    "automatic_function_calling_history": []
+  }
+}

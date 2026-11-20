@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f6bf1737ac3d943a",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:27:23 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1048",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_5089575294826131404",
+                "args": {
+                  "termo": "Josefa"
+                },
+                "name": "identificar_produtor"
+              },
+              "thought_signature": "EnsKeQFpFH0TDTnexIlyZoBkmSUecYhR6uQ6wqPDYAENhlyxsUzUYggd7h-bZ7n1eVxla6PJrCTHSCht87XhZ9FmA1LEKLtl0TFIfBsm1hpAfvTEpiFEliMNu7wMzcar1pyzwlz1Yboof2Ps5jQSSn1KJ4S4nYjYwH4P0uw="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "6pP_aoy6GYXCodAP2pHdkAw",
+    "usage_metadata": {
+      "candidates_token_count": 20,
+      "prompt_token_count": 3281,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3281
+        }
+      ],
+      "total_token_count": 3301
+    }
+  }
+}

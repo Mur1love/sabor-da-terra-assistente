@@ -1,0 +1,57 @@
+{
+  "papel": "triagem",
+  "modelo": "gemini-3.5-flash-lite",
+  "prompt_sha256": "ad9580f2d39b75d9",
+  "resposta": {
+    "sdk_http_response": {
+      "headers": {
+        "x-gemini-service-tier": "standard",
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Origin, X-Origin, Referer",
+        "content-encoding": "gzip",
+        "date": "Fri, 20 Nov 2026 00:27:24 GMT",
+        "server": "scaffolding on HTTPServer2",
+        "x-xss-protection": "0",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "server-timing": "gfet4t7; dur=1076",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      }
+    },
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "function_call": {
+                "id": "call_6073646512608290869",
+                "args": {
+                  "pergunta": "Josefa Alves de Souza certificação orgânica mel silvestre P008"
+                },
+                "name": "consultar_documentos"
+              },
+              "thought_signature": "EnsKeQFpFH0T8xj7O7MCWmKUWu-5YBP2Bbd3ZNbk0nQZdbR6oPSwoXZq6tLq2gveWlBDuUUbPQjMV5asIOIVEE1iW9JnYbEqfEFjmB9rJm6al-oymwMKo5mwo4PBthvxyGfgY-MDaBo5mfxCMYcG5npjMzal5TAq5LOOVuo="
+            }
+          ],
+          "role": "model"
+        },
+        "finish_reason": "STOP",
+        "index": 0
+      }
+    ],
+    "model_version": "gemini-3.5-flash-lite",
+    "response_id": "65P_atT_LZiO8L0Phunh-QY",
+    "usage_metadata": {
+      "candidates_token_count": 34,
+      "prompt_token_count": 3430,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 3430
+        }
+      ],
+      "total_token_count": 3464
+    }
+  }
+}
